@@ -2,6 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.core.exceptions import APIError
 
@@ -25,3 +26,7 @@ def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(StarletteHTTPException)
     async def http_error(_: Request, exc: StarletteHTTPException) -> JSONResponse:
         return _response(exc.status_code, "http_error", str(exc.detail))
+
+    @app.exception_handler(SQLAlchemyError)
+    async def database_error(_: Request, __: SQLAlchemyError) -> JSONResponse:
+        return _response(500, "database_error", "A database operation failed")

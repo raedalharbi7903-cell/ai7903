@@ -18,8 +18,12 @@ def get_session_factory() -> sessionmaker[Session]:
 
 
 def get_db_session() -> Generator[Session, None, None]:
+    """Provide a request-scoped session and roll back failed operations."""
     session = get_session_factory()()
     try:
         yield session
+    except Exception:
+        session.rollback()
+        raise
     finally:
         session.close()
