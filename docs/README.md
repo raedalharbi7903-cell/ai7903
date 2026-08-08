@@ -1,16 +1,44 @@
-# Documentation
+---
+title: Documentation Portal
+document_id: DOC-PORTAL-001
+version: 1.0.0
+status: proposed
+owner: Engineering
+reviewers: CTO
+last_updated: 2026-08-08
+next_review: 2026-11-08
+related_documents: [DOC-MANIFEST-001]
+---
 
-This directory contains the durable project documentation for the AI Trading Platform. It is kept separate from implementation code so that technical and product decisions remain easy to find, review, and maintain.
+# Documentation Portal
 
-## What belongs here
+## Purpose
 
-- Project Manifest and Engineering Handbook.
-- Architecture and design records.
-- API contracts and integration guidance.
-- Database, deployment, and operational runbooks.
-- Security, testing, and release documentation.
+Provide the maintained entry point for project documentation.
 
-## Documentation philosophy
+## Scope
 
-Documentation is treated as part of the product. It should describe the system as it exists, be updated alongside relevant changes, and favor clear decisions over unnecessary volume. Documents should explain intent, constraints, and operational impact so that engineers can work safely without relying on undocumented assumptions.
+This portal indexes governance documents and reserves this directory for architecture, API, operations, security, testing, and release documentation.
+
+## Main Content
+
+- [Project Manifest](01-project/project-manifest.md)
+- [Vision](01-project/vision.md)
+- [Mission](01-project/mission.md)
+- [Product Philosophy](01-project/product-philosophy.md)
+- [AI Philosophy](01-project/ai-philosophy.md)
+- [Engineering Philosophy](01-project/engineering-philosophy.md)
+- [Core Principles](01-project/core-principles.md)
+- [Decision Hierarchy](01-project/decision-hierarchy.md)
+- [Success Metrics](01-project/success-metrics.md)
+
+Documentation describes approved intent and current reality. It must be updated with material decisions, avoid duplicating source code, and distinguish approved policy from proposals.
+
+## Related Documents
+
+[Project Manifest](01-project/project-manifest.md)
+
+## Change History
+
+- 1.0.0 — Created the governance documentation portal.
 
