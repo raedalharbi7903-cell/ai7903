@@ -23,6 +23,4 @@ def test_unknown_route_uses_consistent_error_response() -> None:
         response = client.get("/unknown")
 
     assert response.status_code == 404
-    assert response.json() == {
-        "error": {"code": "http_error", "message": "Not Found"}
-    }
+    assert response.json() == {"error": {"code": "http_error", "message": "Not Found"}}

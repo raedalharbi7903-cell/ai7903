@@ -8,7 +8,7 @@ from app.repositories.base import RepositoryFactory
 from app.services.base import ServiceFactory
 
 
-class TestRecord(TimestampMixin, SoftDeleteMixin, Base):
+class RecordModel(TimestampMixin, SoftDeleteMixin, Base):
     __tablename__ = "test_records"
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -25,8 +25,8 @@ def _session() -> Session:
 
 def test_repository_persists_and_reads_an_entity() -> None:
     session = _session()
-    repository = RepositoryFactory(session).for_model(TestRecord)
-    record = repository.add(TestRecord(name="foundation"))
+    repository = RepositoryFactory(session).for_model(RecordModel)
+    record = repository.add(RecordModel(name="foundation"))
     session.commit()
 
     assert repository.get(record.id) is record
@@ -38,12 +38,12 @@ def test_repository_persists_and_reads_an_entity() -> None:
 def test_service_deletes_soft_deletable_entities_without_hard_delete() -> None:
     session = _session()
     repositories = RepositoryFactory(session)
-    service = ServiceFactory(repositories).for_model(TestRecord)
-    record = repositories.for_model(TestRecord).add(TestRecord(name="foundation"))
+    service = ServiceFactory(repositories).for_model(RecordModel)
+    record = repositories.for_model(RecordModel).add(RecordModel(name="foundation"))
     session.commit()
 
     service.delete(record)
     session.commit()
 
     assert record.is_deleted is True
-    assert repositories.for_model(TestRecord).get(record.id) is record
+    assert repositories.for_model(RecordModel).get(record.id) is record

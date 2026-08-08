@@ -1,4 +1,4 @@
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 
 from app.core.exceptions import ResourceNotFoundError
 from app.database.base import Base
@@ -7,7 +7,7 @@ from app.repositories.base import BaseRepository, RepositoryFactory
 ModelT = TypeVar("ModelT", bound=Base)
 
 
-class BaseService(Generic[ModelT]):
+class BaseService[ModelT: Base]:
     """Base service that keeps application logic out of API route modules."""
 
     def __init__(self, repository: BaseRepository[ModelT]) -> None:

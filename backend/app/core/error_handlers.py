@@ -1,13 +1,15 @@
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
-from starlette.exceptions import HTTPException as StarletteHTTPException
 from sqlalchemy.exc import SQLAlchemyError
+from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app.core.exceptions import APIError
 
 
-def _response(status: int, code: str, message: str, details: object | None = None) -> JSONResponse:
+def _response(
+    status: int, code: str, message: str, details: object | None = None
+) -> JSONResponse:
     error: dict[str, object] = {"code": code, "message": message}
     if details is not None:
         error["details"] = details
@@ -21,7 +23,9 @@ def register_exception_handlers(app: FastAPI) -> None:
 
     @app.exception_handler(RequestValidationError)
     async def validation_error(_: Request, exc: RequestValidationError) -> JSONResponse:
-        return _response(422, "validation_error", "Request validation failed", exc.errors())
+        return _response(
+            422, "validation_error", "Request validation failed", exc.errors()
+        )
 
     @app.exception_handler(StarletteHTTPException)
     async def http_error(_: Request, exc: StarletteHTTPException) -> JSONResponse:

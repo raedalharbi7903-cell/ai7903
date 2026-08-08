@@ -1,5 +1,5 @@
 from collections.abc import Sequence
-from typing import Any, Generic, TypeVar
+from typing import Any, TypeVar
 
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -9,7 +9,7 @@ from app.database.base import Base
 ModelT = TypeVar("ModelT", bound=Base)
 
 
-class BaseRepository(Generic[ModelT]):
+class BaseRepository[ModelT: Base]:
     """Reusable persistence operations for a single SQLAlchemy model."""
 
     def __init__(self, session: Session, model_type: type[ModelT]) -> None:
