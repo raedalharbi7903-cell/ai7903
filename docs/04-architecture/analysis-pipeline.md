@@ -18,7 +18,7 @@ Define lifecycle, provenance, performance, and degraded output policy from marke
 
 ## Scope
 
-The generic sequential pipeline/registry exists as Sprint 3 framework support; no concrete analysis engine is implemented.
+The generic sequential pipeline/registry and initial fixture-backed component pipeline are implemented. Live providers, calibrated parameters, multi-timeframe inputs, AI providers, and historical evaluation datasets are not yet available.
 
 ## Main Content
 
@@ -34,6 +34,7 @@ Never fabricate a complete result when a provider is unavailable, data is stale/
 
 ## Change History
 
+- 2.1.0 - Recorded initial fixture-backed implementation status and remaining boundaries.
 - 2.0.0 - Finalized lifecycle, provenance, cost, and degraded behavior.
 - 1.0.0 - Initial specification.
 

@@ -293,7 +293,7 @@ Design only. No component algorithm, provider, numerical threshold, formula, or 
 
 ### Status
 
-**APPROVED / EXISTING:** component categories, deterministic-first boundary, provenance, validation gate, and AI-after-validation position. **DECISION REQUIRED:** providers, markets, instruments, final decision vocabulary, and strategy scope. **CALIBRATION REQUIRED:** every weight, threshold, formula choice, conflict severity, and eligibility rule. **IMPLEMENTATION REQUIRED:** all concrete components and tests.
+**APPROVED / EXISTING:** component categories, deterministic-first boundary, provenance, validation gate, and AI-after-validation position. **DECISION REQUIRED:** providers, markets, instruments, final decision vocabulary, and strategy scope. **CALIBRATION REQUIRED:** every weight, threshold, formula choice, conflict severity, and eligibility rule. **IMPLEMENTATION REQUIRED:** calibrated algorithms, live providers, multi-timeframe inputs, production AI integration, and offline historical evaluation. The initial fixture-backed component pipeline is implemented and tested; its empirical behavior remains provisional.
 
 ## Related Documents
 
@@ -301,6 +301,7 @@ Design only. No component algorithm, provider, numerical threshold, formula, or 
 
 ## Change History
 
+- 2.1.0 - Recorded initial fixture-backed implementation status.
 - 2.0.0 - Finalized canonical 24-component responsibility map.
 - 1.0.0 - Initial catalogue.
 
