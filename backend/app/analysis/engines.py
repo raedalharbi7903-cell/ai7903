@@ -10,6 +10,7 @@ from app.analysis.models import (
     MarketData,
     ValidationStatus,
 )
+from app.analysis.providers import validate_market_data
 
 
 class BaseEngine:
@@ -58,10 +59,22 @@ class DataEngine(BaseEngine):
                 warnings=[str(error)],
             )
         context.market_data = data
+        quality = validate_market_data(data)
+        data.quality_status = quality
+        if quality == ValidationStatus.FAIL:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["market data quality validation failed"],
+            )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"fixture": data.fixture, "candles": len(data.candles)},
+            data={
+                "fixture": data.fixture,
+                "candles": len(data.candles),
+                "quality": quality,
+            },
         )
 
 

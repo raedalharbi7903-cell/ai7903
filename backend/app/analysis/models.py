@@ -41,9 +41,12 @@ class MarketData(BaseModel):
     market: str
     timeframe: str
     provider: str
+    exchange: str | None = None
+    asset_type: str | None = None
     source_timestamp: datetime
     candles: list[Candle]
     fixture: bool = False
+    quality_status: ValidationStatus = ValidationStatus.PASS
 
     @model_validator(mode="after")
     def has_candles(self) -> "MarketData":
