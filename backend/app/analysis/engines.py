@@ -2,6 +2,7 @@ from datetime import UTC, datetime
 from uuid import uuid4
 
 from app.analysis.context import AnalysisContext
+from app.analysis.deterministic import analyze
 from app.analysis.models import (
     DecisionState,
     EngineLifecycleStatus,
@@ -110,16 +111,14 @@ class PriceFindingEngine(BaseEngine):
                 status=EngineLifecycleStatus.DEGRADED,
                 warnings=["insufficient candles"],
             )
-        closes = [c.close for c in context.market_data.candles]
-        bias = (
-            "bullish"
-            if closes[-1] > closes[0]
-            else "bearish" if closes[-1] < closes[0] else "neutral"
+        observation, bias, measurements = analyze(
+            self.name, context.market_data.candles
         )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            evidence=[self.finding(context, f"{self.name} finding: {bias}", bias)],
+            data=measurements,
+            evidence=[self.finding(context, observation, bias)],
         )
 
 
