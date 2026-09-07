@@ -22,9 +22,9 @@ Provider abstraction, normalized OHLCV, provenance, validation, and licensing bo
 
 ## Main Content
 
-The MVP implements a provider interface and Twelve Data adapter for US equities and crypto. Analysis engines consume normalized data only; provider-specific payloads do not cross the adapter boundary. Normalized data retains instrument, market, exchange, asset type, timeframe, OHLCV, provider, timestamps, fixture/live distinction, and quality status.
+The active validation market is Crypto only. The MVP implements a provider interface, a Twelve Data adapter, and an OKX development/test adapter for crypto OHLCV. Analysis engines consume normalized data only; provider-specific payloads do not cross the adapter boundary. Normalized data retains instrument, market, exchange, asset type, timeframe, OHLCV, provider, timestamps, fixture/live distinction, and quality status.
 
-Duplicate timestamps, invalid OHLC relationships, impossible prices, and future source timestamps are detected. Live operation is **CREDENTIAL REQUIRED**. Commercial display or redistribution is **LICENSE REQUIRED**; API access alone does not confer those rights. Saudi equities and forex are not live MVP markets. Freshness/gap thresholds remain **CALIBRATION REQUIRED**.
+Duplicate timestamps, invalid OHLC relationships, impossible prices, and future source timestamps are detected. OKX is **DEVELOPMENT / TEST ONLY**: its current API terms restrict market data to personal, non-commercial use and prohibit redistribution, commercial analytics platforms, and commercial AI/ML evaluation absent written permission. Commercial display or redistribution is **LICENSE REQUIRED**; public API access alone does not confer rights. US equities, Saudi equities, and forex are future markets. Freshness/gap thresholds remain **CALIBRATION REQUIRED**.
 
 ## Related Documents
 

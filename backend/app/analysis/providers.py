@@ -1,84 +1,62 @@
 from datetime import UTC, datetime
-from typing import Protocol
 
 import httpx
 
 from app.analysis.models import Candle, MarketData, ValidationStatus
 
 
-class MarketDataProvider(Protocol):
-    def candles(
-        self, symbol: str, market: str, timeframe: str, outputsize: int
-    ) -> MarketData: ...
+class OkxProvider:
+    """Development/test only; commercial OKX data rights require written approval."""
 
-
-class TwelveDataProvider:
-    """Adapter for Twelve Data; commercial display rights remain license-required."""
-
-    def __init__(
-        self, api_key: str, base_url: str, timeout_seconds: float = 10.0
-    ) -> None:
-        self._api_key = api_key
-        self._base_url = base_url.rstrip("/")
-        self._timeout_seconds = timeout_seconds
-
-    def candles(
-        self, symbol: str, market: str, timeframe: str, outputsize: int = 200
-    ) -> MarketData:
-        if market not in {"us_equity", "crypto"}:
-            raise ValueError("Only us_equity and crypto are supported by this MVP")
+    def candles(self, symbol: str, timeframe: str, outputsize: int = 200) -> MarketData:
         response = httpx.get(
-            f"{self._base_url}/time_series",
-            params={
-                "symbol": symbol,
-                "interval": timeframe,
-                "outputsize": outputsize,
-                "apikey": self._api_key,
-            },
-            timeout=self._timeout_seconds,
+            "https://www.okx.com/api/v5/market/history-candles",
+            params={"instId": symbol, "bar": timeframe, "limit": outputsize},
+            timeout=10.0,
         )
         response.raise_for_status()
         payload = response.json()
-        if "values" not in payload:
-            raise ValueError(payload.get("message", "Provider returned no candles"))
-        values = list(reversed(payload["values"]))
+        if payload.get("code") != "0" or not payload.get("data"):
+            raise ValueError(payload.get("msg", "OKX returned no candles"))
         candles = [
             Candle(
-                timestamp=item["datetime"],
-                open=float(item["open"]),
-                high=float(item["high"]),
-                low=float(item["low"]),
-                close=float(item["close"]),
-                volume=float(item["volume"]) if item.get("volume") else None,
+                timestamp=datetime.fromtimestamp(int(row[0]) / 1000, UTC),
+                open=float(row[1]),
+                high=float(row[2]),
+                low=float(row[3]),
+                close=float(row[4]),
+                volume=float(row[5]),
             )
-            for item in values
+            for row in reversed(payload["data"])
         ]
-        return MarketData(
+        data = MarketData(
             instrument=symbol,
-            market=market,
+            market="crypto",
             timeframe=timeframe,
-            provider="twelve_data",
-            exchange=payload.get("meta", {}).get("exchange"),
-            asset_type="equity" if market == "us_equity" else "crypto",
+            provider="okx",
+            exchange="OKX",
+            asset_type="crypto",
             source_timestamp=candles[-1].timestamp,
             candles=candles,
-            fixture=False,
-            quality_status=ValidationStatus.PASS,
         )
+        data.quality_status = validate_market_data(data)
+        return data
 
 
 def validate_market_data(data: MarketData) -> ValidationStatus:
-    timestamps = [candle.timestamp for candle in data.candles]
-    if len(timestamps) != len(set(timestamps)):
+    stamps = [c.timestamp for c in data.candles]
+    if len(stamps) != len(set(stamps)):
         return ValidationStatus.FAIL
     if any(
-        candle.low > min(candle.open, candle.close)
-        or candle.high < max(candle.open, candle.close)
-        for candle in data.candles
+        c.low < 0
+        or c.high <= 0
+        or c.low > min(c.open, c.close)
+        or c.high < max(c.open, c.close)
+        for c in data.candles
     ):
         return ValidationStatus.FAIL
-    if any(candle.low < 0 or candle.high <= 0 for candle in data.candles):
-        return ValidationStatus.FAIL
-    if data.source_timestamp > datetime.now(UTC):
-        return ValidationStatus.DEGRADED
-    return ValidationStatus.PASS
+    return (
+        ValidationStatus.DEGRADED
+        if data.source_timestamp > datetime.now(UTC)
+        else ValidationStatus.PASS
+    )
