@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 from uuid import uuid4
 
 from app.analysis.context import AnalysisContext
-from app.analysis.deterministic import analyze
+from app.analysis.deterministic import analyze, closes, correlation
 from app.analysis.models import (
     DecisionState,
     EngineLifecycleStatus,
@@ -165,11 +165,60 @@ class CandlestickEngine(PriceFindingEngine):
 class CorrelationEngine(PriceFindingEngine):
     name, family = "correlation", "correlation"
 
+    def analyze(self, context: AnalysisContext) -> EngineOutput:
+        benchmark = context.analysis_input.metadata.get("benchmark_candles")
+        data = context.market_data
+        if data is None or not benchmark:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["benchmark data unavailable"],
+            )
+        value = correlation(
+            closes(data.candles), [float(item["close"]) for item in benchmark]
+        )
+        if value is None:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["insufficient aligned history"],
+            )
+        bias = "bullish" if value > 0 else "bearish" if value < 0 else "neutral"
+        return EngineOutput(
+            engine_name=self.name,
+            status=EngineLifecycleStatus.COMPLETED,
+            data={"coefficient": value, "sample_size": len(data.candles)},
+            evidence=[self.finding(context, "benchmark correlation", bias)],
+        )
+
 
 class MultiTimeframeEngine(BaseEngine):
     name, family = "multi_timeframe", "timeframe"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
+        frames = context.timeframe_data()
+        if len(frames) >= 3:
+            directions = [
+                (
+                    "bullish"
+                    if closes(item.candles)[-1] > closes(item.candles)[0]
+                    else "bearish"
+                )
+                for item in frames.values()
+            ]
+            alignment = "aligned" if len(set(directions)) == 1 else "conflict"
+            context.state["mtf_alignment"] = alignment
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.COMPLETED,
+                data={
+                    "alignment": alignment,
+                    "timeframes": tuple(frames),
+                    "provenance": {
+                        name: item.provider for name, item in frames.items()
+                    },
+                },
+            )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
@@ -263,11 +312,38 @@ class RiskEngine(BaseEngine):
     name, family = "risk", "risk"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
+        data = context.market_data
+        structure = context.output("market_structure")
+        if data is None or structure is None:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["risk inputs unavailable"],
+            )
+        price = data.candles[-1].close
+        invalidation = structure.data.get("invalidation")
+        if not isinstance(invalidation, (int, float)) or invalidation == price:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["structural invalidation unavailable"],
+            )
+        risk = abs(price - invalidation)
+        target = (
+            price + risk * 2
+            if context.state.get("decision") != DecisionState.SELL
+            else price - risk * 2
+        )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"risk": "calibration_required"},
-            warnings=["No empirical risk formula configured"],
+            data={
+                "invalidation": invalidation,
+                "stop_loss": invalidation,
+                "target": target,
+                "risk_reward": abs(target - price) / risk,
+                "structural_risk": risk,
+            },
         )
 
 
@@ -275,11 +351,19 @@ class ConfidenceEngine(BaseEngine):
     name, family = "confidence", "confidence"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
+        families = len({item.family for item in context.evidence if item.independent})
+        alignment = context.state.get("mtf_alignment", "unknown")
+        label = "medium" if context.state.get("confluence") and families >= 2 else "low"
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"confidence": "uncalibrated"},
-            warnings=["Confidence is not probability of profit"],
+            data={
+                "confidence": label,
+                "calibration": "uncalibrated",
+                "independent_families": families,
+                "mtf_alignment": alignment,
+            },
+            warnings=["Confidence is analytical quality, not probability of profit"],
         )
 
 

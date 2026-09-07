@@ -12,6 +12,10 @@ class AnalysisContext:
     evidence: list[Evidence] = field(default_factory=list)
     state: dict[str, Any] = field(default_factory=dict)
 
+    def timeframe_data(self) -> dict[str, MarketData]:
+        raw = self.analysis_input.metadata.get("timeframes", {})
+        return {name: MarketData.model_validate(value) for name, value in raw.items()}
+
     def add_output(self, output: EngineOutput) -> None:
         self.outputs.append(output)
         self.evidence.extend(output.evidence)
