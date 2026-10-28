@@ -6,6 +6,8 @@ __pycache__/
 .ruff_cache/
 .black-cache/
 node_modules/
+dist/
+*.tsbuildinfo
 .coverage
 *.egg-info/
 
