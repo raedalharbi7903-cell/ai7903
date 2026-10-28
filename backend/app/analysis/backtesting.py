@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 
 from app.analysis.models import Candle, DecisionState
+from app.analysis.models import AnalysisInput
+from app.analysis.service import AnalysisService
 
 
 @dataclass(frozen=True)
@@ -56,6 +58,42 @@ class HistoricalBacktester:
                     (current.close - future.close) / current.close
                     - config.fee_rate
                     - config.slippage_rate
+                )
+        return BacktestResult(dataset_id, tuple(decisions), sum(returns), len(returns))
+
+    def run_pipeline(
+        self, candles: list[Candle], dataset_id: str, config: BacktestConfig
+    ) -> BacktestResult:
+        """Evaluate the production AnalysisService sequentially with no future candles."""
+        decisions: list[DecisionState] = []
+        returns: list[float] = []
+        service = AnalysisService()
+        for index in range(2, len(candles) - 1):
+            visible = candles[: index + 1]
+            result = service.analyze(
+                AnalysisInput(
+                    data={
+                        "instrument": "historical-fixture",
+                        "market": "crypto",
+                        "timeframe": "fixture",
+                        "provider": "historical_fixture",
+                        "source_timestamp": visible[-1].timestamp,
+                        "candles": [item.model_dump() for item in visible],
+                        "fixture": True,
+                    }
+                )
+            )
+            decisions.append(result.decision)
+            if result.validation.value != "pass":
+                continue
+            entry, following = visible[-1].close, candles[index + 1].close
+            if result.decision == DecisionState.BUY:
+                returns.append(
+                    (following - entry) / entry - config.fee_rate - config.slippage_rate
+                )
+            elif result.decision == DecisionState.SELL:
+                returns.append(
+                    (entry - following) / entry - config.fee_rate - config.slippage_rate
                 )
         return BacktestResult(dataset_id, tuple(decisions), sum(returns), len(returns))
 

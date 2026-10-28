@@ -37,3 +37,10 @@ def test_oos_split_rejects_leakage_shape() -> None:
     assert development[-1].timestamp < oos[0].timestamp
     with pytest.raises(ValueError):
         split_development_oos(candles(), len(candles()))
+
+
+def test_pipeline_backtest_uses_sequential_production_service() -> None:
+    result = HistoricalBacktester().run_pipeline(
+        candles(), "synthetic-unit-fixture", BacktestConfig("v1", "p1")
+    )
+    assert len(result.decisions) == 3
