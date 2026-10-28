@@ -2,10 +2,12 @@ import pytest
 
 from app.analysis.context import AnalysisContext
 from app.analysis.engines import (
+    BaseEngine,
     ConfluenceEngine,
     CorrelationEngine,
     MultiTimeframeEngine,
     RiskEngine,
+    default_engines,
 )
 from app.analysis.models import (
     DecisionState,
@@ -14,6 +16,7 @@ from app.analysis.models import (
     Evidence,
     MarketData,
 )
+from app.analysis.service import AnalysisService
 from tests.analysis.test_pipeline import fixture_input
 
 
@@ -105,6 +108,41 @@ def test_risk_rejects_stop_too_tight_for_observed_volatility() -> None:
     assert "too tight" in result.warnings[0]
 
 
+def test_risk_derives_directionally_valid_sell_levels() -> None:
+    source = fixture_input()
+    context = AnalysisContext(
+        source, market_data=MarketData.model_validate(source.data)
+    )
+    context.add_output(
+        EngineOutput(
+            engine_name="market_structure",
+            status=EngineLifecycleStatus.COMPLETED,
+            data={"invalidation": 16},
+        )
+    )
+    context.state["decision"] = DecisionState.SELL
+    result = RiskEngine().analyze(context)
+    assert result.status == EngineLifecycleStatus.COMPLETED
+    assert result.data["stop_loss"] > context.market_data.candles[-1].close
+    assert result.data["target"] < context.market_data.candles[-1].close
+
+
+def test_risk_rejects_directionally_invalid_sell_stop() -> None:
+    source = fixture_input()
+    context = AnalysisContext(
+        source, market_data=MarketData.model_validate(source.data)
+    )
+    context.add_output(
+        EngineOutput(
+            engine_name="market_structure",
+            status=EngineLifecycleStatus.COMPLETED,
+            data={"invalidation": 10},
+        )
+    )
+    context.state["decision"] = DecisionState.SELL
+    assert RiskEngine().analyze(context).status == EngineLifecycleStatus.FAILED
+
+
 def test_mtf_rejects_future_completed_candle() -> None:
     source = fixture_input()
     future = fixture_input().data
@@ -161,3 +199,43 @@ def test_same_family_conflict_does_not_inflate_confluence() -> None:
     assert result.data["families"] == 1
     assert result.data["conflicted_families"] == ["momentum"]
     assert result.data["aligned"] is False
+
+
+def test_production_pipeline_does_not_count_duplicate_momentum_family() -> None:
+    class DuplicateMomentumEngine(BaseEngine):
+        name, family = "momentum_macd", "momentum"
+
+        def analyze(self, context: AnalysisContext) -> EngineOutput:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.COMPLETED,
+                evidence=[self.finding(context, "duplicated momentum", "bullish")],
+            )
+
+    source = fixture_input()
+    source.metadata["timeframes"] = {
+        "htf": source.data,
+        "itf": source.data,
+        "ltf": source.data,
+    }
+    baseline = AnalysisService().analyze(source)
+    engines = list(default_engines())
+    evidence_index = next(
+        index for index, engine in enumerate(engines) if engine.name == "evidence"
+    )
+    engines.insert(evidence_index, DuplicateMomentumEngine())
+    duplicated = AnalysisService(engines=tuple(engines)).analyze(source)
+    baseline_confidence = next(
+        output for output in baseline.outputs if output.engine_name == "confidence"
+    )
+    duplicate_confidence = next(
+        output for output in duplicated.outputs if output.engine_name == "confidence"
+    )
+    duplicate_evidence = next(
+        output for output in duplicated.outputs if output.engine_name == "momentum_macd"
+    )
+    assert duplicate_evidence.evidence[0].independent is False
+    assert (
+        duplicate_confidence.data["independent_families"]
+        == baseline_confidence.data["independent_families"]
+    )

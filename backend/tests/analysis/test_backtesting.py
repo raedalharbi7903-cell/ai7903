@@ -9,6 +9,7 @@ from app.analysis.backtesting import (
     split_development_oos,
 )
 from app.analysis.models import Candle, DecisionState
+from app.analysis.telemetry import InMemoryTelemetrySink
 
 
 def candles() -> list[Candle]:
@@ -66,3 +67,39 @@ def test_same_candle_stop_target_ambiguity_is_stop_first() -> None:
     )
     assert trade.exit_reason == "stop"
     assert trade.return_after_costs < 0
+
+
+def test_backtest_emits_measurements_and_telemetry() -> None:
+    sink = InMemoryTelemetrySink()
+    result = HistoricalBacktester(sink).run_pipeline(
+        candles(), "synthetic-unit-fixture", BacktestConfig("v1", "p1")
+    )
+    assert [event.event for event in sink.backtest_events] == ["started", "completed"]
+    completed = sink.backtest_events[-1]
+    assert completed.historical_analysis_count == len(result.decisions)
+    assert completed.validated_decision_count == result.validated_decisions
+    assert completed.executed_trade_count == result.trades
+
+
+def test_backtest_telemetry_failure_is_isolated() -> None:
+    class BrokenSink:
+        def record_analysis(self, event: object) -> None:
+            raise RuntimeError("unavailable")
+
+        def record_backtest(self, event: object) -> None:
+            raise RuntimeError("unavailable")
+
+    result = HistoricalBacktester(BrokenSink()).run_pipeline(
+        candles(), "synthetic-unit-fixture", BacktestConfig("v1", "p1")
+    )
+    assert result.trades >= 0
+
+
+def test_backtest_failure_emits_failure_telemetry() -> None:
+    sink = InMemoryTelemetrySink()
+    with pytest.raises(ValueError, match="At least three"):
+        HistoricalBacktester(sink).run_pipeline(
+            candles()[:2], "synthetic-unit-fixture", BacktestConfig("v1", "p1")
+        )
+    assert [event.event for event in sink.backtest_events] == ["started", "failed"]
+    assert sink.backtest_events[-1].error_category == "ValueError"

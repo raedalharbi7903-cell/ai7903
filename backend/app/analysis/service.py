@@ -2,6 +2,7 @@ from time import perf_counter
 from uuid import uuid4
 
 from app.analysis.context import AnalysisContext
+from app.analysis.contracts import AnalysisEngine
 from app.analysis.engines import default_engines
 from app.analysis.models import AnalysisInput, AnalysisResult
 from app.analysis.pipeline import AnalysisPipeline
@@ -9,14 +10,19 @@ from app.analysis.telemetry import AnalysisTelemetry, NullTelemetrySink, Telemet
 
 
 class AnalysisService:
-    def __init__(self, telemetry: TelemetrySink | None = None) -> None:
+    def __init__(
+        self,
+        telemetry: TelemetrySink | None = None,
+        engines: tuple[AnalysisEngine, ...] | None = None,
+    ) -> None:
         self._telemetry = telemetry or NullTelemetrySink()
+        self._engines = engines
 
     def analyze(self, analysis_input: AnalysisInput) -> AnalysisResult:
         request_id = str(analysis_input.metadata.get("request_id", uuid4()))
         context = AnalysisContext(analysis_input)
         started = perf_counter()
-        result = AnalysisPipeline(default_engines()).run(context)
+        result = AnalysisPipeline(self._engines or default_engines()).run(context)
         confidence = context.output("confidence")
         risk = context.output("risk")
         try:
@@ -50,6 +56,16 @@ class AnalysisService:
                     risk_reason=(
                         "; ".join(risk.warnings) if risk and risk.warnings else None
                     ),
+                    candle_count=(
+                        len(context.market_data.candles) if context.market_data else 0
+                    ),
+                    timeframe_analysis_count=len(
+                        context.analysis_input.metadata.get("timeframes", {})
+                    ),
+                    benchmark_observation_count=len(
+                        context.analysis_input.metadata.get("benchmark_candles", [])
+                    ),
+                    engine_duration_ms=context.state.get("engine_duration_ms", {}),
                 )
             )
         except Exception:
