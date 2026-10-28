@@ -61,7 +61,7 @@ def fixture_input() -> AnalysisInput:
 
 
 def test_default_pipeline_contains_canonical_components() -> None:
-    assert len(default_engines()) == 24
+    assert len(default_engines()) == 28
 
 
 def test_fixture_pipeline_is_traceable_and_validated() -> None:
@@ -74,7 +74,7 @@ def test_fixture_pipeline_is_traceable_and_validated() -> None:
     result = AnalysisService().analyze(analysis_input)
     assert result.validation == ValidationStatus.PASS
     assert result.decision == DecisionState.BUY
-    assert len(result.outputs) == 24
+    assert len(result.outputs) == 28
     assert any(output.evidence for output in result.outputs)
 
 

@@ -147,6 +147,22 @@ def analyze(
                 "scope": "exchange_specific",
             },
         )
+    if name == "volume_anomaly":
+        volumes = [c.volume for c in candles if c.volume is not None]
+        if len(volumes) < 6 or any(volume < 0 for volume in volumes):
+            return "insufficient_volume_history", None, {"sample_size": len(volumes)}
+        baseline = sum(volumes[-6:-1]) / 5
+        relative = volumes[-1] / baseline if baseline else None
+        state = (
+            "high_relative_volume"
+            if relative is not None and relative >= 1.5
+            else (
+                "low_relative_volume"
+                if relative is not None and relative <= 0.5
+                else "normal_volume"
+            )
+        )
+        return state, None, {"baseline": baseline, "relative_volume": relative}
     if name == "momentum":
         value = rsi(values)
         state = (
@@ -158,6 +174,36 @@ def analyze(
             state,
             bias,
             {"rsi": value, "roc": (values[-1] - values[-2]) / values[-2]},
+        )
+    if name == "momentum_divergence":
+        if len(candles) < 8:
+            return "insufficient_evidence", None, {"sample_size": len(candles)}
+        first, last = candles[-8:-4], candles[-4:]
+        price_change = last[-1].close - first[-1].close
+        first_momentum = first[-1].close - first[0].close
+        last_momentum = last[-1].close - last[0].close
+        state = (
+            "regular_bullish_divergence"
+            if price_change < 0 and last_momentum > first_momentum
+            else (
+                "regular_bearish_divergence"
+                if price_change > 0 and last_momentum < first_momentum
+                else "no_divergence"
+            )
+        )
+        bias = (
+            "bullish"
+            if state.endswith("bullish_divergence")
+            else "bearish" if state.endswith("bearish_divergence") else None
+        )
+        return (
+            state,
+            bias,
+            {
+                "price_change": price_change,
+                "momentum_change": last_momentum - first_momentum,
+                "lookback": 8,
+            },
         )
     if name == "volatility":
         value = atr(candles)
@@ -181,15 +227,103 @@ def analyze(
         )
     if name == "candlestick":
         previous, current = candles[-2], candles[-1]
-        engulfing = (
+        bullish_engulfing = (
             current.close > current.open
             and previous.close < previous.open
             and current.close >= previous.open
         )
+        bearish_engulfing = (
+            current.close < current.open
+            and previous.close > previous.open
+            and current.close <= previous.open
+        )
+        body, spread = abs(current.close - current.open), current.high - current.low
+        doji = spread > 0 and body / spread <= 0.1
+        state = (
+            "bullish_engulfing"
+            if bullish_engulfing
+            else (
+                "bearish_engulfing"
+                if bearish_engulfing
+                else "doji" if doji else "neutral_candle"
+            )
+        )
+        candle_bias = (
+            "bullish" if bullish_engulfing else "bearish" if bearish_engulfing else None
+        )
         return (
-            "bullish_engulfing" if engulfing else "contextual_candle",
-            "bullish" if engulfing else bias,
-            {"open": current.open, "close": current.close},
+            state,
+            candle_bias,
+            {
+                "open": current.open,
+                "close": current.close,
+                "body": body,
+                "spread": spread,
+            },
+        )
+    if name == "liquidity_sweep":
+        if len(candles) < 6:
+            return "insufficient_evidence", None, {"sample_size": len(candles)}
+        prior = candles[-6:-1]
+        current = candles[-1]
+        prior_high, prior_low = max(c.high for c in prior), min(c.low for c in prior)
+        if current.high > prior_high and current.close < prior_high:
+            return (
+                "potential_buy_side_sweep",
+                "bearish",
+                {"reference_level": prior_high, "inference": "ohlcv_only"},
+            )
+        if current.low < prior_low and current.close > prior_low:
+            return (
+                "potential_sell_side_sweep",
+                "bullish",
+                {"reference_level": prior_low, "inference": "ohlcv_only"},
+            )
+        return (
+            "no_confirmed_sweep",
+            None,
+            {
+                "reference_high": prior_high,
+                "reference_low": prior_low,
+                "inference": "ohlcv_only",
+            },
+        )
+    if name == "market_transition":
+        if len(candles) < 6:
+            return "insufficient_evidence", None, {"sample_size": len(candles)}
+        recent = closes(candles[-3:])
+        prior = closes(candles[-6:-3])
+        prior_change, recent_change = prior[-1] - prior[0], recent[-1] - recent[0]
+        state = (
+            "bullish_continuation"
+            if prior_change > 0 and recent_change > 0
+            else (
+                "bearish_continuation"
+                if prior_change < 0 and recent_change < 0
+                else (
+                    "potential_bullish_transition"
+                    if prior_change < 0 < recent_change
+                    else (
+                        "potential_bearish_transition"
+                        if prior_change > 0 > recent_change
+                        else "range"
+                    )
+                )
+            )
+        )
+        transition_bias = (
+            "bullish"
+            if "bullish" in state
+            else "bearish" if "bearish" in state else None
+        )
+        return (
+            state,
+            transition_bias,
+            {
+                "prior_change": prior_change,
+                "recent_change": recent_change,
+                "lookback": 6,
+            },
         )
     if name == "correlation":
         return (

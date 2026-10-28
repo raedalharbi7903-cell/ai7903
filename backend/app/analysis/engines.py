@@ -197,6 +197,22 @@ class CandlestickEngine(PriceFindingEngine):
     name, family = "candlestick", "candlestick"
 
 
+class MomentumDivergenceEngine(PriceFindingEngine):
+    name, family = "momentum_divergence", "momentum"
+
+
+class LiquiditySweepEngine(PriceFindingEngine):
+    name, family = "liquidity_sweep", "liquidity"
+
+
+class MarketTransitionEngine(PriceFindingEngine):
+    name, family = "market_transition", "structure"
+
+
+class VolumeAnomalyEngine(PriceFindingEngine):
+    name, family = "volume_anomaly", "volume"
+
+
 class CorrelationEngine(PriceFindingEngine):
     name, family = "correlation", "correlation"
 
@@ -724,9 +740,13 @@ def default_engines() -> tuple[BaseEngine, ...]:
         LiquidityEngine(),
         VolumeEngine(),
         MomentumEngine(),
+        MomentumDivergenceEngine(),
         VolatilityEngine(),
+        VolumeAnomalyEngine(),
         PatternRecognitionEngine(),
         CandlestickEngine(),
+        LiquiditySweepEngine(),
+        MarketTransitionEngine(),
         CorrelationEngine(),
         MultiTimeframeEngine(),
         EvidenceEngine(),
