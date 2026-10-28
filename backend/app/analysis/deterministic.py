@@ -239,17 +239,31 @@ def analyze(
         )
         body, spread = abs(current.close - current.open), current.high - current.low
         doji = spread > 0 and body / spread <= 0.1
+        lower_wick = min(current.open, current.close) - current.low
+        upper_wick = current.high - max(current.open, current.close)
+        hammer = body > 0 and lower_wick >= body * 2 and upper_wick <= body
+        shooting_star = body > 0 and upper_wick >= body * 2 and lower_wick <= body
         state = (
             "bullish_engulfing"
             if bullish_engulfing
             else (
                 "bearish_engulfing"
                 if bearish_engulfing
-                else "doji" if doji else "neutral_candle"
+                else (
+                    "hammer"
+                    if hammer
+                    else (
+                        "shooting_star"
+                        if shooting_star
+                        else "doji" if doji else "neutral_candle"
+                    )
+                )
             )
         )
         candle_bias = (
-            "bullish" if bullish_engulfing else "bearish" if bearish_engulfing else None
+            "bullish"
+            if bullish_engulfing or hammer
+            else "bearish" if bearish_engulfing or shooting_star else None
         )
         return (
             state,
