@@ -55,8 +55,8 @@ def validate_market_data(data: MarketData) -> ValidationStatus:
         for c in data.candles
     ):
         return ValidationStatus.FAIL
-    return (
-        ValidationStatus.DEGRADED
-        if data.source_timestamp > datetime.now(UTC)
-        else ValidationStatus.PASS
-    )
+    if any(
+        later <= earlier for earlier, later in zip(stamps, stamps[1:], strict=False)
+    ):
+        return ValidationStatus.FAIL
+    return ValidationStatus.PASS

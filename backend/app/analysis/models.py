@@ -19,6 +19,14 @@ class ValidationStatus(StrEnum):
     DEGRADED = "degraded"
 
 
+class FreshnessStatus(StrEnum):
+    FRESH = "fresh"
+    DELAYED = "delayed"
+    STALE = "stale"
+    MISSING = "missing"
+    INVALID = "invalid"
+
+
 class DecisionState(StrEnum):
     BUY = "buy"
     SELL = "sell"
@@ -34,6 +42,7 @@ class Candle(BaseModel):
     low: float
     close: float
     volume: float | None = None
+    complete: bool = True
 
 
 class MarketData(BaseModel):
@@ -47,6 +56,8 @@ class MarketData(BaseModel):
     candles: list[Candle]
     fixture: bool = False
     quality_status: ValidationStatus = ValidationStatus.PASS
+    freshness_status: FreshnessStatus = FreshnessStatus.FRESH
+    freshness_reason: str | None = None
 
     @model_validator(mode="after")
     def has_candles(self) -> "MarketData":

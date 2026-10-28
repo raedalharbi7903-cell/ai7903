@@ -1,3 +1,5 @@
+from time import perf_counter
+
 from app.analysis.context import AnalysisContext
 from app.analysis.contracts import AnalysisEngine
 from app.analysis.models import (
@@ -14,7 +16,11 @@ class AnalysisPipeline:
 
     def run(self, context: AnalysisContext) -> AnalysisResult:
         for engine in self._engines:
+            started = perf_counter()
             context.add_output(engine.execute(context))
+            context.state.setdefault("engine_duration_ms", {})[engine.name] = round(
+                (perf_counter() - started) * 1000, 3
+            )
         validation = context.state.get("validation")
         if validation is None:
             return AnalysisResult(

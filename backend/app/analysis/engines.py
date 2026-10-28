@@ -3,16 +3,36 @@ from uuid import uuid4
 
 from app.analysis.context import AnalysisContext
 from app.analysis.deterministic import analyze, correlation
+from app.analysis.freshness import FreshnessPolicy, assess_candles, assess_market_data
 from app.analysis.models import (
     Candle,
     DecisionState,
     EngineLifecycleStatus,
     EngineOutput,
     Evidence,
+    FreshnessStatus,
     MarketData,
     ValidationStatus,
 )
 from app.analysis.providers import validate_market_data
+
+
+def _freshness_policy(context: AnalysisContext) -> FreshnessPolicy:
+    configured = context.analysis_input.metadata.get("freshness_policy", {})
+    return FreshnessPolicy(
+        delayed_after_intervals=int(configured.get("delayed_after_intervals", 1)),
+        stale_after_intervals=int(configured.get("stale_after_intervals", 3)),
+        timeframe_seconds=configured.get("timeframe_seconds"),
+    )
+
+
+def _decision_timestamp(context: AnalysisContext, data: MarketData) -> datetime:
+    raw = context.analysis_input.metadata.get("decision_timestamp")
+    if isinstance(raw, str):
+        return datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    if isinstance(raw, datetime):
+        return raw
+    return data.candles[-1].timestamp if data.fixture else data.source_timestamp
 
 
 class BaseEngine:
@@ -63,11 +83,23 @@ class DataEngine(BaseEngine):
         context.market_data = data
         quality = validate_market_data(data)
         data.quality_status = quality
+        reference = _decision_timestamp(context, data)
+        freshness = assess_market_data(data, reference, _freshness_policy(context))
+        data.freshness_status = freshness.status
+        data.freshness_reason = freshness.reason
         if quality == ValidationStatus.FAIL:
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.FAILED,
                 warnings=["market data quality validation failed"],
+            )
+        if freshness.status in {FreshnessStatus.STALE, FreshnessStatus.INVALID}:
+            data.quality_status = ValidationStatus.DEGRADED
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                data={"freshness": freshness.status, "reason": freshness.reason},
+                warnings=[f"market data freshness is {freshness.status}"],
             )
         return EngineOutput(
             engine_name=self.name,
@@ -76,6 +108,8 @@ class DataEngine(BaseEngine):
                 "fixture": data.fixture,
                 "candles": len(data.candles),
                 "quality": quality,
+                "freshness": freshness.status,
+                "freshness_reason": freshness.reason,
             },
         )
 
@@ -184,6 +218,25 @@ class CorrelationEngine(PriceFindingEngine):
                 warnings=[f"invalid benchmark data: {error}"],
             )
         decision_time = data.candles[-1].timestamp
+        benchmark_freshness = assess_candles(
+            benchmark_candles,
+            data.timeframe,
+            decision_time,
+            _freshness_policy(context),
+        )
+        if benchmark_freshness.status in {
+            FreshnessStatus.STALE,
+            FreshnessStatus.INVALID,
+        }:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                data={
+                    "freshness": benchmark_freshness.status,
+                    "reason": benchmark_freshness.reason,
+                },
+                warnings=["benchmark freshness prevents contextual correlation"],
+            )
         benchmark_by_time = {
             candle.timestamp: candle
             for candle in benchmark_candles
@@ -213,6 +266,7 @@ class CorrelationEngine(PriceFindingEngine):
                 "benchmark_provider": context.analysis_input.metadata.get(
                     "benchmark_provider", "unspecified"
                 ),
+                "freshness": benchmark_freshness.status,
             },
             evidence=[
                 self.finding(
@@ -263,12 +317,18 @@ class MultiTimeframeEngine(BaseEngine):
                     status=EngineLifecycleStatus.DEGRADED,
                     warnings=[f"{name} data quality is {quality}"],
                 )
-            if frame.candles[-1].timestamp > decision_time:
+            freshness = assess_market_data(
+                frame, decision_time, _freshness_policy(context)
+            )
+            frame.freshness_status = freshness.status
+            frame.freshness_reason = freshness.reason
+            if freshness.status in {FreshnessStatus.STALE, FreshnessStatus.INVALID}:
                 context.state["mtf_alignment"] = "degraded"
                 return EngineOutput(
                     engine_name=self.name,
                     status=EngineLifecycleStatus.DEGRADED,
-                    warnings=[f"{name} contains a candle after decision time"],
+                    data={"freshness": freshness.status, "reason": freshness.reason},
+                    warnings=[f"{name} freshness is {freshness.status}"],
                 )
             if len(frame.candles) < 5:
                 context.state["mtf_alignment"] = "degraded"
@@ -286,6 +346,7 @@ class MultiTimeframeEngine(BaseEngine):
                 "completed_candle_timestamp": frame.candles[-1].timestamp.isoformat(),
                 "provider": frame.provider,
                 "quality": quality,
+                "freshness": freshness.status,
             }
         directions = [str(summaries[name]["bias"]) for name in required]
         alignment = "aligned" if len(set(directions)) == 1 else "conflict"
@@ -321,10 +382,17 @@ class ConfluenceEngine(BaseEngine):
     name, family = "confluence", "confluence"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
+        family_biases: dict[str, set[str]] = {}
+        for item in context.evidence:
+            if item.independent and item.bias in {"bullish", "bearish"}:
+                family_biases.setdefault(item.family, set()).add(item.bias)
+        conflicted_families = {
+            family for family, biases in family_biases.items() if len(biases) > 1
+        }
         directional = [
-            item.bias
-            for item in context.evidence
-            if item.independent and item.bias in {"bullish", "bearish"}
+            next(iter(biases))
+            for family, biases in family_biases.items()
+            if family not in conflicted_families
         ]
         aligned = len(set(directional)) == 1 and bool(directional)
         context.state["confluence"] = aligned
@@ -333,7 +401,8 @@ class ConfluenceEngine(BaseEngine):
             status=EngineLifecycleStatus.COMPLETED,
             data={
                 "aligned": aligned,
-                "families": len(set(item.family for item in context.evidence)),
+                "families": len(family_biases),
+                "conflicted_families": sorted(conflicted_families),
             },
         )
 
@@ -425,9 +494,59 @@ class RiskEngine(BaseEngine):
                 warnings=["structural invalidation is directionally invalid"],
             )
         risk = abs(price - invalidation)
-        target = price + risk * 2 if is_buy else price - risk * 2
+        volatility = context.output("volatility")
+        liquidity = context.output("liquidity")
+        relative_atr = (
+            volatility.data.get("relative_atr")
+            if volatility and volatility.status == EngineLifecycleStatus.COMPLETED
+            else None
+        )
+        atr = volatility.data.get("atr") if volatility else None
+        min_atr_multiple = float(
+            context.analysis_input.metadata.get("minimum_stop_atr_multiple", 0.5)
+        )
+        max_atr_multiple = float(
+            context.analysis_input.metadata.get("maximum_stop_atr_multiple", 5.0)
+        )
+        if isinstance(atr, int | float) and atr > 0:
+            if risk < atr * min_atr_multiple:
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.FAILED,
+                    warnings=["structural stop is too tight for observed volatility"],
+                )
+            if risk > atr * max_atr_multiple:
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.FAILED,
+                    warnings=["structural stop is too wide for observed volatility"],
+                )
+        levels = context.output("support_resistance")
+        structural_target = None
+        if levels:
+            structural_target = (
+                levels.data.get("resistance") if is_buy else levels.data.get("support")
+            )
         minimum_rr = float(
             context.analysis_input.metadata.get("minimum_risk_reward", 1.0)
+        )
+        projected_target = price + risk * 2 if is_buy else price - risk * 2
+        structural_candidate = (
+            min(projected_target, structural_target)
+            if is_buy
+            and isinstance(structural_target, int | float)
+            and structural_target > price
+            else (
+                max(projected_target, structural_target)
+                if not is_buy
+                and isinstance(structural_target, int | float)
+                and structural_target < price
+                else projected_target
+            )
+        )
+        candidate_rr = abs(structural_candidate - price) / risk
+        target = (
+            structural_candidate if candidate_rr >= minimum_rr else projected_target
         )
         risk_reward = abs(target - price) / risk
         if risk_reward < minimum_rr:
@@ -446,7 +565,17 @@ class RiskEngine(BaseEngine):
                 "target": target,
                 "risk_reward": risk_reward,
                 "structural_risk": risk,
-                "risk_quality": "structural",
+                "risk_quality": (
+                    "structural_volatility_aware"
+                    if isinstance(atr, int | float) and atr > 0
+                    else "structural_without_volatility"
+                ),
+                "relative_atr": relative_atr,
+                "liquidity_context": (
+                    "ohlcv_inference"
+                    if liquidity and liquidity.status == EngineLifecycleStatus.COMPLETED
+                    else "unavailable"
+                ),
             },
         )
 
@@ -466,6 +595,11 @@ class ConfidenceEngine(BaseEngine):
         penalties: list[str] = []
         if data_quality != ValidationStatus.PASS:
             penalties.append("data_quality")
+        if (
+            context.market_data
+            and context.market_data.freshness_status != FreshnessStatus.FRESH
+        ):
+            penalties.append("freshness")
         if alignment in {"conflict", "degraded", "unavailable"}:
             penalties.append("multi_timeframe")
         if risk is None or risk.status != EngineLifecycleStatus.COMPLETED:
@@ -520,6 +654,12 @@ class ValidationEngine(BaseEngine):
                 reasons.append(
                     "multi-timeframe confirmation unavailable or conflicting"
                 )
+            if context.market_data.freshness_status not in {
+                FreshnessStatus.FRESH,
+                FreshnessStatus.DELAYED,
+            }:
+                status = ValidationStatus.FAIL
+                reasons.append("primary market data freshness is unacceptable")
         if confidence is None:
             status = ValidationStatus.FAIL
             reasons.append("confidence output unavailable")
