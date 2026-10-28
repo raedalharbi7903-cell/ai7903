@@ -1,6 +1,8 @@
 from datetime import UTC, datetime, timedelta
 
-from app.analysis.deterministic import analyze, confirmed_pivots
+import pytest
+
+from app.analysis.deterministic import DivergenceConfig, analyze, confirmed_pivots
 from app.analysis.models import Candle
 
 
@@ -53,3 +55,11 @@ def test_pivots_require_right_side_confirmation_without_future_access() -> None:
     prefix = [10, 8, 9]
     assert confirmed_pivots(prefix) == [(1, "low", 8)]
     assert confirmed_pivots([10, 8]) == []
+
+
+def test_divergence_configuration_rejects_unsafe_ranges() -> None:
+    assert DivergenceConfig(left_window=2, right_window=2).left_window == 2
+    with pytest.raises(ValueError):
+        DivergenceConfig(left_window=0)
+    with pytest.raises(ValueError):
+        DivergenceConfig(minimum_magnitude=-0.1)

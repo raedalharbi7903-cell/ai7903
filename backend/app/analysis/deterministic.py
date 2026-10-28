@@ -1,6 +1,24 @@
+from dataclasses import dataclass
 from math import sqrt
 
 from app.analysis.models import Candle
+
+
+@dataclass(frozen=True)
+class DivergenceConfig:
+    left_window: int = 1
+    right_window: int = 1
+    minimum_separation: int = 1
+    alignment_tolerance: int = 1
+    minimum_magnitude: float = 0.0
+
+    def __post_init__(self) -> None:
+        if self.left_window < 1 or self.right_window < 1:
+            raise ValueError("Pivot confirmation windows must be positive")
+        if self.minimum_separation < 1 or self.alignment_tolerance < 0:
+            raise ValueError("Pivot separation/tolerance is invalid")
+        if self.minimum_magnitude < 0:
+            raise ValueError("Minimum divergence magnitude cannot be negative")
 
 
 def closes(candles: list[Candle]) -> list[float]:
