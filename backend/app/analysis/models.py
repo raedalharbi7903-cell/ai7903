@@ -95,9 +95,19 @@ class EngineOutput(BaseModel):
     warnings: list[str] = Field(default_factory=list)
 
 
+class AdvancedFinding(BaseModel):
+    engine_id: str
+    classification: str | None = None
+    direction: str | None = None
+    family: str | None = None
+    details: dict[str, Any] = Field(default_factory=dict)
+    warnings: list[str] = Field(default_factory=list)
+
+
 class AnalysisResult(BaseModel):
     status: EngineLifecycleStatus
     outputs: list[EngineOutput] = Field(default_factory=list)
     decision: DecisionState = DecisionState.INSUFFICIENT_DATA
     validation: ValidationStatus = ValidationStatus.FAIL
+    advanced_findings: list[AdvancedFinding] = Field(default_factory=list)
     generated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

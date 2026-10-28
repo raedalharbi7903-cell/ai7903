@@ -3,6 +3,7 @@ from time import perf_counter
 from app.analysis.context import AnalysisContext
 from app.analysis.contracts import AnalysisEngine
 from app.analysis.models import (
+    AdvancedFinding,
     AnalysisResult,
     DecisionState,
     EngineLifecycleStatus,
@@ -26,6 +27,7 @@ class AnalysisPipeline:
             return AnalysisResult(
                 status=EngineLifecycleStatus.COMPLETED,
                 outputs=context.outputs,
+                advanced_findings=_advanced_findings(context),
             )
         return AnalysisResult(
             status=(
@@ -44,4 +46,32 @@ class AnalysisPipeline:
                 )
             ),
             validation=validation,
+            advanced_findings=_advanced_findings(context),
         )
+
+
+def _advanced_findings(context: AnalysisContext) -> list[AdvancedFinding]:
+    families = {
+        "momentum_divergence": "momentum",
+        "market_transition": "structure",
+        "liquidity_sweep": "liquidity",
+        "volume_anomaly": "volume",
+        "candlestick": "candlestick",
+    }
+    findings: list[AdvancedFinding] = []
+    for output in context.outputs:
+        family = families.get(output.engine_name)
+        if family is None:
+            continue
+        evidence = output.evidence[0] if output.evidence else None
+        findings.append(
+            AdvancedFinding(
+                engine_id=output.engine_name,
+                classification=output.data.get("classification"),
+                direction=(evidence.bias if evidence else None),
+                family=family,
+                details=output.data,
+                warnings=output.warnings,
+            )
+        )
+    return findings

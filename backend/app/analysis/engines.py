@@ -152,7 +152,7 @@ class PriceFindingEngine(BaseEngine):
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data=measurements,
+            data={**measurements, "classification": observation},
             evidence=[self.finding(context, observation, bias)],
         )
 
