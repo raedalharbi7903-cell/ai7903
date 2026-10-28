@@ -344,19 +344,35 @@ def analyze(
         recent = closes(candles[-3:])
         prior = closes(candles[-6:-3])
         prior_change, recent_change = prior[-1] - prior[0], recent[-1] - recent[0]
+        reference_high = max(c.high for c in candles[-6:-2])
+        reference_low = min(c.low for c in candles[-6:-2])
+        confirmed_bullish_break = (
+            candles[-2].close > reference_high and candles[-1].close > reference_high
+        )
+        confirmed_bearish_break = (
+            candles[-2].close < reference_low and candles[-1].close < reference_low
+        )
         state = (
-            "bullish_continuation"
-            if prior_change > 0 and recent_change > 0
+            "confirmed_bullish_structure_break"
+            if confirmed_bullish_break
             else (
-                "bearish_continuation"
-                if prior_change < 0 and recent_change < 0
+                "confirmed_bearish_structure_break"
+                if confirmed_bearish_break
                 else (
-                    "potential_bullish_transition"
-                    if prior_change < 0 < recent_change
+                    "bullish_continuation"
+                    if prior_change > 0 and recent_change > 0
                     else (
-                        "potential_bearish_transition"
-                        if prior_change > 0 > recent_change
-                        else "range"
+                        "bearish_continuation"
+                        if prior_change < 0 and recent_change < 0
+                        else (
+                            "potential_bullish_transition"
+                            if prior_change < 0 < recent_change
+                            else (
+                                "potential_bearish_transition"
+                                if prior_change > 0 > recent_change
+                                else "range"
+                            )
+                        )
                     )
                 )
             )
@@ -372,6 +388,9 @@ def analyze(
             {
                 "prior_change": prior_change,
                 "recent_change": recent_change,
+                "reference_high": reference_high,
+                "reference_low": reference_low,
+                "confirmation_candles": 2,
                 "lookback": 6,
             },
         )
