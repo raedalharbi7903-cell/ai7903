@@ -434,6 +434,11 @@ class DecisionEngine(BaseEngine):
                 if context.market_data
                 else DecisionState.INSUFFICIENT_DATA
             )
+        elif (
+            context.market_data
+            and context.market_data.freshness_status == FreshnessStatus.DELAYED
+        ):
+            decision = DecisionState.WAIT
         else:
             bias = next(
                 (

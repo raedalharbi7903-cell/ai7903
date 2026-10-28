@@ -1,7 +1,7 @@
 ---
 title: Analysis Pipeline
 document_id: DOC-ARCH-PIPELINE-001
-version: 2.3.0
+version: 2.4.0
 status: proposed
 owner: Engineering
 reviewers: CTO
@@ -42,6 +42,14 @@ Freshness uses explicit candle-interval policy rather than current wall-clock ti
 
 Historical execution invokes the production service with only a visible candle prefix. Entry occurs at the decision close with configured slippage and fees. Stops and targets are evaluated on the next candle; if both are reached in one candle, stop-first is intentionally applied. This is an explicit conservative assumption, not intrabar reconstruction.
 
+### Decision-state semantics and behavioral evidence
+
+The public decision vocabulary is exercised through the production service. `BUY` and `SELL` require eligible aligned evidence and successful risk/validation gates. `NO_TRADE` represents an ineligible opportunity such as MTF conflict. `WAIT` represents otherwise eligible analysis whose primary input is delayed rather than fresh; it preserves a safe request to wait for a completed fresher candle. `INSUFFICIENT_DATA` is returned when no usable market input can be established.
+
+Risk targets are derived internally from structural risk and optional support/resistance context, so callers cannot submit an arbitrary target override. Invalid target geometry is therefore prevented by construction rather than accepted and subsequently corrected. ATR minimum/maximum distance controls are configurable metadata policies; they are analytical guards, not position-sizing advice. Liquidity remains an OHLCV inference and is never represented as observed order-book depth.
+
+Supported deterministic behavior has dedicated regression coverage for structure/trend direction, candle-derived levels/zones, OHLCV liquidity/volume context, momentum/volatility history boundaries, pattern/candlestick observations, correlation polarity/history, MTF safety, decision states, failure paths, and production-pipeline safety. Divergence detection, institutional-order assertions, observed order-book depth, and bearish candlestick pattern classification are not implemented MVP behaviors.
+
 ### Production reachability matrix
 
 | Component | Implementation / entry | Input → consumer | Failure behavior | Verification | Status |
@@ -80,6 +88,7 @@ Historical execution invokes the production service with only a visible candle p
 - 2.1.0 - Recorded initial fixture-backed implementation status and remaining boundaries.
 - 2.2.0 - Recorded verified MTF, risk/validation, and correlation runtime gates.
 - 2.3.0 - Added freshness, conservative execution, and verified reachability matrix.
+- 2.4.0 - Documented decision-state semantics, risk construction boundaries, and behavioral coverage.
 - 2.0.0 - Finalized lifecycle, provenance, cost, and degraded behavior.
 - 1.0.0 - Initial specification.
 
