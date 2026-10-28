@@ -27,6 +27,9 @@ def test_fixture_analysis_api_uses_production_service() -> None:
     assert response.status_code == 200
     assert response.json()["decision"] == "buy"
     assert response.json()["validation"] == "pass"
+    findings = response.json()["advanced_findings"]
+    assert {item["engine_id"] for item in findings} >= {"candlestick"}
+    assert all("details" in item and "warnings" in item for item in findings)
 
 
 def test_analysis_api_does_not_fabricate_live_data() -> None:
