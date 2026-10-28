@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
-from app.analysis.models import Candle, DecisionState
-from app.analysis.models import AnalysisInput
+from app.analysis.models import AnalysisInput, Candle, DecisionState, ValidationStatus
 from app.analysis.service import AnalysisService
 
 
@@ -19,6 +18,8 @@ class BacktestResult:
     decisions: tuple[DecisionState, ...]
     total_return: float
     trades: int
+    analysis_version: str = "analysis-pipeline-v1"
+    validated_decisions: int = 0
 
 
 class HistoricalBacktester:
@@ -27,46 +28,16 @@ class HistoricalBacktester:
     def run(
         self, candles: list[Candle], dataset_id: str, config: BacktestConfig
     ) -> BacktestResult:
-        if len(candles) < 3:
-            raise ValueError("At least three candles are required")
-        decisions: list[DecisionState] = []
-        returns: list[float] = []
-        for index in range(1, len(candles) - 1):
-            previous, current, future = (
-                candles[index - 1],
-                candles[index],
-                candles[index + 1],
-            )
-            decision = (
-                DecisionState.BUY
-                if current.close > previous.close
-                else (
-                    DecisionState.SELL
-                    if current.close < previous.close
-                    else DecisionState.NO_TRADE
-                )
-            )
-            decisions.append(decision)
-            if decision == DecisionState.BUY:
-                returns.append(
-                    (future.close - current.close) / current.close
-                    - config.fee_rate
-                    - config.slippage_rate
-                )
-            elif decision == DecisionState.SELL:
-                returns.append(
-                    (current.close - future.close) / current.close
-                    - config.fee_rate
-                    - config.slippage_rate
-                )
-        return BacktestResult(dataset_id, tuple(decisions), sum(returns), len(returns))
+        """Compatibility entry point; all backtests use the production pipeline."""
+        return self.run_pipeline(candles, dataset_id, config)
 
     def run_pipeline(
         self, candles: list[Candle], dataset_id: str, config: BacktestConfig
     ) -> BacktestResult:
-        """Evaluate the production AnalysisService sequentially with no future candles."""
+        """Evaluate AnalysisService sequentially without exposing future candles."""
         decisions: list[DecisionState] = []
         returns: list[float] = []
+        validated_decisions = 0
         service = AnalysisService()
         for index in range(2, len(candles) - 1):
             visible = candles[: index + 1]
@@ -84,8 +55,9 @@ class HistoricalBacktester:
                 )
             )
             decisions.append(result.decision)
-            if result.validation.value != "pass":
+            if result.validation != ValidationStatus.PASS:
                 continue
+            validated_decisions += 1
             entry, following = visible[-1].close, candles[index + 1].close
             if result.decision == DecisionState.BUY:
                 returns.append(
@@ -95,7 +67,13 @@ class HistoricalBacktester:
                 returns.append(
                     (entry - following) / entry - config.fee_rate - config.slippage_rate
                 )
-        return BacktestResult(dataset_id, tuple(decisions), sum(returns), len(returns))
+        return BacktestResult(
+            dataset_id,
+            tuple(decisions),
+            sum(returns),
+            len(returns),
+            validated_decisions=validated_decisions,
+        )
 
 
 def split_development_oos(

@@ -28,8 +28,8 @@ def test_backtest_is_sequential_and_reproducible() -> None:
     result = HistoricalBacktester().run(
         candles(), "synthetic-unit-fixture", BacktestConfig("v1", "p1")
     )
-    assert result.trades == 4
-    assert len(result.decisions) == 4
+    assert result.trades == 0
+    assert len(result.decisions) == 3
 
 
 def test_oos_split_rejects_leakage_shape() -> None:

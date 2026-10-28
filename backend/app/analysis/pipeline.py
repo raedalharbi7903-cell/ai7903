@@ -28,6 +28,14 @@ class AnalysisPipeline:
                 else EngineLifecycleStatus.DEGRADED
             ),
             outputs=context.outputs,
-            decision=context.state.get("decision", DecisionState.INSUFFICIENT_DATA),
+            decision=(
+                DecisionState.INSUFFICIENT_DATA
+                if context.market_data is None
+                else (
+                    context.state.get("decision", DecisionState.NO_TRADE)
+                    if validation == ValidationStatus.PASS
+                    else DecisionState.NO_TRADE
+                )
+            ),
             validation=validation,
         )

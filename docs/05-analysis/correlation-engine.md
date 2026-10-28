@@ -1,11 +1,11 @@
 ---
 title: Correlation Engine
 document_id: DOC-ANALYSIS-CORRELATION_ENGINE-001
-version: 1.0.0
+version: 1.1.0
 status: proposed
 owner: Engineering
 reviewers: CTO
-last_updated: 2026-08-11
+last_updated: 2026-10-28
 next_review: 2026-11-11
 related_documents: [DOC-MANIFEST-001]
 ---
@@ -14,14 +14,17 @@ related_documents: [DOC-MANIFEST-001]
 ## Purpose
 Define the architectural responsibility of Correlation Engine.
 ## Scope
-Architecture and governance specification only; no runtime behavior is implemented by this document.
+Architecture, governance, and the implemented fixture-compatible correlation behavior.
 ## Main Content
-Inputs require validated provenance, instrument, timeframe, timestamp, and context. Outputs require attributable findings, evidence, status, warnings/errors, downstream-consumer traceability, and validation. Dependencies, timeframe/instrument behavior, failure behavior, and exact algorithms are Decision Required; this document does not implement the engine.
+Inputs require validated provenance, instrument, timeframe, timestamp, and context. Outputs require attributable findings, evidence, status, warnings/errors, downstream-consumer traceability, and validation.
 
-**Implemented:** documentation only. **Approved Future Architecture:** this subject may be implemented only through approved work. **Decision Required:** exact algorithms, formulas, providers, permissions, and operational thresholds are not approved unless stated otherwise.
+The current runtime implementation accepts benchmark candles through analysis metadata, parses them as OHLCV, excludes records after the primary decision time, and joins both series by timestamp. It calculates Pearson correlation on aligned closes only; fewer than three aligned points produces a degraded output. Output includes sample size, methodology, and benchmark-provider provenance.
+
+Correlation is contextual information only. Its evidence carries no bullish/bearish bias and cannot create an independent directional confirmation or inflate confluence/confidence. Instrument selection, live-provider permissions, operational thresholds, and any predictive use remain Decision Required.
 ## Related Documents
 [Project Manifest](../01-project/project-manifest.md)
 ## Change History
 - 1.0.0 — Initial proposed specification.
+- 1.1.0 — Documented timestamp-aligned contextual runtime behavior.
 ## Approval
 Proposed; CTO approval required.

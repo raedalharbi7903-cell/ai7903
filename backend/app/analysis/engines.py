@@ -2,8 +2,9 @@ from datetime import UTC, datetime
 from uuid import uuid4
 
 from app.analysis.context import AnalysisContext
-from app.analysis.deterministic import analyze, closes, correlation
+from app.analysis.deterministic import analyze, correlation
 from app.analysis.models import (
+    Candle,
     DecisionState,
     EngineLifecycleStatus,
     EngineOutput,
@@ -174,8 +175,27 @@ class CorrelationEngine(PriceFindingEngine):
                 status=EngineLifecycleStatus.DEGRADED,
                 warnings=["benchmark data unavailable"],
             )
+        try:
+            benchmark_candles = [Candle.model_validate(item) for item in benchmark]
+        except (TypeError, ValueError) as error:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=[f"invalid benchmark data: {error}"],
+            )
+        decision_time = data.candles[-1].timestamp
+        benchmark_by_time = {
+            candle.timestamp: candle
+            for candle in benchmark_candles
+            if candle.timestamp <= decision_time
+        }
+        aligned = [
+            (candle.close, benchmark_by_time[candle.timestamp].close)
+            for candle in data.candles
+            if candle.timestamp in benchmark_by_time
+        ]
         value = correlation(
-            closes(data.candles), [float(item["close"]) for item in benchmark]
+            [item[0] for item in aligned], [item[1] for item in aligned]
         )
         if value is None:
             return EngineOutput(
@@ -183,12 +203,23 @@ class CorrelationEngine(PriceFindingEngine):
                 status=EngineLifecycleStatus.DEGRADED,
                 warnings=["insufficient aligned history"],
             )
-        bias = "bullish" if value > 0 else "bearish" if value < 0 else "neutral"
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"coefficient": value, "sample_size": len(data.candles)},
-            evidence=[self.finding(context, "benchmark correlation", bias)],
+            data={
+                "coefficient": value,
+                "sample_size": len(aligned),
+                "methodology": "Pearson correlation on timestamp-aligned closes",
+                "benchmark_provider": context.analysis_input.metadata.get(
+                    "benchmark_provider", "unspecified"
+                ),
+            },
+            evidence=[
+                self.finding(
+                    context,
+                    "benchmark correlation is contextual and not a directional vote",
+                )
+            ],
         )
 
 
@@ -196,34 +227,80 @@ class MultiTimeframeEngine(BaseEngine):
     name, family = "multi_timeframe", "timeframe"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
-        frames = context.timeframe_data()
-        if len(frames) >= 3:
-            directions = [
-                (
-                    "bullish"
-                    if closes(item.candles)[-1] > closes(item.candles)[0]
-                    else "bearish"
-                )
-                for item in frames.values()
-            ]
-            alignment = "aligned" if len(set(directions)) == 1 else "conflict"
-            context.state["mtf_alignment"] = alignment
+        raw_frames = context.analysis_input.metadata.get("timeframes", {})
+        required = ("htf", "itf", "ltf")
+        if not all(name in raw_frames for name in required):
+            context.state["mtf_alignment"] = "unavailable"
             return EngineOutput(
                 engine_name=self.name,
-                status=EngineLifecycleStatus.COMPLETED,
-                data={
-                    "alignment": alignment,
-                    "timeframes": tuple(frames),
-                    "provenance": {
-                        name: item.provider for name, item in frames.items()
-                    },
-                },
+                status=EngineLifecycleStatus.DEGRADED,
+                data={"alignment": "unavailable", "required": required},
+                warnings=["HTF, ITF, and LTF inputs are required for MTF analysis"],
             )
+        if context.market_data is None:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["primary market data unavailable"],
+            )
+        summaries: dict[str, dict[str, object]] = {}
+        decision_time = context.market_data.candles[-1].timestamp
+        for name in required:
+            try:
+                frame = MarketData.model_validate(raw_frames[name])
+            except (TypeError, ValueError) as error:
+                context.state["mtf_alignment"] = "unavailable"
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.DEGRADED,
+                    warnings=[f"invalid {name} input: {error}"],
+                )
+            quality = validate_market_data(frame)
+            if quality != ValidationStatus.PASS:
+                context.state["mtf_alignment"] = "degraded"
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.DEGRADED,
+                    warnings=[f"{name} data quality is {quality}"],
+                )
+            if frame.candles[-1].timestamp > decision_time:
+                context.state["mtf_alignment"] = "degraded"
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.DEGRADED,
+                    warnings=[f"{name} contains a candle after decision time"],
+                )
+            if len(frame.candles) < 5:
+                context.state["mtf_alignment"] = "degraded"
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.DEGRADED,
+                    warnings=[f"{name} has insufficient completed candle history"],
+                )
+            observation, bias, measurements = analyze("trend", frame.candles)
+            summaries[name] = {
+                "bias": bias,
+                "observation": observation,
+                "measurements": measurements,
+                "source_timestamp": frame.source_timestamp.isoformat(),
+                "completed_candle_timestamp": frame.candles[-1].timestamp.isoformat(),
+                "provider": frame.provider,
+                "quality": quality,
+            }
+        directions = [str(summaries[name]["bias"]) for name in required]
+        alignment = "aligned" if len(set(directions)) == 1 else "conflict"
+        context.state["mtf_alignment"] = alignment
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"alignment": "single_timeframe"},
-            warnings=["multi-timeframe input not supplied"],
+            data={"alignment": alignment, "timeframes": summaries},
+            evidence=[
+                self.finding(
+                    context,
+                    f"MTF {alignment}: " + ", ".join(directions),
+                    directions[0] if alignment == "aligned" else None,
+                )
+            ],
         )
 
 
@@ -268,6 +345,8 @@ class OpportunityFilter(BaseEngine):
         eligible = (
             bool(context.state.get("confluence")) and context.market_data is not None
         )
+        if context.state.get("mtf_alignment") == "conflict":
+            eligible = False
         context.state["eligible"] = eligible
         return EngineOutput(
             engine_name=self.name,
@@ -314,6 +393,15 @@ class RiskEngine(BaseEngine):
     def analyze(self, context: AnalysisContext) -> EngineOutput:
         data = context.market_data
         structure = context.output("market_structure")
+        decision = context.state.get("decision")
+        if decision not in {DecisionState.BUY, DecisionState.SELL}:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=[
+                    "structural risk applies only to executable directional decisions"
+                ],
+            )
         if data is None or structure is None:
             return EngineOutput(
                 engine_name=self.name,
@@ -322,18 +410,33 @@ class RiskEngine(BaseEngine):
             )
         price = data.candles[-1].close
         invalidation = structure.data.get("invalidation")
-        if not isinstance(invalidation, (int, float)) or invalidation == price:
+        if not isinstance(invalidation, int | float) or invalidation == price:
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.DEGRADED,
                 warnings=["structural invalidation unavailable"],
             )
+        is_buy = decision == DecisionState.BUY
+        valid_stop = invalidation < price if is_buy else invalidation > price
+        if not valid_stop:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["structural invalidation is directionally invalid"],
+            )
         risk = abs(price - invalidation)
-        target = (
-            price + risk * 2
-            if context.state.get("decision") != DecisionState.SELL
-            else price - risk * 2
+        target = price + risk * 2 if is_buy else price - risk * 2
+        minimum_rr = float(
+            context.analysis_input.metadata.get("minimum_risk_reward", 1.0)
         )
+        risk_reward = abs(target - price) / risk
+        if risk_reward < minimum_rr:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                data={"risk_reward": risk_reward, "minimum_risk_reward": minimum_rr},
+                warnings=["risk/reward is below configured minimum"],
+            )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
@@ -341,8 +444,9 @@ class RiskEngine(BaseEngine):
                 "invalidation": invalidation,
                 "stop_loss": invalidation,
                 "target": target,
-                "risk_reward": abs(target - price) / risk,
+                "risk_reward": risk_reward,
                 "structural_risk": risk,
+                "risk_quality": "structural",
             },
         )
 
@@ -353,7 +457,28 @@ class ConfidenceEngine(BaseEngine):
     def analyze(self, context: AnalysisContext) -> EngineOutput:
         families = len({item.family for item in context.evidence if item.independent})
         alignment = context.state.get("mtf_alignment", "unknown")
-        label = "medium" if context.state.get("confluence") and families >= 2 else "low"
+        risk = context.output("risk")
+        data_quality = (
+            context.market_data.quality_status
+            if context.market_data
+            else ValidationStatus.FAIL
+        )
+        penalties: list[str] = []
+        if data_quality != ValidationStatus.PASS:
+            penalties.append("data_quality")
+        if alignment in {"conflict", "degraded", "unavailable"}:
+            penalties.append("multi_timeframe")
+        if risk is None or risk.status != EngineLifecycleStatus.COMPLETED:
+            penalties.append("risk_quality")
+        label = (
+            "high"
+            if context.state.get("confluence") and families >= 3 and not penalties
+            else (
+                "medium"
+                if context.state.get("confluence") and families >= 2 and not penalties
+                else "low"
+            )
+        )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
@@ -362,6 +487,9 @@ class ConfidenceEngine(BaseEngine):
                 "calibration": "uncalibrated",
                 "independent_families": families,
                 "mtf_alignment": alignment,
+                "data_quality": data_quality,
+                "penalties": penalties,
+                "methodology_version": "analytical-quality-v1",
             },
             warnings=["Confidence is analytical quality, not probability of profit"],
         )
@@ -371,16 +499,35 @@ class ValidationEngine(BaseEngine):
     name, family = "validation", "validation"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
-        status = (
-            ValidationStatus.PASS
-            if context.market_data and context.state.get("decision")
-            else ValidationStatus.FAIL
-        )
+        decision = context.state.get("decision")
+        risk = context.output("risk")
+        confidence = context.output("confidence")
+        reasons: list[str] = []
+        status = ValidationStatus.PASS
+        if context.market_data is None or decision is None:
+            status = ValidationStatus.FAIL
+            reasons.append("market data or decision unavailable")
+        elif decision in {DecisionState.BUY, DecisionState.SELL}:
+            if risk is None or risk.status != EngineLifecycleStatus.COMPLETED:
+                status = ValidationStatus.FAIL
+                reasons.append("executable decision lacks valid structural risk")
+            if context.state.get("mtf_alignment") in {
+                "conflict",
+                "degraded",
+                "unavailable",
+            }:
+                status = ValidationStatus.FAIL
+                reasons.append(
+                    "multi-timeframe confirmation unavailable or conflicting"
+                )
+        if confidence is None:
+            status = ValidationStatus.FAIL
+            reasons.append("confidence output unavailable")
         context.state["validation"] = status
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            data={"validation": status},
+            data={"validation": status, "reasons": reasons},
         )
 
 

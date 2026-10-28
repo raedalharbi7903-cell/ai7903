@@ -31,6 +31,30 @@ def fixture_input() -> AnalysisInput:
                     "close": 11,
                     "volume": 120,
                 },
+                {
+                    "timestamp": "2026-01-01T02:00:00Z",
+                    "open": 11,
+                    "high": 13,
+                    "low": 10,
+                    "close": 12,
+                    "volume": 130,
+                },
+                {
+                    "timestamp": "2026-01-01T03:00:00Z",
+                    "open": 12,
+                    "high": 14,
+                    "low": 11,
+                    "close": 13,
+                    "volume": 140,
+                },
+                {
+                    "timestamp": "2026-01-01T04:00:00Z",
+                    "open": 13,
+                    "high": 15,
+                    "low": 12,
+                    "close": 14,
+                    "volume": 150,
+                },
             ],
         }
     )
@@ -41,7 +65,13 @@ def test_default_pipeline_contains_canonical_components() -> None:
 
 
 def test_fixture_pipeline_is_traceable_and_validated() -> None:
-    result = AnalysisService().analyze(fixture_input())
+    analysis_input = fixture_input()
+    analysis_input.metadata["timeframes"] = {
+        "htf": analysis_input.data,
+        "itf": analysis_input.data,
+        "ltf": analysis_input.data,
+    }
+    result = AnalysisService().analyze(analysis_input)
     assert result.validation == ValidationStatus.PASS
     assert result.decision == DecisionState.BUY
     assert len(result.outputs) == 24
