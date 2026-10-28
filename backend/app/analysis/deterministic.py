@@ -48,6 +48,23 @@ def correlation(first: list[float], second: list[float]) -> float | None:
     return numerator / (left * right) if left and right else None
 
 
+def confirmed_pivots(
+    values: list[float], left: int = 1, right: int = 1
+) -> list[tuple[int, str, float]]:
+    """Return only pivots whose right-side confirmation exists in the prefix."""
+    pivots: list[tuple[int, str, float]] = []
+    for index in range(left, len(values) - right):
+        before, after = (
+            values[index - left : index],
+            values[index + 1 : index + 1 + right],
+        )
+        if values[index] < min(before) and values[index] <= min(after):
+            pivots.append((index, "low", values[index]))
+        elif values[index] > max(before) and values[index] >= max(after):
+            pivots.append((index, "high", values[index]))
+    return pivots
+
+
 def analyze(
     name: str, candles: list[Candle]
 ) -> tuple[str, str | None, dict[str, object]]:
@@ -178,17 +195,36 @@ def analyze(
     if name == "momentum_divergence":
         if len(candles) < 8:
             return "insufficient_evidence", None, {"sample_size": len(candles)}
-        first, last = candles[-8:-4], candles[-4:]
-        price_change = last[-1].close - first[-1].close
-        first_momentum = first[-1].close - first[0].close
-        last_momentum = last[-1].close - last[0].close
+        momentum = [
+            values[index] - values[index - 1] for index in range(1, len(values))
+        ]
+        price_pivots = confirmed_pivots(values)
+        momentum_pivots = confirmed_pivots([0.0, *momentum])
+        lows = [item for item in price_pivots if item[1] == "low"]
+        highs = [item for item in price_pivots if item[1] == "high"]
         state = (
             "regular_bullish_divergence"
-            if price_change < 0 and last_momentum > first_momentum
+            if len(lows) >= 2
+            and lows[-1][2] < lows[-2][2]
+            and momentum[lows[-1][0] - 1] > momentum[lows[-2][0] - 1]
             else (
                 "regular_bearish_divergence"
-                if price_change > 0 and last_momentum < first_momentum
-                else "no_divergence"
+                if len(highs) >= 2
+                and highs[-1][2] > highs[-2][2]
+                and momentum[highs[-1][0] - 1] < momentum[highs[-2][0] - 1]
+                else (
+                    "hidden_bullish_divergence"
+                    if len(lows) >= 2
+                    and lows[-1][2] > lows[-2][2]
+                    and momentum[lows[-1][0] - 1] < momentum[lows[-2][0] - 1]
+                    else (
+                        "hidden_bearish_divergence"
+                        if len(highs) >= 2
+                        and highs[-1][2] < highs[-2][2]
+                        and momentum[highs[-1][0] - 1] > momentum[highs[-2][0] - 1]
+                        else "no_divergence"
+                    )
+                )
             )
         )
         bias = (
@@ -200,9 +236,9 @@ def analyze(
             state,
             bias,
             {
-                "price_change": price_change,
-                "momentum_change": last_momentum - first_momentum,
-                "lookback": 8,
+                "price_pivots": price_pivots,
+                "momentum_pivots": momentum_pivots,
+                "confirmation_windows": {"left": 1, "right": 1},
             },
         )
     if name == "volatility":
