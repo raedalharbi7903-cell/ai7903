@@ -1,4 +1,5 @@
 """Infrastructure tests for gate reporting; no server/dependencies required."""
+
 import subprocess
 import unittest
 from pathlib import Path
@@ -18,7 +19,9 @@ class VerificationTests(unittest.TestCase):
 
     @patch("verify.subprocess.run")
     def test_failed_exit_cannot_be_reported_as_pass(self, execute):
-        execute.return_value = subprocess.CompletedProcess(["test"], 1, "details", "failure")
+        execute.return_value = subprocess.CompletedProcess(
+            ["test"], 1, "details", "failure"
+        )
         result = run_gate("test", Path("."), ["test"], {})
         self.assertEqual(result["status"], "FAIL")
         self.assertEqual(result["exit_code"], 1)

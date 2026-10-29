@@ -1,24 +1,47 @@
 """Run reproducible repository gates; nonzero exit if any required gate fails."""
+
 from __future__ import annotations
 
 import argparse
 import json
 import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
+from pathlib import Path
 
 
 def gates(root: Path, python: str, pnpm: str) -> list[tuple[str, Path, list[str]]]:
     backend, frontend = root / "backend", root / "frontend"
     return [
-        ("backend-tests", backend, [python, "-m", "pytest", "-o", "cache_dir=.pytest_cache_execution"]),
+        (
+            "tooling-tests",
+            root,
+            [python, "-m", "unittest", "discover", "-s", "scripts", "-p", "test_*.py"],
+        ),
+        ("tooling-lint", backend, [python, "-m", "ruff", "check", "../scripts"]),
+        ("tooling-format", backend, [python, "-m", "black", "--check", "../scripts"]),
+        ("documentation-links", root, [python, "scripts/audit_documents.py"]),
+        (
+            "backend-tests",
+            backend,
+            [python, "-m", "pytest", "-o", "cache_dir=.pytest_cache_execution"],
+        ),
         ("backend-lint", backend, [python, "-m", "ruff", "check", "."]),
         ("backend-format", backend, [python, "-m", "black", "--check", "app", "tests"]),
         ("backend-compile", backend, [python, "-m", "compileall", "-q", "app"]),
-        ("backend-import", backend, [python, "-c", "from app.main import app; from app.analysis.service import AnalysisService; assert app and AnalysisService"]),
+        (
+            "backend-import",
+            backend,
+            [
+                python,
+                "-c",
+                "from app.main import app; "
+                "from app.analysis.service import AnalysisService; "
+                "assert app and AnalysisService",
+            ],
+        ),
         ("backend-dependencies", backend, [python, "-m", "pip", "check"]),
         ("frontend-install", frontend, [pnpm, "install", "--frozen-lockfile"]),
         ("frontend-types", frontend, [pnpm, "typecheck"]),
@@ -32,28 +55,56 @@ def gates(root: Path, python: str, pnpm: str) -> list[tuple[str, Path, list[str]
 
 def run_gate(name: str, cwd: Path, command: list[str], env: dict[str, str]) -> dict:
     try:
-        result = subprocess.run(command, cwd=cwd, env=env, capture_output=True,
-                                text=True, encoding="utf-8", errors="replace", timeout=600)
-        return {"gate": name, "status": "PASS" if result.returncode == 0 else "FAIL",
-                "command": command, "exit_code": result.returncode,
-                "output": result.stdout + result.stderr}
+        result = subprocess.run(
+            command,
+            cwd=cwd,
+            env=env,
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=600,
+        )
+        return {
+            "gate": name,
+            "status": "PASS" if result.returncode == 0 else "FAIL",
+            "command": command,
+            "exit_code": result.returncode,
+            "output": result.stdout + result.stderr,
+        }
     except (OSError, subprocess.TimeoutExpired) as error:
-        return {"gate": name, "status": "FAIL", "command": command,
-                "error_category": type(error).__name__, "message": str(error)}
+        return {
+            "gate": name,
+            "status": "FAIL",
+            "command": command,
+            "error_category": type(error).__name__,
+            "message": str(error),
+        }
 
 
 def main() -> int:
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser()
-    parser.add_argument("--python", default=str(root / "backend" / ".venv" /
-                        ("Scripts/python.exe" if os.name == "nt" else "bin/python")))
+    parser.add_argument(
+        "--python",
+        default=str(
+            root
+            / "backend"
+            / ".venv"
+            / ("Scripts/python.exe" if os.name == "nt" else "bin/python")
+        ),
+    )
     parser.add_argument("--pnpm", default=shutil.which("pnpm") or "pnpm")
     args = parser.parse_args()
     env = dict(os.environ)
-    env.update(APP_NAME="verification", APP_ENVIRONMENT="testing",
-               LOG_LEVEL="WARNING", DATABASE_URL="sqlite://",
-               BLACK_CACHE_DIR=str(root / "backend" / ".black-cache"),
-               BACKEND_PYTHON=str(Path(args.python).resolve()))
+    env.update(
+        APP_NAME="verification",
+        APP_ENVIRONMENT="testing",
+        LOG_LEVEL="WARNING",
+        DATABASE_URL="sqlite://",
+        BLACK_CACHE_DIR=str(root / "backend" / ".black-cache"),
+        BACKEND_PYTHON=str(Path(args.python).resolve()),
+    )
     results = []
     for name, cwd, command in gates(root, args.python, args.pnpm):
         result = run_gate(name, cwd, command, env)
@@ -63,8 +114,13 @@ def main() -> int:
             print(result.get("output", result.get("message", "")), flush=True)
     report = root / ".verification" / "quality-gates.json"
     report.parent.mkdir(exist_ok=True)
-    report.write_text(json.dumps({"generated_at": datetime.now(timezone.utc).isoformat(),
-                                 "results": results}, indent=2), encoding="utf-8")
+    report.write_text(
+        json.dumps(
+            {"generated_at": datetime.now(UTC).isoformat(), "results": results},
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     print(f"Evidence: {report}", flush=True)
     return 0 if all(r["status"] == "PASS" for r in results) else 1
 

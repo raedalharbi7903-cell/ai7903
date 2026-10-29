@@ -60,6 +60,11 @@ role-permission matrix, and exact release milestones need explicit evidence/deci
 
 ## Current verification overlay
 
+Missing governance/baseline targets were recovered unchanged from historical
+commits d78bbf7/e56261d. Their proposed status remains unchanged; restoration
+is not a new approval. Inline local document file links now pass the executable
+audit; semantic consistency and full governance acceptance remain incomplete.
+
 The baseline table is historical, not the current completion claim. See
 [requirement evidence](docs/10-testing/requirement-evidence-matrix.md) for every
 inventory row, code/test locations, partial scopes and unresolved acceptance.

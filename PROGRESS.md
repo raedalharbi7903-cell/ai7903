@@ -5,6 +5,28 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## CI and documentation recovery continuation
+
+Previous turn was verified progress at 3119f38. Added a SHA-pinned, read-only
+GitHub Actions workflow for Python 3.12 / Node 24.14 / pnpm 11.25, full-stack
+verification, documentation audit, Docker build and retained evidence.
+Workflow YAML parsed and security/step assertions passed locally; hosted execution
+is not yet claimed.
+
+The new documentation audit initially found 128 missing links. Git history
+contained all 21 missing target files: restored unchanged from d78bbf7 and e56261d.
+Every restored file matches its original Git blob. No manifest, handbook or
+baseline wording/approval status was changed. Audit now reports zero missing
+inline local file links. This does not validate prose consistency, reference-style
+links or anchors; those remain separate work.
+
+Seven tooling tests pass. Verification now includes 17 gates, covering tooling
+tests/lint/format and documentation file links as well as the prior full stack.
+A newly exposed tooling line-length failure was repaired; the complete repeat run
+PASSED all 17 gates (178 backend tests, 15 frontend tests, 7 tooling tests).
+Next: inspect hosted CI results, repair cross-platform failures if present, then
+continue security/performance and prose-consistency acceptance work.
+
 ## Latest operational verification package
 
 Previous continuation was progress: integrated work committed/pushed at 7494cf8.
