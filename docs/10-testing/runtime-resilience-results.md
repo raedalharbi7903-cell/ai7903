@@ -42,3 +42,25 @@ This is not HTTP load testing, concurrent capacity validation, production latenc
 acceptance, a complete all-engine workload, or a financial result. No production
 SLO is asserted. Licensed-data workloads, concurrency, database/network overhead
 and deployment-specific resource limits remain unverified.
+
+## Closed-history regression update
+
+Freshness is measured from the last closed observation, not an incomplete tail.
+An old closed prefix remains stale even if a recent incomplete observation is
+present. No closed observations yields missing data; an incomplete middle candle
+or naive decision reference is invalid. Freshness configuration rejects inverted,
+negative and noninteger windows.
+
+Classic volume and volume anomaly now share historical-baseline validation.
+Missing observations are not removed to make an older sample look current.
+Zero baselines remain insufficient rather than a directional contraction.
+Flat close history produces neutral RSI 50. Regression evidence is in
+backend/tests/analysis/test_freshness_boundaries.py.
+
+## Hosted evidence boundary
+
+GitHub run 40915087207 completed its Docker build and documentation audit, but
+failed frontend test startup on Linux. Local Windows verification does not prove
+that hosted defect fixed. The subsequent workflow adds native source-map
+diagnostics and a container runtime smoke check; execution must be inspected.
+Mocked container tests only prove cleanup/denial logic, not a working image.

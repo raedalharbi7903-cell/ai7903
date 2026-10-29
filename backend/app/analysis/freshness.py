@@ -24,6 +24,19 @@ class FreshnessPolicy:
     stale_after_intervals: int = 3
     timeframe_seconds: dict[str, int] | None = None
 
+    def __post_init__(self) -> None:
+        if (
+            type(self.delayed_after_intervals) is not int
+            or type(self.stale_after_intervals) is not int
+            or not 0 <= self.delayed_after_intervals <= self.stale_after_intervals
+        ):
+            raise ValueError("Freshness intervals must be ordered nonnegative integers")
+        if self.timeframe_seconds is not None and any(
+            type(seconds) is not int or seconds <= 0
+            for seconds in self.timeframe_seconds.values()
+        ):
+            raise ValueError("Timeframe durations must be positive integer seconds")
+
     def interval_for(self, timeframe: str) -> timedelta | None:
         values = self.timeframe_seconds or TIMEFRAME_SECONDS
         seconds = values.get(timeframe)
@@ -61,7 +74,9 @@ def assess_candles(
         return FreshnessResult(
             FreshnessStatus.MISSING, "missing_candles", reference_timestamp, None
         )
-    if any(candle.timestamp.tzinfo is None for candle in candles):
+    if reference_timestamp.tzinfo is None or any(
+        candle.timestamp.tzinfo is None for candle in candles
+    ):
         return FreshnessResult(
             FreshnessStatus.INVALID, "naive_timestamp", reference_timestamp, None
         )
@@ -75,11 +90,16 @@ def assess_candles(
             reference_timestamp,
             None,
         )
-    completed = candles[-1]
+    if any(not candle.complete for candle in candles[:-1]):
+        return FreshnessResult(
+            FreshnessStatus.INVALID, "incomplete_history", reference_timestamp, None
+        )
+    incomplete_tail = not candles[-1].complete
+    completed = candles[-2] if incomplete_tail and len(candles) > 1 else candles[-1]
     if not completed.complete:
         return FreshnessResult(
-            FreshnessStatus.DELAYED,
-            "incomplete_latest_candle",
+            FreshnessStatus.MISSING,
+            "no_completed_candle",
             reference_timestamp,
             None,
         )
@@ -105,4 +125,6 @@ def assess_candles(
         status, reason = FreshnessStatus.DELAYED, "within_delay_window"
     else:
         status, reason = FreshnessStatus.STALE, "outside_staleness_window"
+    if incomplete_tail and status == FreshnessStatus.FRESH:
+        status, reason = FreshnessStatus.DELAYED, "incomplete_latest_candle"
     return FreshnessResult(status, reason, reference_timestamp, completed.timestamp)

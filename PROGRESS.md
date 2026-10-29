@@ -5,6 +5,27 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Freshness, legacy volume and hosted-CI continuation
+
+Previous turn was progress at f0ed0a4. GitHub's general runs endpoint exposes push
+runs omitted by the specialized lookup. Verified run 40915087207 / job 123593341472:
+Docker build PASS; documentation audit PASS; full-stack gate FAIL due Linux
+frontend startup (Vite source-map TypeError code.charCodeAt is not a function).
+This is an unresolved hosted-toolchain defect, not a passing CI claim.
+Native source-map diagnostics are enabled for the next run; no tests are skipped.
+
+Closed a freshness bypass: a recent incomplete candle no longer refreshes stale
+closed data. Naive reference timestamps, incomplete middle history, empty closed
+history and invalid freshness policy values are handled explicitly. Flat RSI is
+neutral 50, not overbought 100. Classic volume now shares the validated rolling
+baseline methodology: missing current/prior volume or a zero baseline cannot
+create a directional vote from an older sample. Backend suite reached 204 PASS.
+
+Added CI container smoke verification (loopback-only binding, health, non-root UID,
+production demo denial, exact-container cleanup), independent of frontend success.
+Local Docker execution is still unavailable; mocked cleanup tests are not runtime
+acceptance. The next push must be inspected for actual Linux and container results.
+
 ## Runtime security and resilience continuation
 
 Previous turn was progress at 7f6ef5d. Hosted workflow lookup still returned no

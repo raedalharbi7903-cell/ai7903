@@ -33,13 +33,21 @@ jobs:
       - name: Test verification tooling
         run: backend/.venv/bin/python -m unittest discover -s scripts -p 'test_*.py'
       - name: Run all backend and frontend gates
+        env:
+          # Native source mapping preserves useful startup diagnostics if a
+          # dependency's own stack mapper fails on the Linux runner.
+          NODE_OPTIONS: --enable-source-maps
         run: backend/.venv/bin/python scripts/verify.py
       - name: Audit documentation links
         if: always()
         run: backend/.venv/bin/python scripts/audit_documents.py
       - name: Build backend container
+        id: container-build
         if: always()
         run: docker build -t ai-analysis-backend:ci backend
+      - name: Verify container runtime boundaries
+        if: always() && steps.container-build.outcome == 'success'
+        run: backend/.venv/bin/python scripts/smoke_container.py
       - name: Preserve verification evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4

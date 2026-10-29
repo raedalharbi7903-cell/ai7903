@@ -34,7 +34,7 @@ def rsi(values: list[float], period: int = 14) -> float | None:
     gains = sum(change for change in changes if change > 0) / period
     losses = -sum(change for change in changes if change < 0) / period
     if losses == 0:
-        return 100.0
+        return 100.0 if gains else 50.0
     return 100 - 100 / (1 + gains / losses)
 
 
@@ -157,20 +157,17 @@ def analyze(
             },
         )
     if name == "volume":
-        volumes = [c.volume for c in candles if c.volume is not None]
-        average = sum(volumes[:-1]) / len(volumes[:-1]) if len(volumes) > 1 else None
-        state = (
-            "volume_expansion"
-            if average and volumes[-1] > average
-            else "volume_contraction"
-        )
+        state, _, measurements = volume_anomaly(candles, VolumeConfig())
+        if state.startswith(("insufficient", "missing", "invalid")):
+            return state, None, measurements
+        activity = measurements["activity"]
         return (
-            state,
+            f"volume_{activity}",
             bias,
             {
-                "last_volume": volumes[-1] if volumes else None,
-                "average_volume": average,
-                "scope": "exchange_specific",
+                **measurements,
+                "last_volume": candles[-1].volume,
+                "average_volume": measurements["baseline"],
             },
         )
     if name == "momentum":
