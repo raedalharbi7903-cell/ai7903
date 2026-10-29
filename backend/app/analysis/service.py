@@ -20,7 +20,9 @@ class AnalysisService:
 
     def analyze(self, analysis_input: AnalysisInput) -> AnalysisResult:
         request_id = str(analysis_input.metadata.get("request_id", uuid4()))
-        context = AnalysisContext(analysis_input)
+        # Engines share this request-owned snapshot, never caller-owned objects.
+        # This also prevents in-place frame normalization from changing replay data.
+        context = AnalysisContext(analysis_input.model_copy(deep=True))
         started = perf_counter()
         result = AnalysisPipeline(self._engines or default_engines()).run(context)
         confidence = context.output("confidence")

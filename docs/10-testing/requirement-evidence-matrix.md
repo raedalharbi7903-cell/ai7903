@@ -29,8 +29,8 @@ from compilation or synthetic fixtures.
 | AI constrained narrative | engines.py AIReasoningLayer | test_pipeline.py unavailable-provider behavior | BLOCKED: no approved/configured provider; no narrative implementation |
 | Live cryptocurrency data | providers.py | fixture-only API tests | BLOCKED: rights/access not established; no live integration acceptance |
 | Authentication and administration | docs/06-security, docs/07-organization | production-demo denial test only | BLOCKED/PARTIAL: role and identity decisions missing; no authentication implementation |
-| Operations and deployment | backend/Dockerfile; scripts/verify.py | 4 verification-runner tests; full gate run | PARTIAL: non-root/healthcheck added; Docker build, hosted CI, deploy, restore and load tests not executed |
-| Documentation/governance | docs; root project-memory files | source inspection and this explicit inventory | PARTIAL: missing governance targets and stale proposed documents remain |
+| Operations and deployment | backend/Dockerfile; scripts/verify.py | hosted run 40917970124; container smoke; tooling tests | PARTIAL: Linux CI/build/runtime verified; deployment, restore and sustained load acceptance incomplete |
+| Documentation/governance | docs; root project-memory files | historical blob checks; inline-file link audit; explicit inventory | PARTIAL: missing documents recovered unchanged; prose consistency and governance acceptance incomplete |
 | Safety/licensing/Git constraints | API fixture boundary; feature branch | provenance tests; git status/remote checks | PASS tested boundaries; rights approval and commercial security acceptance not implied |
 
 ## Unresolved acceptance evidence
@@ -41,6 +41,12 @@ Run 40917970124 at b8d8499 passed the complete Linux backend/frontend suite,
 Docker build and container runtime smoke. The earlier frontend startup failure
 below is historical: preserving the virtualenv interpreter path fixed it.
 Current verified counts: 227 backend, 15 frontend and 11 tooling tests, 17 gates.
+
+Request-isolation update: local gates now pass 236 backend, 16 frontend and
+11 tooling tests. The service copies caller input into a request-owned snapshot;
+mutation, 64-call service isolation, 32-call API isolation and 16 concurrent actual
+HTTP client requests are covered. See [bounded acceptance](request-isolation-acceptance.md).
+This extends regression evidence, not production security/capacity certification.
 
 Run 40915941075 verified container build, loopback health, non-root UID and
 production-demo denial. Hosted full-stack verification remains FAIL on Linux

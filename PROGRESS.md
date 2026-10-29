@@ -5,6 +5,25 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Request isolation and fixture-security continuation
+
+Previous turn was progress at cd60ff5. The mutation-probe test reproduced caller
+input corruption through shared AnalysisContext. Fixed by copying AnalysisInput
+deeply at the service boundary; no public contracts or engine ordering changed.
+Tests cover nested caller-state preservation, 64 parallel service requests with
+mixed failures, 32 parallel API requests with provider/external-GET denial hooks,
+negative candle validation and fixture-size limits. Added 16 concurrent actual
+HTTP requests via the typed frontend client to isolated Uvicorn/FastAPI.
+These are bounded regression workloads, not production capacity/security claims.
+Acceptance scope is in docs/10-testing/request-isolation-acceptance.md.
+
+Full 17-gate run PASSED: 236 backend, 16 frontend and 11 tooling tests.
+Post-change synthetic sequential benchmark (20 samples, incomplete MTF workload):
+p95 1.108ms / 4.068ms / 12.909ms for 32 / 256 / 1024 candles. Maximum at 1024
+was 20.039ms. Snapshot copying has a cost; no production SLA is inferred.
+External licensing, identity/administration,
+AI-provider and deployment decisions remain unresolved; no scope was removed.
+
 ## Hosted POSIX fix verified
 
 Run 40917970124, job 123603158560, commit b8d8499 completed SUCCESS:

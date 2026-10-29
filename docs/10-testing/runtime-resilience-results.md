@@ -43,6 +43,13 @@ acceptance, a complete all-engine workload, or a financial result. No production
 SLO is asserted. Licensed-data workloads, concurrency, database/network overhead
 and deployment-specific resource limits remain unverified.
 
+After request-owned deep snapshots were added, another 20-sample local run measured
+p95 1.108ms (32 candles), 4.068ms (256), 12.909ms (1024); maximum at 1024 was
+20.039ms. These are separate machine-time observations, not controlled causal
+attribution or a production SLA. Bounded concurrency regression evidence is now
+documented in [Request isolation acceptance](request-isolation-acceptance.md);
+sustained production-load acceptance remains unverified.
+
 ## Closed-history regression update
 
 Freshness is measured from the last closed observation, not an incomplete tail.
