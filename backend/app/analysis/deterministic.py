@@ -1,24 +1,22 @@
-from dataclasses import dataclass
 from math import sqrt
 
+from app.analysis.advanced import (
+    DivergenceConfig as DivergenceConfig,
+)
+from app.analysis.advanced import (
+    StructureConfig,
+    SweepConfig,
+    VolumeConfig,
+    closed_prefix,
+    divergence,
+    liquidity_sweep,
+    market_transition,
+    volume_anomaly,
+)
+from app.analysis.advanced import (
+    confirmed_pivots as confirmed_pivots,
+)
 from app.analysis.models import Candle
-
-
-@dataclass(frozen=True)
-class DivergenceConfig:
-    left_window: int = 1
-    right_window: int = 1
-    minimum_separation: int = 1
-    alignment_tolerance: int = 1
-    minimum_magnitude: float = 0.0
-
-    def __post_init__(self) -> None:
-        if self.left_window < 1 or self.right_window < 1:
-            raise ValueError("Pivot confirmation windows must be positive")
-        if self.minimum_separation < 1 or self.alignment_tolerance < 0:
-            raise ValueError("Pivot separation/tolerance is invalid")
-        if self.minimum_magnitude < 0:
-            raise ValueError("Minimum divergence magnitude cannot be negative")
 
 
 def closes(candles: list[Candle]) -> list[float]:
@@ -66,26 +64,19 @@ def correlation(first: list[float], second: list[float]) -> float | None:
     return numerator / (left * right) if left and right else None
 
 
-def confirmed_pivots(
-    values: list[float], left: int = 1, right: int = 1
-) -> list[tuple[int, str, float]]:
-    """Return only pivots whose right-side confirmation exists in the prefix."""
-    pivots: list[tuple[int, str, float]] = []
-    for index in range(left, len(values) - right):
-        before, after = (
-            values[index - left : index],
-            values[index + 1 : index + 1 + right],
-        )
-        if values[index] < min(before) and values[index] <= min(after):
-            pivots.append((index, "low", values[index]))
-        elif values[index] > max(before) and values[index] >= max(after):
-            pivots.append((index, "high", values[index]))
-    return pivots
-
-
 def analyze(
-    name: str, candles: list[Candle]
+    name: str, candles: list[Candle], configuration: dict[str, object] | None = None
 ) -> tuple[str, str | None, dict[str, object]]:
+    candles = closed_prefix(candles)
+    configuration = configuration or {}
+    if name == "momentum_divergence":
+        return divergence(candles, DivergenceConfig(**configuration))
+    if name == "volume_anomaly":
+        return volume_anomaly(candles, VolumeConfig(**configuration))
+    if name == "liquidity_sweep":
+        return liquidity_sweep(candles, SweepConfig(**configuration))
+    if name == "market_transition":
+        return market_transition(candles, StructureConfig(**configuration))
     values = closes(candles)
     if len(values) < 5:
         return "insufficient history", None, {}
@@ -182,22 +173,6 @@ def analyze(
                 "scope": "exchange_specific",
             },
         )
-    if name == "volume_anomaly":
-        volumes = [c.volume for c in candles if c.volume is not None]
-        if len(volumes) < 6 or any(volume < 0 for volume in volumes):
-            return "insufficient_volume_history", None, {"sample_size": len(volumes)}
-        baseline = sum(volumes[-6:-1]) / 5
-        relative = volumes[-1] / baseline if baseline else None
-        state = (
-            "high_relative_volume"
-            if relative is not None and relative >= 1.5
-            else (
-                "low_relative_volume"
-                if relative is not None and relative <= 0.5
-                else "normal_volume"
-            )
-        )
-        return state, None, {"baseline": baseline, "relative_volume": relative}
     if name == "momentum":
         value = rsi(values)
         state = (
@@ -209,55 +184,6 @@ def analyze(
             state,
             bias,
             {"rsi": value, "roc": (values[-1] - values[-2]) / values[-2]},
-        )
-    if name == "momentum_divergence":
-        if len(candles) < 8:
-            return "insufficient_evidence", None, {"sample_size": len(candles)}
-        momentum = [
-            values[index] - values[index - 1] for index in range(1, len(values))
-        ]
-        price_pivots = confirmed_pivots(values)
-        momentum_pivots = confirmed_pivots([0.0, *momentum])
-        lows = [item for item in price_pivots if item[1] == "low"]
-        highs = [item for item in price_pivots if item[1] == "high"]
-        state = (
-            "regular_bullish_divergence"
-            if len(lows) >= 2
-            and lows[-1][2] < lows[-2][2]
-            and momentum[lows[-1][0] - 1] > momentum[lows[-2][0] - 1]
-            else (
-                "regular_bearish_divergence"
-                if len(highs) >= 2
-                and highs[-1][2] > highs[-2][2]
-                and momentum[highs[-1][0] - 1] < momentum[highs[-2][0] - 1]
-                else (
-                    "hidden_bullish_divergence"
-                    if len(lows) >= 2
-                    and lows[-1][2] > lows[-2][2]
-                    and momentum[lows[-1][0] - 1] < momentum[lows[-2][0] - 1]
-                    else (
-                        "hidden_bearish_divergence"
-                        if len(highs) >= 2
-                        and highs[-1][2] < highs[-2][2]
-                        and momentum[highs[-1][0] - 1] > momentum[highs[-2][0] - 1]
-                        else "no_divergence"
-                    )
-                )
-            )
-        )
-        bias = (
-            "bullish"
-            if state.endswith("bullish_divergence")
-            else "bearish" if state.endswith("bearish_divergence") else None
-        )
-        return (
-            state,
-            bias,
-            {
-                "price_pivots": price_pivots,
-                "momentum_pivots": momentum_pivots,
-                "confirmation_windows": {"left": 1, "right": 1},
-            },
         )
     if name == "volatility":
         value = atr(candles)
@@ -285,11 +211,13 @@ def analyze(
             current.close > current.open
             and previous.close < previous.open
             and current.close >= previous.open
+            and current.open <= previous.close
         )
         bearish_engulfing = (
             current.close < current.open
             and previous.close > previous.open
             and current.close <= previous.open
+            and current.open >= previous.close
         )
         body, spread = abs(current.close - current.open), current.high - current.low
         doji = spread > 0 and body / spread <= 0.1
@@ -297,6 +225,9 @@ def analyze(
         upper_wick = current.high - max(current.open, current.close)
         hammer = body > 0 and lower_wick >= body * 2 and upper_wick <= body
         shooting_star = body > 0 and upper_wick >= body * 2 and lower_wick <= body
+        conflicting = (bullish_engulfing and shooting_star) or (
+            bearish_engulfing and hammer
+        )
         state = (
             "bullish_engulfing"
             if bullish_engulfing
@@ -314,11 +245,15 @@ def analyze(
                 )
             )
         )
+        if conflicting:
+            state = "conflicting_evidence"
         candle_bias = (
             "bullish"
             if bullish_engulfing or hammer
             else "bearish" if bearish_engulfing or shooting_star else None
         )
+        if conflicting or doji:
+            candle_bias = None
         return (
             state,
             candle_bias,
@@ -327,89 +262,10 @@ def analyze(
                 "close": current.close,
                 "body": body,
                 "spread": spread,
-            },
-        )
-    if name == "liquidity_sweep":
-        if len(candles) < 6:
-            return "insufficient_evidence", None, {"sample_size": len(candles)}
-        prior = candles[-6:-1]
-        current = candles[-1]
-        prior_high, prior_low = max(c.high for c in prior), min(c.low for c in prior)
-        if current.high > prior_high and current.close < prior_high:
-            return (
-                "potential_buy_side_sweep",
-                "bearish",
-                {"reference_level": prior_high, "inference": "ohlcv_only"},
-            )
-        if current.low < prior_low and current.close > prior_low:
-            return (
-                "potential_sell_side_sweep",
-                "bullish",
-                {"reference_level": prior_low, "inference": "ohlcv_only"},
-            )
-        return (
-            "no_confirmed_sweep",
-            None,
-            {
-                "reference_high": prior_high,
-                "reference_low": prior_low,
-                "inference": "ohlcv_only",
-            },
-        )
-    if name == "market_transition":
-        if len(candles) < 6:
-            return "insufficient_evidence", None, {"sample_size": len(candles)}
-        recent = closes(candles[-3:])
-        prior = closes(candles[-6:-3])
-        prior_change, recent_change = prior[-1] - prior[0], recent[-1] - recent[0]
-        reference_high = max(c.high for c in candles[-6:-2])
-        reference_low = min(c.low for c in candles[-6:-2])
-        confirmed_bullish_break = (
-            candles[-2].close > reference_high and candles[-1].close > reference_high
-        )
-        confirmed_bearish_break = (
-            candles[-2].close < reference_low and candles[-1].close < reference_low
-        )
-        state = (
-            "confirmed_bullish_structure_break"
-            if confirmed_bullish_break
-            else (
-                "confirmed_bearish_structure_break"
-                if confirmed_bearish_break
-                else (
-                    "bullish_continuation"
-                    if prior_change > 0 and recent_change > 0
-                    else (
-                        "bearish_continuation"
-                        if prior_change < 0 and recent_change < 0
-                        else (
-                            "potential_bullish_transition"
-                            if prior_change < 0 < recent_change
-                            else (
-                                "potential_bearish_transition"
-                                if prior_change > 0 > recent_change
-                                else "range"
-                            )
-                        )
-                    )
-                )
-            )
-        )
-        transition_bias = (
-            "bullish"
-            if "bullish" in state
-            else "bearish" if "bearish" in state else None
-        )
-        return (
-            state,
-            transition_bias,
-            {
-                "prior_change": prior_change,
-                "recent_change": recent_change,
-                "reference_high": reference_high,
-                "reference_low": reference_low,
-                "confirmation_candles": 2,
-                "lookback": 6,
+                "lower_wick": lower_wick,
+                "upper_wick": upper_wick,
+                "context": bias,
+                "reversal_guaranteed": False,
             },
         )
     if name == "correlation":

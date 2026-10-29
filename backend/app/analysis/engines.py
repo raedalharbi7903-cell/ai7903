@@ -147,13 +147,23 @@ class PriceFindingEngine(BaseEngine):
                 warnings=["insufficient candles"],
             )
         observation, bias, measurements = analyze(
-            self.name, context.market_data.candles
+            self.name,
+            context.market_data.candles,
+            context.analysis_input.metadata.get("engine_configuration", {}).get(
+                self.name, {}
+            ),
         )
+        unavailable = observation.startswith(("insufficient", "missing", "invalid"))
         return EngineOutput(
             engine_name=self.name,
-            status=EngineLifecycleStatus.COMPLETED,
+            status=(
+                EngineLifecycleStatus.DEGRADED
+                if unavailable
+                else EngineLifecycleStatus.COMPLETED
+            ),
             data={**measurements, "classification": observation},
-            evidence=[self.finding(context, observation, bias)],
+            evidence=[] if unavailable else [self.finding(context, observation, bias)],
+            warnings=[observation] if unavailable else [],
         )
 
 
