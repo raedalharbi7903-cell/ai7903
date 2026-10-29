@@ -5,6 +5,24 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Hosted POSIX fix verified
+
+Run 40917970124, job 123603158560, commit b8d8499 completed SUCCESS:
+all backend/frontend gates, documentation audit, Docker build, actual container
+health/non-root/production-denial smoke, and evidence upload PASS. Frontend
+integration executed on Linux, confirming the virtualenv symlink root-cause fix.
+Local verification: all 17 gates PASS (227 backend, 15 frontend, 11 tooling tests).
+Removed the ineffective onTestRunEnd diagnostic reporter; retained the native
+failure-only diagnostic for future startup troubleshooting.
+
+Updated confidence documentation with actual uncalibrated runtime semantics and
+pending empirical evaluation; document link audit PASS. This is not full product
+completion: production deployment/restore, full security and concurrency/load
+acceptance, remaining engine methodology review, semantic documentation coverage,
+licensed historical/live data, identity/role and AI-provider decisions remain.
+Next executable package: broader security/concurrency acceptance and complete
+requirement-matrix reconciliation against current runtime evidence.
+
 ## POSIX interpreter-path root-cause correction
 
 Previous turn was progress at 5bbb04e. Verified run 40917306443 / job 123600847179:

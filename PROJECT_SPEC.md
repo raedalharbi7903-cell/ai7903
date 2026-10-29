@@ -68,8 +68,10 @@ audit; semantic consistency and full governance acceptance remain incomplete.
 The baseline table is historical, not the current completion claim. See
 [requirement evidence](docs/10-testing/requirement-evidence-matrix.md) for every
 inventory row, code/test locations, partial scopes and unresolved acceptance.
-The current complete local gate runner passes 13 gates; this does not close
+The current complete local gate runner passes 17 gates; this does not close
 production deployment, empirical calibration, governance or external decisions.
+Hosted run 40917970124 also passed Linux full-stack tests, Docker build and
+container runtime safety checks at b8d8499. This is CI acceptance, not deployment.
 
 Every supported requirement must be implemented, integrated, tested, documented,
 and accurately classified. Full completion requires frontend/API integration,

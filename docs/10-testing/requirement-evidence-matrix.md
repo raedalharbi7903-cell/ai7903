@@ -37,6 +37,11 @@ from compilation or synthetic fixtures.
 
 ### Latest hosted/runtime evidence
 
+Run 40917970124 at b8d8499 passed the complete Linux backend/frontend suite,
+Docker build and container runtime smoke. The earlier frontend startup failure
+below is historical: preserving the virtualenv interpreter path fixed it.
+Current verified counts: 227 backend, 15 frontend and 11 tooling tests, 17 gates.
+
 Run 40915941075 verified container build, loopback health, non-root UID and
 production-demo denial. Hosted full-stack verification remains FAIL on Linux
 frontend startup; local Windows tests do not supersede this failure.
