@@ -1,11 +1,11 @@
 ---
 title: Documentation Portal
 document_id: DOC-PORTAL-001
-version: 1.1.0
+version: 1.2.0
 status: proposed
 owner: Engineering
 reviewers: CTO
-last_updated: 2026-08-11
+last_updated: 2026-10-29
 next_review: 2026-11-11
 related_documents: [DOC-MANIFEST-001]
 ---
@@ -18,9 +18,23 @@ Provide the maintained entry point for the project's official documentation.
 
 ## Scope
 
-This portal indexes the complete documentation foundation. Documentation records approved intent, architecture, policy, and operational practice; it does not replace application source code.
+This portal indexes available documentation, including recovered historical
+proposals. It is not a claim that every document or product requirement is complete.
+Document status and historical dates matter; proposals are not approvals.
+Implementation and verification are tracked separately from intent.
 
 ## Main Content
+
+### Current implementation and evidence
+
+- [Requirement-to-evidence matrix](10-testing/requirement-evidence-matrix.md)
+- [Runtime resilience evidence](10-testing/runtime-resilience-results.md)
+- [Verification runbook](09-devops/verification-runbook.md)
+- [Project specification](../PROJECT_SPEC.md)
+- [Execution progress](../PROGRESS.md)
+
+The product remains incomplete and fixture-only. Historical governance documents
+were recovered unchanged; no approval or architectural change is inferred.
 
 ### Project Governance
 
@@ -101,6 +115,8 @@ Documentation describes approved intent and current reality. It must be updated 
 [Project Manifest](01-project/project-manifest.md)
 
 ## Change History
+
+- 1.2.0 — Added current evidence entry points and historical proposal boundaries.
 
 - 1.1.0 - Expanded the portal for the complete documentation foundation.
 - 1.0.0 - Created the governance documentation portal.

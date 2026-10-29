@@ -1,11 +1,11 @@
 ---
 title: Engine Catalogue
 document_id: DOC-ANALYSIS-CATALOG-001
-version: 2.0.0
+version: 2.2.0
 status: proposed
 owner: Engineering
 reviewers: CTO
-last_updated: 2026-08-16
+last_updated: 2026-10-29
 next_review: 2026-11-16
 related_documents: [DOC-ANALYSIS-PHILOSOPHY-001, DOC-ARCH-PIPELINE-001]
 ---
@@ -18,7 +18,12 @@ Define the canonical 24-component analytical brain without overlapping responsib
 
 ## Scope
 
-Design only. No component algorithm, provider, numerical threshold, formula, or trading behavior is implemented or approved.
+The canonical map describes responsibilities. Fixture-backed deterministic
+implementations now exist in backend/app/analysis; four advanced extensions share
+canonical evidence families rather than adding independent votes. Numerical
+defaults remain provisional and uncalibrated. Live commercial data and AI-provider
+acceptance are not established. Historical design statements below do not prove
+current implementation or product acceptance; use the requirement-evidence matrix.
 
 ## Main Content
 
@@ -300,6 +305,8 @@ Design only. No component algorithm, provider, numerical threshold, formula, or 
 [Engine Contract Standard](engine-contract-standard.md), [Engine Dependency Model](engine-dependency-model.md), [Analysis Output Standard](analysis-output-standard.md)
 
 ## Change History
+
+- 2.2.0 — Corrected obsolete design-only scope; distinguished runtime evidence.
 
 - 2.1.0 - Recorded initial fixture-backed implementation status.
 - 2.0.0 - Finalized canonical 24-component responsibility map.

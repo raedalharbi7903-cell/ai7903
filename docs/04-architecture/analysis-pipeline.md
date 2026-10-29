@@ -1,11 +1,11 @@
 ---
 title: Analysis Pipeline
 document_id: DOC-ARCH-PIPELINE-001
-version: 2.4.0
+version: 2.5.0
 status: proposed
 owner: Engineering
 reviewers: CTO
-last_updated: 2026-10-28
+last_updated: 2026-10-29
 next_review: 2026-11-16
 related_documents: [DOC-ANALYSIS-CATALOG-001, DOC-ANALYSIS-DEPENDENCY_MODEL-001]
 ---
@@ -46,9 +46,15 @@ Historical execution invokes the production service with only a visible candle p
 
 The public decision vocabulary is exercised through the production service. `BUY` and `SELL` require eligible aligned evidence and successful risk/validation gates. `NO_TRADE` represents an ineligible opportunity such as MTF conflict. `WAIT` represents otherwise eligible analysis whose primary input is delayed rather than fresh; it preserves a safe request to wait for a completed fresher candle. `INSUFFICIENT_DATA` is returned when no usable market input can be established.
 
-Risk targets are derived internally from structural risk and optional support/resistance context, so callers cannot submit an arbitrary target override. Invalid target geometry is therefore prevented by construction rather than accepted and subsequently corrected. ATR minimum/maximum distance controls are configurable metadata policies; they are analytical guards, not position-sizing advice. Liquidity remains an OHLCV inference and is never represented as observed order-book depth.
+Risk targets are derived internally from structural risk and optional support/resistance context; callers cannot submit arbitrary target overrides. Internal geometry is still validated: invalid structural targets and poor structural reward/risk are rejected, never replaced by a more optimistic projection. ATR minimum/maximum distance controls are configurable metadata policies; they are analytical guards, not position-sizing advice. Nonfinite or malformed volatility observations fail closed. Liquidity remains an OHLCV inference, never observed order-book depth.
 
-Supported deterministic behavior has dedicated regression coverage for structure/trend direction, candle-derived levels/zones, OHLCV liquidity/volume context, momentum/volatility history boundaries, pattern/candlestick observations, correlation polarity/history, MTF safety, decision states, failure paths, and production-pipeline safety. Divergence detection, institutional-order assertions, observed order-book depth, and bearish candlestick pattern classification are not implemented MVP behaviors.
+Supported deterministic behavior has dedicated regression coverage for structure/trend direction, candle-derived levels/zones, OHLCV liquidity/volume context, momentum/volatility history boundaries, candlestick observations, correlation, MTF safety, decision states and production-pipeline failures. Advanced runtime behavior includes regular/hidden bullish/bearish divergence, confirmed structure breaks, inferred liquidity sweeps, volume anomaly and both engulfing directions, hammer, shooting star and doji. Institutional-order assertions and observed order-book depth remain unsupported. These are deterministic observations, not guaranteed reversals or calibrated profitability claims.
+
+Evidence observation timestamps use the last closed candle; generation time is
+separate. Final safety reconciliation also covers engine failures occurring after
+the validation engine. Historical evaluation is spot-long-only and does not open
+shorts for SELL. Incomplete tails cannot refresh stale closed history. Missing
+volume is unavailable, not a vote based on an older retained sample.
 
 ### Production reachability matrix
 

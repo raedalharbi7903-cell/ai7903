@@ -76,6 +76,15 @@ def test_invalid_freshness_policy_is_rejected(config) -> None:
         FreshnessPolicy(**config)
 
 
+@pytest.mark.parametrize("value", [True, 1.9, "1", -1])
+def test_service_cannot_coerce_invalid_freshness_policy_into_acceptance(value) -> None:
+    source = complete_input()
+    source.metadata["freshness_policy"] = {"delayed_after_intervals": value}
+    result = AnalysisService().analyze(source)
+    assert result.validation.value == "fail"
+    assert result.decision.value not in {"buy", "sell"}
+
+
 def test_stale_closed_prefix_with_recent_incomplete_tail_is_not_actionable() -> None:
     source = complete_input()
     source.data["candles"][-1]["timestamp"] = "2026-01-02T00:00:00Z"

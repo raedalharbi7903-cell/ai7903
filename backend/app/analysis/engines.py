@@ -22,8 +22,8 @@ from app.analysis.providers import validate_market_data
 def _freshness_policy(context: AnalysisContext) -> FreshnessPolicy:
     configured = context.analysis_input.metadata.get("freshness_policy", {})
     return FreshnessPolicy(
-        delayed_after_intervals=int(configured.get("delayed_after_intervals", 1)),
-        stale_after_intervals=int(configured.get("stale_after_intervals", 3)),
+        delayed_after_intervals=configured.get("delayed_after_intervals", 1),
+        stale_after_intervals=configured.get("stale_after_intervals", 3),
         timeframe_seconds=configured.get("timeframe_seconds"),
     )
 

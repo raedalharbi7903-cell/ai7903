@@ -38,6 +38,10 @@ jobs:
           # dependency's own stack mapper fails on the Linux runner.
           NODE_OPTIONS: --enable-source-maps
         run: backend/.venv/bin/python scripts/verify.py
+      - name: Capture original frontend startup diagnostics
+        if: failure()
+        working-directory: frontend
+        run: node tests/diagnose-startup.mjs
       - name: Audit documentation links
         if: always()
         run: backend/.venv/bin/python scripts/audit_documents.py

@@ -5,6 +5,29 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Linux startup investigation and semantic consistency continuation
+
+Previous turn was progress at 0bf8788. Verified run 40916739739 / job 123598875758:
+full-stack FAIL at Linux Vitest startup; Docker build, container smoke, document
+audit and evidence upload PASS. Reporter onTestRunEnd did not execute before the
+startup error, so it did not reveal the underlying exception. Added a CI-only
+supported createVitest API diagnostic after the failing normal gate; it discovers
+test specifications and catches original fields without CLI stack formatting.
+Validated this diagnostic locally; the normal failing gate remains authoritative.
+No toolchain patch release is available beyond installed Vite 8.3.5/Vitest 5.0.5.
+
+Closed internal freshness coercion: boolean, fractional and string settings cannot
+be converted to accepted integer policy values. Added four production-service
+regressions. Corrected genuine stale claims in the catalogue, pipeline document
+and portal; preserved proposal/approval status and did not modify the manifest,
+handbook or architecture baseline. The portal now distinguishes historical intent
+from runtime acceptance and links current evidence.
+
+Final 17-gate local verification PASSED: 210 backend, 15 frontend, 10 tooling tests,
+zero broken inline file links, lint/format/build/type/import/dependency gates PASS.
+Hosted startup remains unresolved;
+next executable task is reading the native diagnostic in the new pushed run.
+
 ## Historical evidence and hosted-runtime continuation
 
 Previous turn was progress at 6ef44a1. Verified GitHub run 40915941075 / job
