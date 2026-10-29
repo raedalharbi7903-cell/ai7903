@@ -5,6 +5,26 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Approval-dependency audit after legacy review
+
+Previous goal turn was progress at 0ac6c0a. This continuation rechecked the clean
+branch and confirmed hosted run 40920993033 / job 123613840218 SUCCESS for that
+commit: full-stack gates, document audit, Docker build/runtime and artifact upload.
+The critical evidence-contribution request has not received explicit CTO approval;
+an automatic continuation is not approval of A or B. No decision/confidence
+contribution rules changed.
+
+Reconciled stale plan table statuses and source-of-truth facts with current
+evidence. Consolidated exact remaining CTO/access dependencies in
+docs/03-engineering/acceptance-dependencies.md. Inline document links and diff
+whitespace check PASS; no application code changed in this continuation.
+
+Next analytical implementation requires the explicit evidence-contribution
+decision. Production/live/AI/auth/admin/deployment acceptance additionally needs
+the provider rights, identity/permissions, configuration and deployment/recovery
+decisions listed in that register. The full goal remains incomplete; no approvals,
+commercial rights, calibration evidence or implementation scope are invented.
+
 ## Legacy methodology and numerical review continuation
 
 Previous turn was progress at 1678fb3. Eighteen initial boundary tests reproduced

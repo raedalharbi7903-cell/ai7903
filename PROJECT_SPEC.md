@@ -50,8 +50,8 @@ votes. All components remain in scope.
 
 docs/02-product/product-requirements.md leaves pricing and recommendation behavior
 Decision Required. docs/07-organization/administrative-roles.md explicitly says
-administrative roles cannot be recovered. The referenced project manifest,
-architecture baseline and several governance documents are absent from tracked files.
+administrative roles cannot be recovered. Governance/baseline documents initially
+missing from this checkout were recovered unchanged from historical commits.
 Do not manufacture their approval or replace missing history with assumptions.
 Authentication provider, production deployment target, AI provider, real data rights,
 role-permission matrix, and exact release milestones need explicit evidence/decisions.
@@ -72,6 +72,11 @@ The current complete local gate runner passes 17 gates; this does not close
 production deployment, empirical calibration, governance or external decisions.
 Hosted run 40917970124 also passed Linux full-stack tests, Docker build and
 container runtime safety checks at b8d8499. This is CI acceptance, not deployment.
+
+The critical cross-family direction-reuse issue remains open. Changing decision/
+confidence contributions requires explicit CTO approval, not an automatic goal
+continuation. [Approval dependencies](docs/03-engineering/acceptance-dependencies.md)
+records the exact decisions/evidence needed without inventing product behavior.
 
 Every supported requirement must be implemented, integrated, tested, documented,
 and accurately classified. Full completion requires frontend/API integration,
