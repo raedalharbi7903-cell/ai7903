@@ -15,6 +15,8 @@ from tests.analysis.test_pipeline import fixture_input
 
 def complete_input() -> AnalysisInput:
     source = fixture_input()
+    # A historical upper wick supplies a target beyond the structural stop distance.
+    source.data["candles"][2]["high"] = 30
     source.metadata["timeframes"] = {
         "htf": source.data,
         "itf": source.data,
@@ -32,6 +34,9 @@ def bearish_input() -> AnalysisInput:
         candle["high"] = max(candle["open"], candle["close"]) + 1
         candle["low"] = min(candle["open"], candle["close"]) - 1
     source.data = bearish
+    # A real lower reference level is required; do not rely on target projection
+    # to bypass a nearby structural target.
+    bearish["candles"][2]["low"] = 1
     source.metadata["timeframes"] = {
         "htf": bearish,
         "itf": bearish,

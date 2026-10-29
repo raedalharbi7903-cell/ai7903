@@ -1,4 +1,5 @@
 from datetime import UTC, datetime
+from math import isfinite
 
 import httpx
 
@@ -45,11 +46,16 @@ class OkxProvider:
 
 def validate_market_data(data: MarketData) -> ValidationStatus:
     stamps = [c.timestamp for c in data.candles]
+    if any(stamp.tzinfo is None for stamp in stamps):
+        return ValidationStatus.FAIL
     if len(stamps) != len(set(stamps)):
         return ValidationStatus.FAIL
     if any(
-        c.low < 0
-        or c.high <= 0
+        any(
+            not isfinite(value) or value <= 0
+            for value in (c.open, c.high, c.low, c.close)
+        )
+        or (c.volume is not None and (not isfinite(c.volume) or c.volume < 0))
         or c.low > min(c.open, c.close)
         or c.high < max(c.open, c.close)
         for c in data.candles

@@ -13,14 +13,14 @@ Product status: NOT COMPLETE
 
 ## Active package
 
-P2: safety integration. P1 implemented matched confirmed pivots, effective divergence,
+P4: frontend/API integration, following safety hardening. P1 implemented matched confirmed pivots, effective divergence,
 volume/sweep/structure settings, rejection confirmation, single-event structure
 breaks, closed-prefix handling, and engulfing/conflicting-pattern correction.
 
 ## Validation evidence
 
 - Backend: `.venv/Scripts/python -m pytest -o cache_dir=.pytest_cache_execution`:
-  **120 passed** (72 existing plus 48 new), 2.88 seconds.
+  **159 passed** (72 existing plus 87 new), 2.40 seconds after API/safety changes.
 - Backend: `.venv/Scripts/python -m ruff check .`: PASS.
 - Black applied to app/tests; final check will be repeated before delivery.
 - Default pytest cache initially produced Windows access-denied warning; an alternate
@@ -40,4 +40,17 @@ inspected repository. These do not block deterministic fixture development.
 
 ## Commits
 
-Baseline above; this execution has not committed implementation yet.
+- c5d091d: integrated advanced methodologies, 48 behavioral tests, project memory.
+
+## Safety corrections
+
+- Same-family contradictions now block confluence even when the second finding is
+  marked non-independent; duplicate engines do not create votes.
+- Invalid numerical/price data is rejected before deterministic calculations.
+- Poor structural target reward cannot be replaced by an optimistic projection.
+- Final explanations use the safety-rejected decision.
+- API requests validate fixture provenance, spot scope, supported timeframes,
+  engine settings, and non-weakened risk bounds. Validation errors do not echo input.
+- Five legacy tests initially failed because their expectations depended on unsafe
+  target fallback or on stale data remaining available. Tests now explicitly check
+  rejection, or supply actual structural levels for valid BUY/SELL cases.

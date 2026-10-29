@@ -30,7 +30,9 @@ def test_backtest_is_sequential_and_reproducible() -> None:
     result = HistoricalBacktester().run(
         candles(), "synthetic-unit-fixture", BacktestConfig("v1", "p1")
     )
-    assert result.trades == 1
+    # Nearby resistance makes the original fixture's reward/risk unacceptable.
+    assert result.trades == 0
+    assert result.validated_decisions == 0
     assert len(result.decisions) == 3
 
 

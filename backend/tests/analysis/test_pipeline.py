@@ -66,6 +66,7 @@ def test_default_pipeline_contains_canonical_components() -> None:
 
 def test_fixture_pipeline_is_traceable_and_validated() -> None:
     analysis_input = fixture_input()
+    analysis_input.data["candles"][2]["high"] = 30
     analysis_input.metadata["timeframes"] = {
         "htf": analysis_input.data,
         "itf": analysis_input.data,

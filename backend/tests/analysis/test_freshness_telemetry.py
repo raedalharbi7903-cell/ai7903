@@ -91,5 +91,5 @@ def test_stale_primary_data_prevents_executable_decision() -> None:
         "ltf": source.data,
     }
     result = AnalysisService().analyze(source)
-    assert result.decision.value == "no_trade"
+    assert result.decision.value == "insufficient_data"
     assert result.validation.value == "fail"

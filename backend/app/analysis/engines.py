@@ -1,6 +1,8 @@
 from datetime import UTC, datetime
+from math import isfinite
 from uuid import uuid4
 
+from app.analysis.advanced import closed_prefix
 from app.analysis.context import AnalysisContext
 from app.analysis.deterministic import analyze, correlation
 from app.analysis.freshness import FreshnessPolicy, assess_candles, assess_market_data
@@ -74,32 +76,42 @@ class DataEngine(BaseEngine):
     def analyze(self, context: AnalysisContext) -> EngineOutput:
         try:
             data = MarketData.model_validate(context.analysis_input.data)
-        except Exception as error:
+        except (TypeError, ValueError):
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.FAILED,
-                warnings=[str(error)],
+                warnings=["market data schema validation failed"],
             )
         context.market_data = data
         quality = validate_market_data(data)
-        data.quality_status = quality
-        reference = _decision_timestamp(context, data)
-        freshness = assess_market_data(data, reference, _freshness_policy(context))
-        data.freshness_status = freshness.status
-        data.freshness_reason = freshness.reason
         if quality == ValidationStatus.FAIL:
+            context.market_data = None
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.FAILED,
                 warnings=["market data quality validation failed"],
             )
+        data.quality_status = quality
+        reference = _decision_timestamp(context, data)
+        freshness = assess_market_data(data, reference, _freshness_policy(context))
+        data.freshness_status = freshness.status
+        data.freshness_reason = freshness.reason
         if freshness.status in {FreshnessStatus.STALE, FreshnessStatus.INVALID}:
             data.quality_status = ValidationStatus.DEGRADED
+            context.market_data = None
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.DEGRADED,
                 data={"freshness": freshness.status, "reason": freshness.reason},
                 warnings=[f"market data freshness is {freshness.status}"],
+            )
+        data.candles = closed_prefix(data.candles)
+        if not data.candles:
+            context.market_data = None
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["no closed candles available"],
             )
         return EngineOutput(
             engine_name=self.name,
@@ -146,13 +158,20 @@ class PriceFindingEngine(BaseEngine):
                 status=EngineLifecycleStatus.DEGRADED,
                 warnings=["insufficient candles"],
             )
-        observation, bias, measurements = analyze(
-            self.name,
-            context.market_data.candles,
-            context.analysis_input.metadata.get("engine_configuration", {}).get(
-                self.name, {}
-            ),
-        )
+        try:
+            observation, bias, measurements = analyze(
+                self.name,
+                context.market_data.candles,
+                context.analysis_input.metadata.get("engine_configuration", {}).get(
+                    self.name, {}
+                ),
+            )
+        except (TypeError, ValueError, AttributeError):
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["invalid engine configuration or numerical input"],
+            )
         unavailable = observation.startswith(("insufficient", "missing", "invalid"))
         return EngineOutput(
             engine_name=self.name,
@@ -410,7 +429,7 @@ class ConfluenceEngine(BaseEngine):
     def analyze(self, context: AnalysisContext) -> EngineOutput:
         family_biases: dict[str, set[str]] = {}
         for item in context.evidence:
-            if item.independent and item.bias in {"bullish", "bearish"}:
+            if item.bias in {"bullish", "bearish"}:
                 family_biases.setdefault(item.family, set()).add(item.bias)
         conflicted_families = {
             family for family, biases in family_biases.items() if len(biases) > 1
@@ -420,8 +439,11 @@ class ConfluenceEngine(BaseEngine):
             for family, biases in family_biases.items()
             if family not in conflicted_families
         ]
-        aligned = len(set(directional)) == 1 and bool(directional)
+        aligned = (
+            len(set(directional)) == 1 and bool(directional) and not conflicted_families
+        )
         context.state["confluence"] = aligned
+        context.state["directional_families"] = len(directional)
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
@@ -510,7 +532,13 @@ class RiskEngine(BaseEngine):
             )
         price = data.candles[-1].close
         invalidation = structure.data.get("invalidation")
-        if not isinstance(invalidation, int | float) or invalidation == price:
+        if (
+            not isinstance(invalidation, int | float)
+            or isinstance(invalidation, bool)
+            or not isfinite(invalidation)
+            or invalidation <= 0
+            or invalidation == price
+        ):
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.DEGRADED,
@@ -539,6 +567,17 @@ class RiskEngine(BaseEngine):
         max_atr_multiple = float(
             context.analysis_input.metadata.get("maximum_stop_atr_multiple", 5.0)
         )
+        if (
+            not isfinite(min_atr_multiple)
+            or not isfinite(max_atr_multiple)
+            or min_atr_multiple < 0
+            or max_atr_multiple < min_atr_multiple
+        ):
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["invalid volatility risk policy"],
+            )
         if isinstance(atr, int | float) and atr > 0:
             if risk < atr * min_atr_multiple:
                 return EngineOutput(
@@ -561,6 +600,24 @@ class RiskEngine(BaseEngine):
         minimum_rr = float(
             context.analysis_input.metadata.get("minimum_risk_reward", 1.0)
         )
+        if not isfinite(minimum_rr) or minimum_rr <= 0:
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["invalid minimum risk/reward"],
+            )
+        if structural_target is not None and (
+            not isinstance(structural_target, int | float)
+            or isinstance(structural_target, bool)
+            or not isfinite(structural_target)
+            or structural_target <= 0
+            or (structural_target <= price if is_buy else structural_target >= price)
+        ):
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["structural target is invalid"],
+            )
         projected_target = price + risk * 2 if is_buy else price - risk * 2
         structural_candidate = (
             min(projected_target, structural_target)
@@ -575,12 +632,9 @@ class RiskEngine(BaseEngine):
                 else projected_target
             )
         )
-        candidate_rr = abs(structural_candidate - price) / risk
-        target = (
-            structural_candidate if candidate_rr >= minimum_rr else projected_target
-        )
+        target = structural_candidate
         risk_reward = abs(target - price) / risk
-        if risk_reward < minimum_rr:
+        if not isfinite(target) or target <= 0 or risk_reward < minimum_rr:
             return EngineOutput(
                 engine_name=self.name,
                 status=EngineLifecycleStatus.FAILED,
@@ -596,6 +650,9 @@ class RiskEngine(BaseEngine):
                 "target": target,
                 "risk_reward": risk_reward,
                 "structural_risk": risk,
+                "target_source": (
+                    "structural" if structural_target is not None else "projection"
+                ),
                 "risk_quality": (
                     "structural_volatility_aware"
                     if isinstance(atr, int | float) and atr > 0
@@ -615,7 +672,7 @@ class ConfidenceEngine(BaseEngine):
     name, family = "confidence", "confidence"
 
     def analyze(self, context: AnalysisContext) -> EngineOutput:
-        families = len({item.family for item in context.evidence if item.independent})
+        families = int(context.state.get("directional_families", 0))
         alignment = context.state.get("mtf_alignment", "unknown")
         risk = context.output("risk")
         data_quality = (
@@ -694,6 +751,23 @@ class ValidationEngine(BaseEngine):
         if confidence is None:
             status = ValidationStatus.FAIL
             reasons.append("confidence output unavailable")
+        if any(
+            output.status == EngineLifecycleStatus.FAILED for output in context.outputs
+        ):
+            status = ValidationStatus.FAIL
+            reasons.append("required engine failed")
+        if (
+            context.market_data
+            and context.market_data.quality_status != ValidationStatus.PASS
+        ):
+            status = ValidationStatus.FAIL
+            reasons.append("market data quality is unacceptable")
+        if status == ValidationStatus.FAIL:
+            context.state["decision"] = (
+                DecisionState.NO_TRADE
+                if context.market_data
+                else DecisionState.INSUFFICIENT_DATA
+            )
         context.state["validation"] = status
         return EngineOutput(
             engine_name=self.name,
