@@ -73,10 +73,12 @@ production deployment, empirical calibration, governance or external decisions.
 Hosted run 40917970124 also passed Linux full-stack tests, Docker build and
 container runtime safety checks at b8d8499. This is CI acceptance, not deployment.
 
-The critical cross-family direction-reuse issue remains open. Changing decision/
-confidence contributions requires explicit CTO approval, not an automatic goal
-continuation. [Approval dependencies](docs/03-engineering/acceptance-dependencies.md)
-records the exact decisions/evidence needed without inventing product behavior.
+The CTO approved Option A on 2026-10-29: context, level/zone and basic liquidity
+observations now remain non-directional. Their measurements remain available;
+own-method sweep inference retains direction. This closes the specific approval
+blocker without claiming empirical independence/calibration of remaining methods.
+[Approval dependencies](docs/03-engineering/acceptance-dependencies.md) records
+other unresolved product/access decisions without inventing behavior.
 
 Every supported requirement must be implemented, integrated, tested, documented,
 and accurately classified. Full completion requires frontend/API integration,

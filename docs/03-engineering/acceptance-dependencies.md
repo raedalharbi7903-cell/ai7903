@@ -44,8 +44,13 @@ votes. Cons: changes fixture decisions/confidence and reduces actionable results
 family before implementation. Pros: richer analytical semantics and an auditable
 design. Cons: additional design/calibration work and no immediate independence fix.
 
-Neither option has been approved. Engineering must not silently implement either
-as a routine cleanup because decision/confidence behavior changes are red-level.
+On 2026-10-29 the CTO explicitly approved Option A through the approval question:
+"keep context, levels and liquidity non-directional unless their own approved
+method establishes direction." This authorizes removing inherited directional
+votes from market context, support/resistance, supply/demand range/zone observations,
+and basic liquidity. Sweep findings retain their separately implemented directional
+method and existing liquidity family. It does not approve new weights, thresholds,
+methodologies for other families, or calibrated confidence claims.
 
 ### Acceptance evidence already obtained
 

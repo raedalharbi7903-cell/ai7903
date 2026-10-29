@@ -1,7 +1,7 @@
 ---
 title: Legacy Deterministic Methodology Review
 document_id: DOC-ANALYSIS-LEGACY-REVIEW-001
-version: 1.0.0
+version: 1.1.0
 status: decision-required
 owner: Engineering
 reviewers: CTO
@@ -23,6 +23,15 @@ Current deterministic.py and related registered engines. This review does not
 approve new formulas, evidence weights, confidence behavior or product strategy.
 
 ## Main content
+
+The table below records the pre-approval baseline that prompted Option A.
+On 2026-10-29 the CTO approved A. Market context, support/resistance, supply/demand
+level/zone observations and basic liquidity now retain measurements but emit no
+directional bias. This changes their confluence/confidence contribution, not
+confidence thresholds, risk geometry or the decision vocabulary. Liquidity sweeps
+retain their separately tested inference direction and existing family grouping.
+The frontend labels non-directional evidence explicitly. Broader statistical
+independence or empirical calibration across remaining families is not implied.
 
 | Component | Actual current methodology | Remaining limitation |
 | --- | --- | --- |
@@ -67,9 +76,9 @@ CTO approval under the permanent red-level policy:
   family before implementing them. More expressive; requires methodological design,
   calibration evidence and additional behavioral acceptance.
 
-Recommendation: A as the immediate safety correction, followed by B only through
-an approved methodology specification. No confidence weights, decision logic or
-family taxonomy were changed by this review.
+Option A is approved and implemented as described above. Option B remains a
+possible later methodology specification, not authorization for new algorithms.
+No confidence thresholds or family taxonomy were changed.
 
 ## Related documents
 
@@ -78,5 +87,7 @@ family taxonomy were changed by this review.
 - [Requirement evidence](../10-testing/requirement-evidence-matrix.md)
 
 ## Change history
+
+- 1.1.0 — Recorded explicit CTO approval and implemented bounded Option A.
 
 - 1.0.0 — Recorded actual methods, numerical fixes and unresolved independence issue.

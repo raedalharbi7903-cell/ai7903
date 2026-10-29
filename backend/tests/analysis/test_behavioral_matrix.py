@@ -42,7 +42,8 @@ def test_support_resistance_and_supply_demand_are_candle_derived() -> None:
     _, _, levels = analyze("support_resistance", candles)
     _, bias, zone = analyze("supply_demand", candles)
     assert levels["support"] < levels["resistance"]
-    assert bias == "bullish"
+    # CTO Option A: a range/zone observation is not an independent direction vote.
+    assert bias is None
     assert zone["observation"] == "inferred_from_ohlcv"
 
 

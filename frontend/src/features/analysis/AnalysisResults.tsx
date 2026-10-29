@@ -98,6 +98,10 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
                   <small>
                     {item.source_engine} ·{" "}
                     {item.independent ? "family representative" : "shared family"}
+                    {" · "}
+                    {item.bias === "bullish" || item.bias === "bearish"
+                      ? label(item.bias)
+                      : "non-directional observation"}
                   </small>
                 </li>
               ))}

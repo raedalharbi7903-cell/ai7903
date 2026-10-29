@@ -155,7 +155,7 @@ class MarketContextEngine(BaseEngine):
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
-            evidence=[self.finding(context, f"context is {bias}", bias)],
+            evidence=[self.finding(context, f"context is {bias}")],
         )
 
 

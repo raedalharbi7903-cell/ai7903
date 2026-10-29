@@ -155,7 +155,7 @@ def analyze(
     if name == "support_resistance":
         return (
             "recent_reaction_range",
-            bias,
+            None,
             {
                 "support": recent_low,
                 "resistance": recent_high,
@@ -167,7 +167,7 @@ def analyze(
     if name == "supply_demand":
         return (
             "inferred_demand_zone" if bias == "bullish" else "inferred_supply_zone",
-            bias,
+            None,
             {
                 "zone_low": recent_low,
                 "zone_high": recent_high,
@@ -181,7 +181,7 @@ def analyze(
         )
         return (
             "swing_liquidity",
-            bias,
+            None,
             {
                 "equal_high_pairs": equal_highs,
                 "swing_high": recent_high,

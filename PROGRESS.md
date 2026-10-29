@@ -5,6 +5,27 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## CTO-approved Option A implementation
+
+CTO explicitly approved Option A on 2026-10-29 through the pending approval
+question. Removed inherited directional contributions from market context,
+support/resistance, supply/demand level/zone observations and basic liquidity.
+Measurements, provenance and classifications remain available. Advanced sweep
+direction retains its own tested rejection method and existing family grouping.
+No confidence threshold, decision vocabulary, risk gate or engine order changed.
+
+Added production-service contribution tests and contextual-only decision/confidence
+tests. The first run exposed two wrong new-test family-count expectations (pattern
+evidence is a fifth remaining family) and a legacy backtest count expectation:
+short prefixes now correctly validate as safe NO_TRADE instead of being forced
+directional by contextual votes. Corrected assertions while retaining zero trades
+and explicit safe-decision checks. Added API serialization acceptance and frontend
+non-directional evidence labels with a component test. Full quality verification
+PASSED all 17 gates: 273 backend, 17 frontend and 11 tooling tests; hosted
+acceptance for this changed behavior is pending.
+This approval resolves the specific A/B blocker; other provider/access/production
+decisions and broader methodology validation remain open.
+
 ## Approval-dependency audit after legacy review
 
 Previous goal turn was progress at 0ac6c0a. This continuation rechecked the clean

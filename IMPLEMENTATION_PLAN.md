@@ -18,6 +18,12 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+CTO Option A approved on 2026-10-29 and implemented: contextual/level-zone/basic
+liquidity observations no longer contribute inherited direction to confluence or
+confidence. Production-service, API serialization, contextual-only and retained
+sweep-method regressions cover this change. The earlier P2 approval dependency is
+resolved for this bounded correction; broader empirical method validation remains.
+
 P0 is established. P1-P4 have verified integrated implementation at 7494cf8, with
 remaining methodological limits listed in the requirement-evidence matrix.
 P5 includes non-root container/healthcheck, reproducible verification runner,

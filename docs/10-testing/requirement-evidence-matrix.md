@@ -35,10 +35,15 @@ from compilation or synthetic fixtures.
 
 ## Unresolved acceptance evidence
 
-Critical: [legacy methodology review](../05-analysis/legacy-methodology-review.md)
-identifies reused price-direction contributions across nominal families. A change
-to decision/confidence contributions requires CTO approval. Neither existing
-synthetic tests nor different family labels establish independent analytical support.
+The CTO approved Option A identified in the
+[legacy methodology review](../05-analysis/legacy-methodology-review.md).
+Context, support/resistance, supply/demand zone and basic liquidity findings now
+serialize null direction and do not add confluence/confidence votes. Their
+measurements remain intact. Own-method liquidity sweeps retain direction but share
+one liquidity family. Tests: test_contextual_contributions.py, including service,
+API and contextual-only paths; frontend labels null/neutral findings as
+non-directional observations. Remaining method independence/calibration is not
+established merely by different family labels.
 
 ### Latest hosted/runtime evidence
 

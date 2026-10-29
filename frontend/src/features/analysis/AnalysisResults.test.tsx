@@ -6,6 +6,21 @@ import { syntheticResult } from "../../test/results";
 import { createFixture } from "./fixture";
 
 describe("analysis contracts and display", () => {
+  it("identifies contextual findings as non-directional observations", () => {
+    const result = syntheticResult();
+    result.outputs[1].evidence.push({
+      evidence_id: "context-test",
+      source_engine: "market_context",
+      family: "context",
+      finding: "context is bullish",
+      bias: null,
+      independent: true,
+      provenance: { provider: "synthetic-unit-test", fixture: "True" },
+    });
+    render(<AnalysisResults result={result} />);
+    expect(screen.getByText(/non-directional observation/)).toBeVisible();
+    expect(screen.getByText(/context is bullish/)).toBeVisible();
+  });
   it.each(decisions)("renders %s without inventing confidence", (decision) => {
     render(<AnalysisResults result={syntheticResult(decision)} />);
     expect(

@@ -32,7 +32,10 @@ def test_backtest_is_sequential_and_reproducible() -> None:
     )
     # Nearby resistance makes the original fixture's reward/risk unacceptable.
     assert result.trades == 0
-    assert result.validated_decisions == 0
+    # With contextual votes removed, the two short prefixes are validated safe
+    # NO_TRADE results rather than artificially directional risk rejections.
+    assert result.validated_decisions == 2
+    assert all(decision == DecisionState.NO_TRADE for decision in result.decisions)
     assert len(result.decisions) == 3
 
 
