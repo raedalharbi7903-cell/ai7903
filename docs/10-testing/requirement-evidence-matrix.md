@@ -55,6 +55,9 @@ test_database_session_lifecycle.py covers cleanup/rollback/no hidden commits.
 These do not prove production database recovery, scheduled backups, offsite
 retention or approved RPO/RTO. Container packaging now includes migration sources;
 the extended packaged-migration smoke requires its own hosted run evidence.
+That evidence is now available: GitHub run 40919739638 at 7addc48 completed
+successfully, including the packaged-migration smoke. Counts: 243 backend,
+16 frontend, 11 tooling tests across 17 local/hosted gates.
 
 Run 40915941075 verified container build, loopback health, non-root UID and
 production-demo denial. Hosted full-stack verification remains FAIL on Linux

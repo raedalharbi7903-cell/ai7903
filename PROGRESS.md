@@ -20,6 +20,10 @@ Hosted confirmation of this new packaging/smoke extension is pending; earlier
 container results do not prove this extension. Full local 17-gate run PASSED:
 243 backend, 16 frontend, 11 tooling tests. Adding Alembic env.py to the lint/
 format gates exposed an existing import-order failure; corrected and reran all.
+Hosted confirmation obtained: run 40919739638, job 123609406267, commit 7addc48
+completed SUCCESS. Full-stack gates, document audit, Docker build and extended
+container smoke (including packaged Alembic upgrade/current) all PASS. This closes
+CI migration packaging verification, not production deployment or backup policy.
 Backup documentation now distinguishes disposable SQLite evidence from unapproved
 production recovery/storage/RPO/RTO decisions. No business tables were introduced.
 
