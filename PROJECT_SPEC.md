@@ -58,6 +58,14 @@ role-permission matrix, and exact release milestones need explicit evidence/deci
 
 ## Acceptance
 
+## Current verification overlay
+
+The baseline table is historical, not the current completion claim. See
+[requirement evidence](docs/10-testing/requirement-evidence-matrix.md) for every
+inventory row, code/test locations, partial scopes and unresolved acceptance.
+The current complete local gate runner passes 13 gates; this does not close
+production deployment, empirical calibration, governance or external decisions.
+
 Every supported requirement must be implemented, integrated, tested, documented,
 and accurately classified. Full completion requires frontend/API integration,
 historical safety, risk gates, and operational/security acceptance, not just compilation.

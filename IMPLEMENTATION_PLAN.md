@@ -15,3 +15,14 @@ Version: 1.0 | Updated: 2026-10-29 | Status: executing
 After each substantial package, record exact commands and outcomes in PROGRESS.md,
 commit coherent progress, then continue independent executable work. No arbitrary
 single-file checkpoint counts as completion.
+
+## Current evidence overlay
+
+P0 is established. P1-P4 have verified integrated implementation at 7494cf8, with
+remaining methodological limits listed in the requirement-evidence matrix.
+P5 is active: non-root container/healthcheck, reproducible verification runner,
+runner failure tests and operational runbook added. Docker execution remains
+environment-blocked. P6 local gates pass, but full product acceptance remains
+incomplete. Next: hosted CI configuration/execution and documentation consistency
+audit, followed by remaining independent security/performance work. External
+provider/identity/role decisions remain unresolved, not silently deferred.
