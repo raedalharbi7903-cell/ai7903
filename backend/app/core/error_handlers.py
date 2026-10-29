@@ -1,3 +1,4 @@
+import structlog
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
@@ -44,3 +45,11 @@ def register_exception_handlers(app: FastAPI) -> None:
     @app.exception_handler(SQLAlchemyError)
     async def database_error(_: Request, __: SQLAlchemyError) -> JSONResponse:
         return _response(500, "database_error", "A database operation failed")
+
+    @app.exception_handler(Exception)
+    async def unexpected_error(_: Request, exc: Exception) -> JSONResponse:
+        # Neither input nor exception messages are safe to publish or log.
+        structlog.get_logger(__name__).error(
+            "unhandled_api_error", error_category=type(exc).__name__
+        )
+        return _response(500, "internal_error", "An unexpected error occurred")

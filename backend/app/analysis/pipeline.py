@@ -1,5 +1,7 @@
 from time import perf_counter
 
+import structlog
+
 from app.analysis.context import AnalysisContext
 from app.analysis.contracts import AnalysisEngine
 from app.analysis.models import (
@@ -7,6 +9,7 @@ from app.analysis.models import (
     AnalysisResult,
     DecisionState,
     EngineLifecycleStatus,
+    EngineOutput,
     ValidationStatus,
 )
 
@@ -18,10 +21,41 @@ class AnalysisPipeline:
     def run(self, context: AnalysisContext) -> AnalysisResult:
         for engine in self._engines:
             started = perf_counter()
-            context.add_output(engine.execute(context))
+            try:
+                output = engine.execute(context)
+            except Exception as error:
+                structlog.get_logger(__name__).error(
+                    "analysis_engine_failed",
+                    engine=engine.name,
+                    error_category=type(error).__name__,
+                )
+                output = EngineOutput(
+                    engine_name=engine.name,
+                    status=EngineLifecycleStatus.FAILED,
+                    warnings=["engine execution failed"],
+                )
+            context.add_output(output)
             context.state.setdefault("engine_duration_ms", {})[engine.name] = round(
                 (perf_counter() - started) * 1000, 3
             )
+        # Final reconciliation also covers failures after the validation engine.
+        # A late failure must not leave a stale actionable decision/explanation.
+        if any(o.status == EngineLifecycleStatus.FAILED for o in context.outputs):
+            context.state["validation"] = ValidationStatus.FAIL
+            context.state["decision"] = (
+                DecisionState.NO_TRADE
+                if context.market_data
+                else DecisionState.INSUFFICIENT_DATA
+            )
+            validation_output = context.output("validation")
+            if validation_output is not None:
+                validation_output.data["validation"] = ValidationStatus.FAIL
+                reasons = validation_output.data.setdefault("reasons", [])
+                if "required engine failed" not in reasons:
+                    reasons.append("required engine failed")
+            explanation = context.output("explainability")
+            if explanation is not None:
+                explanation.data["summary"] = f"Decision: {context.state['decision']}"
         validation = context.state.get("validation")
         if validation is None:
             return AnalysisResult(

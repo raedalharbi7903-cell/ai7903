@@ -594,6 +594,17 @@ class RiskEngine(BaseEngine):
             else None
         )
         atr = volatility.data.get("atr") if volatility else None
+        if atr is not None and (
+            isinstance(atr, bool)
+            or not isinstance(atr, int | float)
+            or not isfinite(atr)
+            or atr < 0
+        ):
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.FAILED,
+                warnings=["invalid observed volatility"],
+            )
         min_atr_multiple = float(
             context.analysis_input.metadata.get("minimum_stop_atr_multiple", 0.5)
         )

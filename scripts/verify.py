@@ -26,7 +26,13 @@ def gates(root: Path, python: str, pnpm: str) -> list[tuple[str, Path, list[str]
         (
             "backend-tests",
             backend,
-            [python, "-m", "pytest", "-o", "cache_dir=.pytest_cache_execution"],
+            [
+                python,
+                "-m",
+                "pytest",
+                "-o",
+                f"cache_dir={root / '.verification' / 'pytest-cache'}",
+            ],
         ),
         ("backend-lint", backend, [python, "-m", "ruff", "check", "."]),
         ("backend-format", backend, [python, "-m", "black", "--check", "app", "tests"]),
@@ -103,6 +109,7 @@ def main() -> int:
         LOG_LEVEL="WARNING",
         DATABASE_URL="sqlite://",
         BLACK_CACHE_DIR=str(root / "backend" / ".black-cache"),
+        RUFF_CACHE_DIR=str(root / ".verification" / "ruff-cache"),
         BACKEND_PYTHON=str(Path(args.python).resolve()),
     )
     results = []

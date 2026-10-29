@@ -48,6 +48,13 @@ def risk_context(decision, stop, target=None, atr=None) -> AnalysisContext:
     return context
 
 
+@pytest.mark.parametrize("atr", [float("nan"), float("inf"), -1, True, "bad"])
+def test_invalid_volatility_cannot_bypass_risk_limits(atr) -> None:
+    output = RiskEngine().analyze(risk_context(DecisionState.BUY, 10, atr=atr))
+    assert output.status == EngineLifecycleStatus.FAILED
+    assert "invalid observed volatility" in output.warnings
+
+
 @pytest.mark.parametrize(
     ("decision", "stop", "target"),
     [

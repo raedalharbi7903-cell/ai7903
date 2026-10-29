@@ -5,6 +5,29 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Runtime security and resilience continuation
+
+Previous turn was progress at 7f6ef5d. Hosted workflow lookup still returned no
+runs; hosted CI/Docker success is not claimed. Added sanitized global unexpected
+error responses, isolated failed-engine outputs, final safety reconciliation after
+late failures, and invalid-volatility rejection. Added 11 backend cases:
+four injection positions, two API error boundaries and five invalid ATR inputs.
+An initial test referenced the wrong telemetry attribute; corrected to the actual
+sink contract without removing assertions.
+
+Added a reproducible synthetic service-latency benchmark and explicit limitations
+in docs/10-testing/runtime-resilience-results.md. Actual observed p95: 0.772ms
+(32 candles), 3.498ms (256), 7.274ms (1024), 20 samples each. This is not concurrent
+HTTP or full-MTF performance acceptance. No financial measurements are fabricated.
+
+The verification runner now uses dedicated .verification pytest/Ruff caches to
+resolve previously reported Windows access-denied cache warnings. One benchmark
+line-length failure was corrected. Final repeat run PASSED all 17 gates:
+189 backend tests, 15 frontend tests, 7 tooling tests, zero broken local file links.
+Remaining scope is unchanged: hosted execution, deployment/restore, full
+performance/security acceptance, legacy-engine review, prose consistency and
+external data/identity/AI decisions.
+
 ## CI and documentation recovery continuation
 
 Previous turn was verified progress at 3119f38. Added a SHA-pinned, read-only
