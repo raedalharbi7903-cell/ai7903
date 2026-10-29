@@ -114,7 +114,9 @@ def main() -> int:
         DATABASE_URL="sqlite://",
         BLACK_CACHE_DIR=str(root / "backend" / ".black-cache"),
         RUFF_CACHE_DIR=str(root / ".verification" / "ruff-cache"),
-        BACKEND_PYTHON=str(Path(args.python).resolve()),
+        # Resolving a POSIX venv symlink selects the base interpreter and loses
+        # the venv's installed dependencies. Normalize without dereferencing.
+        BACKEND_PYTHON=os.path.abspath(args.python),
     )
     results = []
     for name, cwd, command in gates(root, args.python, args.pnpm):

@@ -12,6 +12,63 @@ class FixedFitter:
         return {"threshold": 1.25}
 
 
+@pytest.mark.parametrize(
+    "parameters",
+    [
+        {},
+        {"threshold": float("nan")},
+        {"threshold": float("inf")},
+        {"threshold": True},
+        {"threshold": "1.25"},
+        {"": 1},
+        {3: 1},
+    ],
+)
+def test_invalid_fitter_results_cannot_be_recorded(parameters) -> None:
+    class InvalidFitter:
+        def fit(self, dataset):
+            return parameters
+
+    with pytest.raises(ValueError):
+        CalibrationWorkflow().fit(
+            CalibrationDataset("dev", "development", "v1"),
+            CalibrationConfig("v1"),
+            "s1",
+            "quality",
+            InvalidFitter(),
+        )
+
+
+@pytest.mark.parametrize(
+    "configuration",
+    [
+        {"version": ""},
+        {"minimum_risk_reward": 0},
+        {"minimum_risk_reward": float("nan")},
+        {"minimum_risk_reward": True},
+        {"minimum_independent_families": True},
+        {"minimum_independent_families": 0},
+        {"confidence_labels": ("low", "low", "high")},
+    ],
+)
+def test_invalid_calibration_configuration_is_rejected(configuration) -> None:
+    with pytest.raises(ValueError):
+        CalibrationConfig(**{"version": "v1", **configuration})
+
+
+@pytest.mark.parametrize(
+    "identity,role,version",
+    [
+        ("", "development", "v1"),
+        ("dev", "unknown", "v1"),
+        ("dev", "oos", ""),
+    ],
+)
+def test_dataset_provenance_must_be_explicit(identity, role, version) -> None:
+    with pytest.raises(ValueError):
+        CalibrationDataset(identity, role, version)
+
+
 def test_calibration_fits_only_development_data_reproducibly() -> None:
     workflow = CalibrationWorkflow()
     dataset = CalibrationDataset("development-2026-01", "development", "ohlcv-v1")

@@ -2,6 +2,7 @@
 
 from collections.abc import Mapping
 from dataclasses import dataclass
+from math import isfinite
 from typing import Protocol
 
 
@@ -12,12 +13,39 @@ class CalibrationConfig:
     minimum_independent_families: int = 2
     confidence_labels: tuple[str, str, str] = ("low", "medium", "high")
 
+    def __post_init__(self) -> None:
+        if not self.version.strip():
+            raise ValueError("Configuration version is required")
+        if (
+            isinstance(self.minimum_risk_reward, bool)
+            or not isfinite(self.minimum_risk_reward)
+            or self.minimum_risk_reward <= 0
+        ):
+            raise ValueError("Risk/reward must be finite and positive")
+        if (
+            type(self.minimum_independent_families) is not int
+            or self.minimum_independent_families < 1
+        ):
+            raise ValueError("Independent family count must be a positive integer")
+        if (
+            len(self.confidence_labels) != 3
+            or len(set(self.confidence_labels)) != 3
+            or any(not label.strip() for label in self.confidence_labels)
+        ):
+            raise ValueError("Three distinct nonempty confidence labels are required")
+
 
 @dataclass(frozen=True)
 class CalibrationDataset:
     dataset_id: str
     role: str
     content_version: str
+
+    def __post_init__(self) -> None:
+        if not self.dataset_id.strip() or not self.content_version.strip():
+            raise ValueError("Dataset identity and content version are required")
+        if self.role not in {"development", "oos"}:
+            raise ValueError("Dataset role must be development or oos")
 
 
 @dataclass(frozen=True)
@@ -47,7 +75,23 @@ class CalibrationWorkflow:
         fitter: ParameterFitter,
     ) -> CalibrationResult:
         ensure_development_only(dataset.role)
-        parameters = {name: float(value) for name, value in fitter.fit(dataset).items()}
+        if not strategy_version.strip() or not objective.strip():
+            raise ValueError("Strategy version and fitting objective are required")
+        parameters = {}
+        for name, value in fitter.fit(dataset).items():
+            if not isinstance(name, str) or not name.strip():
+                raise ValueError("Fitted parameter names must be nonempty strings")
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, int | float)
+                or not isfinite(value)
+            ):
+                raise ValueError(
+                    "Fitted parameters must be finite numeric observations"
+                )
+            parameters[name] = float(value)
+        if not parameters:
+            raise ValueError("Fitter returned no parameters")
         return CalibrationResult(
             calibration_version="calibration-workflow-v1",
             config_version=config.version,

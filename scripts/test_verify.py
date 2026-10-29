@@ -1,14 +1,39 @@
 """Infrastructure tests for gate reporting; no server/dependencies required."""
 
 import subprocess
+import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from verify import gates, run_gate
+from verify import gates, main, run_gate
 
 
 class VerificationTests(unittest.TestCase):
+    def test_frontend_receives_venv_path_without_dereferencing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            python = str(root / "backend" / ".venv" / "bin" / "python")
+            resolve = Path.resolve
+
+            def guard_interpreter(path, *args, **kwargs):
+                if str(path) == python:
+                    raise AssertionError("Do not dereference the venv interpreter")
+                return resolve(path, *args, **kwargs)
+
+            with (
+                patch("verify.__file__", str(root / "scripts" / "verify.py")),
+                patch("verify.sys.argv", ["verify.py", "--python", python]),
+                patch("verify.gates", return_value=[("sample", root, ["test"])]),
+                patch("verify.run_gate", return_value={"status": "PASS"}) as run,
+                patch.object(
+                    Path, "resolve", autospec=True, side_effect=guard_interpreter
+                ),
+                patch("verify.print"),
+            ):
+                self.assertEqual(main(), 0)
+            self.assertEqual(run.call_args.args[3]["BACKEND_PYTHON"], python)
+
     def test_required_gates_are_unique_and_include_real_integration(self):
         configured = gates(Path("repository"), "python", "pnpm")
         names = [name for name, _, _ in configured]

@@ -5,6 +5,23 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## POSIX interpreter-path root-cause correction
+
+Previous turn was progress at 5bbb04e. Verified run 40917306443 / job 123600847179:
+normal test gate FAIL, but standalone supported-API diagnostic discovered all
+three modules and started without throwing. Docker/runtime checks still PASS.
+The runner alone set BACKEND_PYTHON using Path.resolve(): on POSIX virtualenv
+executables are symlinks, so dereferencing selects the base interpreter outside
+the installed backend environment. Changed to lexical os.path.abspath and added
+a regression that fails if interpreter dereferencing is attempted. Hosted
+confirmation remains required; diagnostics are not a substitute for green tests.
+
+While waiting for that live run, hardened calibration records: configuration and
+dataset identity/roles are validated; empty, nonfinite, boolean and malformed
+fitter outputs are rejected. Added 17 cases. No fitting algorithm, probability,
+profit result or empirical calibration claim was introduced. Calibration remains
+uncalibrated/evaluation_pending until real independent evidence exists.
+
 ## Linux startup investigation and semantic consistency continuation
 
 Previous turn was progress at 0bf8788. Verified run 40916739739 / job 123598875758:
