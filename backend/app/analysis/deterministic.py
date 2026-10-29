@@ -1,4 +1,4 @@
-from math import sqrt
+from math import fsum, isfinite, sqrt
 
 from app.analysis.advanced import (
     DivergenceConfig as DivergenceConfig,
@@ -23,22 +23,44 @@ def closes(candles: list[Candle]) -> list[float]:
     return [c.close for c in candles]
 
 
+def _period(period: int) -> None:
+    if type(period) is not int or period <= 0:
+        raise ValueError("Period must be a positive integer")
+
+
+def _finite(values: list[float]) -> None:
+    if any(not isfinite(value) for value in values):
+        raise ValueError("Numeric observations must be finite")
+
+
 def sma(values: list[float], period: int) -> float | None:
-    return sum(values[-period:]) / period if len(values) >= period else None
+    _period(period)
+    _finite(values)
+    return (
+        fsum(value / period for value in values[-period:])
+        if len(values) >= period
+        else None
+    )
 
 
 def rsi(values: list[float], period: int = 14) -> float | None:
+    _period(period)
+    _finite(values)
     if len(values) <= period:
         return None
     changes = [values[i] - values[i - 1] for i in range(1, len(values))][-period:]
-    gains = sum(change for change in changes if change > 0) / period
-    losses = -sum(change for change in changes if change < 0) / period
+    _finite(changes)
+    gains = fsum(change / period for change in changes if change > 0)
+    losses = -fsum(change / period for change in changes if change < 0)
     if losses == 0:
         return 100.0 if gains else 50.0
-    return 100 - 100 / (1 + gains / losses)
+    scale = max(gains, losses)
+    normalized_gain, normalized_loss = gains / scale, losses / scale
+    return 100 * normalized_gain / (normalized_gain + normalized_loss)
 
 
 def atr(candles: list[Candle], period: int = 14) -> float | None:
+    _period(period)
     if len(candles) <= period:
         return None
     ranges = [
@@ -49,19 +71,29 @@ def atr(candles: list[Candle], period: int = 14) -> float | None:
         )
         for i, c in enumerate(candles[1:], 1)
     ]
-    return sum(ranges[-period:]) / period
+    return sma(ranges, period)
 
 
 def correlation(first: list[float], second: list[float]) -> float | None:
     if len(first) < 3 or len(first) != len(second):
         return None
-    first_mean, second_mean = sum(first) / len(first), sum(second) / len(second)
-    numerator = sum(
+    _finite(first)
+    _finite(second)
+    first_scale, second_scale = max(map(abs, first)), max(map(abs, second))
+    if not first_scale or not second_scale:
+        return None
+    # Pearson correlation is scale invariant. Normalize before centering and
+    # multiplying to avoid overflow/underflow on valid finite observations.
+    first = [value / first_scale for value in first]
+    second = [value / second_scale for value in second]
+    first_mean = fsum(first) / len(first)
+    second_mean = fsum(second) / len(second)
+    numerator = fsum(
         (a - first_mean) * (b - second_mean) for a, b in zip(first, second, strict=True)
     )
-    left = sqrt(sum((a - first_mean) ** 2 for a in first))
-    right = sqrt(sum((b - second_mean) ** 2 for b in second))
-    return numerator / (left * right) if left and right else None
+    left = sqrt(fsum((a - first_mean) ** 2 for a in first))
+    right = sqrt(fsum((b - second_mean) ** 2 for b in second))
+    return max(-1.0, min(1.0, numerator / (left * right))) if left and right else None
 
 
 def analyze(

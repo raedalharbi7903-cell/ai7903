@@ -1,3 +1,4 @@
+from math import isfinite
 from time import perf_counter
 
 import structlog
@@ -23,6 +24,7 @@ class AnalysisPipeline:
             started = perf_counter()
             try:
                 output = engine.execute(context)
+                _validate_finite_output(output.model_dump())
             except Exception as error:
                 structlog.get_logger(__name__).error(
                     "analysis_engine_failed",
@@ -82,6 +84,18 @@ class AnalysisPipeline:
             validation=validation,
             advanced_findings=_advanced_findings(context),
         )
+
+
+def _validate_finite_output(value: object) -> None:
+    """Do not publish nonfinite measurements as nulls or invalid JSON."""
+    if isinstance(value, float) and not isfinite(value):
+        raise ValueError("Engine produced a nonfinite measurement")
+    if isinstance(value, dict):
+        for item in value.values():
+            _validate_finite_output(item)
+    elif isinstance(value, list | tuple):
+        for item in value:
+            _validate_finite_output(item)
 
 
 def _advanced_findings(context: AnalysisContext) -> list[AdvancedFinding]:

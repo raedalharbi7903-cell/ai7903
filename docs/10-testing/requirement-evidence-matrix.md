@@ -18,7 +18,7 @@ from compilation or synthetic fixtures.
 | Liquidity inference | advanced.py liquidity_sweep | test_advanced_behavior.py | PASS directional/rejection/tolerance/conflict cases; not observed orders |
 | Volume anomaly | advanced.py volume_anomaly | test_advanced_behavior.py | PASS configurable baseline, missing/invalid/zero and activity cases |
 | Candle classifications | deterministic.py candlestick | test_behavioral_matrix.py; test_advanced_behavior.py | PARTIAL: geometry tested; contextual interpretation remains limited |
-| Evidence and five decision states | engines.py | test_decision_states.py; test_safety_acceptance.py | PASS tested states and same-family contradictions |
+| Evidence and five decision states | engines.py | test_decision_states.py; test_safety_acceptance.py; legacy methodology review | PARTIAL: tested states/same-family grouping pass; different families reuse price-direction bias and independence is not established |
 | Structural risk and validation | engines.py RiskEngine/ValidationEngine | test_safety_acceptance.py | PASS listed geometry/target/RR gates; volatility/liquidity policy still limited |
 | MTF and correlation | engines.py | test_integration_features.py; test_historical_acceptance.py | PASS tested alignment/provenance/cadence and contextual correlation; broader regime validation remains |
 | Historical evaluation | backtesting.py | test_backtesting.py; test_historical_acceptance.py | PASS tested as-of service execution, spot-only, gap stops, costs and reproducibility; not portfolio validation |
@@ -34,6 +34,11 @@ from compilation or synthetic fixtures.
 | Safety/licensing/Git constraints | API fixture boundary; feature branch | provenance tests; git status/remote checks | PASS tested boundaries; rights approval and commercial security acceptance not implied |
 
 ## Unresolved acceptance evidence
+
+Critical: [legacy methodology review](../05-analysis/legacy-methodology-review.md)
+identifies reused price-direction contributions across nominal families. A change
+to decision/confidence contributions requires CTO approval. Neither existing
+synthetic tests nor different family labels establish independent analytical support.
 
 ### Latest hosted/runtime evidence
 

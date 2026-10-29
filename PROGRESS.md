@@ -5,6 +5,23 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Legacy methodology and numerical review continuation
+
+Previous turn was progress at 1678fb3. Eighteen initial boundary tests reproduced
+invalid-period handling, overflowed SMA/RSI and unstable large/tiny correlation.
+Corrected numerical arithmetic without replacing the existing arithmetic-window
+methods; added reference-value and nonfinite-output production rejection tests.
+The pipeline now rejects nonfinite measurements before publishing results.
+Full local 17-gate run PASSED: 265 backend, 16 frontend, 11 tooling tests.
+
+Critical review finding: several distinct evidence-family labels inherit the same
+whole-prefix price direction, so family-name deduplication alone does not prove
+independence. Fixing contributions affects decision/confidence behavior and is a
+red-level CTO decision, not an autonomous methodology redesign. Options and
+recommendation are recorded in docs/05-analysis/legacy-methodology-review.md.
+This gap invalidates any broad claim that evidence independence is fully accepted;
+existing tests only prove same-family grouping/conflict handling.
+
 ## Migration packaging and disposable recovery continuation
 
 Previous turn was progress at b01fac9. Added actual Alembic subprocess migration
