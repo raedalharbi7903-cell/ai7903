@@ -24,6 +24,9 @@ The verification runner now uses dedicated .verification pytest/Ruff caches to
 resolve previously reported Windows access-denied cache warnings. One benchmark
 line-length failure was corrected. Final repeat run PASSED all 17 gates:
 189 backend tests, 15 frontend tests, 7 tooling tests, zero broken local file links.
+The pytest cache warning is resolved; backend Ruff still emitted an access-denied
+scan warning. Legacy pytest cache directories are now explicitly ignored; the
+warning is disclosed rather than treated as a clean security/operational gate.
 Remaining scope is unchanged: hosted execution, deployment/restore, full
 performance/security acceptance, legacy-engine review, prose consistency and
 external data/identity/AI decisions.

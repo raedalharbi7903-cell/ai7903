@@ -3,6 +3,7 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.pytest_cache*/
 .ruff_cache/
 .black-cache/
 node_modules/
