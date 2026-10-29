@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: { proxy: { "/api": "http://127.0.0.1:8000" } },
   test: {
+    reporters: ["./tests/diagnostic-reporter.mjs", "default"],
     environment: "jsdom",
     setupFiles: ["./src/test/setup.ts"],
     globalSetup: ["./tests/api-setup.ts"],

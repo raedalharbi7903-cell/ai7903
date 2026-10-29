@@ -89,6 +89,10 @@ def run_gate(name: str, cwd: Path, command: list[str], env: dict[str, str]) -> d
 
 
 def main() -> int:
+    # Windows terminals may default to a legacy encoding. Preserve diagnostic
+    # Unicode without crashing before remaining gates and evidence are recorded.
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
     root = Path(__file__).resolve().parents[1]
     parser = argparse.ArgumentParser()
     parser.add_argument(

@@ -5,6 +5,30 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Historical evidence and hosted-runtime continuation
+
+Previous turn was progress at 6ef44a1. Verified GitHub run 40915941075 / job
+123596050191: Docker build and actual container smoke PASS (health, non-root UID,
+production demo denial). Full-stack CI still FAILS on Linux Vitest startup with
+the same source-map error; NODE_OPTIONS diagnostics did not resolve it.
+Added an original-error diagnostic reporter alongside the default failing reporter
+to expose the underlying message without suppressing errors. Hosted verification
+of this diagnostic remains pending.
+
+Historical evidence now uses the last closed observation timestamp, separate from
+result generation time. Added replay/provenance tests; backend suite 206 PASS.
+No wall-clock evidence timestamps or live market outputs are fabricated.
+Container deployment/restore and full security/performance acceptance remain open.
+
+Reporter lint initially failed; its unused parameter was corrected. That failure
+also exposed a verification-runner bug: Unicode diagnostics crashed legacy Windows
+stdout before later gates/reporting. The runner now explicitly configures UTF-8
+output instead of dropping diagnostics. Root README now reflects implemented
+architecture, actual setup/verification commands and incomplete/demo boundaries.
+Final full-stack local rerun PASSED all 17 gates: 206 backend, 15 frontend and
+10 tooling tests. No hosted startup fix is claimed; the new reporter must execute
+on Linux to expose the masked startup message.
+
 ## Freshness, legacy volume and hosted-CI continuation
 
 Previous turn was progress at f0ed0a4. GitHub's general runs endpoint exposes push

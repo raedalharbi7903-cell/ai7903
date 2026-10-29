@@ -35,6 +35,16 @@ from compilation or synthetic fixtures.
 
 ## Unresolved acceptance evidence
 
+### Latest hosted/runtime evidence
+
+Run 40915941075 verified container build, loopback health, non-root UID and
+production-demo denial. Hosted full-stack verification remains FAIL on Linux
+frontend startup; local Windows tests do not supersede this failure.
+Historical evidence as-of semantics are additionally tested in
+backend/tests/analysis/test_evidence_asof.py. Missing governance targets were
+recovered unchanged; inline local file links now pass. Prose consistency,
+deployment/restore and broader performance/security claims remain unverified.
+
 Deployment target, identity provider, role permissions, commercial data rights and
 AI provider remain explicit external decisions. Engineering work still includes
 CI execution, load/security tests, legacy-engine review and cross-document audit.

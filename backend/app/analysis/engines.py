@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import datetime
 from math import isfinite
 from uuid import uuid4
 
@@ -62,10 +62,15 @@ class BaseEngine:
             instrument=data.instrument,
             market=data.market,
             timeframe=data.timeframe,
-            timestamp=datetime.now(UTC),
+            timestamp=data.candles[-1].timestamp,
             finding=text,
             bias=bias,
-            provenance={"provider": data.provider, "fixture": str(data.fixture)},
+            provenance={
+                "provider": data.provider,
+                "fixture": str(data.fixture),
+                "observed_at": data.candles[-1].timestamp.isoformat(),
+                "source_timestamp": data.source_timestamp.isoformat(),
+            },
             independent=self.family not in {item.family for item in context.evidence},
         )
 
