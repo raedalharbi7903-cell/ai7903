@@ -5,6 +5,24 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Migration packaging and disposable recovery continuation
+
+Previous turn was progress at b01fac9. Added actual Alembic subprocess migration
+roundtrips and offline generation plus SQLite backup/restore integrity tests.
+The percent-containing database URL case initially failed ConfigParser
+interpolation; fixed configuration-layer percent escaping without changing the
+actual database URL. Seven targeted migration/recovery/session tests now PASS.
+Session tests cover rollback, close, early generator close and no hidden commit.
+
+Backend container previously omitted Alembic sources/configuration; packaged them
+and extended smoke verification to upgrade a disposable container-local /tmp DB.
+Hosted confirmation of this new packaging/smoke extension is pending; earlier
+container results do not prove this extension. Full local 17-gate run PASSED:
+243 backend, 16 frontend, 11 tooling tests. Adding Alembic env.py to the lint/
+format gates exposed an existing import-order failure; corrected and reran all.
+Backup documentation now distinguishes disposable SQLite evidence from unapproved
+production recovery/storage/RPO/RTO decisions. No business tables were introduced.
+
 ## Request isolation and fixture-security continuation
 
 Previous turn was progress at cd60ff5. The mutation-probe test reproduced caller

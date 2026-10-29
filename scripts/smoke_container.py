@@ -68,6 +68,31 @@ def main() -> None:
             raise RuntimeError(
                 "Unauthenticated production demo was unexpectedly enabled"
             )
+        # Disposable container-local database only; never a deployed/user DB.
+        migration_environment = "DATABASE_URL=sqlite:////tmp/ci-migration.db"
+        docker(
+            "exec",
+            "-e",
+            migration_environment,
+            container,
+            "python",
+            "-m",
+            "alembic",
+            "upgrade",
+            "head",
+        )
+        current = docker(
+            "exec",
+            "-e",
+            migration_environment,
+            container,
+            "python",
+            "-m",
+            "alembic",
+            "current",
+        )
+        if "20260725_0001" not in current:
+            raise RuntimeError("Packaged migration did not reach the expected revision")
         path = (
             Path(__file__).resolve().parents[1]
             / ".verification"
@@ -80,6 +105,7 @@ def main() -> None:
                     "health": "PASS",
                     "non_root_uid": uid,
                     "production_demo_denial": "PASS",
+                    "packaged_migration": "PASS",
                     "scope": "CI container only; not hosted production acceptance",
                 },
                 indent=2,

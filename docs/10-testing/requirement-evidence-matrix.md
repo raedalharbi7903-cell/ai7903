@@ -48,6 +48,14 @@ mutation, 64-call service isolation, 32-call API isolation and 16 concurrent act
 HTTP client requests are covered. See [bounded acceptance](request-isolation-acceptance.md).
 This extends regression evidence, not production security/capacity certification.
 
+Migration/recovery extension: test_migration_recovery.py exercises actual Alembic
+upgrade/current/downgrade, percent-containing URLs, offline SQL without a DB
+connection, and SQLite backup/restore integrity using disposable test databases.
+test_database_session_lifecycle.py covers cleanup/rollback/no hidden commits.
+These do not prove production database recovery, scheduled backups, offsite
+retention or approved RPO/RTO. Container packaging now includes migration sources;
+the extended packaged-migration smoke requires its own hosted run evidence.
+
 Run 40915941075 verified container build, loopback health, non-root UID and
 production-demo denial. Hosted full-stack verification remains FAIL on Linux
 frontend startup; local Windows tests do not supersede this failure.

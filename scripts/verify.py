@@ -34,8 +34,16 @@ def gates(root: Path, python: str, pnpm: str) -> list[tuple[str, Path, list[str]
                 f"cache_dir={root / '.verification' / 'pytest-cache'}",
             ],
         ),
-        ("backend-lint", backend, [python, "-m", "ruff", "check", "."]),
-        ("backend-format", backend, [python, "-m", "black", "--check", "app", "tests"]),
+        (
+            "backend-lint",
+            backend,
+            [python, "-m", "ruff", "check", ".", "alembic/env.py"],
+        ),
+        (
+            "backend-format",
+            backend,
+            [python, "-m", "black", "--check", "app", "tests", "alembic/env.py"],
+        ),
         ("backend-compile", backend, [python, "-m", "compileall", "-q", "app"]),
         (
             "backend-import",
