@@ -97,6 +97,8 @@ class EngineOutput(BaseModel):
 
 class AdvancedFinding(BaseModel):
     engine_id: str
+    status: EngineLifecycleStatus = EngineLifecycleStatus.COMPLETED
+    provenance: dict[str, str] = Field(default_factory=dict)
     classification: str | None = None
     direction: str | None = None
     family: str | None = None
@@ -105,6 +107,7 @@ class AdvancedFinding(BaseModel):
 
 
 class AnalysisResult(BaseModel):
+    contract_version: str = "1.0"
     status: EngineLifecycleStatus
     outputs: list[EngineOutput] = Field(default_factory=list)
     decision: DecisionState = DecisionState.INSUFFICIENT_DATA

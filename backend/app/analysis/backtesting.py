@@ -1,8 +1,16 @@
 from dataclasses import dataclass
+from math import isfinite
 from time import perf_counter
 from uuid import uuid4
 
-from app.analysis.models import AnalysisInput, Candle, DecisionState, ValidationStatus
+from app.analysis.models import (
+    AnalysisInput,
+    Candle,
+    DecisionState,
+    MarketData,
+    ValidationStatus,
+)
+from app.analysis.providers import validate_market_data
 from app.analysis.service import AnalysisService
 from app.analysis.telemetry import BacktestTelemetry, NullTelemetrySink, TelemetrySink
 
@@ -15,6 +23,18 @@ class BacktestConfig:
     slippage_rate: float = 0.0
     entry_timing: str = "decision_close"
     same_candle_policy: str = "stop_first"
+
+    def __post_init__(self) -> None:
+        if not self.strategy_version or not self.parameter_version:
+            raise ValueError("Strategy and parameter versions are required")
+        for value in (self.fee_rate, self.slippage_rate):
+            if not isfinite(value) or not 0 <= value < 1:
+                raise ValueError("Execution cost rates must be finite in [0, 1)")
+        if (
+            self.entry_timing != "decision_close"
+            or self.same_candle_policy != "stop_first"
+        ):
+            raise ValueError("Unsupported execution assumptions")
 
 
 @dataclass(frozen=True)
@@ -29,6 +49,11 @@ class BacktestResult:
     execution_assumptions: str = (
         "decision_close; stop_first when intrabar ordering is unknown"
     )
+    strategy_version: str = ""
+    parameter_version: str = ""
+    fee_rate: float = 0.0
+    slippage_rate: float = 0.0
+    return_aggregation: str = "sum_of_one_bar_spot_long_returns"
 
 
 @dataclass(frozen=True)
@@ -56,7 +81,14 @@ class HistoricalBacktester:
         return self.run_pipeline(candles, dataset_id, config)
 
     def run_pipeline(
-        self, candles: list[Candle], dataset_id: str, config: BacktestConfig
+        self,
+        candles: list[Candle],
+        dataset_id: str,
+        config: BacktestConfig,
+        *,
+        timeframes: dict[str, MarketData] | None = None,
+        instrument: str = "historical-fixture",
+        timeframe: str = "1h",
     ) -> BacktestResult:
         """Evaluate AnalysisService sequentially without exposing future candles."""
         backtest_id = str(uuid4())
@@ -84,32 +116,39 @@ class HistoricalBacktester:
         try:
             if len(candles) < 3:
                 raise ValueError("At least three candles are required for backtesting")
+            primary = MarketData(
+                instrument=instrument,
+                market="crypto",
+                timeframe=timeframe,
+                provider="historical_fixture",
+                source_timestamp=candles[-1].timestamp,
+                candles=candles,
+                fixture=True,
+            )
+            if validate_market_data(primary) != ValidationStatus.PASS or any(
+                not candle.complete for candle in candles
+            ):
+                raise ValueError("Historical candles must be valid, ordered and closed")
+            for frame in (timeframes or {}).values():
+                if (
+                    not frame.fixture
+                    or validate_market_data(frame) != ValidationStatus.PASS
+                ):
+                    raise ValueError("Historical frames must be validated fixtures")
             for index in range(2, len(candles) - 1):
                 visible = candles[: index + 1]
                 result = service.analyze(
                     AnalysisInput(
                         data={
-                            "instrument": "historical-fixture",
-                            "market": "crypto",
-                            "timeframe": "fixture",
-                            "provider": "historical_fixture",
+                            **primary.model_dump(),
                             "source_timestamp": visible[-1].timestamp,
                             "candles": [item.model_dump() for item in visible],
-                            "fixture": True,
                         },
                         metadata={
-                            "timeframes": {
-                                name: {
-                                    "instrument": "historical-fixture",
-                                    "market": "crypto",
-                                    "timeframe": "fixture",
-                                    "provider": "historical_fixture",
-                                    "source_timestamp": visible[-1].timestamp,
-                                    "candles": [item.model_dump() for item in visible],
-                                    "fixture": True,
-                                }
-                                for name in ("htf", "itf", "ltf")
-                            }
+                            "decision_timestamp": visible[-1].timestamp,
+                            "timeframes": _visible_frames(
+                                timeframes or {}, visible[-1]
+                            ),
                         },
                     )
                 )
@@ -117,7 +156,8 @@ class HistoricalBacktester:
                 if result.validation != ValidationStatus.PASS:
                     continue
                 validated_decisions += 1
-                if result.decision not in {DecisionState.BUY, DecisionState.SELL}:
+                # Spot-only evaluator: SELL is not an authorization to open a short.
+                if result.decision != DecisionState.BUY:
                     continue
                 risk = next(
                     (
@@ -129,12 +169,19 @@ class HistoricalBacktester:
                 )
                 if risk is None or not {"stop_loss", "target"} <= risk.data.keys():
                     continue
+                stop = float(risk.data["stop_loss"])
+                target = float(risk.data["target"])
+                entry = visible[-1].close * (1 + config.slippage_rate)
+                if not all(isfinite(value) for value in (entry, stop, target)) or not (
+                    0 < stop < entry < target
+                ):
+                    continue
                 trade = _execute_trade(
                     result.decision,
                     visible[-1],
                     candles[index + 1],
-                    float(risk.data["stop_loss"]),
-                    float(risk.data["target"]),
+                    stop,
+                    target,
                     config,
                 )
                 returns.append(trade.return_after_costs)
@@ -168,6 +215,10 @@ class HistoricalBacktester:
                 f"{config.entry_timing}; {config.same_candle_policy} when intrabar "
                 "ordering is unknown"
             ),
+            strategy_version=config.strategy_version,
+            parameter_version=config.parameter_version,
+            fee_rate=config.fee_rate,
+            slippage_rate=config.slippage_rate,
         )
         self._record_telemetry(
             BacktestTelemetry(
@@ -201,22 +252,32 @@ def _execute_trade(
     target: float,
     config: BacktestConfig,
 ) -> BacktestTrade:
-    is_buy = decision == DecisionState.BUY
+    if decision != DecisionState.BUY:
+        raise ValueError("Spot evaluator does not open short positions")
+    if execution_candle.timestamp <= decision_candle.timestamp:
+        raise ValueError("Execution must follow the decision candle")
+    is_buy = True
     entry = decision_candle.close * (
         1 + config.slippage_rate if is_buy else 1 - config.slippage_rate
     )
-    hit_stop = execution_candle.low <= stop if is_buy else execution_candle.high >= stop
+    if not all(isfinite(value) for value in (entry, stop, target)) or not (
+        0 < stop < entry < target
+    ):
+        raise ValueError("Invalid execution risk geometry")
+    hit_stop = execution_candle.low <= stop
     hit_target = (
         execution_candle.high >= target if is_buy else execution_candle.low <= target
     )
     if hit_stop:
         # Deliberately conservative when both stop and target are crossed.
-        exit_price, exit_reason = stop, "stop"
+        exit_price, exit_reason = min(stop, execution_candle.open), "stop"
     elif hit_target:
         exit_price, exit_reason = target, "target"
     else:
         exit_price, exit_reason = execution_candle.close, "next_candle_close"
-    gross = (exit_price - entry) / entry if is_buy else (entry - exit_price) / entry
+    exit_price *= 1 - config.slippage_rate
+    gross = (exit_price - entry) / entry
+    costs = config.fee_rate * (1 + exit_price / entry)
     return BacktestTrade(
         decision=decision,
         entry_timestamp=decision_candle.timestamp.isoformat(),
@@ -224,9 +285,26 @@ def _execute_trade(
         entry_price=entry,
         exit_price=exit_price,
         exit_reason=exit_reason,
-        return_after_costs=gross - 2 * config.fee_rate,
+        return_after_costs=gross - costs,
         analysis_timestamp=decision_candle.timestamp.isoformat(),
     )
+
+
+def _visible_frames(frames: dict[str, MarketData], decision: Candle) -> dict[str, dict]:
+    snapshots = {}
+    for role, frame in frames.items():
+        visible = []
+        for candle in frame.candles:
+            if not candle.complete or candle.timestamp > decision.timestamp:
+                break
+            visible.append(candle)
+        if visible:
+            snapshots[role] = {
+                **frame.model_dump(),
+                "candles": [c.model_dump() for c in visible],
+                "source_timestamp": visible[-1].timestamp,
+            }
+    return snapshots
 
 
 def split_development_oos(
@@ -234,4 +312,8 @@ def split_development_oos(
 ) -> tuple[list[Candle], list[Candle]]:
     if development_size <= 1 or development_size >= len(candles):
         raise ValueError("Development split must leave out-of-sample data")
+    if any(
+        b.timestamp <= a.timestamp for a, b in zip(candles, candles[1:], strict=False)
+    ):
+        raise ValueError("Development/OOS data must be strictly chronological")
     return candles[:development_size], candles[development_size:]

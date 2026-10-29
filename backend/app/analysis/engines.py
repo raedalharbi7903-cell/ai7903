@@ -118,6 +118,10 @@ class DataEngine(BaseEngine):
             status=EngineLifecycleStatus.COMPLETED,
             data={
                 "fixture": data.fixture,
+                "provider": data.provider,
+                "instrument": data.instrument,
+                "timeframe": data.timeframe,
+                "source_timestamp": data.source_timestamp.isoformat(),
                 "candles": len(data.candles),
                 "quality": quality,
                 "freshness": freshness.status,
@@ -343,6 +347,7 @@ class MultiTimeframeEngine(BaseEngine):
                 warnings=["primary market data unavailable"],
             )
         summaries: dict[str, dict[str, object]] = {}
+        intervals: list[float] = []
         decision_time = context.market_data.candles[-1].timestamp
         for name in required:
             try:
@@ -382,6 +387,32 @@ class MultiTimeframeEngine(BaseEngine):
                     status=EngineLifecycleStatus.DEGRADED,
                     warnings=[f"{name} has insufficient completed candle history"],
                 )
+            interval = _freshness_policy(context).interval_for(frame.timeframe)
+            invalid_frame = (
+                frame.instrument != context.market_data.instrument
+                or frame.market != context.market_data.market
+                or frame.fixture != context.market_data.fixture
+                or interval is None
+                or any(not candle.complete for candle in frame.candles)
+                or (
+                    interval is not None
+                    and any(
+                        later.timestamp - earlier.timestamp != interval
+                        for earlier, later in zip(
+                            frame.candles, frame.candles[1:], strict=False
+                        )
+                    )
+                )
+            )
+            if invalid_frame:
+                context.state["mtf_alignment"] = "degraded"
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.DEGRADED,
+                    warnings=[f"{name} has mismatched provenance or candle intervals"],
+                )
+            assert interval is not None
+            intervals.append(interval.total_seconds())
             observation, bias, measurements = analyze("trend", frame.candles)
             summaries[name] = {
                 "bias": bias,
@@ -390,9 +421,17 @@ class MultiTimeframeEngine(BaseEngine):
                 "source_timestamp": frame.source_timestamp.isoformat(),
                 "completed_candle_timestamp": frame.candles[-1].timestamp.isoformat(),
                 "provider": frame.provider,
+                "timeframe": frame.timeframe,
                 "quality": quality,
                 "freshness": freshness.status,
             }
+        if not intervals[0] > intervals[1] > intervals[2]:
+            context.state["mtf_alignment"] = "degraded"
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                warnings=["HTF, ITF and LTF must be distinct ordered timeframes"],
+            )
         directions = [str(summaries[name]["bias"]) for name in required]
         alignment = "aligned" if len(set(directions)) == 1 else "conflict"
         context.state["mtf_alignment"] = alignment
@@ -444,6 +483,7 @@ class ConfluenceEngine(BaseEngine):
         )
         context.state["confluence"] = aligned
         context.state["directional_families"] = len(directional)
+        context.state["confluence_bias"] = directional[0] if aligned else None
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
@@ -488,14 +528,7 @@ class DecisionEngine(BaseEngine):
         ):
             decision = DecisionState.WAIT
         else:
-            bias = next(
-                (
-                    item.bias
-                    for item in context.evidence
-                    if item.independent and item.bias in {"bullish", "bearish"}
-                ),
-                None,
-            )
+            bias = context.state.get("confluence_bias")
             decision = (
                 DecisionState.BUY
                 if bias == "bullish"

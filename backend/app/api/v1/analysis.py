@@ -1,7 +1,10 @@
-from fastapi import APIRouter, HTTPException, status
+from typing import Annotated
+
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.analysis.models import AnalysisInput, AnalysisResult
 from app.analysis.service import AnalysisService
+from app.config.settings import Settings, get_settings
 from app.schemas.analysis import AnalysisRequest
 
 router = APIRouter(prefix="/analysis", tags=["analysis"])
@@ -20,7 +23,18 @@ router = APIRouter(prefix="/analysis", tags=["analysis"])
         503: {"description": "Live provider unavailable"},
     },
 )
-def analyze(request: AnalysisRequest) -> AnalysisResult:
+def analyze(
+    request: AnalysisRequest,
+    settings: Annotated[Settings, Depends(get_settings)],
+) -> AnalysisResult:
+    if settings.environment == "production":
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail=(
+                "Demo analysis is disabled in production pending approved "
+                "access controls."
+            ),
+        )
     if request.market_data is None:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,

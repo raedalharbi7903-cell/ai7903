@@ -10,18 +10,14 @@ from app.analysis.models import (
     ValidationStatus,
 )
 from app.analysis.service import AnalysisService
-from tests.analysis.test_pipeline import fixture_input
+from tests.analysis.test_pipeline import fixture_input, timeframe_fixtures
 
 
 def complete_input() -> AnalysisInput:
     source = fixture_input()
     # A historical upper wick supplies a target beyond the structural stop distance.
     source.data["candles"][2]["high"] = 30
-    source.metadata["timeframes"] = {
-        "htf": source.data,
-        "itf": source.data,
-        "ltf": source.data,
-    }
+    source.metadata["timeframes"] = timeframe_fixtures(source.data)
     return source
 
 
@@ -37,11 +33,7 @@ def bearish_input() -> AnalysisInput:
     # A real lower reference level is required; do not rely on target projection
     # to bypass a nearby structural target.
     bearish["candles"][2]["low"] = 1
-    source.metadata["timeframes"] = {
-        "htf": bearish,
-        "itf": bearish,
-        "ltf": bearish,
-    }
+    source.metadata["timeframes"] = timeframe_fixtures(bearish)
     return source
 
 

@@ -1,4 +1,5 @@
-from datetime import UTC, datetime
+from copy import deepcopy
+from datetime import UTC, datetime, timedelta
 
 from app.analysis.engines import default_engines
 from app.analysis.models import AnalysisInput, DecisionState, ValidationStatus
@@ -64,14 +65,31 @@ def test_default_pipeline_contains_canonical_components() -> None:
     assert len(default_engines()) == 28
 
 
+def timeframe_fixtures(data: dict) -> dict:
+    """Distinct synthetic frame snapshots, all closed by the same decision time."""
+    end = datetime.fromisoformat(
+        data["candles"][-1]["timestamp"].replace("Z", "+00:00")
+    )
+    frames = {}
+    for role, timeframe, seconds in (
+        ("htf", "4h", 14400),
+        ("itf", "1h", 3600),
+        ("ltf", "15m", 900),
+    ):
+        frame = deepcopy(data)
+        frame["timeframe"] = timeframe
+        for index, candle in enumerate(frame["candles"]):
+            candle["timestamp"] = (
+                end - timedelta(seconds=seconds * (len(frame["candles"]) - 1 - index))
+            ).isoformat()
+        frames[role] = frame
+    return frames
+
+
 def test_fixture_pipeline_is_traceable_and_validated() -> None:
     analysis_input = fixture_input()
     analysis_input.data["candles"][2]["high"] = 30
-    analysis_input.metadata["timeframes"] = {
-        "htf": analysis_input.data,
-        "itf": analysis_input.data,
-        "ltf": analysis_input.data,
-    }
+    analysis_input.metadata["timeframes"] = timeframe_fixtures(analysis_input.data)
     result = AnalysisService().analyze(analysis_input)
     assert result.validation == ValidationStatus.PASS
     assert result.decision == DecisionState.BUY

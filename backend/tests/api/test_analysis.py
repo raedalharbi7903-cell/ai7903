@@ -1,6 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 
+from app.config.settings import get_settings
 from app.main import app
 from tests.analysis.test_pipeline import fixture_input
 
@@ -110,3 +111,15 @@ def test_validation_error_does_not_echo_submitted_data() -> None:
         response = client.post("/api/v1/analysis", json=request)
     assert response.status_code == 422
     assert "do-not-reflect-this" not in response.text
+
+
+def test_demo_endpoint_is_disabled_in_production_without_access_controls() -> None:
+    production = get_settings().model_copy(update={"environment": "production"})
+    app.dependency_overrides[get_settings] = lambda: production
+    try:
+        with TestClient(app) as client:
+            response = client.post("/api/v1/analysis", json=payload())
+        assert response.status_code == 503
+        assert "access controls" in response.json()["error"]["message"]
+    finally:
+        app.dependency_overrides.pop(get_settings)

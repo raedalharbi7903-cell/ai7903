@@ -25,3 +25,21 @@ Inputs require validated provenance, instrument, timeframe, timestamp, and conte
 - 1.0.0 — Initial proposed specification.
 ## Approval
 Proposed; CTO approval required.
+
+## Runtime implementation update — 2026-10-29
+
+The historical design-only status above no longer describes all runtime code.
+HistoricalBacktester now invokes AnalysisService on sequential prefixes. Optional
+explicit timeframe snapshots are cut at decision time; no primary series is cloned
+into HTF/ITF/LTF. Frames require distinct ordered intervals and matching provenance.
+Missing confirmation means no executable trade.
+
+The evaluator opens BUY spot-long simulations only; SELL does not open a short.
+The implemented assumptions are decision-close entry and one-bar holding, with
+stop-first resolution when stop and target both cross. Adverse opening gaps worsen
+stop fills, slippage applies at entry and exit, and fees use both notionals.
+Unsupported timing policies and invalid cost/geometry values are rejected.
+Returns are summed one-bar returns, not a compounded portfolio performance claim.
+Versions and cost settings are included in results. Development/OOS data must be
+strictly chronological; no empirical confidence calibration is claimed.
+Tests: backend/tests/analysis/test_historical_acceptance.py and test_backtesting.py.

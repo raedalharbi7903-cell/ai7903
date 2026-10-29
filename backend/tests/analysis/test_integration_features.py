@@ -17,7 +17,7 @@ from app.analysis.models import (
     MarketData,
 )
 from app.analysis.service import AnalysisService
-from tests.analysis.test_pipeline import fixture_input
+from tests.analysis.test_pipeline import fixture_input, timeframe_fixtures
 
 
 def test_correlation_uses_benchmark_history() -> None:
@@ -38,11 +38,8 @@ def test_multi_timeframe_detects_conflict() -> None:
         candle["open"] = 24 - candle["open"]
         candle["high"] = max(candle["open"], candle["close"]) + 1
         candle["low"] = min(candle["open"], candle["close"]) - 1
-    source.metadata["timeframes"] = {
-        "htf": source.data,
-        "itf": bearish,
-        "ltf": source.data,
-    }
+    source.metadata["timeframes"] = timeframe_fixtures(source.data)
+    source.metadata["timeframes"]["itf"] = timeframe_fixtures(bearish)["itf"]
     result = MultiTimeframeEngine().analyze(
         AnalysisContext(source, market_data=MarketData.model_validate(source.data))
     )

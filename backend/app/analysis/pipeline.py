@@ -67,6 +67,8 @@ def _advanced_findings(context: AnalysisContext) -> list[AdvancedFinding]:
         findings.append(
             AdvancedFinding(
                 engine_id=output.engine_name,
+                status=output.status,
+                provenance=evidence.provenance if evidence else {},
                 classification=output.data.get("classification"),
                 direction=(evidence.bias if evidence else None),
                 family=family,

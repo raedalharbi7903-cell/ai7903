@@ -10,8 +10,8 @@ Pivot = tuple[int, str, float]
 
 
 def _integer(value: int, minimum: int, name: str) -> None:
-    if type(value) is not int or value < minimum:
-        raise ValueError(f"{name} must be an integer >= {minimum}")
+    if type(value) is not int or not minimum <= value <= 5000:
+        raise ValueError(f"{name} must be an integer between {minimum} and 5000")
 
 
 def _number(value: float, minimum: float, name: str) -> None:
