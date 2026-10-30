@@ -27,6 +27,9 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [CI action runtime/pin policy](09-devops/ci-action-policy.md)
+- [Q1 CI runtime delivery](delivery/q1-ci-runtime-delivery.md)
+
 - [Protected history read API and UI](08-api/history-api.md)
 - [C5 private history read delivery](delivery/c5-private-history-read-delivery.md)
 

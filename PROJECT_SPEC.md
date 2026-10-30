@@ -4,6 +4,11 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+Q1 CI overlay: existing checkout/setup/artifact actions use reviewed immutable
+Node24 pins, with read-only credentials/triggers and installed app tools unchanged.
+No application dependency replacement, API change or production deployment.
+See docs/09-devops/ci-action-policy.md and source-specific hosted evidence.
+
 C5 overlay: owner-scoped private history list/detail GET API and actual Arabic
 read UI exist, gated by trusted identity and explicit default-off policy. Lists
 exclude full result blobs; stored snapshots cannot acquire invented timestamps.

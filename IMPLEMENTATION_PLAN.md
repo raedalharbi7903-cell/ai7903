@@ -18,6 +18,11 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+Q1 CI-only runtime refresh replaces deprecated action Node20 targets with reviewed
+Node24 commit pins, preserving credentials/triggers/tool versions and acceptance.
+Four source-policy tests and parsed YAML pass; own-source hosted execution pending.
+Runtime FastAPI/Starlette/AnyIO upgrade not silently selected or replaced.
+
 C5 protected history reads now connect actual storage to API and Arabic UI.
 Default-deny identity/policy gates, metadata-only SQL, response/UUID validation,
 safe transport, genuine HTTP and additional actual PostgreSQL API test are wired.

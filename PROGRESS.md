@@ -5,6 +5,23 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Q1 CI action runtime refresh — 2026-10-30
+
+After observed C5 hosted warnings, reviewed official releases/action.yml/commit
+resolution for all five existing actions. Updated immutable pins to native Node24
+action runtimes; same maintainers, contents:read token, nonpersisted checkout,
+feature-only push/PR/manual triggers and full PG/container/evidence gates retained.
+Python3.12/Node24.14.0/pnpm11.25.0 and application dependencies unchanged. Explicit
+frontend package_json_file and disabled caches preserve existing monorepo behavior.
+Four new source-policy tests: all 28 tooling PASS (0.346s), Ruff/Black PASS.
+Existing PyYAML parsed YAML and scope/permissions/jobs PASS. Hosted action execution
+pending source publication, not inferred from static checks. Starlette/AnyIO alias
+warning remains separately unresolved; no filter/downgrade/site-package patch.
+Standalone pip show hit Windows terminal encoding errors; UTF-8 importlib metadata
+confirmed installed versions without changing dependencies or hiding a project bug.
+Next: observe actual new action runtime, then resume atomic audited consented
+history mutation/CSRF and remaining approved customer/commercial/admin work.
+
 ## C5 protected history read workflow — 2026-10-30
 
 Publication receipt: source e53a80863236b99ee2090c8c9e4c639436b67570 hosted run

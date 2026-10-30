@@ -926,10 +926,17 @@
       ],
       "code_references": [
         "backend/Dockerfile",
-        ".github/workflows/quality.yml"
+        ".github/workflows/quality.yml",
+        "docs/09-devops/ci-action-baseline.json"
       ],
-      "test_references": ["scripts/test_smoke_container.py"],
-      "dependencies": ["EXT-INFRA", "G18"],
+      "test_references": [
+        "scripts/test_smoke_container.py",
+        "scripts/test_ci_policy.py"
+      ],
+      "dependencies": [
+        "EXT-INFRA",
+        "G18"
+      ],
       "external_blockers": [],
       "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
@@ -3075,6 +3082,8 @@
     }
   ],
   "reverse_references": {
+    "docs/09-devops/ci-action-baseline.json": ["MASTER-22"],
+    "scripts/test_ci_policy.py": ["MASTER-22"],
     "frontend/src/types/history.test.ts": ["CUSTOMER-16"],
     "frontend/src/pages/history.integration.test.tsx": ["CUSTOMER-16"],
     "frontend/src/pages/HistoryPage.test.tsx": ["CUSTOMER-16"],

@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+Q1: scripts/test_ci_policy.py guards five reviewed immutable Node24 action pins,
+read-only token/nonpersisted credentials, unchanged tools/cache and full runtime/
+artifact acceptance. 28 tooling tests and local YAML syntax/scope PASS; these are
+not substitutes for own-source hosted action execution. No app behavior changed.
+
 C5 tests actual private GET router ownership/expiry/cursor/metadata-only SQL,
 strict copied-session assurance and corrupt snapshot rejection. /history has
 actual HTTP positive and default-denial tests, UI states, cancellation and safe
