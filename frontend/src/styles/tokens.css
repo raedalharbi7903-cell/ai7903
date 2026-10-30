@@ -1,0 +1,53 @@
+/* PROVISIONAL: migrated verbatim from the existing demo, NOT founder-approved.
+ * Override semantic tokens centrally after a recorded founder decision.
+ * No brand, theme strategy or Arabic typeface is selected by this file.
+ */
+:root {
+  --ui-font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  --ui-color-scheme: dark;
+  --ui-color-text-primary: #e9edf5;
+  --ui-color-surface-canvas: #0b1018;
+  --ui-color-text-link: #83ded1;
+  --ui-color-focus-ring: #9df5df;
+  --ui-color-border-navigation: #273140;
+  --ui-color-text-brand: #edf3fc;
+  --ui-color-text-brand-secondary: #97a6bb;
+  --ui-color-text-lead: #a5b1c3;
+  --ui-color-text-accent: #8bddcb;
+  --ui-color-text-badge: #b1c2d8;
+  --ui-color-border-badge: #38465a;
+  --ui-color-border-notice: #695630;
+  --ui-color-border-notice-accent: #d7b66c;
+  --ui-color-surface-notice: #201d17;
+  --ui-color-text-notice: #dfc795;
+  --ui-color-surface-panel: #111925;
+  --ui-color-border-panel: #293548;
+  --ui-color-text-label: #acbace;
+  --ui-color-border-input: #3c4b62;
+  --ui-color-surface-input: #0c131e;
+  --ui-color-text-input: #edf2fa;
+  --ui-color-border-action: #82dfc9;
+  --ui-color-surface-action: #99e3cf;
+  --ui-color-text-action: #102b26;
+  --ui-color-surface-action-hover: #b6efdf;
+  --ui-color-text-empty: #a0b0c7;
+  --ui-color-border-empty: #344157;
+  --ui-color-text-empty-heading: #d8e0ed;
+  --ui-color-border-decision: #35594f;
+  --ui-color-surface-decision-start: #152b2a;
+  --ui-color-surface-decision-end: #131d29;
+  --ui-color-text-timestamp: #9fb1c8;
+  --ui-color-text-safety: #e9ce92;
+  --ui-color-text-muted: #a2b1c5;
+  --ui-color-border-facts: #283345;
+  --ui-color-text-term: #a8b6cb;
+  --ui-color-surface-code: #0a111c;
+  --ui-color-border-finding: #2c3c51;
+  --ui-color-text-classification: #a1ddcf;
+  --ui-color-text-evidence-meta: #9badc5;
+  --ui-color-text-warning: #dec58f;
+  --ui-color-border-error: #9d6269;
+  --ui-color-surface-error: #2b191f;
+  --ui-color-text-error: #ffc1c7;
+  --ui-color-text-footer: #8c9bb2;
+}

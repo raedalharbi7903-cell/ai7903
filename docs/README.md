@@ -27,6 +27,11 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Full approved execution scope](02-product/approved-master-execution-goal.md)
+- [Canonical requirements and reverse evidence](02-product/canonical-requirements.json)
+- [Founder-controlled design boundary](03-engineering/founder-design-approval.md)
+- [Provider-neutral acquisition](05-analysis/data-acquisition-foundation.md)
+
 The current handover package distinguishes verified source, approved requirements,
 historical contradictions and missing work. Start here when replacing the Goal:
 

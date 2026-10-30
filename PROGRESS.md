@@ -5,6 +5,39 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Active master execution — A1/C1/D1 checkpoint (2026-10-30)
+
+Confirmed clean feature branch/local/remote at verified handover 1830ee6 before
+implementation; read the current 31-section directive and handover records.
+Preserved full approved scope in docs/02-product/approved-master-execution-goal.md
+and 98 grouped canonical records (31 directive groups, 28 analytical components,
+23 customer workflows, eleven executive sections and five scoped infrastructure
+requirements). These overlap and are not an atomic completion percentage.
+Reverse code/test references and integrity tooling prevent missing files/IDs.
+
+C1: provider-neutral strict request/adapter contract, closed/as-of/provenance/
+coverage/freshness checks, sanitized bounded transient retries and Retry-After,
+optional bounded/locked/deep-copy TTL/LRU cache. Live adapters are denied before
+retrieval, and no provider is selected implicitly. Acquired synthetic snapshots
+reach the existing AnalysisService and all 28 outputs, not a second pipeline.
+Sixty focused backend tests cover acquisition/cache/resource/guard isolation.
+No public API or analytical methodology changed; no licensed or external feed used.
+
+D1: migrated existing demo's 45 colors/font stack/color-scheme into namespaced
+central tokens, with ten pending founder visual approvals and a visible provisional
+notice. No final palette/theme/Arabic font/visual identity selected. Initial raw-CSS
+test approach failed on Vitest CSS stubs; Node fallback exposed missing Node types/
+non-file URLs. Replaced with Python source checks plus DOM tests, without adding
+dependencies or suppressing checks. One import-order failure was fixed.
+
+Meaningful integration checkpoint: all 17 local gates PASS; 355 backend tests
+(13.25s), 19 frontend tests (5.63s), 17 tooling tests (0.104s), lint/format/type/
+import/dependencies/build and local file links. Browser visual approval/acceptance,
+real providers, PostgreSQL and production acceptance remain unverified.
+Next executable package C2: PostgreSQL driver/disposable CI acceptance and isolated
+environments, followed by approved provider-neutral customer/commercial workflows.
+The full platform remains IMPLEMENTATION IN PROGRESS; all G01-G20 scope retained.
+
 ## Safe project handover — 2026-10-30
 
 Initial inspection: feature/crypto-analysis-validation at 6cae34b, matching origin;

@@ -1,0 +1,3114 @@
+{
+  "version": "1.0.0",
+  "updated": "2026-10-30",
+  "scope": "Full 31-section founder execution directive. Group counts include process constraints and overlap; not an atomic feature-completion percentage.",
+  "authority_precedence": [
+    "explicit founder decisions",
+    "current verified product requirements",
+    "security/architecture contracts",
+    "verified implementation evidence",
+    "historical proposals"
+  ],
+  "source": "docs/02-product/approved-master-execution-goal.md",
+  "handover_commit": "1830ee6ab858b302ac850e4c729609ebd72b1499",
+  "approval_limits": [
+    "No commercial provider or license approved by this register",
+    "No identity/AI/payment/hosting vendor selected",
+    "No final price, visual direction, customer-data sharing or production deployment approved"
+  ],
+  "requirements": [
+    {
+      "id": "MASTER-01",
+      "description": "PRIMARY MISSION",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 1,
+        "attachment_line": 14
+      },
+      "acceptance_criteria": [
+        "Preserve all previously completed engineering work.",
+        "Read and reconcile the existing requirements.",
+        "Identify every remaining requirement.",
+        "Create a dependency-aware implementation plan.",
+        "Implement all approved, technically executable requirements.",
+        "Verify each completed subsystem.",
+        "Maintain comprehensive test coverage.",
+        "Preserve security and analytical-safety guarantees.",
+        "Maintain accurate requirement-to-evidence traceability.",
+        "Continue executing through the backlog.",
+        "Document genuine external blockers.",
+        "Produce a final, evidence-based completion report."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-02",
+      "description": "REPOSITORY AND VERIFIED HANDOVER",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 2,
+        "attachment_line": 49
+      },
+      "acceptance_criteria": [
+        "All 22 previously pending identity/security and documentation files preserved.",
+        "A clean working tree.",
+        "Remote synchronization.",
+        "Three published handover-related commits.",
+        "40 unique files preserved.",
+        "All 17 local quality gates passing.",
+        "295 backend tests passing.",
+        "17 frontend tests passing.",
+        "11 tooling tests passing.",
+        "22 identity/security-boundary tests included in backend verification.",
+        "Hosted CI passing.",
+        "No merge into `main`.",
+        "Inspect the actual repository.",
+        "Confirm the current branch.",
+        "Confirm the current HEAD.",
+        "Confirm remote synchronization.",
+        "Inspect the working tree.",
+        "Read `AGENTS.md`, if present.",
+        "Read `PROJECT_SPEC.md`.",
+        "Read `IMPLEMENTATION_PLAN.md`.",
+        "Read `PROGRESS.md`.",
+        "Read the requirement-to-evidence matrix.",
+        "Read the complete handover package.",
+        "`docs/handover/PROJECT_HANDOVER.md`",
+        "`docs/handover/IMPLEMENTATION_STATUS.md`",
+        "`docs/handover/REMAINING_WORK.md`",
+        "`docs/handover/FOUNDER_DECISIONS.md`",
+        "`docs/handover/GOAL_TRANSITION_CHECKLIST.md`",
+        "`docs/handover/NEW_GOAL_START_HERE.md`"
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-03",
+      "description": "CANONICAL SOURCE OF TRUTH",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 3,
+        "attachment_line": 119
+      },
+      "acceptance_criteria": [
+        "Explicit founder-approved decisions.",
+        "Current verified product requirements.",
+        "Security and architecture contracts.",
+        "Verified implementation evidence.",
+        "Historical proposals and superseded plans.",
+        "Unique requirement ID.",
+        "Requirement description.",
+        "Approval status.",
+        "Implementation status.",
+        "Acceptance criteria.",
+        "Code references.",
+        "Test references.",
+        "Dependencies.",
+        "External blockers.",
+        "Remaining work."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-04",
+      "description": "ENGINEERING OPERATING PRINCIPLES",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 4,
+        "attachment_line": 160
+      },
+      "acceptance_criteria": [
+        "Implemented.",
+        "Verified.",
+        "Simulated.",
+        "Partially implemented.",
+        "Externally blocked.",
+        "Production-tested."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-05",
+      "description": "APPROVED PRODUCT IDENTITY",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 5,
+        "attachment_line": 209
+      },
+      "acceptance_criteria": [
+        "Market structure.",
+        "Trend.",
+        "Momentum.",
+        "Liquidity.",
+        "Volatility.",
+        "Volume.",
+        "Support and resistance.",
+        "Market context.",
+        "Potential scenarios.",
+        "Structural invalidation.",
+        "Risk.",
+        "Uncertainty.",
+        "Conflicting evidence.",
+        "Automatic customer opportunity scanning.",
+        "Unsolicited trading alerts.",
+        "Autonomous trade execution.",
+        "Customer-facing general-purpose AI chat."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-06",
+      "description": "COMPLETE ANALYTICAL ENGINE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 6,
+        "attachment_line": 260
+      },
+      "acceptance_criteria": [
+        "Implement the approved analytical methodology.",
+        "Validate inputs.",
+        "Handle missing data.",
+        "Handle insufficient data.",
+        "Handle stale data.",
+        "Reject invalid and nonfinite values.",
+        "Produce deterministic structured outputs where applicable.",
+        "Record evidence provenance.",
+        "Document limitations.",
+        "Test expected behavior.",
+        "Test boundary conditions.",
+        "Test historical-prefix safety.",
+        "Test integration with the decision engine."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py",
+        "backend/app/analysis/advanced.py"
+      ],
+      "test_references": ["backend/tests/analysis/test_advanced_behavior.py"],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-07",
+      "description": "EVIDENCE INDEPENDENCE AND CONFLUENCE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 7,
+        "attachment_line": 298
+      },
+      "acceptance_criteria": [
+        "Evidence-family classification.",
+        "Duplicate-evidence prevention.",
+        "Correlation-aware confluence.",
+        "Explicit supporting evidence.",
+        "Explicit conflicting evidence.",
+        "Evidence provenance.",
+        "Deterministic decision aggregation.",
+        "Uncertainty handling."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-08",
+      "description": "MULTI-TIMEFRAME ANALYSIS",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 8,
+        "attachment_line": 323
+      },
+      "acceptance_criteria": [
+        "Higher-timeframe structural context.",
+        "Lower-timeframe confirmation.",
+        "Explicit conflict detection.",
+        "Deterministic conflict resolution.",
+        "Timestamp alignment.",
+        "Historical-prefix integrity.",
+        "Insufficient-data handling."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_historical_acceptance.py"
+      ],
+      "dependencies": ["G02", "G03"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-09",
+      "description": "DECISION AND RISK ENGINE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 9,
+        "attachment_line": 343
+      },
+      "acceptance_criteria": [
+        "BUY",
+        "SELL",
+        "NO_TRADE",
+        "WAIT",
+        "INSUFFICIENT_DATA",
+        "Structural entry scenarios.",
+        "Structural invalidation.",
+        "Stop-loss scenarios.",
+        "Target scenarios.",
+        "Risk/reward evaluation.",
+        "Volatility-aware constraints.",
+        "Invalid geometry rejection.",
+        "Conflicting-evidence rejection.",
+        "Stale-data rejection.",
+        "Insufficient-data rejection.",
+        "Nonfinite-value rejection.",
+        "Explicit uncertainty."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": ["backend/tests/analysis/test_safety_acceptance.py"],
+      "dependencies": ["G05"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-10",
+      "description": "HISTORICAL EVALUATION AND CONFIDENCE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 10,
+        "attachment_line": 378
+      },
+      "acceptance_criteria": [
+        "Strict no-lookahead enforcement.",
+        "Point-in-time data integrity.",
+        "Historical-prefix isolation.",
+        "Realistic transaction-cost assumptions.",
+        "Slippage assumptions.",
+        "Data-gap handling.",
+        "Market-regime segmentation.",
+        "Walk-forward evaluation.",
+        "Out-of-sample testing.",
+        "Reproducible experiments.",
+        "Performance reporting.",
+        "Failure analysis.",
+        "Statistical uncertainty reporting."
+      ],
+      "code_references": [
+        "backend/app/analysis/backtesting.py",
+        "backend/app/analysis/calibration.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_historical_acceptance.py"
+      ],
+      "dependencies": ["EXT-DATA", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-11",
+      "description": "MARKET-DATA INFRASTRUCTURE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 11,
+        "attachment_line": 408
+      },
+      "acceptance_criteria": [
+        "Provider abstraction.",
+        "Historical-data ingestion.",
+        "On-demand market-data retrieval.",
+        "Data validation.",
+        "Timestamp normalization.",
+        "Freshness checks.",
+        "Coverage checks.",
+        "Gap detection.",
+        "Provider error handling.",
+        "Rate-limit handling.",
+        "Safe retries.",
+        "Appropriate caching.",
+        "Provenance metadata.",
+        "Cost monitoring.",
+        "Data-quality reporting.",
+        "Complete provider-neutral interfaces.",
+        "Implement contract tests.",
+        "Provide clearly labeled fixture environments.",
+        "Document the exact external blocker.",
+        "Continue other engineering work."
+      ],
+      "code_references": [
+        "backend/app/analysis/data_contracts.py",
+        "backend/app/services/market_data.py",
+        "backend/app/analysis/data_cache.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_data_acquisition.py",
+        "backend/tests/analysis/test_data_cache.py"
+      ],
+      "dependencies": ["EXT-DATA", "G01", "G02"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-12",
+      "description": "AI EXPLANATION ENGINE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 12,
+        "attachment_line": 448
+      },
+      "acceptance_criteria": [
+        "Prices.",
+        "Indicators.",
+        "Market conditions.",
+        "Evidence.",
+        "Confidence.",
+        "Risk levels.",
+        "Trade outcomes.",
+        "Structured analytical evidence input.",
+        "Arabic-first explanations.",
+        "Output schema validation.",
+        "Unsupported-claim detection.",
+        "Prompt-injection resistance.",
+        "Safe fallback explanations.",
+        "Provider abstraction.",
+        "Model failure handling.",
+        "Cost monitoring.",
+        "Privacy controls.",
+        "Auditability."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": ["backend/tests/analysis/test_pipeline.py"],
+      "dependencies": ["EXT-AI", "G09"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-13",
+      "description": "COMPLETE CUSTOMER PLATFORM",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 13,
+        "attachment_line": 486
+      },
+      "acceptance_criteria": [
+        "Arabic-first.",
+        "RTL.",
+        "Responsive.",
+        "Accessible.",
+        "Secure.",
+        "Production-quality.",
+        "Landing page.",
+        "Product explanation.",
+        "Registration.",
+        "Login.",
+        "Account recovery.",
+        "Customer dashboard.",
+        "Asset search.",
+        "Timeframe selection.",
+        "On-demand analysis.",
+        "Loading and progress states.",
+        "Structured analysis results.",
+        "Decision explanation.",
+        "Supporting evidence.",
+        "Conflicting evidence.",
+        "Risk scenarios.",
+        "Analysis history.",
+        "Watchlist.",
+        "Account settings.",
+        "Subscription management.",
+        "Billing history.",
+        "Help center.",
+        "Support tickets.",
+        "Account cancellation and deletion workflows as legally appropriate.",
+        "Empty states.",
+        "Error states.",
+        "Loading states.",
+        "Validation feedback.",
+        "Accessibility behavior."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "G06", "UI-APPROVAL"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-14",
+      "description": "AUTHENTICATION AND AUTHORIZATION",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 14,
+        "attachment_line": 537
+      },
+      "acceptance_criteria": [
+        "Secure customer registration.",
+        "Email verification.",
+        "Secure login.",
+        "Session lifecycle management.",
+        "Session expiration.",
+        "Logout and revocation.",
+        "Account recovery.",
+        "Abuse protection.",
+        "Secure identity-provider integration.",
+        "Default-deny authorization.",
+        "Customer-data isolation.",
+        "Sensitive-operation auditing.",
+        "Privilege escalation.",
+        "Broken access control.",
+        "Session misuse.",
+        "Unauthorized access.",
+        "Cross-account data access.",
+        "MFA bypass attempts."
+      ],
+      "code_references": [
+        "backend/app/security/dependencies.py",
+        "backend/app/security/identity.py"
+      ],
+      "test_references": ["backend/tests/security/test_identity_boundaries.py"],
+      "dependencies": ["EXT-AUTH", "G06"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-15",
+      "description": "SUBSCRIPTIONS AND BILLING",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 15,
+        "attachment_line": 583
+      },
+      "acceptance_criteria": [
+        "One monthly subscription tier.",
+        "Automatic renewal with appropriate consent.",
+        "Cancellation with access until the paid period ends.",
+        "No launch trial.",
+        "No annual plan at launch.",
+        "Subscription lifecycle.",
+        "Entitlement enforcement.",
+        "Billing state management.",
+        "Payment event processing.",
+        "Webhook signature verification.",
+        "Idempotency.",
+        "Failed-payment handling.",
+        "Cancellation.",
+        "Renewal.",
+        "Refund-state handling.",
+        "Billing history.",
+        "Audit trails.",
+        "Reconciliation.",
+        "Configurable pricing.",
+        "Mada.",
+        "Apple Pay.",
+        "Visa.",
+        "Mastercard."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-16",
+      "description": "COMMAND CENTER — EXACTLY ELEVEN SECTIONS",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 16,
+        "attachment_line": 633
+      },
+      "acceptance_criteria": [
+        "Platform performance.",
+        "Revenue indicators.",
+        "Subscription indicators.",
+        "Customer growth.",
+        "Operational risks.",
+        "Executive priorities.",
+        "Pending founder decisions.",
+        "Executive summaries.",
+        "Business-performance analysis.",
+        "Strategic recommendations.",
+        "Priority identification.",
+        "Risk identification.",
+        "Founder decision requests.",
+        "Data freshness.",
+        "Analysis quality.",
+        "Evidence conflicts.",
+        "Rejection rates.",
+        "Component reliability.",
+        "Confidence calibration.",
+        "Analytical anomalies.",
+        "Engineering status.",
+        "Deployment status.",
+        "Technical debt.",
+        "Security findings.",
+        "Incident summaries.",
+        "Test results.",
+        "Infrastructure health.",
+        "Revenue.",
+        "Subscription metrics.",
+        "Infrastructure costs.",
+        "AI costs.",
+        "Market-data costs.",
+        "Customer acquisition costs.",
+        "Unit economics.",
+        "Cash-flow indicators.",
+        "Financial forecasts.",
+        "Product usage.",
+        "Feature adoption.",
+        "Customer journeys.",
+        "Retention.",
+        "Churn.",
+        "Customer feedback.",
+        "Product improvement opportunities.",
+        "Research experiments.",
+        "Historical evaluations.",
+        "Model comparisons.",
+        "Strategy hypotheses.",
+        "Statistical results.",
+        "Reproducibility records.",
+        "Improvement proposals.",
+        "Experiment lifecycle.",
+        "Evaluation results.",
+        "Controlled rollout plans.",
+        "Version comparisons.",
+        "Rollback readiness.",
+        "Founder approvals.",
+        "Pending proposals.",
+        "Risk classifications.",
+        "Decision history.",
+        "Rejection records.",
+        "Action tracking.",
+        "Service availability.",
+        "API latency.",
+        "Error rates.",
+        "Infrastructure utilization.",
+        "Incidents.",
+        "Operational alerts.",
+        "Backup health.",
+        "Recovery status.",
+        "Weekly text-based meetings.",
+        "AI CEO participation.",
+        "AI CTO participation.",
+        "AI CFO participation.",
+        "Founder interaction.",
+        "Structured agendas.",
+        "Discussion and debate.",
+        "Financial and engineering evidence.",
+        "Meeting minutes.",
+        "Decisions.",
+        "Action items.",
+        "Ownership.",
+        "Deadlines.",
+        "Follow-up tracking.",
+        "Historical meeting records."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-17",
+      "description": "CUSTOMER SUPPORT",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 17,
+        "attachment_line": 806
+      },
+      "acceptance_criteria": [
+        "Help center.",
+        "FAQ.",
+        "Customer support tickets.",
+        "Ticket status tracking.",
+        "Founder-side support management.",
+        "AI-assisted FAQ responses.",
+        "Escalation to human support.",
+        "Support history.",
+        "Privacy-safe workflows."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-18",
+      "description": "MARKETING INTELLIGENCE",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 18,
+        "attachment_line": 826
+      },
+      "acceptance_criteria": [
+        "Acquisition tracking.",
+        "Conversion metrics.",
+        "Campaign attribution where available.",
+        "CAC.",
+        "ROAS.",
+        "Funnel analysis.",
+        "Retention impact.",
+        "Marketing cost monitoring.",
+        "AI-generated campaign recommendations."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-19",
+      "description": "DATABASE AND BACKEND",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 19,
+        "attachment_line": 850
+      },
+      "acceptance_criteria": [
+        "Appropriate schemas.",
+        "Safe migrations.",
+        "Transaction management.",
+        "Data-integrity constraints.",
+        "Query optimization.",
+        "Pagination.",
+        "Concurrency safety.",
+        "Data-retention controls.",
+        "Audit records.",
+        "Backup strategy.",
+        "Restore verification.",
+        "Customer-data isolation.",
+        "Secure secrets management.",
+        "Market data.",
+        "Analytical results.",
+        "Customer identity.",
+        "Billing.",
+        "Support.",
+        "Administrative operations.",
+        "Research.",
+        "AI executive activities."
+      ],
+      "code_references": [
+        "backend/app/database/session.py",
+        "backend/app/database/base.py"
+      ],
+      "test_references": [
+        "backend/tests/test_migration_recovery.py",
+        "backend/tests/test_database_session_lifecycle.py"
+      ],
+      "dependencies": ["G08", "EXT-INFRA"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-20",
+      "description": "SECURITY AND PRIVACY",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 20,
+        "attachment_line": 885
+      },
+      "acceptance_criteria": [
+        "Authentication.",
+        "Authorization.",
+        "Session security.",
+        "Input validation.",
+        "Output encoding.",
+        "CSRF protections where applicable.",
+        "XSS prevention.",
+        "Injection prevention.",
+        "Rate limiting.",
+        "Secret management.",
+        "Dependency security.",
+        "Supply-chain risks.",
+        "Logging hygiene.",
+        "Privacy controls.",
+        "Secure configuration.",
+        "Encryption in transit.",
+        "Appropriate encryption at rest.",
+        "Backup security.",
+        "Auditability.",
+        "Incident response."
+      ],
+      "code_references": [
+        "backend/app/core/error_handlers.py",
+        "backend/app/security/dependencies.py"
+      ],
+      "test_references": ["backend/tests/api/test_security_acceptance.py"],
+      "dependencies": ["G16", "EXT-REG"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-21",
+      "description": "OBSERVABILITY AND OPERATIONS",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 21,
+        "attachment_line": 922
+      },
+      "acceptance_criteria": [
+        "Structured logging.",
+        "Metrics.",
+        "Distributed tracing where justified.",
+        "Health checks.",
+        "Readiness checks.",
+        "Alerting.",
+        "Incident records.",
+        "Operational dashboards.",
+        "Cost monitoring.",
+        "Backup verification.",
+        "Recovery procedures.",
+        "Deployment rollback.",
+        "Operational runbooks."
+      ],
+      "code_references": [
+        "backend/app/analysis/telemetry.py",
+        "backend/app/analysis/service.py"
+      ],
+      "test_references": ["backend/tests/analysis/test_freshness_telemetry.py"],
+      "dependencies": ["G15", "EXT-OPS"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-22",
+      "description": "ENVIRONMENTS AND DEPLOYMENT",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 22,
+        "attachment_line": 944
+      },
+      "acceptance_criteria": [
+        "Development.",
+        "Testing.",
+        "Staging.",
+        "Production.",
+        "Environment-specific configuration.",
+        "Secure CI/CD.",
+        "Automated tests.",
+        "Database migrations.",
+        "Containerization.",
+        "Deployment documentation.",
+        "Secret injection.",
+        "Rollback procedures.",
+        "Release verification.",
+        "Staging smoke tests.",
+        "Production deployment procedures."
+      ],
+      "code_references": [
+        "backend/Dockerfile",
+        ".github/workflows/quality.yml"
+      ],
+      "test_references": ["scripts/test_smoke_container.py"],
+      "dependencies": ["EXT-INFRA", "G18"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-23",
+      "description": "TESTING AND QUALITY GATES",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 23,
+        "attachment_line": 977
+      },
+      "acceptance_criteria": [
+        "Unit tests.",
+        "Integration tests.",
+        "API contract tests.",
+        "Frontend tests.",
+        "End-to-end tests.",
+        "Security regression tests.",
+        "Authorization tests.",
+        "Historical safety tests.",
+        "Analytical component tests.",
+        "Database migration tests.",
+        "Payment lifecycle tests.",
+        "Provider failure tests.",
+        "AI grounding tests.",
+        "Accessibility checks.",
+        "Performance checks.",
+        "Deployment smoke tests."
+      ],
+      "code_references": ["scripts/verify.py"],
+      "test_references": ["scripts/test_verify.py"],
+      "dependencies": ["G01", "G06", "G08", "G09", "G10"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-24",
+      "description": "IMPLEMENTATION ROADMAP",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 24,
+        "attachment_line": 1012
+      },
+      "acceptance_criteria": [
+        "Repository audit.",
+        "Requirement reconciliation.",
+        "Architecture decisions.",
+        "Gap analysis.",
+        "Security boundaries.",
+        "Canonical methodologies.",
+        "Advanced extensions.",
+        "Evidence independence.",
+        "Multi-timeframe logic.",
+        "Risk controls.",
+        "Historical evaluation.",
+        "PostgreSQL.",
+        "Market-data abstraction.",
+        "Data validation.",
+        "Authentication.",
+        "Authorization.",
+        "Observability.",
+        "Arabic RTL frontend.",
+        "Customer accounts.",
+        "Analysis workflows.",
+        "History and watchlists.",
+        "AI explanations.",
+        "Customer support.",
+        "Subscription lifecycle.",
+        "Payment integration.",
+        "Billing.",
+        "Entitlements.",
+        "Financial reporting.",
+        "All eleven sections.",
+        "AI CEO.",
+        "AI CTO.",
+        "AI CFO.",
+        "Board Meeting.",
+        "Research Lab.",
+        "Evolution Center.",
+        "Decision Center.",
+        "Security verification.",
+        "Performance testing.",
+        "Recovery testing.",
+        "End-to-end validation.",
+        "Deployment readiness.",
+        "Final requirement-to-evidence audit."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-25",
+      "description": "AUTONOMOUS EXECUTION AUTHORITY",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 25,
+        "attachment_line": 1089
+      },
+      "acceptance_criteria": [
+        "Inspect the repository.",
+        "Refactor code safely.",
+        "Implement approved requirements.",
+        "Add tests.",
+        "Improve documentation.",
+        "Create migrations.",
+        "Run local verification.",
+        "Create feature-branch commits.",
+        "Push verified work to the approved feature branch when permitted.",
+        "Select reasonable technical implementation details.",
+        "Continue through the backlog.",
+        "Merge into `main`.",
+        "Force-push.",
+        "Delete valuable project history.",
+        "Purchase services.",
+        "Create paid infrastructure.",
+        "Charge customers.",
+        "Launch marketing campaigns.",
+        "Execute financial trades.",
+        "Deploy to production.",
+        "Change founder-approved product scope.",
+        "Bypass security controls.",
+        "Access unapproved private data.",
+        "Claim regulatory approval."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-26",
+      "description": "CONTINUOUS PROGRESS MANAGEMENT",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 26,
+        "attachment_line": 1127
+      },
+      "acceptance_criteria": [
+        "Implement the functionality.",
+        "Add relevant tests.",
+        "Run applicable verification.",
+        "Record results.",
+        "Update `PROGRESS.md`.",
+        "Update `IMPLEMENTATION_PLAN.md`.",
+        "Update the requirement-to-evidence matrix.",
+        "Record unresolved dependencies.",
+        "Commit verified changes.",
+        "Continue to the next executable task."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-27",
+      "description": "EXTERNAL BLOCKER MANAGEMENT",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 27,
+        "attachment_line": 1152
+      },
+      "acceptance_criteria": [
+        "Commercial market-data rights.",
+        "API credentials.",
+        "Identity-provider approval.",
+        "Payment-provider approval.",
+        "AI-provider approval.",
+        "Production infrastructure.",
+        "Legal or regulatory review.",
+        "Founder commercial decisions.",
+        "Record the exact blocker.",
+        "Explain its impact.",
+        "Complete all safe independent engineering work.",
+        "Implement provider-neutral interfaces where appropriate.",
+        "Add contract tests.",
+        "Mark simulated functionality honestly.",
+        "Continue other executable work."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-28",
+      "description": "FOUNDER-CONTROLLED UI/UX DESIGN APPROVAL",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 28,
+        "attachment_line": 1183
+      },
+      "acceptance_criteria": [
+        "Frontend architecture and routing.",
+        "Functional UI components.",
+        "Authentication and customer workflows.",
+        "API integrations.",
+        "Responsive layout foundations.",
+        "Accessibility foundations.",
+        "Reusable design-system infrastructure.",
+        "Functional Command Center components.",
+        "Brand identity and visual direction.",
+        "Primary and secondary color palettes.",
+        "Light or dark theme strategy.",
+        "Typography and Arabic font selection.",
+        "Customer dashboard visual design.",
+        "Technical-analysis results presentation.",
+        "Charts and data-visualization styling.",
+        "Command Center visual design.",
+        "Mobile visual experience.",
+        "Animations and interaction styling.",
+        "Prepare a concise design proposal.",
+        "Identify decisions requiring founder approval.",
+        "Present reasonable design alternatives.",
+        "Explain usability and accessibility tradeoffs.",
+        "Request explicit approval.",
+        "Record approved decisions.",
+        "Implement the selected direction.",
+        "Verify desktop, tablet, and mobile layouts."
+      ],
+      "code_references": [
+        "frontend/src/styles/tokens.css",
+        "frontend/src/design/approval.ts",
+        "frontend/src/layouts/Layout.tsx"
+      ],
+      "test_references": [
+        "frontend/src/design/tokens.test.ts",
+        "scripts/test_design_tokens.py"
+      ],
+      "dependencies": ["UI-APPROVAL"],
+      "external_blockers": [],
+      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-29",
+      "description": "FINAL COMPLETION STANDARD",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 29,
+        "attachment_line": 1240
+      },
+      "acceptance_criteria": [
+        "The backend starts.",
+        "The frontend builds.",
+        "A demo works.",
+        "Existing tests pass.",
+        "Documentation exists.",
+        "The analytical registry contains 28 entries.",
+        "Mock integrations pass.",
+        "The Command Center renders.",
+        "AI agents generate text.",
+        "CI is green.",
+        "Every approved requirement implemented or explicitly classified as externally blocked.",
+        "All internally implementable requirements completed.",
+        "No known unresolved critical security defect.",
+        "No unresolved critical data-integrity defect.",
+        "No unresolved critical analytical-safety defect.",
+        "All mandatory quality gates passing.",
+        "Complete requirement-to-evidence traceability.",
+        "Realistic integration verification wherever external services are available.",
+        "Accurate deployment and recovery documentation.",
+        "Honest classification of production-readiness limitations.",
+        "Founder-approved visual identity implemented and verified.",
+        "All eleven Command Center sections implemented and tested.",
+        "Customer journeys verified end to end.",
+        "Subscription and entitlement logic verified.",
+        "AI explanations validated against analytical evidence."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-30",
+      "description": "FINAL MANDATORY REPORT",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 30,
+        "attachment_line": 1285
+      },
+      "acceptance_criteria": [
+        "FULL SOFTWARE IMPLEMENTATION VERIFIED",
+        "SOFTWARE IMPLEMENTATION COMPLETE TO AVAILABLE DEPENDENCIES",
+        "IMPLEMENTATION IN PROGRESS",
+        "IMPLEMENTATION BLOCKED",
+        "Branch.",
+        "Final commit SHA.",
+        "Remote synchronization.",
+        "Working-tree status.",
+        "Uncommitted changes.",
+        "Total approved requirements.",
+        "Implemented requirements.",
+        "Verified requirements.",
+        "Partially implemented requirements.",
+        "Unimplemented requirements.",
+        "Externally blocked requirements.",
+        "Status of all 28 components.",
+        "Methodology verification.",
+        "Historical testing.",
+        "Evidence independence.",
+        "Confidence calibration.",
+        "Risk controls.",
+        "Frontend.",
+        "Authentication.",
+        "On-demand analysis.",
+        "AI explanations.",
+        "History.",
+        "Watchlists.",
+        "Support.",
+        "Billing.",
+        "AI CEO.",
+        "AI CTO.",
+        "AI CFO.",
+        "Board Meeting.",
+        "Approved visual direction.",
+        "Implemented design system.",
+        "Desktop verification.",
+        "Tablet verification.",
+        "Mobile verification.",
+        "Accessibility results.",
+        "Remaining visual issues.",
+        "Backend tests.",
+        "Frontend tests.",
+        "Security tests.",
+        "Integration tests.",
+        "End-to-end tests.",
+        "CI.",
+        "Database tests.",
+        "Deployment tests.",
+        "Software implementation readiness.",
+        "Staging readiness.",
+        "Production deployment readiness.",
+        "Legal and regulatory readiness.",
+        "Commercial launch readiness."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "MASTER-31",
+      "description": "EXECUTION CONTINUITY",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
+        "section": 31,
+        "attachment_line": 1389
+      },
+      "acceptance_criteria": [
+        "All approved internally executable requirements are implemented and verified; or",
+        "A genuine external blocker prevents further executable progress; or",
+        "An actual execution or usage limit is reached; or",
+        "Founder authorization is required for a sensitive action.",
+        "Last verified commit.",
+        "Completed work packages.",
+        "Current work package.",
+        "Remaining backlog.",
+        "Failed tests.",
+        "External blockers.",
+        "Exact next action."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "external_blockers": [],
+      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
+    },
+    {
+      "id": "AN-C01",
+      "description": "Data Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Fixture validation/closed snapshots implemented; licensed live ingestion absent",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_providers.py",
+        "backend/tests/analysis/test_freshness_boundaries.py",
+        "backend/tests/api/test_analysis.py"
+      ],
+      "dependencies": ["G01", "G02"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C02",
+      "description": "Market Context Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "First/last-close context, not a complete regime/session model; null vote under Option A",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_behavioral_matrix.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C03",
+      "description": "Market Structure Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Legacy recent-range/price-direction method; advanced break extension does not make legacy engine complete",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_behavioral_matrix.py",
+        "backend/tests/analysis/test_deterministic.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C04",
+      "description": "Trend Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Arithmetic 3/5 means with inherited context direction, provisional interpretation",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_deterministic.py",
+        "backend/tests/analysis/test_numeric_boundaries.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C05",
+      "description": "Support & Resistance Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Recent range/proximity, no full reaction-strength method; non-directional",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_behavioral_matrix.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C06",
+      "description": "Supply & Demand Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Range/zone inference, not full formation/mitigation model; non-directional",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_behavioral_matrix.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C07",
+      "description": "Liquidity Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Equal-high/range inference only; no observed orders/order book; basic bias null",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_behavioral_matrix.py"
+      ],
+      "dependencies": ["G02", "G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C08",
+      "description": "Volume Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Historical baseline tests pass; directional interpretation and empirical behavior provisional",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_freshness_boundaries.py",
+        "backend/tests/analysis/test_behavioral_matrix.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C09",
+      "description": "Momentum Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "ROC and arithmetic-window RSI, not Wilder smoothing; empirical methodology unaccepted",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_deterministic.py",
+        "backend/tests/analysis/test_numeric_boundaries.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C10",
+      "description": "Volatility Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Arithmetic mean true range, not Wilder ATR; regime thresholds provisional",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_numeric_boundaries.py",
+        "backend/tests/analysis/test_safety_acceptance.py"
+      ],
+      "dependencies": ["G03", "G05"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C11",
+      "description": "Pattern Recognition Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Body/spread classification, not a full multi-bar pattern catalogue",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_behavioral_matrix.py",
+        "backend/tests/analysis/test_deterministic.py"
+      ],
+      "dependencies": ["G03"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C12",
+      "description": "Candlestick Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Geometry/engulfing/hammer/shooting-star/doji/conflicts tested; contextual scope limited",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_behavioral_matrix.py",
+        "backend/tests/analysis/test_advanced_behavior.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C13",
+      "description": "Correlation Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Aligned close-level Pearson, non-directional; not returns correlation or causation",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/deterministic.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_integration_features.py",
+        "backend/tests/analysis/test_numeric_boundaries.py"
+      ],
+      "dependencies": ["G02", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C14",
+      "description": "Multi-Timeframe Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "As-of independent frames/cadence checked; demo supplies no independent frames; regime acceptance absent",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_integration_features.py",
+        "backend/tests/analysis/test_historical_acceptance.py"
+      ],
+      "dependencies": ["G02", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C15",
+      "description": "Evidence Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Provenance/grouping tested; family label alone is not empirical independence",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_evidence_asof.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C16",
+      "description": "Confluence Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Same-family dedup/conflicts and contextual-only rejection tested; cross-family dependency unresolved",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_contextual_contributions.py",
+        "backend/tests/analysis/test_safety_acceptance.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C17",
+      "description": "Opportunity Filter",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Baseline alignment/eligibility gates, not complete commercial opportunity policy",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_pipeline.py",
+        "backend/tests/analysis/test_safety_acceptance.py"
+      ],
+      "dependencies": ["G03", "G05"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C18",
+      "description": "Decision Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "BUY/SELL/NO_TRADE/WAIT/INSUFFICIENT_DATA tested on fixtures, no predictive validation",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_decision_states.py",
+        "backend/tests/analysis/test_safety_acceptance.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C19",
+      "description": "Risk Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Geometry/targets/RR/missing-invalid-volatility rejection tested; complete liquidity/volatility policy limited",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_safety_acceptance.py",
+        "backend/tests/analysis/test_historical_acceptance.py"
+      ],
+      "dependencies": ["G05"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C20",
+      "description": "Confidence Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Analytical low/medium/high only; no empirical probability calibration",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_calibration.py",
+        "backend/tests/analysis/test_contextual_contributions.py"
+      ],
+      "dependencies": ["G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C21",
+      "description": "Validation Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Nonfinite/data/risk/late-engine failures rejected; production/regulatory acceptance absent",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_safety_acceptance.py",
+        "backend/tests/analysis/test_failure_isolation.py"
+      ],
+      "dependencies": ["G05", "G18"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C22",
+      "description": "Explainability Engine",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Final-decision summary reconciled; not complete rich analytical explanation",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_safety_acceptance.py",
+        "backend/tests/analysis/test_failure_isolation.py"
+      ],
+      "dependencies": ["G09"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C23",
+      "description": "AI Reasoning Layer",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "BLOCKED BY EXTERNAL DEPENDENCY",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Unavailable fallback only; actual AI narrative NOT IMPLEMENTED",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": ["backend/app/analysis/engines.py"],
+      "test_references": [
+        "backend/tests/analysis/test_pipeline.py",
+        "backend/tests/analysis/test_failure_isolation.py"
+      ],
+      "dependencies": ["G09", "EXT-AI"],
+      "external_blockers": ["EXT-AI"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-C24",
+      "description": "Strategy & Backtesting System",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Real service-based offline evaluator; one-bar spot-long returns, not portfolio simulation; OOS evaluation_pending",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/backtesting.py",
+        "backend/app/analysis/calibration.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_backtesting.py",
+        "backend/tests/analysis/test_historical_acceptance.py",
+        "backend/tests/analysis/test_calibration.py"
+      ],
+      "dependencies": ["G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-X01",
+      "description": "Momentum divergence extension",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Four divergence classes, matched confirmed pivots/configuration/prefix tests; no empirical proof",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/advanced.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_advanced_behavior.py",
+        "backend/tests/analysis/test_advanced_pipeline.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-X02",
+      "description": "Liquidity sweep extension",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Breach/rejection confirmation, directional cases and no-lookahead tests; inference only",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/advanced.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_advanced_behavior.py",
+        "backend/tests/analysis/test_contextual_contributions.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-X03",
+      "description": "Market transition extension",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Confirmed/potential/failed-break/equality/repeat-event checks; broader regimes unvalidated",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/advanced.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_advanced_structure.py",
+        "backend/tests/analysis/test_advanced_behavior.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "AN-X04",
+      "description": "Volume anomaly extension",
+      "parent": "MASTER-06",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 6
+      },
+      "acceptance_criteria": [
+        "Excluding-current rolling baseline; zero/missing handling, activity states; uncalibrated cutoffs",
+        "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
+      ],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/advanced.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_advanced_behavior.py",
+        "backend/tests/analysis/test_freshness_boundaries.py"
+      ],
+      "dependencies": ["G03", "G04"],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-01",
+      "description": "Landing page",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-02",
+      "description": "Product explanation",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-03",
+      "description": "Registration",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-04",
+      "description": "Login",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-05",
+      "description": "Account recovery",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-06",
+      "description": "Customer dashboard",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-07",
+      "description": "Asset search",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-08",
+      "description": "Timeframe selection",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-09",
+      "description": "On-demand analysis",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-10",
+      "description": "Loading and progress states",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-11",
+      "description": "Structured analysis results",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-12",
+      "description": "Decision explanation",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-13",
+      "description": "Supporting evidence",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-14",
+      "description": "Conflicting evidence",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-15",
+      "description": "Risk scenarios",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G01"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "CUSTOMER-16",
+      "description": "Analysis history",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-17",
+      "description": "Watchlist",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-18",
+      "description": "Account settings",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-19",
+      "description": "Subscription management",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-20",
+      "description": "Billing history",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-21",
+      "description": "Help center",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-22",
+      "description": "Support tickets",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "CUSTOMER-23",
+      "description": "Account cancellation and deletion",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
+        "Founder-approved visual presentation required before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G07", "UI-APPROVAL", "G06"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-01",
+      "description": "Executive Overview",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.1",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-02",
+      "description": "AI CEO Brief",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.2",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-03",
+      "description": "Intelligence Health",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.3",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-04",
+      "description": "Engineering Center",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.4",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-05",
+      "description": "Financial Center",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.5",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-06",
+      "description": "Product Intelligence",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.6",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-07",
+      "description": "Research Lab",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.7",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-08",
+      "description": "Evolution Center",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.8",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-09",
+      "description": "Decision Center",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.9",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-10",
+      "description": "Mission Control",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.10",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "COMMAND-11",
+      "description": "Board Meeting",
+      "parent": "MASTER-16",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "NOT IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 16
+      },
+      "acceptance_criteria": [
+        "Implement every listed capability in section 16.11",
+        "Exactly eleven top-level sections; founder-only trusted identity + MFA; no autonomous sensitive mutations.",
+        "Real metrics/evidence only; founder-approved visual presentation before visual completion."
+      ],
+      "code_references": [],
+      "test_references": [],
+      "dependencies": ["G06", "G11", "UI-APPROVAL", "G12", "G13"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+    },
+    {
+      "id": "UI-TOKENS",
+      "description": "Central configurable provisional design tokens",
+      "parent": "MASTER-28",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 28
+      },
+      "acceptance_criteria": [
+        "No final brand/palette/theme/font chosen; no hardcoded colors outside token source; all referenced tokens defined."
+      ],
+      "code_references": [
+        "frontend/src/styles/tokens.css",
+        "frontend/src/styles.css"
+      ],
+      "test_references": ["scripts/test_design_tokens.py"],
+      "dependencies": ["UI-APPROVAL"],
+      "external_blockers": ["UI-APPROVAL"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "UI-APPROVAL",
+      "description": "Founder visual decision boundary",
+      "parent": "MASTER-28",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 28
+      },
+      "acceptance_criteria": [
+        "Ten categories remain pending until explicit approval reference; visible provisional notice; final desktop/tablet/mobile acceptance still required."
+      ],
+      "code_references": [
+        "frontend/src/design/approval.ts",
+        "frontend/src/layouts/Layout.tsx"
+      ],
+      "test_references": ["frontend/src/design/tokens.test.ts"],
+      "dependencies": [],
+      "external_blockers": [],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "DATA-CONTRACT",
+      "description": "Provider-neutral validated acquisition into existing pipeline",
+      "parent": "MASTER-11",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 11
+      },
+      "acceptance_criteria": [
+        "No provider selected implicitly; live adapters rejected before fetch; closed/as-of identity/provenance/quality/coverage verified; same AnalysisService used."
+      ],
+      "code_references": [
+        "backend/app/analysis/data_contracts.py",
+        "backend/app/services/market_data.py"
+      ],
+      "test_references": ["backend/tests/analysis/test_data_acquisition.py"],
+      "dependencies": ["EXT-DATA"],
+      "external_blockers": ["EXT-DATA"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "DATA-RETRY",
+      "description": "Bounded sanitized retry/rate-limit handling",
+      "parent": "MASTER-11",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 11
+      },
+      "acceptance_criteria": [
+        "Bounded attempts/delays, Retry-After not shortened, no retry of permanent errors, sanitized failures and no real provider calls in tests."
+      ],
+      "code_references": [
+        "backend/app/analysis/data_contracts.py",
+        "backend/app/services/market_data.py"
+      ],
+      "test_references": ["backend/tests/analysis/test_data_acquisition.py"],
+      "dependencies": ["EXT-DATA"],
+      "external_blockers": ["EXT-DATA"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "DATA-CACHE",
+      "description": "Bounded request/as-of isolated snapshot cache",
+      "parent": "MASTER-11",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 11
+      },
+      "acceptance_criteria": [
+        "Optional cache disabled by default; TTL/LRU bounded; deep-copy isolation; no provider/mode guard bypass; no future/as-of cross-cache."
+      ],
+      "code_references": [
+        "backend/app/analysis/data_cache.py",
+        "backend/app/services/market_data.py"
+      ],
+      "test_references": ["backend/tests/analysis/test_data_cache.py"],
+      "dependencies": ["EXT-DATA"],
+      "external_blockers": ["EXT-DATA"],
+      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    }
+  ],
+  "reverse_references": {
+    "backend/app/analysis/engines.py": [
+      "MASTER-06",
+      "MASTER-07",
+      "MASTER-08",
+      "MASTER-09",
+      "MASTER-12",
+      "AN-C01",
+      "AN-C02",
+      "AN-C03",
+      "AN-C04",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C08",
+      "AN-C09",
+      "AN-C10",
+      "AN-C11",
+      "AN-C12",
+      "AN-C13",
+      "AN-C14",
+      "AN-C15",
+      "AN-C16",
+      "AN-C17",
+      "AN-C18",
+      "AN-C19",
+      "AN-C20",
+      "AN-C21",
+      "AN-C22",
+      "AN-C23",
+      "AN-C24",
+      "AN-X01",
+      "AN-X02",
+      "AN-X03",
+      "AN-X04"
+    ],
+    "backend/app/analysis/deterministic.py": [
+      "MASTER-06",
+      "AN-C01",
+      "AN-C02",
+      "AN-C03",
+      "AN-C04",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C08",
+      "AN-C09",
+      "AN-C10",
+      "AN-C11",
+      "AN-C12",
+      "AN-C13"
+    ],
+    "backend/app/analysis/advanced.py": [
+      "MASTER-06",
+      "AN-X01",
+      "AN-X02",
+      "AN-X03",
+      "AN-X04"
+    ],
+    "backend/tests/analysis/test_advanced_behavior.py": [
+      "MASTER-06",
+      "AN-C12",
+      "AN-X01",
+      "AN-X02",
+      "AN-X03",
+      "AN-X04"
+    ],
+    "backend/tests/analysis/test_contextual_contributions.py": [
+      "MASTER-07",
+      "AN-C02",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C15",
+      "AN-C16",
+      "AN-C20",
+      "AN-X02"
+    ],
+    "backend/tests/analysis/test_historical_acceptance.py": [
+      "MASTER-08",
+      "MASTER-10",
+      "AN-C14",
+      "AN-C19",
+      "AN-C24"
+    ],
+    "backend/tests/analysis/test_safety_acceptance.py": [
+      "MASTER-09",
+      "AN-C10",
+      "AN-C16",
+      "AN-C17",
+      "AN-C18",
+      "AN-C19",
+      "AN-C21",
+      "AN-C22"
+    ],
+    "backend/app/analysis/backtesting.py": ["MASTER-10", "AN-C24"],
+    "backend/app/analysis/calibration.py": ["MASTER-10", "AN-C24"],
+    "backend/app/analysis/data_contracts.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY"
+    ],
+    "backend/app/services/market_data.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY",
+      "DATA-CACHE"
+    ],
+    "backend/app/analysis/data_cache.py": ["MASTER-11", "DATA-CACHE"],
+    "backend/tests/analysis/test_data_acquisition.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY"
+    ],
+    "backend/tests/analysis/test_data_cache.py": ["MASTER-11", "DATA-CACHE"],
+    "backend/tests/analysis/test_pipeline.py": [
+      "MASTER-12",
+      "AN-C17",
+      "AN-C23"
+    ],
+    "frontend/src/pages/AnalysisPage.tsx": [
+      "MASTER-13",
+      "CUSTOMER-08",
+      "CUSTOMER-09",
+      "CUSTOMER-10",
+      "CUSTOMER-11",
+      "CUSTOMER-12",
+      "CUSTOMER-13",
+      "CUSTOMER-14",
+      "CUSTOMER-15"
+    ],
+    "frontend/src/features/analysis/AnalysisResults.tsx": [
+      "MASTER-13",
+      "CUSTOMER-08",
+      "CUSTOMER-09",
+      "CUSTOMER-10",
+      "CUSTOMER-11",
+      "CUSTOMER-12",
+      "CUSTOMER-13",
+      "CUSTOMER-14",
+      "CUSTOMER-15"
+    ],
+    "frontend/src/pages/AnalysisPage.test.tsx": [
+      "MASTER-13",
+      "CUSTOMER-08",
+      "CUSTOMER-09",
+      "CUSTOMER-10",
+      "CUSTOMER-11",
+      "CUSTOMER-12",
+      "CUSTOMER-13",
+      "CUSTOMER-14",
+      "CUSTOMER-15"
+    ],
+    "frontend/src/features/analysis/AnalysisResults.test.tsx": [
+      "MASTER-13",
+      "CUSTOMER-08",
+      "CUSTOMER-09",
+      "CUSTOMER-10",
+      "CUSTOMER-11",
+      "CUSTOMER-12",
+      "CUSTOMER-13",
+      "CUSTOMER-14",
+      "CUSTOMER-15"
+    ],
+    "backend/app/security/dependencies.py": ["MASTER-14", "MASTER-20"],
+    "backend/app/security/identity.py": ["MASTER-14"],
+    "backend/tests/security/test_identity_boundaries.py": ["MASTER-14"],
+    "backend/app/database/session.py": ["MASTER-19"],
+    "backend/app/database/base.py": ["MASTER-19"],
+    "backend/tests/test_migration_recovery.py": ["MASTER-19"],
+    "backend/tests/test_database_session_lifecycle.py": ["MASTER-19"],
+    "backend/app/core/error_handlers.py": ["MASTER-20"],
+    "backend/tests/api/test_security_acceptance.py": ["MASTER-20"],
+    "backend/app/analysis/telemetry.py": ["MASTER-21"],
+    "backend/app/analysis/service.py": ["MASTER-21"],
+    "backend/tests/analysis/test_freshness_telemetry.py": ["MASTER-21"],
+    "backend/Dockerfile": ["MASTER-22"],
+    ".github/workflows/quality.yml": ["MASTER-22"],
+    "scripts/test_smoke_container.py": ["MASTER-22"],
+    "scripts/verify.py": ["MASTER-23"],
+    "scripts/test_verify.py": ["MASTER-23"],
+    "frontend/src/styles/tokens.css": ["MASTER-28", "UI-TOKENS"],
+    "frontend/src/design/approval.ts": ["MASTER-28", "UI-APPROVAL"],
+    "frontend/src/layouts/Layout.tsx": ["MASTER-28", "UI-APPROVAL"],
+    "frontend/src/design/tokens.test.ts": ["MASTER-28", "UI-APPROVAL"],
+    "scripts/test_design_tokens.py": ["MASTER-28", "UI-TOKENS"],
+    "backend/tests/analysis/test_providers.py": ["AN-C01"],
+    "backend/tests/analysis/test_freshness_boundaries.py": [
+      "AN-C01",
+      "AN-C08",
+      "AN-X04"
+    ],
+    "backend/tests/api/test_analysis.py": ["AN-C01"],
+    "backend/tests/analysis/test_behavioral_matrix.py": [
+      "AN-C02",
+      "AN-C03",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C08",
+      "AN-C11",
+      "AN-C12"
+    ],
+    "backend/tests/analysis/test_deterministic.py": [
+      "AN-C03",
+      "AN-C04",
+      "AN-C09",
+      "AN-C11"
+    ],
+    "backend/tests/analysis/test_numeric_boundaries.py": [
+      "AN-C04",
+      "AN-C09",
+      "AN-C10",
+      "AN-C13"
+    ],
+    "backend/tests/analysis/test_integration_features.py": ["AN-C13", "AN-C14"],
+    "backend/tests/analysis/test_evidence_asof.py": ["AN-C15"],
+    "backend/tests/analysis/test_decision_states.py": ["AN-C18"],
+    "backend/tests/analysis/test_calibration.py": ["AN-C20", "AN-C24"],
+    "backend/tests/analysis/test_failure_isolation.py": [
+      "AN-C21",
+      "AN-C22",
+      "AN-C23"
+    ],
+    "backend/tests/analysis/test_backtesting.py": ["AN-C24"],
+    "backend/tests/analysis/test_advanced_pipeline.py": ["AN-X01"],
+    "backend/tests/analysis/test_advanced_structure.py": ["AN-X03"],
+    "frontend/src/styles.css": ["UI-TOKENS"]
+  }
+}

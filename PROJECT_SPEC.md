@@ -60,6 +60,21 @@ role-permission matrix, and exact release milestones need explicit evidence/deci
 
 ## Current verification overlay
 
+### Active master execution directive — 2026-10-30
+
+The complete 31-section founder directive is preserved in
+[approved master goal](docs/02-product/approved-master-execution-goal.md).
+[Canonical requirements](docs/02-product/canonical-requirements.json) groups its
+entire scope, 28 analytical components, 23 customer workflows and eleven executive
+sections with approval/status/code/test/dependency fields and reverse references.
+Group records overlap; their count is not an atomic feature-completion percentage.
+The initial commercial model is one monthly tier, consent-based renewal,
+end-of-paid-period cancellation, no launch trial or annual plan; price is unapproved.
+Separate staging is required in addition to development/testing/production.
+Final visual identity and ten design categories require explicit founder approval;
+current styling is provisional. No vendor, paid commitment, live-data rights,
+external customer-data transfer or production deployment is implicitly approved.
+
 ### Handover authority overlay — 2026-10-30
 
 The founder's Safe Project Handover directive explicitly approves Saudi-first,

@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router";
+import { visualApproval } from "../design/approval";
 export function Layout() {
   return (
     <>
@@ -16,6 +17,9 @@ export function Layout() {
       </main>
       <footer>
         Deterministic evidence. Explicit uncertainty. No automatic trading.
+        {visualApproval.status === "pending" && (
+          <p>Visual design is provisional and awaiting founder approval.</p>
+        )}
       </footer>
     </>
   );

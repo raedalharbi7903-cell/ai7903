@@ -10,6 +10,14 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+Current execution scope is expanded and retained in the
+[canonical register](../02-product/canonical-requirements.json), with grouped
+requirements and code/test reverse references. The original rows below remain
+historical evidence, not a substitute for the full 31-section directive.
+New C1 tests cover provider-neutral acquisition/cache safety through AnalysisService;
+D1 tests cover centralized provisional tokens and the pending-design notice.
+These do not prove live ingestion, actual provider rights or founder visual approval.
+
 The complete current inventory and expanded approved product requirements are in
 [handover status](../handover/IMPLEMENTATION_STATUS.md), with missing work and
 acceptance criteria in [G01-G20](../handover/REMAINING_WORK.md).

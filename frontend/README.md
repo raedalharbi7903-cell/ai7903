@@ -41,6 +41,12 @@ are needed. A missing backend environment fails the integration gate, not a skip
 
 ## Architecture
 
+Visual identity is **provisional, not founder-approved**. Existing demo colors,
+font stack and color-scheme are centralized in `src/styles/tokens.css`;
+`src/design/approval.ts` records the ten pending approval categories.
+No Arabic font or final theme strategy is selected. See the
+[design approval boundary](../docs/03-engineering/founder-design-approval.md).
+
 - `src/app`: route composition.
 - `src/layouts`: shared accessible shell and navigation.
 - `src/pages`: analysis interaction and not-found route.

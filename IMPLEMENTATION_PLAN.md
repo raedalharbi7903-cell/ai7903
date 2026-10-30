@@ -18,6 +18,25 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+### Active full-platform work packages — 2026-10-30
+
+Preserve the handover as immutable historical evidence; do not reconstruct it.
+The 31-section master directive and canonical registry retain the complete scope.
+
+1. A1: reconcile requirements and explicit design/commercial/environment changes;
+   maintain code/test reverse references and source-integrity tooling.
+2. C1: provider-neutral acquisition into existing AnalysisService: strict snapshots,
+   bounded retry, provenance/coverage/freshness and isolated optional caching.
+   Real licensed retrieval remains blocked, not complete.
+3. D1: centralized provisional design tokens and visible pending approval; no
+   final palette, font, theme or layout acceptance. Continue functional work.
+4. C2 next: PostgreSQL driver and actual disposable PostgreSQL CI acceptance;
+   no production resource or deployment. Then customer-data isolation/persistence,
+   provider-neutral subscription lifecycle and approved functional workflows.
+5. Continue B-G from the master directive with G01-G20 retained. Methodology
+   changes need approved specificity; vendors, privacy, pricing and visuals
+   remain explicitly gated. A1/C1/D1 are checkpoints, never platform completion.
+
 2026-10-30 access-policy update: founder approved email-based customers and one
 founder-only MFA administrator, no delegated/employee roles. Provider-neutral
 identity contracts and fail-closed FastAPI dependencies are implemented/tested
