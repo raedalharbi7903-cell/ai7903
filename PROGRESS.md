@@ -5,6 +5,40 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Safe project handover — 2026-10-30
+
+Initial inspection: feature/crypto-analysis-validation at 6cae34b, matching origin;
+16 modified plus six untracked files, no staged changes/conflicts/detached HEAD or
+unpushed commits. Reviewed purpose/authority/security of all 22 files and preserved
+them before handover edits in a7f0b722512a47cd8087494f5acd129862ad80ec.
+git ls-remote confirmed the exact pushed SHA; all 22 pre-preservation working-file
+SHA256 hashes matched after commit. No application/test changes made during handover.
+Only the prior delivery report's extra EOF blank line was corrected in documentation.
+
+The initial full-gate attempt was rejected by the approval reviewer due to the
+previous no-rerun instruction. Founder explicitly reauthorized one complete run.
+That run PASSED all 17 gates: 295 backend tests (18.24s), 17 frontend (15.37s),
+11 tooling (0.312s), lint/format/type/build/import/dependencies and document links.
+Hosted run 41048839548 at a7f0b72 completed SUCCESS, including actual Docker build,
+container health/non-root/production denial and packaged migrations. Local Docker,
+dedicated backend type checking, PostgreSQL and production acceptance unverified.
+
+git fsck exited 0 with no corruption, but exposed seven unreachable historical
+commits. All 140 unreachable objects (seven commits/23 trees/110 blobs) were scanned
+for recognizable sensitive patterns and preserved in a verified standalone recovery
+pack/index/reverse index. No objects or ignored artifacts deleted; no old code merged.
+Normalized local/hosted evidence and per-file preservation review are retained under
+docs/handover/evidence instead of depending on ignored caches or CI artifact retention.
+
+Created six handover documents with all 24 canonical components, four extensions,
+full-platform subsystem inventory, G01-G20 gaps, seven external dependency groups,
+FD01-FD19 approved boundaries, exactly eleven Command Center sections and explicit
+historical conflict register. Current English fixture UI, incomplete authentication,
+missing billing/executive/research products, uncalibrated methods and production/
+privacy/provider rights remain clearly incomplete. Final publication and remote
+verification are recorded in the handover checklist/receipt and final chat report.
+No new feature sprint, goal creation, merge, main push or paid commitment occurred.
+
 ## Founder access-policy continuation — 2026-10-30
 
 Resumed clean at 6cae34b, matching pushed tracking branch. Recorded email customer

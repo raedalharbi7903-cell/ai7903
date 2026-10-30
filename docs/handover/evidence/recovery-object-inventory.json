@@ -1,0 +1,567 @@
+{
+  "source": "git fsck --unreachable --no-reflogs",
+  "exit_code": 0,
+  "scope": "Previously unreachable objects only; not reinstated into application",
+  "objects": [
+    {
+      "type": "blob",
+      "sha": "165055180f19936dd8bdbc6d99cc8a8af9e3ebac"
+    },
+    {
+      "type": "blob",
+      "sha": "26709458d659aa1a42bc7fb9f50f027481471767"
+    },
+    {
+      "type": "blob",
+      "sha": "60401ee8711a7fa3d9c196d7cbc930e2f7c45c97"
+    },
+    {
+      "type": "commit",
+      "sha": "6960e85e003759045cb1e9baec7883f6e7edddf0"
+    },
+    {
+      "type": "blob",
+      "sha": "74d08a8c025b44de27e12a440bddab2960e6b9c6"
+    },
+    {
+      "type": "blob",
+      "sha": "83f04b3daa47110b0dbcec80c466cb6d7c79fc7c"
+    },
+    {
+      "type": "tree",
+      "sha": "90d0d833391ca0ded6a00b53a78144cb015af226"
+    },
+    {
+      "type": "blob",
+      "sha": "cf105de2c6d11456e188f1d3100c788a55807a58"
+    },
+    {
+      "type": "blob",
+      "sha": "0a51debcc87570aa081a390838bb2556a2eb8735"
+    },
+    {
+      "type": "blob",
+      "sha": "6741a1c7e6acf2f19bd9bb629de49ce9a16abaf2"
+    },
+    {
+      "type": "tree",
+      "sha": "7d513d94fcd26b7e23eac4c9f472f1f14a142ec1"
+    },
+    {
+      "type": "blob",
+      "sha": "8e81bc76596a8be8a4a3dccd192075f1f2e73a1d"
+    },
+    {
+      "type": "blob",
+      "sha": "a8116d7adb535edb33b7f928c07e37c98aaa150a"
+    },
+    {
+      "type": "tree",
+      "sha": "a8216a88e55ed5f34ac58569b20f0047c4c76f65"
+    },
+    {
+      "type": "blob",
+      "sha": "bef1cf266bba7a16b713915d52b064eb4082388b"
+    },
+    {
+      "type": "blob",
+      "sha": "c9b16c98f9ad33badef2f6e3234b81ff59dfbbb4"
+    },
+    {
+      "type": "blob",
+      "sha": "3a62da273554b227b7d18913e1417ce3313d48e2"
+    },
+    {
+      "type": "blob",
+      "sha": "50722d5fa2c36a6f61d796765bf54549708236c5"
+    },
+    {
+      "type": "blob",
+      "sha": "71827b0e3f52b8e437e72f63834e56034ef4f6bc"
+    },
+    {
+      "type": "tree",
+      "sha": "7a821a2ee624e046ac57bda6ecdd36482fcd91b1"
+    },
+    {
+      "type": "blob",
+      "sha": "a0b26a8aac6a9be87aa01e5cf73f1b4a8144cf9f"
+    },
+    {
+      "type": "tree",
+      "sha": "a4c226a551c0b0be7a60a972a807f2b055142702"
+    },
+    {
+      "type": "blob",
+      "sha": "b4c2fae74fabdd08fb1b1cd780ac8d9cdf0de8e0"
+    },
+    {
+      "type": "blob",
+      "sha": "b902e6ef861cb0580797cc1c81a52fcd96fd71fb"
+    },
+    {
+      "type": "blob",
+      "sha": "c2725d2fff850ed4107e87b2556416ae03f6aafb"
+    },
+    {
+      "type": "tree",
+      "sha": "dbd2d9bbba95fb7c5692e2ab053efa39b3f739b3"
+    },
+    {
+      "type": "tree",
+      "sha": "f79277437e1d1c2a8fdef1bbba5dd0a80dae07c8"
+    },
+    {
+      "type": "blob",
+      "sha": "f99278166cca6bcfbdb7e0373d556e7921ff381e"
+    },
+    {
+      "type": "blob",
+      "sha": "2bf3171b9e0acfbe04d5bc34b9d93adcf3f7cc4d"
+    },
+    {
+      "type": "blob",
+      "sha": "83a35603e6a592e50662db88121c2a60f0189984"
+    },
+    {
+      "type": "blob",
+      "sha": "93f31deada36702c88f7d4dc5d94e3bdfc73678e"
+    },
+    {
+      "type": "blob",
+      "sha": "ab132347a4e0ab484fc5702ac3ee8632562db994"
+    },
+    {
+      "type": "blob",
+      "sha": "b3a3c0e7f423d2755f24b0db5868fbbbe5faf8c7"
+    },
+    {
+      "type": "blob",
+      "sha": "f953c97964cc87b516af368084f126eb76e1bad7"
+    },
+    {
+      "type": "tree",
+      "sha": "01b4385103dd734133e00fea03693676572fe1e9"
+    },
+    {
+      "type": "blob",
+      "sha": "503401979985f8553cfbce474f0afee878a69319"
+    },
+    {
+      "type": "blob",
+      "sha": "52b453a2c01b0742afe91f82c4abfb03ac6593a5"
+    },
+    {
+      "type": "blob",
+      "sha": "54845a5e876af9f315e4d43039ee55dbf630c27b"
+    },
+    {
+      "type": "blob",
+      "sha": "68a4a707ffc25e0feef4ffeac7ff5c5654490d45"
+    },
+    {
+      "type": "blob",
+      "sha": "6f042dc6771aa63e3c1564bb2d3108c70a2a184d"
+    },
+    {
+      "type": "blob",
+      "sha": "9324e15fdab20c1493411acba9329d757ff983d8"
+    },
+    {
+      "type": "tree",
+      "sha": "94340414ee91c69c9d9bcf7396adee2a48136ce9"
+    },
+    {
+      "type": "blob",
+      "sha": "b374cdd9c2e901d612e5bf8ba663dd73da3c4bc8"
+    },
+    {
+      "type": "blob",
+      "sha": "c3d4b24b6f51764ce9215647f781a7522886247b"
+    },
+    {
+      "type": "blob",
+      "sha": "d7a4360620b960c75204c03d7715bd612474e440"
+    },
+    {
+      "type": "blob",
+      "sha": "de848c981f22b4f730a6baa66eceaabbae4bd68f"
+    },
+    {
+      "type": "blob",
+      "sha": "0cc53add2518c871c14a742074de488a6cbd1874"
+    },
+    {
+      "type": "blob",
+      "sha": "8365738dd97173f0efd60fff522d1b9b1644b8b1"
+    },
+    {
+      "type": "commit",
+      "sha": "94c51b0a6b7808b3703fa063f4a28f070d39bd4a"
+    },
+    {
+      "type": "blob",
+      "sha": "a5c599bf578b1cdba354c8204246d8778137af0a"
+    },
+    {
+      "type": "blob",
+      "sha": "de456e07eed20455231ddce8a8a51bce22ab53f5"
+    },
+    {
+      "type": "blob",
+      "sha": "eaf5574d069b94b6e93d67348855241b89a1c783"
+    },
+    {
+      "type": "blob",
+      "sha": "3bd61da48d599aea44f05222d80dc55e119d19f8"
+    },
+    {
+      "type": "tree",
+      "sha": "3fd6c3bd818552e43dc3f57ff57df164cff6f306"
+    },
+    {
+      "type": "blob",
+      "sha": "4ee6381cd63a23e8db3dcfbbb986353673ea3b9f"
+    },
+    {
+      "type": "commit",
+      "sha": "4fa663b9b28d7e0ac378c896610a4362608ace07"
+    },
+    {
+      "type": "blob",
+      "sha": "61c67363a689e9546318ed0cafa1b4e61eb828f2"
+    },
+    {
+      "type": "blob",
+      "sha": "6b76a88049e074810d844ddc0094a185949a01db"
+    },
+    {
+      "type": "blob",
+      "sha": "7446fb528552bac35d4f13d22a2f4a5a11dc1855"
+    },
+    {
+      "type": "tree",
+      "sha": "99265eeecdc4985f41ab4be6d84441769a62a208"
+    },
+    {
+      "type": "blob",
+      "sha": "a366afb1064594e05a6e3e62b751faf15c8a444f"
+    },
+    {
+      "type": "blob",
+      "sha": "c6c6ef76d12fcb69992aa55aea540f587f924e90"
+    },
+    {
+      "type": "blob",
+      "sha": "d6b62c1c84dde0db60a85090c576debc773abf89"
+    },
+    {
+      "type": "blob",
+      "sha": "dba67acf2242a4a58607b52022ded9ec9b3c27d4"
+    },
+    {
+      "type": "blob",
+      "sha": "f2d6509787c5e5f2bb60a29ad4f33fa85963b09c"
+    },
+    {
+      "type": "blob",
+      "sha": "15070b6a93fa4091132b94df4fe17f98c3eb9fe7"
+    },
+    {
+      "type": "blob",
+      "sha": "18575d63d57dea468a515311959799ae18a91cc8"
+    },
+    {
+      "type": "blob",
+      "sha": "3b87af006b9cb03a07cc8df69884492bd6755ba0"
+    },
+    {
+      "type": "blob",
+      "sha": "53c72bc1debb7f78b4af5968f56f5bc7dfda0985"
+    },
+    {
+      "type": "blob",
+      "sha": "5e877e55a0eec493587436759ad662cd16132180"
+    },
+    {
+      "type": "blob",
+      "sha": "8b372310b257b9b5d6cae2f11696fba5b78021fa"
+    },
+    {
+      "type": "blob",
+      "sha": "ce8744389c20d04fa1e2d56f829de9526b3391ca"
+    },
+    {
+      "type": "tree",
+      "sha": "d95728b37c7fc27f40eb8704769bbb78bd6d01cc"
+    },
+    {
+      "type": "blob",
+      "sha": "0578ea232d11132c263f7a9a34dc2ab04f582fe3"
+    },
+    {
+      "type": "tree",
+      "sha": "0d38b7d913e838b85a089cfa69442cb784c5433d"
+    },
+    {
+      "type": "blob",
+      "sha": "12a87967a75082fec5e015390e96165018bc7d08"
+    },
+    {
+      "type": "blob",
+      "sha": "16d8ab766e7803f551c379733a15e3cee2e3cc73"
+    },
+    {
+      "type": "tree",
+      "sha": "4d08f2677e6f33596601c523597172fe488bdb57"
+    },
+    {
+      "type": "blob",
+      "sha": "6468fde97649c2a99f541a649395fa277aeb7737"
+    },
+    {
+      "type": "blob",
+      "sha": "7ca89fa909e510317823b26cec0228ee3f1f9d14"
+    },
+    {
+      "type": "blob",
+      "sha": "b998f1537c17a32a679deec0ae6e0d05b0b1d911"
+    },
+    {
+      "type": "blob",
+      "sha": "bd5869d4ab0158706f7ce0da0ac8690a23074616"
+    },
+    {
+      "type": "blob",
+      "sha": "c158441b6043ffa7d9017668da2bd56a5e1e841f"
+    },
+    {
+      "type": "commit",
+      "sha": "c5386bb36bca26c7bc0b660ebe911c2904fd8c49"
+    },
+    {
+      "type": "blob",
+      "sha": "e63882e408f1d5b2d953677779b56b61ae0de601"
+    },
+    {
+      "type": "blob",
+      "sha": "f94848f443ae4fdfe9d4288ea70a0562df5decef"
+    },
+    {
+      "type": "blob",
+      "sha": "2f299d1936423dea8602a1d3280f782476072ed9"
+    },
+    {
+      "type": "blob",
+      "sha": "4b49c4055335d9a1840414904318f0c20931dfcc"
+    },
+    {
+      "type": "blob",
+      "sha": "4b99ad7fb7d8307bdaf53cd8b54d286533e42c4c"
+    },
+    {
+      "type": "blob",
+      "sha": "5cd908daf1c33ff8154896209109175f3702fab3"
+    },
+    {
+      "type": "blob",
+      "sha": "69d938603285ac44da82c59961418626bfcc72e6"
+    },
+    {
+      "type": "tree",
+      "sha": "93c9d997645fda02b458d05ee6533f1d5e66cf14"
+    },
+    {
+      "type": "blob",
+      "sha": "abb9275f5b0b2d8261a3122d004393370379cd2f"
+    },
+    {
+      "type": "commit",
+      "sha": "aba940532a298e38abf683f32d68d0ba37bfcc4a"
+    },
+    {
+      "type": "blob",
+      "sha": "dba9dba24d82f62a6747f7c7a0230f9ca1112eea"
+    },
+    {
+      "type": "tree",
+      "sha": "e93904898f58ed4d2795f0d3e93548362e91f09a"
+    },
+    {
+      "type": "blob",
+      "sha": "100a328c37f7c84e57b95200853889ca7903ecac"
+    },
+    {
+      "type": "blob",
+      "sha": "126a5ee9934af135b3e4a65053236343c1d854a3"
+    },
+    {
+      "type": "commit",
+      "sha": "5f0a7960693f820dfe73505f73edc50a71fddf3d"
+    },
+    {
+      "type": "blob",
+      "sha": "f51a70d114e53b4cef05c0b46f7a6335b4019666"
+    },
+    {
+      "type": "blob",
+      "sha": "112b4b647c60028861f3c09b69dd0a4377b5428e"
+    },
+    {
+      "type": "blob",
+      "sha": "1e5b9e31a43092936b5a7567d1c717051b35bcd7"
+    },
+    {
+      "type": "blob",
+      "sha": "22bb1d81ff5f4ef26621facaa4770749e9c1b436"
+    },
+    {
+      "type": "tree",
+      "sha": "60dbfea5e78da17843bde7cabbb6e8bc60c1baf7"
+    },
+    {
+      "type": "blob",
+      "sha": "8beb6bd95b88951b3d8af1459af5385a12c195d1"
+    },
+    {
+      "type": "tree",
+      "sha": "900b2872197b41fc8600c6f090707c330d3b4f5c"
+    },
+    {
+      "type": "blob",
+      "sha": "963b177f36131fe82f539c489acf7284c9f7552b"
+    },
+    {
+      "type": "blob",
+      "sha": "cbeb1f1daec1a9c671c3dc92db3f353745ccb725"
+    },
+    {
+      "type": "blob",
+      "sha": "dc0bb68d13087e5b08370c04380ada82bce8561a"
+    },
+    {
+      "type": "blob",
+      "sha": "639c288d630ab5e6e7e294602089dbb266f8ae80"
+    },
+    {
+      "type": "blob",
+      "sha": "949cfe127723dc711c0fc7c3ccf96064b859146f"
+    },
+    {
+      "type": "blob",
+      "sha": "9b2c9b8928e7a71a4c4e6b70a0dcb60a98d07c96"
+    },
+    {
+      "type": "blob",
+      "sha": "a10c7a6e4f52b93fb4cfc2c3755fe9895450626b"
+    },
+    {
+      "type": "blob",
+      "sha": "c23c14a7fb126b10c4d5c6eaf153106e5ff38cb2"
+    },
+    {
+      "type": "tree",
+      "sha": "e0dc105604fe1791b8c9499b51477056dd2259e3"
+    },
+    {
+      "type": "blob",
+      "sha": "f7dcaf7c3095ea6195e98d74cce8d0ef0734ce5e"
+    },
+    {
+      "type": "blob",
+      "sha": "ff9c5ef2b790b3442a2b0c1198bcde06cf655537"
+    },
+    {
+      "type": "blob",
+      "sha": "1a2ddbc2ea1e0e284bee8570ee8e526a68d94b1b"
+    },
+    {
+      "type": "blob",
+      "sha": "527da6b37fb86e70dbb1fc768a28e48a7166b461"
+    },
+    {
+      "type": "blob",
+      "sha": "5a8df2c6aa6f086d8e70345bb97fbd1b4b67de31"
+    },
+    {
+      "type": "commit",
+      "sha": "d50d863dd4d7817009a721651199b1fde7938408"
+    },
+    {
+      "type": "tree",
+      "sha": "27ae49325133fbe516e459aec513e4efbf219efb"
+    },
+    {
+      "type": "blob",
+      "sha": "75feea4a490148574d8c39d41cb831ead6038cdd"
+    },
+    {
+      "type": "blob",
+      "sha": "879e0ccaed732bc471ff366b292fbf7308b7f459"
+    },
+    {
+      "type": "blob",
+      "sha": "94de5e5140b557d07270a0865bbe046ae0414842"
+    },
+    {
+      "type": "blob",
+      "sha": "96be1e24d5bb99e7fa9dcdb6d9a992884cc00d9f"
+    },
+    {
+      "type": "tree",
+      "sha": "f48e2d840869e736431592e3522c935b01fbbe31"
+    },
+    {
+      "type": "blob",
+      "sha": "211ffef794f501e5b70b71075fbb28afb488743d"
+    },
+    {
+      "type": "blob",
+      "sha": "5e7f293802f8afdbbcdae3f213dc00378ca8b155"
+    },
+    {
+      "type": "blob",
+      "sha": "60ff57a6258f7a9e255762160a7482009db67e75"
+    },
+    {
+      "type": "blob",
+      "sha": "934f8e07afd49c239ebb6192d9132385060221bb"
+    },
+    {
+      "type": "blob",
+      "sha": "9c3fb305a8461dca0b66d893c1747b5d50cb8e45"
+    },
+    {
+      "type": "blob",
+      "sha": "a55f3a580a8d4532d9e47a75fd79be85cbaea53f"
+    },
+    {
+      "type": "tree",
+      "sha": "c7ff53f9cc98c56499c764c605c57a298311e442"
+    },
+    {
+      "type": "blob",
+      "sha": "c8cf66c0f94450c7bedf893d87afaea7a5a55bdb"
+    },
+    {
+      "type": "blob",
+      "sha": "c92f201274b4cab48d012379d118060cdaeb485a"
+    },
+    {
+      "type": "blob",
+      "sha": "d29f01ba4b7b3564c004cce88dea382fb43493c1"
+    },
+    {
+      "type": "blob",
+      "sha": "d75f408442c1933756d27ed8da5e5973a65311a6"
+    },
+    {
+      "type": "tree",
+      "sha": "e4df635de79cc52dff3f548e62dd54d669b1b162"
+    },
+    {
+      "type": "blob",
+      "sha": "eabf83c474cdfa8ce68d80692a3766be62b2faa6"
+    }
+  ]
+}

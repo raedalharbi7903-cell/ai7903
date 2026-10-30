@@ -1,11 +1,11 @@
 ---
 title: Documentation Portal
 document_id: DOC-PORTAL-001
-version: 1.2.0
+version: 1.3.0
 status: proposed
 owner: Engineering
 reviewers: CTO
-last_updated: 2026-10-29
+last_updated: 2026-10-30
 next_review: 2026-11-11
 related_documents: [DOC-MANIFEST-001]
 ---
@@ -26,6 +26,17 @@ Implementation and verification are tracked separately from intent.
 ## Main Content
 
 ### Current implementation and evidence
+
+The current handover package distinguishes verified source, approved requirements,
+historical contradictions and missing work. Start here when replacing the Goal:
+
+- [Project handover](handover/PROJECT_HANDOVER.md)
+- [Implementation inventory](handover/IMPLEMENTATION_STATUS.md)
+- [Remaining work and external dependencies](handover/REMAINING_WORK.md)
+- [Founder decisions and eleven-section Command Center](handover/FOUNDER_DECISIONS.md)
+- [Goal transition checklist](handover/GOAL_TRANSITION_CHECKLIST.md)
+- [New Goal start here](handover/NEW_GOAL_START_HERE.md)
+- [Preserved evidence and historical recovery](handover/evidence/README.md)
 
 - [Requirement-to-evidence matrix](10-testing/requirement-evidence-matrix.md)
 - [Runtime resilience evidence](10-testing/runtime-resilience-results.md)
@@ -116,6 +127,8 @@ Documentation describes approved intent and current reality. It must be updated 
 [Project Manifest](01-project/project-manifest.md)
 
 ## Change History
+
+- 1.3.0 — Added complete handover, approved-requirement and recovery entry points.
 
 - 1.2.0 — Added current evidence entry points and historical proposal boundaries.
 

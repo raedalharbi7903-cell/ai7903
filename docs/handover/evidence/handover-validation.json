@@ -1,0 +1,53 @@
+{
+  "date": "2026-10-30",
+  "source_commit": "a7f0b722512a47cd8087494f5acd129862ad80ec",
+  "local_quality_gates": {
+    "total": 17,
+    "passed": 17,
+    "backend_tests": 295,
+    "frontend_tests": 17,
+    "tooling_tests": 11,
+    "generated_at": "2026-10-30T11:33:44.857351+00:00"
+  },
+  "coverage": {
+    "canonical_components": 24,
+    "advanced_extensions": 4,
+    "broader_subsystems": 24,
+    "gaps": 20,
+    "external_categories": 7,
+    "founder_requirements": 19,
+    "command_center_sections": 11
+  },
+  "metadata_issues": 0,
+  "invalid_classifications": 0,
+  "inline_document_file_link_issues": 0,
+  "recovery_archive": {
+    "objects": 140,
+    "manifest_mismatches": 0,
+    "verify_pack_exit_code": 0
+  },
+  "source_tests_ci_tooling_changed_during_handover": false,
+  "backend_dedicated_type_checker": "NOT VERIFIED: not configured",
+  "local_docker": "NOT VERIFIED: unavailable",
+  "hosted_source_ci": {
+    "id": 41048839548,
+    "conclusion": "success",
+    "head_sha": "a7f0b722512a47cd8087494f5acd129862ad80ec"
+  },
+  "production_acceptance": "NOT VERIFIED",
+  "limitations": [
+    "No live licensed provider/identity vendor/PostgreSQL/payment/AI/production environment acceptance",
+    "Pattern-based review is not comprehensive forensic secret certification",
+    "Handover final publication and remote SHA must be checked separately"
+  ],
+  "environment_events": [
+    "First full-suite attempt rejected because prior no-rerun restriction remained in approval reviewer; explicit founder confirmation then authorized one successful run",
+    "One subsequent unprivileged git ls-remote failed network access; privileged remote verification is required, not software repair"
+  ],
+  "authoritative_evidence": [
+    "quality-gates.json",
+    "hosted-preservation-ci.json",
+    "preservation-review.json",
+    "recovery-object-inventory.json"
+  ]
+}

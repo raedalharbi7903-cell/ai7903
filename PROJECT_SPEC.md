@@ -60,6 +60,26 @@ role-permission matrix, and exact release milestones need explicit evidence/deci
 
 ## Current verification overlay
 
+### Handover authority overlay — 2026-10-30
+
+The founder's Safe Project Handover directive explicitly approves Saudi-first,
+Arabic-first, customer-requested cryptocurrency spot analysis, with later markets
+only through approved phases. No automated customer opportunity scanning/alerts,
+trade execution or customer-facing interactive AI chat. Pricing is deferred until
+measured operating cost; 169 SAR is not approved as final launch pricing.
+Exactly eleven founder-only Command Center sections, nested AI CTO/CFO and the
+independent weekly interactive executive Board Meeting are approved requirements.
+They are not implemented features. No employee/delegated initial administration.
+No paid commitments or external customer-data transfers without approval.
+
+[Founder decisions](docs/handover/FOUNDER_DECISIONS.md) records every approved
+boundary, all eleven names and explicit conflicts with historical proposals.
+[Implementation inventory](docs/handover/IMPLEMENTATION_STATUS.md) and
+[gap register](docs/handover/REMAINING_WORK.md) distinguish existing code,
+missing features, evidence and external dependencies. Older baseline rows and
+proposed documents remain historical; they do not override these newer approvals.
+This overlay records authority, not an architecture redesign or product completion.
+
 2026-10-30 founder approval resolves the initial access model: email-based
 customers, one founder-only administrator with mandatory MFA, no employees or
 delegated access. Vendor-neutral deny-by-default dependencies are implemented;

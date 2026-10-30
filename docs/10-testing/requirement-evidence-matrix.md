@@ -8,6 +8,25 @@ runner is scripts/verify.py; its local report is .verification/quality-gates.jso
 No performance, calibration, provider-rights or deployment claims are inferred
 from compilation or synthetic fixtures.
 
+## Handover verification overlay — 2026-10-30
+
+The complete current inventory and expanded approved product requirements are in
+[handover status](../handover/IMPLEMENTATION_STATUS.md), with missing work and
+acceptance criteria in [G01-G20](../handover/REMAINING_WORK.md).
+The founder approval/conflict register is
+[FD01-FD19](../handover/FOUNDER_DECISIONS.md). Older rows/counts below remain
+historical scoped records, not current completion claims.
+
+Fresh authorized local verification at source a7f0b72 passed all 17 gates:
+295 backend, 17 frontend and 11 tooling tests. Hosted run 41048839548 also passed
+full-stack, Docker build and actual container safety/migration checks at that SHA.
+Evidence is retained in docs/handover/evidence. Identity dependencies are default
+deny and test-routed only; actual login/recovery/administration remains absent.
+PostgreSQL intent is approved, runtime unverified. No empirical calibration,
+licensed live data, Arabic-first production experience or commercial readiness
+is inferred. The Option A correction is complete for its bounded scope; remaining
+cross-method independence is not established.
+
 | Requirement | Runtime location | Verification | Assessment |
 | --- | --- | --- | --- |
 | Backend foundation | backend/app/config, database, repositories, services | test_health.py; test_repository_and_service.py | PASS for tested foundation; real production DB deployment not verified |

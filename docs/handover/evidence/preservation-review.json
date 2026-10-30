@@ -1,0 +1,222 @@
+{
+  "repository": "raedalharbi7903-cell/ai7903",
+  "remote": "https://github.com/raedalharbi7903-cell/ai7903.git",
+  "branch": "feature/crypto-analysis-validation",
+  "initial_head": "6cae34bda1c7a69aac331e4ccd12b92281f7964d",
+  "initial_remote_tracking_head": "6cae34bda1c7a69aac331e4ccd12b92281f7964d",
+  "initial_modified": 16,
+  "initial_untracked": 6,
+  "initial_staged": 0,
+  "initial_unpushed": 0,
+  "initial_merge_conflicts": 0,
+  "detached_head": false,
+  "preservation_commit": "a7f0b722512a47cd8087494f5acd129862ad80ec",
+  "remote_preservation_verified": true,
+  "pre_documentation_hash_comparison": "22/22 exact working-file SHA256 match after preservation commit",
+  "review": "Previously authorized bounded identity implementation, not full authentication; no application/test edits made during handover",
+  "secret_review": {
+    "pending_files": 22,
+    "patterns": [
+      "private key PEM",
+      "GitHub token",
+      "AWS access key",
+      "OpenAI key",
+      "embedded credential URL"
+    ],
+    "findings": [],
+    "limitations": "Heuristic scan plus manual source/diff review; not a comprehensive secret-history certification"
+  },
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "91CA9282747D8115429DE1D63550A178D1E2B41501B864781CE8831D6E7B645A",
+      "purpose": "Blank optional founder identity configuration, no credential values",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "IMPLEMENTATION_PLAN.md",
+      "sha256": "FDF5756BE66601F64EC7B21D783C5728AE0248291D23982434B177066323C2AA",
+      "purpose": "Approved identity continuation evidence, no scope removal",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "PROGRESS.md",
+      "sha256": "40F685390E953B1A8E5EF1F77199A6496E2E256DF9781B15B3056D4AEED95166",
+      "purpose": "Chronological implementation/verification record",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "PROJECT_SPEC.md",
+      "sha256": "A28A49C1D083FB15EA09B8C7B945FB35673AB160DAA13F04542D678A0B8784F9",
+      "purpose": "Explicit founder identity/infrastructure approval overlay",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "backend/app/config/settings.py",
+      "sha256": "B4034CFACAEF3A4235CB6E5C680EA3FD1029C899D1692C182B5B8C793F860B31",
+      "purpose": "Optional issuer/subject settings; default-deny unchanged until wired",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/03-engineering/acceptance-dependencies.md",
+      "sha256": "D19FCE145585B756687A98A33E5318B148AE35CD89A474E310005AEAA48D41F8",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/04-architecture/ai-reasoning-architecture.md",
+      "sha256": "64F1C47EC8BDD69F8441CA1D78143E2DFFD2CA5E9A56BE37842489F0093277D0",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/06-security/authentication.md",
+      "sha256": "62353EDC335372913E3A2A48D57D7DC1D8B447D84C42917A420807F8D3998002",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/06-security/authorization.md",
+      "sha256": "DEC56468577B668903A2C91D383B257E535214567FF001B13BA7896CD5C74463",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/07-organization/administrative-roles.md",
+      "sha256": "4349285DC275096119B82568558B7D80B12374AE2A973331D3FEE028199BC302",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/07-organization/organization-model.md",
+      "sha256": "4F250883CB6F78E976A4911851B879C4A20A1623A7863EEA2BD97C5CD1B01E31",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/08-api/authentication-contract.md",
+      "sha256": "CB811BC1A771D5DFF9AD0BBE1F08D57E1807DC044805B512F40BBABF8B03D878",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/09-devops/deployment.md",
+      "sha256": "3227711EE9C898E0154D99921E1E8880B125154FFBD154EE0C6A750FF8FE25E3",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/09-devops/environments.md",
+      "sha256": "92352A91AC9E6C2278CFAEA47E6B44480D6399C81A2E5C0C5DB448E60207BC42",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/10-testing/requirement-evidence-matrix.md",
+      "sha256": "46D3D485004D61136EDB2D9B89732BD4700500329BC3D456494DAA14E85A6680",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/README.md",
+      "sha256": "9EC9664841E24BB65E6C4DD74CADF4893DEF01574EA368D7D4D6C255D1F34E8F",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "backend/app/security/__init__.py",
+      "sha256": "9019B22F542DDCA48B823234FC562F82931D3439DC146E242C1070DA744D7861",
+      "purpose": "Strict trusted identity contract and fail-closed customer/founder dependencies; no public route",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "backend/app/security/dependencies.py",
+      "sha256": "DB5B43C3FF911CFEB24BD012D488C78EE58B6464D51F5EE808C24B6FAD771BCC",
+      "purpose": "Strict trusted identity contract and fail-closed customer/founder dependencies; no public route",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "backend/app/security/identity.py",
+      "sha256": "D40A4BA564DC4379789AE9951A83B177ED14537FE9F88AC250CDFCAF3ECA9BD7",
+      "purpose": "Strict trusted identity contract and fail-closed customer/founder dependencies; no public route",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "backend/tests/security/test_identity_boundaries.py",
+      "sha256": "AA62E192BFBEAA838FB464CCDE5677798E480D79805D1340EB56D355510C7747",
+      "purpose": "Twenty-two test-only identity boundary regressions; synthetic identifiers",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/06-security/identity-access-foundation.md",
+      "sha256": "1FA4F71D4F0E30DEB18B78F380215D4B90F505126A63454844674B9BBB26C7C3",
+      "purpose": "Documentation of explicit policy, remaining gates, or portal/evidence cross-references",
+      "authorized": true,
+      "safe_for_preservation": true
+    },
+    {
+      "path": "docs/delivery/identity-foundation-engineering-delivery.md",
+      "sha256": "702759E2DABA9E9C7771906E718D02D8BA6543A8EEF6FBEFBA21ACBEA47678B8",
+      "purpose": "Prior complete delivery record; EOF whitespace correction only during handover",
+      "authorized": true,
+      "safe_for_preservation": true
+    }
+  ],
+  "ignored_project_items": [
+    ".ruff_cache/",
+    ".verification/",
+    "backend/.black-cache/",
+    "backend/.pytest_cache/",
+    "backend/.pytest_cache_execution/",
+    "backend/.ruff_cache/",
+    "backend/.venv/",
+    "backend/alembic/__pycache__/",
+    "backend/alembic/versions/__pycache__/",
+    "backend/app/__pycache__/",
+    "backend/app/analysis/__pycache__/",
+    "backend/app/api/__pycache__/",
+    "backend/app/api/v1/__pycache__/",
+    "backend/app/config/__pycache__/",
+    "backend/app/core/__pycache__/",
+    "backend/app/database/__pycache__/",
+    "backend/app/dependencies/__pycache__/",
+    "backend/app/logging/__pycache__/",
+    "backend/app/models/__pycache__/",
+    "backend/app/repositories/__pycache__/",
+    "backend/app/schemas/__pycache__/",
+    "backend/app/security/__pycache__/",
+    "backend/app/services/__pycache__/",
+    "backend/app/utils/__pycache__/",
+    "backend/tests/__pycache__/",
+    "backend/tests/analysis/__pycache__/",
+    "backend/tests/api/__pycache__/",
+    "backend/tests/security/__pycache__/",
+    "frontend/dist/",
+    "frontend/node_modules/",
+    "frontend/tsconfig.tsbuildinfo",
+    "scripts/__pycache__/"
+  ],
+  "ignored_policy": "No ignored directories deleted. Dependencies/caches/dist/tsbuildinfo rebuildable; normalized evidence snapshots are preserved here. No ignored .env appeared in the inspected Git status.",
+  "prior_local_quality_report_original_sha256": "352A8DAA3955CF0A132B30DCE2D9526012E50F667EE23B791C7398F26A5C7227",
+  "prior_report_note": "Prior 295/17/11 results are recorded in the preservation commit's delivery/progress files. The authorized fresh gate runner regenerated .verification/quality-gates.json; current normalized JSON snapshot is committed separately."
+}
