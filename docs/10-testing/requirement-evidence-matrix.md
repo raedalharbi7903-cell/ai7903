@@ -18,6 +18,11 @@ New C1 tests cover provider-neutral acquisition/cache safety through AnalysisSer
 D1 tests cover centralized provisional tokens and the pending-design notice.
 These do not prove live ingestion, actual provider rights or founder visual approval.
 
+DB-PG-ACCEPTANCE adds actual PostgreSQL tests outside the default SQLite test path,
+run explicitly by scripts/postgres_acceptance.py in CI. Driver/configuration and
+ownership-guard tests run locally; mocks do not establish server acceptance.
+The canonical register records hosted runtime as pending until its own run succeeds.
+
 The complete current inventory and expanded approved product requirements are in
 [handover status](../handover/IMPLEMENTATION_STATUS.md), with missing work and
 acceptance criteria in [G01-G20](../handover/REMAINING_WORK.md).

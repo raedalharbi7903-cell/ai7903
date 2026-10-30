@@ -2880,6 +2880,42 @@
       "dependencies": ["EXT-DATA"],
       "external_blockers": ["EXT-DATA"],
       "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+    },
+    {
+      "id": "DB-PG-ACCEPTANCE",
+      "description": "Actual disposable PostgreSQL migration/transaction/recovery acceptance",
+      "parent": "MASTER-19",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; no production provisioning approved",
+      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 19
+      },
+      "acceptance_criteria": [
+        "Pinned Psycopg driver imports without selecting a database",
+        "Generated credentials, exact owned container, loopback-only port, no supplied DATABASE_URL",
+        "Actual PostgreSQL Alembic upgrade/downgrade, transactions, constraints and bounded concurrent updates",
+        "Actual pg_dump/pg_restore retain snapshot and migration revision",
+        "Local mocks/config tests are not server acceptance; hosted runtime evidence required"
+      ],
+      "code_references": [
+        "backend/requirements/base.txt",
+        "backend/app/database/session.py",
+        "backend/app/config/settings.py",
+        "scripts/postgres_acceptance.py",
+        ".github/workflows/quality.yml"
+      ],
+      "test_references": [
+        "backend/integration/test_postgres.py",
+        "backend/tests/test_postgres_configuration.py",
+        "scripts/test_postgres_acceptance.py",
+        "backend/tests/api/test_analysis.py"
+      ],
+      "dependencies": ["G08", "G18"],
+      "external_blockers": [
+        "Production hosting/access/backup objectives and release approval"
+      ],
+      "remaining_work": "Execute hosted disposable PostgreSQL acceptance; production database/recovery/security acceptance remains separate."
     }
   ],
   "reverse_references": {
@@ -3049,7 +3085,7 @@
     "backend/app/security/dependencies.py": ["MASTER-14", "MASTER-20"],
     "backend/app/security/identity.py": ["MASTER-14"],
     "backend/tests/security/test_identity_boundaries.py": ["MASTER-14"],
-    "backend/app/database/session.py": ["MASTER-19"],
+    "backend/app/database/session.py": ["MASTER-19", "DB-PG-ACCEPTANCE"],
     "backend/app/database/base.py": ["MASTER-19"],
     "backend/tests/test_migration_recovery.py": ["MASTER-19"],
     "backend/tests/test_database_session_lifecycle.py": ["MASTER-19"],
@@ -3059,7 +3095,7 @@
     "backend/app/analysis/service.py": ["MASTER-21"],
     "backend/tests/analysis/test_freshness_telemetry.py": ["MASTER-21"],
     "backend/Dockerfile": ["MASTER-22"],
-    ".github/workflows/quality.yml": ["MASTER-22"],
+    ".github/workflows/quality.yml": ["MASTER-22", "DB-PG-ACCEPTANCE"],
     "scripts/test_smoke_container.py": ["MASTER-22"],
     "scripts/verify.py": ["MASTER-23"],
     "scripts/test_verify.py": ["MASTER-23"],
@@ -3074,7 +3110,7 @@
       "AN-C08",
       "AN-X04"
     ],
-    "backend/tests/api/test_analysis.py": ["AN-C01"],
+    "backend/tests/api/test_analysis.py": ["AN-C01", "DB-PG-ACCEPTANCE"],
     "backend/tests/analysis/test_behavioral_matrix.py": [
       "AN-C02",
       "AN-C03",
@@ -3109,6 +3145,12 @@
     "backend/tests/analysis/test_backtesting.py": ["AN-C24"],
     "backend/tests/analysis/test_advanced_pipeline.py": ["AN-X01"],
     "backend/tests/analysis/test_advanced_structure.py": ["AN-X03"],
-    "frontend/src/styles.css": ["UI-TOKENS"]
+    "frontend/src/styles.css": ["UI-TOKENS"],
+    "backend/requirements/base.txt": ["DB-PG-ACCEPTANCE"],
+    "backend/app/config/settings.py": ["DB-PG-ACCEPTANCE"],
+    "scripts/postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
+    "backend/integration/test_postgres.py": ["DB-PG-ACCEPTANCE"],
+    "backend/tests/test_postgres_configuration.py": ["DB-PG-ACCEPTANCE"],
+    "scripts/test_postgres_acceptance.py": ["DB-PG-ACCEPTANCE"]
   }
 }

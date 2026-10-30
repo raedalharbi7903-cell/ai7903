@@ -113,8 +113,11 @@ def test_validation_error_does_not_echo_submitted_data() -> None:
     assert "do-not-reflect-this" not in response.text
 
 
-def test_demo_endpoint_is_disabled_in_production_without_access_controls() -> None:
-    production = get_settings().model_copy(update={"environment": "production"})
+@pytest.mark.parametrize("environment", ["staging", "production"])
+def test_demo_endpoint_is_disabled_in_production_without_access_controls(
+    environment,
+) -> None:
+    production = get_settings().model_copy(update={"environment": environment})
     app.dependency_overrides[get_settings] = lambda: production
     try:
         with TestClient(app) as client:

@@ -37,6 +37,11 @@ The 31-section master directive and canonical registry retain the complete scope
    changes need approved specificity; vendors, privacy, pricing and visuals
    remain explicitly gated. A1/C1/D1 are checkpoints, never platform completion.
 
+C2 implementation now adds pinned Psycopg, four environment names, staging demo
+denial and an owned, loopback-only, digest-pinned PostgreSQL harness. Focused local
+configuration/migration/API checks pass; actual server and restore acceptance
+requires the new hosted step. No production database or business tables provisioned.
+
 2026-10-30 access-policy update: founder approved email-based customers and one
 founder-only MFA administrator, no delegated/employee roles. Provider-neutral
 identity contracts and fail-closed FastAPI dependencies are implemented/tested

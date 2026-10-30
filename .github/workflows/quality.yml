@@ -45,6 +45,9 @@ jobs:
       - name: Audit documentation links
         if: always()
         run: backend/.venv/bin/python scripts/audit_documents.py
+      - name: Verify disposable PostgreSQL migrations and recovery
+        if: always()
+        run: backend/.venv/bin/python scripts/postgres_acceptance.py
       - name: Build backend container
         id: container-build
         if: always()

@@ -5,6 +5,34 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## C2 PostgreSQL checkpoint — implemented, hosted acceptance pending
+
+Continued after 002bb2c (A1/C1/D1); that commit's hosted run 41056297679 completed
+SUCCESS. Added pinned Psycopg 3.3.6 binary driver without replacing SQLAlchemy;
+pip install and pip check passed. Recognize separate staging environment and deny
+demo API in staging as in production. No production resource or customer data used.
+
+Added digest-pinned PostgreSQL 17.11 CI harness: fresh generated credentials and
+database names, loopback ephemeral port, tmpfs/no host mounts, bounded resources,
+exact-container cleanup and refusal to consume existing DATABASE_URL.
+Six actual server tests cover existing engine/session/Alembic, rollback/no hidden
+commit, constraints/parameter binding, dirty reads and concurrent atomic updates.
+Actual pg_dump/restore must retain synthetic snapshot and migration revision.
+These run explicitly outside ordinary SQLite tests, not as skipped local cases.
+
+Local full checkpoint PASSED 17 gates: 368 backend tests (10.26s), 19 frontend
+(5.00s), 21 tooling (0.113s). Four earlier migration setup errors were Windows temp
+permissions, resolved on rerun (34 focused PASS) with a disclosed legacy cache
+warning. Dedicated-cache full verification has no such warning. Driver/dialect
+import is not server acceptance. Local Docker unavailable.
+
+Subsequent harness-only review fixed TCP-vs-initdb readiness and stale PASS artifact
+handling; cleanup failure cannot leave success evidence and unavailable Docker
+records NOT VERIFIED. Four focused harness tests and Ruff/Black pass after repairs.
+Next: push and inspect actual hosted PostgreSQL/restore results, repair if needed.
+Canonical register now has 99 overlapping groups including DB-PG-ACCEPTANCE.
+Product remains IMPLEMENTATION IN PROGRESS. No final design or vendor approval.
+
 ## Active master execution — A1/C1/D1 checkpoint (2026-10-30)
 
 Confirmed clean feature branch/local/remote at verified handover 1830ee6 before

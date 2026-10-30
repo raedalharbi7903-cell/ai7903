@@ -12,7 +12,7 @@ class Settings(BaseSettings):
         env_file=(".env", "../.env"), env_file_encoding="utf-8", extra="ignore"
     )
     app_name: str = Field(validation_alias="APP_NAME")
-    environment: Literal["development", "testing", "production"] = Field(
+    environment: Literal["development", "testing", "staging", "production"] = Field(
         validation_alias="APP_ENVIRONMENT"
     )
     log_level: Literal["INFO", "WARNING", "ERROR"] = Field(validation_alias="LOG_LEVEL")

@@ -42,7 +42,16 @@ def gates(root: Path, python: str, pnpm: str) -> list[tuple[str, Path, list[str]
         (
             "backend-format",
             backend,
-            [python, "-m", "black", "--check", "app", "tests", "alembic/env.py"],
+            [
+                python,
+                "-m",
+                "black",
+                "--check",
+                "app",
+                "tests",
+                "integration",
+                "alembic/env.py",
+            ],
         ),
         ("backend-compile", backend, [python, "-m", "compileall", "-q", "app"]),
         (

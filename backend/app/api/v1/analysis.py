@@ -27,7 +27,7 @@ def analyze(
     request: AnalysisRequest,
     settings: Annotated[Settings, Depends(get_settings)],
 ) -> AnalysisResult:
-    if settings.environment == "production":
+    if settings.environment in {"staging", "production"}:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
             detail=(
