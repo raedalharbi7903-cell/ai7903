@@ -50,6 +50,10 @@ class SyntheticVerifier:
             return identity
         if token == "Bearer synthetic-save-test":
             return identity.model_copy(update={"subject": "synthetic-save-customer"})
+        if token == "Bearer synthetic-watchlist-test":
+            return identity.model_copy(
+                update={"subject": "synthetic-watchlist-customer"}
+            )
         raise SessionVerificationError
 
 
@@ -74,4 +78,10 @@ app.dependency_overrides[get_settings] = lambda: Settings(
     HISTORY_AUDIT_POLICY_REFERENCE="synthetic-http-audit-only",
     HISTORY_RETENTION_SECONDS=3600,
     HISTORY_POLICY_REFERENCE="synthetic-http-only",
+    WATCHLIST_ENABLED=True,
+    WATCHLIST_RETENTION_SECONDS=3600,
+    WATCHLIST_POLICY_REFERENCE="synthetic-http-watchlist-only",
+    WATCHLIST_ALLOWED_ORIGIN="https://frontend.test",
+    WATCHLIST_AUDIT_RETENTION_SECONDS=7200,
+    WATCHLIST_AUDIT_POLICY_REFERENCE="synthetic-http-watchlist-audit-only",
 )

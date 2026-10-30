@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-10-30",
+  "updated": "2026-10-31",
   "scope": "Full 31-section founder execution directive. Group counts include process constraints and overlap; not an atomic feature-completion percentage.",
   "authority_precedence": [
     "explicit founder decisions",
@@ -357,14 +357,19 @@
       ],
       "code_references": [
         "backend/app/analysis/backtesting.py",
-        "backend/app/analysis/calibration.py"
+        "backend/app/analysis/calibration.py",
+        "backend/app/analysis/walk_forward.py"
       ],
       "test_references": [
-        "backend/tests/analysis/test_historical_acceptance.py"
+        "backend/tests/analysis/test_historical_acceptance.py",
+        "backend/tests/analysis/test_walk_forward.py"
       ],
-      "dependencies": ["EXT-DATA", "G04"],
+      "dependencies": [
+        "EXT-DATA",
+        "G04"
+      ],
       "external_blockers": [],
-      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "remaining_work": "Fixed-parameter chronological walk-forward folds reuse the existing evaluator with explicit decision bounds and prefix provenance. No fitting/optimization/label-horizon purge/calibrated probabilities or licensed empirical acceptance. Approved protocol, regime/uncertainty definitions and independent data remain required.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -452,11 +457,22 @@
         "Privacy controls.",
         "Auditability."
       ],
-      "code_references": ["backend/app/analysis/engines.py"],
-      "test_references": ["backend/tests/analysis/test_pipeline.py"],
-      "dependencies": ["EXT-AI", "G09"],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/grounded_ai.py",
+        "backend/app/analysis/service.py",
+        "backend/app/analysis/pipeline.py"
+      ],
+      "test_references": [
+        "backend/tests/analysis/test_pipeline.py",
+        "backend/tests/analysis/test_grounded_ai.py"
+      ],
+      "dependencies": [
+        "EXT-AI",
+        "G09"
+      ],
       "external_blockers": [],
-      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "remaining_work": "Provider-neutral constrained selection of server-authored Arabic facts is integrated into the existing AI stage with strict output/ID/final-state validation and default-deny transfer gates. No public request/settings/vendor activation or network adapter. Real provider/privacy/cost/time limits and free-form narrative acceptance remain unresolved.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -1919,14 +1935,25 @@
         "Unavailable fallback only; actual AI narrative NOT IMPLEMENTED",
         "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
       ],
-      "code_references": ["backend/app/analysis/engines.py"],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/grounded_ai.py",
+        "backend/app/analysis/service.py",
+        "backend/app/analysis/pipeline.py"
+      ],
       "test_references": [
         "backend/tests/analysis/test_pipeline.py",
-        "backend/tests/analysis/test_failure_isolation.py"
+        "backend/tests/analysis/test_failure_isolation.py",
+        "backend/tests/analysis/test_grounded_ai.py"
       ],
-      "dependencies": ["G09", "EXT-AI"],
-      "external_blockers": ["EXT-AI"],
-      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+      "dependencies": [
+        "G09",
+        "EXT-AI"
+      ],
+      "external_blockers": [
+        "EXT-AI"
+      ],
+      "remaining_work": "Bounded provider-neutral fact-selection foundation is tested through AnalysisService with synthetic injection. Actual model/provider/privacy/transfer/cost/reliability approvals and reviewed integration remain blocked. No free-form reasoning or commercial AI completion claim."
     },
     {
       "id": "AN-C24",
@@ -1945,16 +1972,20 @@
       "code_references": [
         "backend/app/analysis/engines.py",
         "backend/app/analysis/backtesting.py",
-        "backend/app/analysis/calibration.py"
+        "backend/app/analysis/calibration.py",
+        "backend/app/analysis/walk_forward.py"
       ],
       "test_references": [
         "backend/tests/analysis/test_backtesting.py",
         "backend/tests/analysis/test_historical_acceptance.py",
-        "backend/tests/analysis/test_calibration.py"
+        "backend/tests/analysis/test_calibration.py",
+        "backend/tests/analysis/test_walk_forward.py"
       ],
-      "dependencies": ["G04"],
+      "dependencies": [
+        "G04"
+      ],
       "external_blockers": [],
-      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+      "remaining_work": "Existing spot-long evaluator supports explicit test-decision bounds and rolling/expanding walk-forward folds. Synthetic integration excludes train/gap returns and enforces point-in-time primary/auxiliary data. No production promotion, fitting, empirical profitability or calibrated probabilities; approved datasets/protocol remain required."
     },
     {
       "id": "AN-X01",
@@ -2477,14 +2508,14 @@
         "EXT-AUTH",
         "RETENTION-APPROVAL"
       ],
-      "remaining_work": "Protected metadata/detail GET APIs and actual Arabic UI connected to owner-scoped history, with default-deny identity/release gates, versioned private responses and real synthetic HTTP integration. No public saving/deletion/purge route yet. Complete atomic audit/CSRF write workflows, explicit save consent, real identity/revocation, approved retention/erasure, rate limits, privacy/visual/browser and production acceptance. Source-specific hosted PG/API/container checks pending this checkpoint's publication."
+      "remaining_work": "Owned history GET plus explicit new-analysis-save POST and confirmed DELETE exist with atomic audit, exact Origin and explicit policies (C6 preserved at 6bf6f3ce). Shared client now rejects impossible calendar timestamps. Real identity/revocation, privacy/legal consent, retention/erasure/backups, abuse, browser/visual and production acceptance remain missing."
     },
     {
       "id": "CUSTOMER-17",
       "description": "Watchlist",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2493,11 +2524,34 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "backend/app/api/v1/watchlist.py",
+        "backend/app/dependencies/watchlist.py",
+        "backend/app/models/watchlist.py",
+        "backend/app/repositories/watchlist.py",
+        "backend/app/schemas/watchlist.py",
+        "backend/app/services/watchlist.py",
+        "frontend/src/pages/WatchlistPage.tsx",
+        "frontend/src/services/watchlist.ts",
+        "frontend/src/types/watchlist.ts"
+      ],
+      "test_references": [
+        "backend/tests/api/test_watchlist.py",
+        "backend/tests/test_watchlist_service.py",
+        "backend/integration/test_postgres.py",
+        "frontend/src/pages/WatchlistPage.test.tsx",
+        "frontend/src/pages/watchlist.integration.test.tsx",
+        "frontend/src/types/watchlist.test.ts"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Actual Arabic owner-scoped preference API/UI with explicit save/list/delete, unique active duplicate handling, atomic audit and exact Origin gates. Defaults disabled; no scanning, analysis or prices. Real identity/privacy/retention/erasure/abuse, browser/accessibility/visual and production acceptance remain. Actual PostgreSQL concurrency/restore requires own-source hosted evidence."
     },
     {
       "id": "CUSTOMER-18",
@@ -3082,35 +3136,56 @@
     }
   ],
   "reverse_references": {
-    "docs/09-devops/ci-action-baseline.json": ["MASTER-22"],
-    "scripts/test_ci_policy.py": ["MASTER-22"],
-    "frontend/src/types/history.test.ts": ["CUSTOMER-16"],
-    "frontend/src/pages/history.integration.test.tsx": ["CUSTOMER-16"],
-    "frontend/src/pages/HistoryPage.test.tsx": ["CUSTOMER-16"],
-    "backend/tests/http_history_fixture.py": ["CUSTOMER-16"],
-    "backend/tests/api/test_history.py": ["CUSTOMER-16"],
-    "frontend/src/services/http.ts": ["CUSTOMER-16"],
-    "frontend/src/services/history.ts": ["CUSTOMER-16"],
-    "frontend/src/types/history.ts": ["CUSTOMER-16"],
-    "frontend/src/pages/HistoryPage.tsx": ["CUSTOMER-16"],
-    "backend/app/schemas/history.py": ["CUSTOMER-16"],
-    "backend/app/dependencies/history.py": ["CUSTOMER-16"],
-    "backend/app/api/v1/history.py": ["CUSTOMER-16"],
-    "backend/app/analysis/providers.py": ["MASTER-11"],
-    "backend/tests/analysis/test_provider_denial.py": ["MASTER-11"],
-    "frontend/src/pages/PublicPages.test.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
-    "frontend/src/app/App.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
-    "frontend/src/pages/PublicPages.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
-    "backend/app/analysis/explanations.py": ["AN-C22"],
-    "frontend/src/types/explanation.ts": ["AN-C22"],
-    "backend/tests/analysis/test_arabic_explanation.py": ["AN-C22"],
-    "frontend/src/types/explanation.test.ts": ["AN-C22"],
-    "backend/app/models/analysis_history.py": ["CUSTOMER-16"],
-    "backend/app/repositories/analysis_history.py": ["CUSTOMER-16"],
-    "backend/app/services/analysis_history.py": ["CUSTOMER-16"],
-    "backend/alembic/versions/20261030_0002_analysis_history.py": ["CUSTOMER-16"],
-    "backend/tests/test_analysis_history.py": ["CUSTOMER-16"],
-    "backend/tests/analysis/test_boolean_boundaries.py": ["MASTER-11", "AN-C01"],
+    ".editorconfig": [
+      "REPO-EDITORCONFIG"
+    ],
+    ".github/workflows/quality.yml": [
+      "MASTER-22",
+      "DB-PG-ACCEPTANCE"
+    ],
+    "backend/alembic/versions/20261030_0002_analysis_history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/analysis/advanced.py": [
+      "MASTER-06",
+      "AN-X01",
+      "AN-X02",
+      "AN-X03",
+      "AN-X04"
+    ],
+    "backend/app/analysis/backtesting.py": [
+      "MASTER-10",
+      "AN-C24"
+    ],
+    "backend/app/analysis/calibration.py": [
+      "MASTER-10",
+      "AN-C24"
+    ],
+    "backend/app/analysis/data_cache.py": [
+      "MASTER-11",
+      "DATA-CACHE"
+    ],
+    "backend/app/analysis/data_contracts.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY"
+    ],
+    "backend/app/analysis/deterministic.py": [
+      "MASTER-06",
+      "AN-C01",
+      "AN-C02",
+      "AN-C03",
+      "AN-C04",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C08",
+      "AN-C09",
+      "AN-C10",
+      "AN-C11",
+      "AN-C12",
+      "AN-C13"
+    ],
     "backend/app/analysis/engines.py": [
       "MASTER-06",
       "MASTER-07",
@@ -3146,28 +3221,104 @@
       "AN-X03",
       "AN-X04"
     ],
-    "backend/app/analysis/deterministic.py": [
-      "MASTER-06",
-      "AN-C01",
-      "AN-C02",
-      "AN-C03",
-      "AN-C04",
-      "AN-C05",
-      "AN-C06",
-      "AN-C07",
-      "AN-C08",
-      "AN-C09",
-      "AN-C10",
-      "AN-C11",
-      "AN-C12",
-      "AN-C13"
+    "backend/app/analysis/explanations.py": [
+      "AN-C22"
     ],
-    "backend/app/analysis/advanced.py": [
-      "MASTER-06",
-      "AN-X01",
-      "AN-X02",
-      "AN-X03",
-      "AN-X04"
+    "backend/app/analysis/grounded_ai.py": [
+      "MASTER-12",
+      "AN-C23"
+    ],
+    "backend/app/analysis/pipeline.py": [
+      "MASTER-12",
+      "AN-C23"
+    ],
+    "backend/app/analysis/providers.py": [
+      "MASTER-11"
+    ],
+    "backend/app/analysis/service.py": [
+      "MASTER-12",
+      "MASTER-21",
+      "AN-C23"
+    ],
+    "backend/app/analysis/telemetry.py": [
+      "MASTER-21"
+    ],
+    "backend/app/analysis/walk_forward.py": [
+      "MASTER-10",
+      "AN-C24"
+    ],
+    "backend/app/api/v1/history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/api/v1/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/app/config/settings.py": [
+      "DB-PG-ACCEPTANCE"
+    ],
+    "backend/app/core/error_handlers.py": [
+      "MASTER-20"
+    ],
+    "backend/app/database/base.py": [
+      "MASTER-19"
+    ],
+    "backend/app/database/session.py": [
+      "MASTER-19",
+      "DB-PG-ACCEPTANCE"
+    ],
+    "backend/app/dependencies/history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/dependencies/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/app/models/analysis_history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/models/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/app/repositories/analysis_history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/repositories/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/app/schemas/history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/schemas/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/app/security/dependencies.py": [
+      "MASTER-14",
+      "MASTER-20"
+    ],
+    "backend/app/security/identity.py": [
+      "MASTER-14"
+    ],
+    "backend/app/services/analysis_history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/app/services/market_data.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY",
+      "DATA-CACHE"
+    ],
+    "backend/app/services/watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/Dockerfile": [
+      "MASTER-22"
+    ],
+    "backend/integration/test_postgres.py": [
+      "CUSTOMER-16",
+      "CUSTOMER-17",
+      "DB-PG-ACCEPTANCE"
+    ],
+    "backend/requirements/base.txt": [
+      "DB-PG-ACCEPTANCE"
     ],
     "backend/tests/analysis/test_advanced_behavior.py": [
       "MASTER-06",
@@ -3176,6 +3327,36 @@
       "AN-X02",
       "AN-X03",
       "AN-X04"
+    ],
+    "backend/tests/analysis/test_advanced_pipeline.py": [
+      "AN-X01"
+    ],
+    "backend/tests/analysis/test_advanced_structure.py": [
+      "AN-X03"
+    ],
+    "backend/tests/analysis/test_arabic_explanation.py": [
+      "AN-C22"
+    ],
+    "backend/tests/analysis/test_backtesting.py": [
+      "AN-C24"
+    ],
+    "backend/tests/analysis/test_behavioral_matrix.py": [
+      "AN-C02",
+      "AN-C03",
+      "AN-C05",
+      "AN-C06",
+      "AN-C07",
+      "AN-C08",
+      "AN-C11",
+      "AN-C12"
+    ],
+    "backend/tests/analysis/test_boolean_boundaries.py": [
+      "MASTER-11",
+      "AN-C01"
+    ],
+    "backend/tests/analysis/test_calibration.py": [
+      "AN-C20",
+      "AN-C24"
     ],
     "backend/tests/analysis/test_contextual_contributions.py": [
       "MASTER-07",
@@ -3188,12 +3369,71 @@
       "AN-C20",
       "AN-X02"
     ],
+    "backend/tests/analysis/test_data_acquisition.py": [
+      "MASTER-11",
+      "DATA-CONTRACT",
+      "DATA-RETRY"
+    ],
+    "backend/tests/analysis/test_data_cache.py": [
+      "MASTER-11",
+      "DATA-CACHE"
+    ],
+    "backend/tests/analysis/test_decision_states.py": [
+      "AN-C18"
+    ],
+    "backend/tests/analysis/test_deterministic.py": [
+      "AN-C03",
+      "AN-C04",
+      "AN-C09",
+      "AN-C11"
+    ],
+    "backend/tests/analysis/test_evidence_asof.py": [
+      "AN-C15"
+    ],
+    "backend/tests/analysis/test_failure_isolation.py": [
+      "AN-C21",
+      "AN-C22",
+      "AN-C23"
+    ],
+    "backend/tests/analysis/test_freshness_boundaries.py": [
+      "AN-C01",
+      "AN-C08",
+      "AN-X04"
+    ],
+    "backend/tests/analysis/test_freshness_telemetry.py": [
+      "MASTER-21"
+    ],
+    "backend/tests/analysis/test_grounded_ai.py": [
+      "MASTER-12",
+      "AN-C23"
+    ],
     "backend/tests/analysis/test_historical_acceptance.py": [
       "MASTER-08",
       "MASTER-10",
       "AN-C14",
       "AN-C19",
       "AN-C24"
+    ],
+    "backend/tests/analysis/test_integration_features.py": [
+      "AN-C13",
+      "AN-C14"
+    ],
+    "backend/tests/analysis/test_numeric_boundaries.py": [
+      "AN-C04",
+      "AN-C09",
+      "AN-C10",
+      "AN-C13"
+    ],
+    "backend/tests/analysis/test_pipeline.py": [
+      "MASTER-12",
+      "AN-C17",
+      "AN-C23"
+    ],
+    "backend/tests/analysis/test_provider_denial.py": [
+      "MASTER-11"
+    ],
+    "backend/tests/analysis/test_providers.py": [
+      "AN-C01"
     ],
     "backend/tests/analysis/test_safety_acceptance.py": [
       "MASTER-09",
@@ -3205,32 +3445,71 @@
       "AN-C21",
       "AN-C22"
     ],
-    "backend/app/analysis/backtesting.py": ["MASTER-10", "AN-C24"],
-    "backend/app/analysis/calibration.py": ["MASTER-10", "AN-C24"],
-    "backend/app/analysis/data_contracts.py": [
-      "MASTER-11",
-      "DATA-CONTRACT",
-      "DATA-RETRY"
+    "backend/tests/analysis/test_walk_forward.py": [
+      "MASTER-10",
+      "AN-C24"
     ],
-    "backend/app/services/market_data.py": [
-      "MASTER-11",
-      "DATA-CONTRACT",
-      "DATA-RETRY",
-      "DATA-CACHE"
+    "backend/tests/api/test_analysis.py": [
+      "AN-C01",
+      "DB-PG-ACCEPTANCE"
     ],
-    "backend/app/analysis/data_cache.py": ["MASTER-11", "DATA-CACHE"],
-    "backend/tests/analysis/test_data_acquisition.py": [
-      "MASTER-11",
-      "DATA-CONTRACT",
-      "DATA-RETRY"
+    "backend/tests/api/test_history.py": [
+      "CUSTOMER-16"
     ],
-    "backend/tests/analysis/test_data_cache.py": ["MASTER-11", "DATA-CACHE"],
-    "backend/tests/analysis/test_pipeline.py": [
-      "MASTER-12",
-      "AN-C17",
-      "AN-C23"
+    "backend/tests/api/test_security_acceptance.py": [
+      "MASTER-20"
     ],
-    "frontend/src/pages/AnalysisPage.tsx": [
+    "backend/tests/api/test_watchlist.py": [
+      "CUSTOMER-17"
+    ],
+    "backend/tests/http_history_fixture.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/tests/security/test_identity_boundaries.py": [
+      "MASTER-14"
+    ],
+    "backend/tests/test_analysis_history.py": [
+      "CUSTOMER-16"
+    ],
+    "backend/tests/test_database_session_lifecycle.py": [
+      "MASTER-19"
+    ],
+    "backend/tests/test_migration_recovery.py": [
+      "MASTER-19",
+      "CUSTOMER-16"
+    ],
+    "backend/tests/test_postgres_configuration.py": [
+      "DB-PG-ACCEPTANCE"
+    ],
+    "backend/tests/test_watchlist_service.py": [
+      "CUSTOMER-17"
+    ],
+    "docs/09-devops/ci-action-baseline.json": [
+      "MASTER-22"
+    ],
+    "frontend/index.html": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/app/App.tsx": [
+      "CUSTOMER-01",
+      "CUSTOMER-02",
+      "CUSTOMER-21"
+    ],
+    "frontend/src/components/Panel.tsx": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/design/approval.ts": [
+      "MASTER-28",
+      "UI-APPROVAL"
+    ],
+    "frontend/src/design/tokens.test.ts": [
+      "MASTER-28",
+      "UI-APPROVAL"
+    ],
+    "frontend/src/features/analysis/analysis.integration.test.tsx": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/features/analysis/AnalysisResults.test.tsx": [
       "MASTER-13",
       "CUSTOMER-08",
       "CUSTOMER-09",
@@ -3254,6 +3533,17 @@
       "CUSTOMER-15",
       "UI-ARABIC"
     ],
+    "frontend/src/i18n/ar.test.ts": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/i18n/ar.ts": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/layouts/Layout.tsx": [
+      "MASTER-28",
+      "UI-APPROVAL",
+      "UI-ARABIC"
+    ],
     "frontend/src/pages/AnalysisPage.test.tsx": [
       "MASTER-13",
       "CUSTOMER-08",
@@ -3266,7 +3556,7 @@
       "CUSTOMER-15",
       "UI-ARABIC"
     ],
-    "frontend/src/features/analysis/AnalysisResults.test.tsx": [
+    "frontend/src/pages/AnalysisPage.tsx": [
       "MASTER-13",
       "CUSTOMER-08",
       "CUSTOMER-09",
@@ -3278,93 +3568,97 @@
       "CUSTOMER-15",
       "UI-ARABIC"
     ],
-    "backend/app/security/dependencies.py": ["MASTER-14", "MASTER-20"],
-    "backend/app/security/identity.py": ["MASTER-14"],
-    "backend/tests/security/test_identity_boundaries.py": ["MASTER-14"],
-    "backend/app/database/session.py": ["MASTER-19", "DB-PG-ACCEPTANCE"],
-    "backend/app/database/base.py": ["MASTER-19"],
-    "backend/tests/test_migration_recovery.py": ["MASTER-19", "CUSTOMER-16"],
-    "backend/tests/test_database_session_lifecycle.py": ["MASTER-19"],
-    "backend/app/core/error_handlers.py": ["MASTER-20"],
-    "backend/tests/api/test_security_acceptance.py": ["MASTER-20"],
-    "backend/app/analysis/telemetry.py": ["MASTER-21"],
-    "backend/app/analysis/service.py": ["MASTER-21"],
-    "backend/tests/analysis/test_freshness_telemetry.py": ["MASTER-21"],
-    "backend/Dockerfile": ["MASTER-22"],
-    ".github/workflows/quality.yml": ["MASTER-22", "DB-PG-ACCEPTANCE"],
-    "scripts/test_smoke_container.py": ["MASTER-22"],
-    "scripts/verify.py": ["MASTER-23"],
-    "scripts/test_verify.py": ["MASTER-23"],
-    "frontend/src/styles/tokens.css": ["MASTER-28", "UI-TOKENS"],
-    "frontend/src/design/approval.ts": ["MASTER-28", "UI-APPROVAL"],
-    "frontend/src/layouts/Layout.tsx": [
-      "MASTER-28",
-      "UI-APPROVAL",
+    "frontend/src/pages/history.integration.test.tsx": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/pages/HistoryPage.test.tsx": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/pages/HistoryPage.tsx": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/pages/NotFoundPage.tsx": [
       "UI-ARABIC"
     ],
-    "frontend/src/design/tokens.test.ts": ["MASTER-28", "UI-APPROVAL"],
+    "frontend/src/pages/PublicPages.test.tsx": [
+      "CUSTOMER-01",
+      "CUSTOMER-02",
+      "CUSTOMER-21"
+    ],
+    "frontend/src/pages/PublicPages.tsx": [
+      "CUSTOMER-01",
+      "CUSTOMER-02",
+      "CUSTOMER-21"
+    ],
+    "frontend/src/pages/watchlist.integration.test.tsx": [
+      "CUSTOMER-17"
+    ],
+    "frontend/src/pages/WatchlistPage.test.tsx": [
+      "CUSTOMER-17"
+    ],
+    "frontend/src/pages/WatchlistPage.tsx": [
+      "CUSTOMER-17"
+    ],
+    "frontend/src/services/analysis.ts": [
+      "UI-ARABIC"
+    ],
+    "frontend/src/services/history.ts": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/services/http.ts": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/services/watchlist.ts": [
+      "CUSTOMER-17"
+    ],
+    "frontend/src/styles.css": [
+      "UI-TOKENS",
+      "UI-ARABIC"
+    ],
+    "frontend/src/styles/tokens.css": [
+      "MASTER-28",
+      "UI-TOKENS"
+    ],
+    "frontend/src/types/explanation.test.ts": [
+      "AN-C22"
+    ],
+    "frontend/src/types/explanation.ts": [
+      "AN-C22"
+    ],
+    "frontend/src/types/history.test.ts": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/types/history.ts": [
+      "CUSTOMER-16"
+    ],
+    "frontend/src/types/watchlist.test.ts": [
+      "CUSTOMER-17"
+    ],
+    "frontend/src/types/watchlist.ts": [
+      "CUSTOMER-17"
+    ],
+    "scripts/postgres_acceptance.py": [
+      "DB-PG-ACCEPTANCE"
+    ],
+    "scripts/test_ci_policy.py": [
+      "MASTER-22"
+    ],
     "scripts/test_design_tokens.py": [
       "MASTER-28",
       "UI-TOKENS",
       "REPO-EDITORCONFIG"
     ],
-    "backend/tests/analysis/test_providers.py": ["AN-C01"],
-    "backend/tests/analysis/test_freshness_boundaries.py": [
-      "AN-C01",
-      "AN-C08",
-      "AN-X04"
+    "scripts/test_postgres_acceptance.py": [
+      "DB-PG-ACCEPTANCE"
     ],
-    "backend/tests/api/test_analysis.py": ["AN-C01", "DB-PG-ACCEPTANCE"],
-    "backend/tests/analysis/test_behavioral_matrix.py": [
-      "AN-C02",
-      "AN-C03",
-      "AN-C05",
-      "AN-C06",
-      "AN-C07",
-      "AN-C08",
-      "AN-C11",
-      "AN-C12"
+    "scripts/test_smoke_container.py": [
+      "MASTER-22"
     ],
-    "backend/tests/analysis/test_deterministic.py": [
-      "AN-C03",
-      "AN-C04",
-      "AN-C09",
-      "AN-C11"
+    "scripts/test_verify.py": [
+      "MASTER-23"
     ],
-    "backend/tests/analysis/test_numeric_boundaries.py": [
-      "AN-C04",
-      "AN-C09",
-      "AN-C10",
-      "AN-C13"
-    ],
-    "backend/tests/analysis/test_integration_features.py": ["AN-C13", "AN-C14"],
-    "backend/tests/analysis/test_evidence_asof.py": ["AN-C15"],
-    "backend/tests/analysis/test_decision_states.py": ["AN-C18"],
-    "backend/tests/analysis/test_calibration.py": ["AN-C20", "AN-C24"],
-    "backend/tests/analysis/test_failure_isolation.py": [
-      "AN-C21",
-      "AN-C22",
-      "AN-C23"
-    ],
-    "backend/tests/analysis/test_backtesting.py": ["AN-C24"],
-    "backend/tests/analysis/test_advanced_pipeline.py": ["AN-X01"],
-    "backend/tests/analysis/test_advanced_structure.py": ["AN-X03"],
-    "frontend/src/styles.css": ["UI-TOKENS", "UI-ARABIC"],
-    "backend/requirements/base.txt": ["DB-PG-ACCEPTANCE"],
-    "backend/app/config/settings.py": ["DB-PG-ACCEPTANCE"],
-    "scripts/postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
-    "backend/integration/test_postgres.py": ["DB-PG-ACCEPTANCE", "CUSTOMER-16"],
-    "backend/tests/test_postgres_configuration.py": ["DB-PG-ACCEPTANCE"],
-    "scripts/test_postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
-    "frontend/src/i18n/ar.ts": ["UI-ARABIC"],
-    "frontend/src/components/Panel.tsx": ["UI-ARABIC"],
-    "frontend/src/pages/NotFoundPage.tsx": ["UI-ARABIC"],
-    "frontend/src/services/analysis.ts": ["UI-ARABIC"],
-    "frontend/index.html": ["UI-ARABIC"],
-    "frontend/src/i18n/ar.test.ts": ["UI-ARABIC"],
-    "frontend/src/features/analysis/analysis.integration.test.tsx": [
-      "UI-ARABIC"
-    ],
-    ".editorconfig": ["REPO-EDITORCONFIG"]
+    "scripts/verify.py": [
+      "MASTER-23"
+    ]
   }
 }

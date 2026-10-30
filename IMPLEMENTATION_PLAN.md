@@ -1,5 +1,15 @@
 # Dependency-aware implementation plan
 
+## Resumed packages — 2026-10-31
+
+Founder resumed actual development; historical handover pause below is no longer
+active instruction. Full approved scope retained. C7 private watchlist API/UI/audit,
+B2 constrained provider-neutral explanation and B3 fixed-parameter walk-forward
+are implemented; verify together then continue independent approved packages.
+Actual identity/privacy/retention and licensed empirical/model acceptance remain
+gated. Next: own-source PostgreSQL concurrency/restore and full-stack gates.
+No whole-platform completion or final visual acceptance claimed.
+
 ## Execution paused for handover — 2026-10-30
 
 This plan is preserved, not replaced or executed further during handover.

@@ -1,5 +1,8 @@
 import type { AnalysisRequest, Timeframe } from "../../types/analysis";
 const intervals: Record<Timeframe, number> = {
+  "1m": 60000,
+  "5m": 300000,
+  "15m": 900000,
   "1h": 3600000,
   "4h": 14400000,
   "1d": 86400000,

@@ -7,6 +7,7 @@ from app.analysis.context import AnalysisContext
 from app.analysis.deterministic import analyze, correlation
 from app.analysis.explanations import explain_in_arabic
 from app.analysis.freshness import FreshnessPolicy, assess_candles, assess_market_data
+from app.analysis.grounded_ai import GroundedExplanationService
 from app.analysis.models import (
     Candle,
     DecisionState,
@@ -845,7 +846,33 @@ class ExplainabilityEngine(BaseEngine):
 class AIReasoningLayer(BaseEngine):
     name, family = "ai_reasoning", "ai"
 
+    def __init__(self, explanation: GroundedExplanationService | None = None) -> None:
+        self._explanation = explanation
+
     def analyze(self, context: AnalysisContext) -> EngineOutput:
+        if self._explanation is not None:
+            explanation, reason = self._explanation.explain(context)
+            if explanation is not None:
+                return EngineOutput(
+                    engine_name=self.name,
+                    status=EngineLifecycleStatus.COMPLETED,
+                    data={
+                        "available": True,
+                        "explanation": explanation.model_dump(mode="json"),
+                    },
+                    warnings=[
+                        "Constrained selection of deterministic facts, not free-form "
+                        "AI reasoning or predictive validation"
+                    ],
+                )
+            return EngineOutput(
+                engine_name=self.name,
+                status=EngineLifecycleStatus.DEGRADED,
+                data={"available": False, "reason": reason},
+                warnings=[
+                    "AI explanation unavailable; deterministic analysis retained"
+                ],
+            )
         return EngineOutput(
             engine_name=self.name,
             status=EngineLifecycleStatus.DEGRADED,
@@ -866,7 +893,9 @@ class StrategyBacktestingSystem(BaseEngine):
         )
 
 
-def default_engines() -> tuple[BaseEngine, ...]:
+def default_engines(
+    *, explanation: GroundedExplanationService | None = None
+) -> tuple[BaseEngine, ...]:
     return (
         DataEngine(),
         MarketContextEngine(),
@@ -894,6 +923,6 @@ def default_engines() -> tuple[BaseEngine, ...]:
         ConfidenceEngine(),
         ValidationEngine(),
         ExplainabilityEngine(),
-        AIReasoningLayer(),
+        AIReasoningLayer(explanation),
         StrategyBacktestingSystem(),
     )

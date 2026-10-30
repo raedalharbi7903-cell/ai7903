@@ -89,8 +89,15 @@ class HistoricalBacktester:
         timeframes: dict[str, MarketData] | None = None,
         instrument: str = "historical-fixture",
         timeframe: str = "1h",
+        decision_start_index: int = 2,
+        decision_end_index: int | None = None,
     ) -> BacktestResult:
-        """Evaluate AnalysisService sequentially without exposing future candles."""
+        """Evaluate AnalysisService sequentially without exposing future candles.
+
+        Optional half-open decision bounds exclude warmup from test metrics. Each
+        selected decision must retain a following outcome candle inside candles.
+        Omitted bounds preserve the original all-prefix compatibility behavior.
+        """
         backtest_id = str(uuid4())
         started = perf_counter()
         self._record_telemetry(
@@ -116,6 +123,13 @@ class HistoricalBacktester:
         try:
             if len(candles) < 3:
                 raise ValueError("At least three candles are required for backtesting")
+            end = len(candles) - 1 if decision_end_index is None else decision_end_index
+            if (
+                type(decision_start_index) is not int
+                or type(end) is not int
+                or not 2 <= decision_start_index <= end <= len(candles) - 1
+            ):
+                raise ValueError("Invalid historical decision bounds")
             primary = MarketData(
                 instrument=instrument,
                 market="crypto",
@@ -135,7 +149,7 @@ class HistoricalBacktester:
                     or validate_market_data(frame) != ValidationStatus.PASS
                 ):
                     raise ValueError("Historical frames must be validated fixtures")
-            for index in range(2, len(candles) - 1):
+            for index in range(decision_start_index, end):
                 visible = candles[: index + 1]
                 result = service.analyze(
                     AnalysisInput(

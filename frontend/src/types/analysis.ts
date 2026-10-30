@@ -8,7 +8,8 @@ export const decisions = [
 export type Decision = (typeof decisions)[number];
 export type EngineStatus = "pending" | "running" | "completed" | "failed" | "degraded";
 export type Validation = "pass" | "fail" | "degraded";
-export type Timeframe = "1h" | "4h" | "1d";
+export const timeframes = ["1m", "5m", "15m", "1h", "4h", "1d"] as const;
+export type Timeframe = (typeof timeframes)[number];
 export interface Candle {
   timestamp: string;
   open: number;

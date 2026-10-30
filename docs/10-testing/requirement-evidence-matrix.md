@@ -1,5 +1,17 @@
 # Requirement-to-evidence matrix
 
+## Resumed source evidence — 2026-10-31
+
+CUSTOMER-17: backend watchlist service/API tests plus typed/component/actual HTTP
+frontend tests; no implicit analysis. Actual PostgreSQL concurrent duplicates,
+audit rollback, API and migration0004/restore cases require own-source hosted CI.
+Status remains PARTIAL. MASTER-12/AN-C23 test_grounded_ai.py proves service
+reachability, mandatory facts/conflicts, no raw metadata/unknown claims and late
+failure withholding. MASTER-10/AN-C24 test_walk_forward.py proves bounded original
+evaluator, no warmup/test mixing, prefix safety and reproducibility.
+No provider/model rights, empirical accuracy or final visuals inferred. Seven
+initial failing calendar cases now pass through shared history/watchlist boundary.
+
 ## Current handover evidence — 2026-10-30
 
 [Current handover state](../handover/CURRENT_STATE.md) supersedes older source

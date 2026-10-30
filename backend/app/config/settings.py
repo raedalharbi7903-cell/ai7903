@@ -4,6 +4,8 @@ from typing import Literal
 from pydantic import AnyHttpUrl, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from app.security.origin import validate_private_origin
+
 
 class Settings(BaseSettings):
     """Settings loaded from environment variables or .env."""
@@ -19,6 +21,30 @@ class Settings(BaseSettings):
     database_url: str = Field(validation_alias="DATABASE_URL")
     api_v1_prefix: str = Field(default="/api/v1", validation_alias="API_V1_PREFIX")
     history_enabled: bool = Field(default=False, validation_alias="HISTORY_ENABLED")
+    watchlist_enabled: bool = Field(default=False, validation_alias="WATCHLIST_ENABLED")
+    watchlist_retention_seconds: int | None = Field(
+        default=None, gt=0, validation_alias="WATCHLIST_RETENTION_SECONDS"
+    )
+    watchlist_policy_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="WATCHLIST_POLICY_REFERENCE",
+    )
+    watchlist_allowed_origin: AnyHttpUrl | None = Field(
+        default=None, validation_alias="WATCHLIST_ALLOWED_ORIGIN"
+    )
+    watchlist_audit_retention_seconds: int | None = Field(
+        default=None, gt=0, validation_alias="WATCHLIST_AUDIT_RETENTION_SECONDS"
+    )
+    watchlist_audit_policy_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="WATCHLIST_AUDIT_POLICY_REFERENCE",
+    )
     history_mutations_enabled: bool = Field(
         default=False, validation_alias="HISTORY_MUTATIONS_ENABLED"
     )
@@ -63,27 +89,12 @@ class Settings(BaseSettings):
 
     @model_validator(mode="after")
     def safe_history_origin(self) -> "Settings":
-        origin = self.history_allowed_origin
-        if origin is not None:
-            if (
-                origin.username is not None
-                or origin.password is not None
-                or origin.path not in (None, "", "/")
-                or origin.query is not None
-                or origin.fragment is not None
-                or not origin.host
-                or "*" in origin.host
-            ):
-                raise ValueError(
-                    "History origin must contain only scheme, host and port"
-                )
-            if origin.scheme != "https" and (
-                self.environment not in {"development", "testing"}
-                or origin.host not in {"localhost", "127.0.0.1", "::1", "[::1]"}
-            ):
-                raise ValueError(
-                    "History origin requires HTTPS outside loopback development"
-                )
+        validate_private_origin(
+            self.history_allowed_origin, self.environment, "History"
+        )
+        validate_private_origin(
+            self.watchlist_allowed_origin, self.environment, "Watchlist"
+        )
         return self
 
 

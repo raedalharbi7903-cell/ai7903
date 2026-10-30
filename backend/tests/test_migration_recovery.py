@@ -81,10 +81,10 @@ def test_sqlite_backup_restores_committed_revision_and_synthetic_probe(
         ]
         assert database.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("20261030_0003",)
+        ).fetchone() == ("20261030_0004",)
     current = migrate(restored, "current")
     assert current.returncode == 0, current.stderr
-    assert "20261030_0003" in current.stdout
+    assert "20261030_0004" in current.stdout
 
 
 def test_audit_migration_preserves_existing_history_revision_data(tmp_path) -> None:
@@ -135,6 +135,8 @@ def test_offline_migration_does_not_connect_or_create_database(tmp_path) -> None
     assert "20260725_0001" in result.stdout
     assert "20261030_0002" in result.stdout
     assert "20261030_0003" in result.stdout
+    assert "20261030_0004" in result.stdout
+    assert "watchlist" in result.stdout
     assert "audit_events" in result.stdout
     assert "analysis_history" in result.stdout
     assert not database.exists()
@@ -147,7 +149,7 @@ def test_history_head_schema_roundtrip_and_initial_revision_preserved(tmp_path) 
     with sqlite3.connect(database) as connection:
         assert connection.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("20261030_0003",)
+        ).fetchone() == ("20261030_0004",)
         assert connection.execute("PRAGMA table_info(audit_events)").fetchall()
         columns = connection.execute("PRAGMA table_info(analysis_history)").fetchall()
         assert [column[1] for column in columns] == [

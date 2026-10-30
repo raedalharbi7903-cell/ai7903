@@ -10,6 +10,7 @@ from app.dependencies.factories import DatabaseSession
 from app.repositories.analysis_history import AnalysisHistoryRepository
 from app.security.dependencies import require_customer_session
 from app.security.identity import VerifiedSession
+from app.security.origin import require_exact_origin
 from app.services.analysis_history import AnalysisHistoryService, HistoryPolicy
 from app.services.history_mutations import AuditPolicy, HistoryMutationService
 
@@ -57,14 +58,9 @@ def require_history_mutation_policies(
         raise APIError(
             503, "history_mutation_unavailable", "History writing is unavailable"
         )
-    origins = request.headers.getlist("origin")
-    allowed = str(settings.history_allowed_origin).rstrip("/")
-    if (
-        len(origins) != 1
-        or origins[0] != allowed
-        or request.headers.get("sec-fetch-site") == "cross-site"
-    ):
-        raise APIError(403, "history_origin_rejected", "Access denied")
+    require_exact_origin(
+        request, settings.history_allowed_origin, "history_origin_rejected"
+    )
     return policy, AuditPolicy(
         retention_seconds=settings.history_audit_retention_seconds,
         approval_reference=settings.history_audit_policy_reference,

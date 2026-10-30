@@ -27,6 +27,10 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Private watchlist workflow](04-architecture/watchlist-foundation.md)
+- [Constrained grounded explanation](05-analysis/grounded-explanation-selection.md)
+- [Fixed-parameter walk-forward evaluation](10-testing/walk-forward-evaluation.md)
+
 - [Current safe handover and source-specific evidence](handover/CURRENT_STATE.md)
 - [Next Goal continuation instructions](handover/NEW_GOAL_START_HERE.md)
 - [Transfer publication receipt](handover/PUBLICATION_RECEIPT.md)

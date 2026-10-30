@@ -6,6 +6,7 @@ import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
+from threading import Barrier, local
 
 import pytest
 from fastapi import Request
@@ -20,11 +21,15 @@ from app.database.session import get_db_session, get_engine, get_session_factory
 from app.main import create_app
 from app.models.analysis_history import AnalysisHistoryRecord
 from app.models.audit import AuditEvent
+from app.models.watchlist import WatchlistRecord
 from app.repositories.analysis_history import AnalysisHistoryRepository
+from app.repositories.watchlist import WatchlistRepository
+from app.schemas.watchlist import WatchlistInput, WatchlistQuery
 from app.security.dependencies import get_session_verifier
 from app.security.identity import VerifiedSession, principal_key
 from app.services.analysis_history import AnalysisHistoryService, HistoryPolicy
 from app.services.history_mutations import AuditPolicy, HistoryMutationService
+from app.services.watchlist import WatchlistPolicy, WatchlistService
 from tests.analysis.test_pipeline import fixture_input
 from tests.api.test_analysis import payload as api_payload
 
@@ -87,11 +92,11 @@ def test_actual_psycopg_connection_and_migration_roundtrip(owned_database):
         assert connection.scalar(text("SELECT current_database()")).startswith("ai_ci_")
         assert "PostgreSQL 17." in connection.scalar(text("SELECT version()"))
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "20261030_0003"
+            "20261030_0004"
         )
     migrate("downgrade", "base")
     migrate("upgrade", "head")
-    assert "20261030_0003" in migrate("current")
+    assert "20261030_0004" in migrate("current")
 
 
 def test_audit_upgrade_preserves_previous_history_on_actual_postgres(owned_database):
@@ -345,6 +350,208 @@ def test_actual_audit_constraint_failure_rolls_back_history(
         )
         assert (history_count, audit_count) == (
             (0, 0) if operation == "create" else (1, 1)
+        )
+
+
+def watchlist_actor(subject):
+    return VerifiedSession(
+        issuer="synthetic-pg-watchlist",
+        subject=subject,
+        email_verified=True,
+        mfa_verified=False,
+        expires_at=datetime.now(UTC) + timedelta(hours=1),
+    )
+
+
+def watchlist_writer(session):
+    return WatchlistService(
+        session,
+        policy=WatchlistPolicy(
+            retention_seconds=3600, approval_reference="synthetic-pg-watchlist"
+        ),
+        audit_policy=AuditPolicy(
+            retention_seconds=7200, approval_reference="synthetic-pg-watchlist-audit"
+        ),
+    )
+
+
+def test_actual_concurrent_watchlist_insert_has_one_item_and_audit(
+    owned_database, monkeypatch
+):
+    identity = watchlist_actor("concurrent-duplicate")
+    payload = WatchlistInput(pair="BTC-USDT", timeframe="5m")
+    barrier = Barrier(2)
+    state = local()
+    matching = WatchlistRepository.matching
+
+    def first_lookup(self, *args):
+        result = matching(self, *args)
+        if not getattr(state, "waited", False):
+            state.waited = True
+            assert result is None
+            barrier.wait(timeout=10)
+        return result
+
+    # Synchronize two genuine SQL reads; neither persistence nor constraint is mocked.
+    monkeypatch.setattr(WatchlistRepository, "matching", first_lookup)
+
+    def create():
+        with get_session_factory()() as session:
+            item, created = watchlist_writer(session).create(identity, payload)
+            return item, created
+
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        futures = [workers.submit(create) for _ in range(2)]
+        results = [future.result(timeout=20) for future in futures]
+    assert {created for _, created in results} == {True, False}
+    assert results[0][0] == results[1][0]
+    with get_session_factory()() as session:
+        owner = principal_key(identity)
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(WatchlistRecord)
+                .where(WatchlistRecord.owner_key == owner)
+            )
+            == 1
+        )
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(AuditEvent)
+                .where(AuditEvent.owner_key == owner)
+            )
+            == 1
+        )
+
+
+@pytest.mark.parametrize("operation", ["create", "delete"])
+def test_actual_watchlist_audit_failure_rolls_back_both_sides(
+    owned_database, monkeypatch, operation
+):
+    identity = watchlist_actor("rollback-" + operation)
+    payload = WatchlistInput(pair="ETH-USDT", timeframe="1h")
+    item = None
+    if operation == "delete":
+        with get_session_factory()() as session:
+            item, _ = watchlist_writer(session).create(identity, payload)
+    with get_session_factory()() as session:
+        writer = watchlist_writer(session)
+        original = writer._audit.append
+
+        def invalid_audit(record):
+            record.expires_at = record.occurred_at
+            original(record)
+
+        monkeypatch.setattr(writer._audit, "append", invalid_audit)
+        with pytest.raises(IntegrityError):
+            if operation == "create":
+                writer.create(identity, payload)
+            else:
+                writer.delete(identity, item.id)
+    with get_session_factory()() as session:
+        owner = principal_key(identity)
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(WatchlistRecord)
+                .where(WatchlistRecord.owner_key == owner)
+            ),
+            session.scalar(
+                select(func.count())
+                .select_from(AuditEvent)
+                .where(AuditEvent.owner_key == owner)
+            ),
+        ) == ((0, 0) if operation == "create" else (1, 1))
+
+
+def test_registered_watchlist_api_on_actual_postgres_without_analysis(
+    owned_database, monkeypatch
+):
+    identity = watchlist_actor("actual-http")
+
+    class Verifier:
+        async def verify(self, request: Request):
+            return identity
+
+    settings = get_settings().model_copy(
+        update={
+            "watchlist_enabled": True,
+            "watchlist_retention_seconds": 3600,
+            "watchlist_policy_reference": "synthetic-pg-http-watchlist",
+            "watchlist_allowed_origin": AnyHttpUrl("https://frontend.test"),
+            "watchlist_audit_retention_seconds": 7200,
+            "watchlist_audit_policy_reference": "synthetic-pg-http-watchlist-audit",
+        }
+    )
+    application = create_app()
+    application.dependency_overrides[get_session_verifier] = Verifier
+    application.dependency_overrides[get_settings] = lambda: settings
+
+    def no_analysis(*args):
+        pytest.fail("Watchlist must not run an analysis")
+
+    monkeypatch.setattr("app.analysis.service.AnalysisService.analyze", no_analysis)
+    headers = {"Origin": "https://frontend.test"}
+    payload = {"pair": "BTC-USDT", "timeframe": "15m"}
+    try:
+        with TestClient(application) as client:
+            assert client.post("/api/v1/watchlist", json=payload).status_code == 403
+            created = client.post("/api/v1/watchlist", json=payload, headers=headers)
+            assert created.status_code == 201
+            assert created.headers["cache-control"] == "private, no-store"
+            identifier = created.json()["id"]
+            duplicate = client.post("/api/v1/watchlist", json=payload, headers=headers)
+            assert duplicate.status_code == 200
+            assert duplicate.json() == created.json()
+            listed = client.get("/api/v1/watchlist")
+            assert listed.status_code == 200
+            assert [item["id"] for item in listed.json()["items"]] == [identifier]
+            assert (
+                client.delete(
+                    f"/api/v1/watchlist/{identifier}", headers=headers
+                ).status_code
+                == 204
+            )
+            assert client.get("/api/v1/watchlist").json()["items"] == []
+    finally:
+        application.dependency_overrides.clear()
+
+
+def test_watchlist_upgrade_preserves_history_and_audit_on_actual_postgres(
+    owned_database,
+):
+    identity = mutation_actor("before-watchlist-upgrade")
+    with get_session_factory()() as session:
+        entry = mutation_writer(session).create(identity, fixture_input())
+    migrate("downgrade", "20261030_0003")
+    try:
+        with get_session_factory()() as session:
+            assert session.get(AnalysisHistoryRecord, str(entry.id)) is not None
+            assert (
+                session.scalar(
+                    select(func.count())
+                    .select_from(AuditEvent)
+                    .where(AuditEvent.resource_id == str(entry.id))
+                )
+                == 1
+            )
+    finally:
+        migrate("upgrade", "head")
+    with get_session_factory()() as session:
+        assert session.get(AnalysisHistoryRecord, str(entry.id)).result_json
+        assert (
+            watchlist_writer(session)
+            .page(watchlist_actor("empty-after-upgrade"), WatchlistQuery())
+            .items
+            == []
+        )
+
+    # Retain nonempty synthetic preference data for the harness dump/restore.
+    with get_session_factory()() as session:
+        watchlist_writer(session).create(
+            watchlist_actor("restore-probe"),
+            WatchlistInput(pair="BTC-USDT", timeframe="1h"),
         )
 
 

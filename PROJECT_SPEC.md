@@ -1,5 +1,15 @@
 # Project specification and evidence inventory
 
+## Resumed implementation overlay — 2026-10-31
+
+Explicit founder resume supersedes handover-only restrictions, not its history.
+Approved CUSTOMER-17 now has GET/POST/DELETE /api/v1/watchlist and Arabic /watchlist,
+separate default-off purpose/audit/origin policies, no scans/prices/implicit analysis.
+Six existing backend timeframes align with synthetic UI intervals and selected
+form input. Provider-neutral AI fact selection and fixed-parameter walk-forward
+folds are additive internal foundations, not external AI activation/calibrated
+probabilities. Current canonical registry retains the complete incomplete scope.
+
 ## Handover snapshot precedence — 2026-10-30
 
 Current preservation/verification scope and actual implementation delta are in

@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { AnalysisPage } from "../pages/AnalysisPage";
 import { HistoryPage } from "../pages/HistoryPage";
+import { WatchlistPage } from "../pages/WatchlistPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { HelpPage, ProductPage, WelcomePage } from "../pages/PublicPages";
 import { Layout } from "../layouts/Layout";
@@ -13,6 +14,7 @@ export function App() {
         <Route path="/product" element={<ProductPage />} />
         <Route path="/help" element={<HelpPage />} />
         <Route path="/history" element={<HistoryPage />} />
+        <Route path="/watchlist" element={<WatchlistPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

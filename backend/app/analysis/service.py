@@ -4,6 +4,7 @@ from uuid import uuid4
 from app.analysis.context import AnalysisContext
 from app.analysis.contracts import AnalysisEngine
 from app.analysis.engines import default_engines
+from app.analysis.grounded_ai import GroundedExplanationService
 from app.analysis.models import AnalysisInput, AnalysisResult
 from app.analysis.pipeline import AnalysisPipeline
 from app.analysis.telemetry import AnalysisTelemetry, NullTelemetrySink, TelemetrySink
@@ -14,9 +15,12 @@ class AnalysisService:
         self,
         telemetry: TelemetrySink | None = None,
         engines: tuple[AnalysisEngine, ...] | None = None,
+        *,
+        explanation: GroundedExplanationService | None = None,
     ) -> None:
         self._telemetry = telemetry or NullTelemetrySink()
         self._engines = engines
+        self._explanation = explanation
 
     def analyze(self, analysis_input: AnalysisInput) -> AnalysisResult:
         request_id = str(analysis_input.metadata.get("request_id", uuid4()))
@@ -24,7 +28,9 @@ class AnalysisService:
         # This also prevents in-place frame normalization from changing replay data.
         context = AnalysisContext(analysis_input.model_copy(deep=True))
         started = perf_counter()
-        result = AnalysisPipeline(self._engines or default_engines()).run(context)
+        result = AnalysisPipeline(
+            self._engines or default_engines(explanation=self._explanation)
+        ).run(context)
         confidence = context.output("confidence")
         risk = context.output("risk")
         try:

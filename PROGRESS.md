@@ -1,5 +1,31 @@
 # Execution progress
 
+## Resumed implementation — 2026-10-31
+
+Founder explicitly resumed full MASTER scope after handover; no reset/rebuild.
+Baseline c511806712af78726b4967f2346637a872efd10c, same feature branch.
+Private watchlist API/service/Arabic UI now has atomic audit and separate default-off
+policies. No scanning/analysis/provider calls; selection only prefills the demo.
+68 backend watchlist tests PASS; 37 focused frontend tests PASS. Four tests proved
+duplicate returns could outlive identity/item expiry; both paths repaired.
+Seven impossible-date failures proved shared client calendar normalization gap;
+strict boundary now passes 29 focused tests. Constrained provider-neutral Arabic
+fact selection reaches existing AI stage: 37 new/143 combined tests PASS, no live
+adapter or public enablement. Fixed-parameter walk-forward uses original evaluator
+with explicit decision bounds excluding warmup/gap returns: 48 new/92 combined PASS.
+Full integrated gates and own-source PostgreSQL/concurrency/container checks pending.
+Identity/data/AI/payment/hosting/privacy/final-design decisions remain unresolved.
+
+Integrated local checkpoint now PASS, all17 gates: 680 backend (32.13s),
+118 frontend (13 files,14.07s),28 tooling (0.263s). Ruff/Black/import/compile/
+dependencies/types/lint/format/build/peers PASS. Retained exact commands/output:
+docs/10-testing/resumed-foundations-local-evidence.json. Own-source hosted
+PostgreSQL18-case concurrency/API/restore and container denial awaits publication.
+One separate unelevated Prettier attempt hit dependency-store EPERM; the authorized
+complete runner subsequently passed formatter and all other gates, no suppression.
+Focused migration run passed six tests with Windows cache warning; final runner's
+project cache ran clean. No application dependency or paid service was changed.
+
 ## Safe handover refresh — 2026-10-30
 
 Implementation stopped for the founder's preservation/verification directive.

@@ -1,5 +1,15 @@
 # Frontend research workspace
 
+## Private watchlist workflow
+
+`/watchlist` has explicit load/save/delete actions with owner-scoped API storage,
+typed responses, safe errors and deletion confirmation. It never scans, retrieves
+prices or runs analysis automatically. A selected preference only prefills the
+existing synthetic analysis form; all six supported timeframes remain labeled
+as synthetic. Actual identity/retention/privacy policies are still release gates.
+No demo token or mock login is built into application source.
+See [watchlist contracts and limits](../docs/04-architecture/watchlist-foundation.md).
+
 React + strict TypeScript + Vite, Tailwind, React Router, ESLint and Prettier.
 This is a **synthetic fixture demonstration**, not live trading intelligence.
 It calls the actual FastAPI analysis endpoint; no analysis response is fabricated

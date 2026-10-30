@@ -1,5 +1,13 @@
 # AI Trading Analysis Platform
 
+Private preference workflow: `/watchlist` now connects explicit Arabic load/save/
+delete actions to the default-deny owned API. No scanning, prices or implicit
+analysis. Provider-neutral constrained explanation selection and fixed-parameter
+walk-forward evaluation are internal foundations, not live AI or empirical
+calibration. See the current [watchlist](docs/04-architecture/watchlist-foundation.md),
+[explanation](docs/05-analysis/grounded-explanation-selection.md) and
+[historical evaluation](docs/10-testing/walk-forward-evaluation.md) documentation.
+
 A spot-only cryptocurrency analysis research platform: deterministic observations
 flow through evidence, confluence, decision, risk, confidence, validation and
 explanation. React consumes the FastAPI analysis service. No automatic trading.

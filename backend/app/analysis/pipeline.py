@@ -62,6 +62,14 @@ class AnalysisPipeline:
                 explanation.data["arabic_explanation"] = explain_in_arabic(
                     context
                 ).model_dump(mode="json")
+            ai_output = context.output("ai_reasoning")
+            if ai_output is not None and ai_output.data.get("available") is True:
+                ai_output.status = EngineLifecycleStatus.DEGRADED
+                ai_output.data = {"available": False, "reason": "final_state_changed"}
+                ai_output.warnings = [
+                    "AI explanation withheld after engine failure; "
+                    "final deterministic analysis retained"
+                ]
         validation = context.state.get("validation")
         if validation is None:
             return AnalysisResult(

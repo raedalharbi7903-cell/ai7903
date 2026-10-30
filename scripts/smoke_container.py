@@ -69,15 +69,36 @@ def main() -> None:
             raise RuntimeError(
                 "Unauthenticated production demo was unexpectedly enabled"
             )
-        for path, token in product(
-            ("/api/v1/history", "/api/v1/history/00000000-0000-4000-8000-000000000001"),
-            ("forged-container-token", "synthetic-history-test", "synthetic-save-test"),
+        for (method, path), token in product(
+            (
+                ("GET", "/api/v1/history"),
+                ("GET", "/api/v1/history/00000000-0000-4000-8000-000000000001"),
+                ("POST", "/api/v1/history"),
+                ("DELETE", "/api/v1/history/00000000-0000-4000-8000-000000000001"),
+                ("GET", "/api/v1/watchlist"),
+                ("POST", "/api/v1/watchlist"),
+                ("DELETE", "/api/v1/watchlist/00000000-0000-4000-8000-000000000001"),
+            ),
+            (
+                "forged-container-token",
+                "synthetic-history-test",
+                "synthetic-save-test",
+                "synthetic-watchlist-test",
+            ),
         ):
             request = Request(
                 f"http://{address}{path}",
+                method=method,
+                data=(
+                    json.dumps({"pair": "TEST-USDT", "timeframe": "1h"}).encode()
+                    if method == "POST"
+                    else None
+                ),
                 headers={
                     "Authorization": f"Bearer {token}",
                     "X-Role": "founder",
+                    "Content-Type": "application/json",
+                    "Origin": "https://frontend.test",
                 },
             )
             try:
@@ -116,7 +137,7 @@ def main() -> None:
             "alembic",
             "current",
         )
-        if "20261030_0003" not in current:
+        if "20261030_0004" not in current:
             raise RuntimeError("Packaged migration did not reach the expected revision")
         path = (
             Path(__file__).resolve().parents[1]

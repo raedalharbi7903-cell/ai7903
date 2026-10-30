@@ -91,7 +91,7 @@ def verify_recovery(container: str, database: str) -> None:
     # Fixed owned-fixture table names, never user-supplied SQL identifiers.
     fingerprints = {
         table: sql(database, snapshot_sql.format(table))
-        for table in ("analysis_history", "audit_events")
+        for table in ("analysis_history", "audit_events", "watchlist")
     }
     sql(
         database,
@@ -126,7 +126,7 @@ def verify_recovery(container: str, database: str) -> None:
     )
     if sql(restored, "SELECT value FROM recovery_probe") != "synthetic-recovery":
         raise RuntimeError("PostgreSQL restored snapshot did not retain backup state")
-    if sql(restored, "SELECT version_num FROM alembic_version") != "20261030_0003":
+    if sql(restored, "SELECT version_num FROM alembic_version") != "20261030_0004":
         raise RuntimeError("PostgreSQL restored migration revision did not match")
     if sql(restored, "SELECT count(*) FROM analysis_history") != history_count:
         raise RuntimeError("PostgreSQL restored history snapshot did not match")

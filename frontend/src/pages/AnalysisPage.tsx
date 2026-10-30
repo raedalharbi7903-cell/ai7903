@@ -2,14 +2,22 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { AnalysisClientError, requestAnalysis } from "../services/analysis";
 import { requestSavedAnalysis } from "../services/history";
-import { Link } from "react-router";
+import { Link, useSearchParams } from "react-router";
+import { validPair, validTimeframe } from "../types/watchlist";
 import { ar } from "../i18n/ar";
 import { createFixture } from "../features/analysis/fixture";
 import { AnalysisResults } from "../features/analysis/AnalysisResults";
 import type { AnalysisResult, Timeframe } from "../types/analysis";
 export function AnalysisPage() {
-  const [pair, setPair] = useState("TEST-USDT");
-  const [timeframe, setTimeframe] = useState<Timeframe>("1h");
+  const [query] = useSearchParams();
+  const requestedPair = query.get("pair");
+  const requestedTimeframe = query.get("timeframe");
+  const [pair, setPair] = useState(
+    validPair(requestedPair) ? requestedPair : "TEST-USDT",
+  );
+  const [timeframe, setTimeframe] = useState<Timeframe>(
+    validTimeframe(requestedTimeframe) ? requestedTimeframe : "1h",
+  );
   const [result, setResult] = useState<AnalysisResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -70,6 +78,9 @@ export function AnalysisPage() {
             disabled={loading}
             onChange={(event) => setTimeframe(event.target.value as Timeframe)}
           >
+            <option value="1m">دقيقة</option>
+            <option value="5m">خمس دقائق</option>
+            <option value="15m">خمس عشرة دقيقة</option>
             <option value="1h">{ar.hour}</option>
             <option value="4h">{ar.fourHours}</option>
             <option value="1d">{ar.day}</option>
