@@ -59,6 +59,10 @@ Tests verify all 28 outputs and evidence provider provenance through that actual
 Independent MTF inputs are not synthesized or copied from the primary series.
 
 Tests: backend/tests/analysis/test_data_acquisition.py and test_data_cache.py.
+Shared model coercion regressions in test_boolean_boundaries.py reject boolean
+OHLCV and non-boolean complete/fixture flags before they can falsify price,
+closed-candle or provenance semantics. Valid integers/floats and optional missing
+volume remain accepted. Raw invalid inputs fail closed through AnalysisService.
 They use synthetic in-process adapters, deterministic clocks/waits and zero network
 or licensed data. Retry/caching tests are not real-provider SLA acceptance.
 

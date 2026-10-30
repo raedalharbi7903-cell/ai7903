@@ -27,6 +27,8 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Shared data-boundary repair delivery](delivery/data-boundary-repair.md)
+
 - [Full approved execution scope](02-product/approved-master-execution-goal.md)
 - [Canonical requirements and reverse evidence](02-product/canonical-requirements.json)
 - [Founder-controlled design boundary](03-engineering/founder-design-approval.md)

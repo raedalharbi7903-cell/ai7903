@@ -5,6 +5,22 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Data-boundary repair — 2026-10-30
+
+D2 hosted run 41064875772 at 272a057 completed SUCCESS. Subsequent inspection
+reproduced malformed internal data acceptance: boolean prices became floats and
+string/integer closed/fixture flags became booleans. Nineteen new regression
+cases failed before repair; one valid-input case already passed. Reject boolean
+OHLCV before numeric coercion and require genuine boolean provenance/closed flags.
+Existing valid numeric inputs, formulas, risk thresholds and public API unchanged.
+Twenty new cases now pass, including actual AnalysisService fail-closed behavior;
+80 acquisition/cache/boundary focused tests PASS. Initial restricted-run cache
+write warnings were environmental; elevated verification produced no such warning.
+Complete authorized local checkpoint: 17 gates PASS, 388 backend (13.85s),
+30 frontend (6.18s), 23 tooling (0.112s). Docker/PostgreSQL local unavailable;
+new hosted source verification remains pending until pushed and observed.
+Next C3 remains owner-scoped history with explicit retention approval/default deny.
+
 ## D2 Arabic/RTL functional checkpoint — 2026-10-30
 
 After hosted C2 success, localized functional form/panel/decision/confidence/error/

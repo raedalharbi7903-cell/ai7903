@@ -4,6 +4,12 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+2026-10-30 safety overlay: shared Candle/MarketData parsing now rejects boolean
+prices/volume and non-boolean closed/fixture flags instead of silently coercing
+them. Valid inputs and analytical/public API semantics are unchanged. Regression
+evidence: backend/tests/analysis/test_boolean_boundaries.py; PROGRESS.md records
+the complete verified checkpoint. This is not completion of the data product.
+
 The current CTO master directive governs this execution. Existing proposed documents
 are evidence of intended scope, not proof of implementation or approval of unspecified
 algorithms. Preserve spot-only, no automatic trading, deterministic analysis before

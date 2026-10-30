@@ -10,6 +10,12 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+Shared input boundary: backend/tests/analysis/test_boolean_boundaries.py has 20
+cases rejecting boolean OHLCV and coerced closed/fixture flags, preserving valid
+numbers and proving actual AnalysisService returns insufficient_data on malformed
+raw input. Full checkpoint: 388 backend/30 frontend/23 tooling, all 17 gates PASS.
+D2 hosted run 41064875772 succeeded at 272a057; later source needs its own CI.
+
 Current execution scope is expanded and retained in the
 [canonical register](../02-product/canonical-requirements.json), with grouped
 requirements and code/test reverse references. The original rows below remain

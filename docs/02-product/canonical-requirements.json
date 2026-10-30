@@ -407,7 +407,8 @@
       ],
       "test_references": [
         "backend/tests/analysis/test_data_acquisition.py",
-        "backend/tests/analysis/test_data_cache.py"
+      "backend/tests/analysis/test_data_cache.py",
+      "backend/tests/analysis/test_boolean_boundaries.py"
       ],
       "dependencies": ["EXT-DATA", "G01", "G02"],
       "external_blockers": [],
@@ -1352,7 +1353,8 @@
       "test_references": [
         "backend/tests/analysis/test_providers.py",
         "backend/tests/analysis/test_freshness_boundaries.py",
-        "backend/tests/api/test_analysis.py"
+      "backend/tests/api/test_analysis.py",
+      "backend/tests/analysis/test_boolean_boundaries.py"
       ],
       "dependencies": ["G01", "G02"],
       "external_blockers": [],
@@ -2992,6 +2994,7 @@
     }
   ],
   "reverse_references": {
+    "backend/tests/analysis/test_boolean_boundaries.py": ["MASTER-11", "AN-C01"],
     "backend/app/analysis/engines.py": [
       "MASTER-06",
       "MASTER-07",

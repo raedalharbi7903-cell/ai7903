@@ -18,6 +18,11 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+Data-boundary repair before C3: reject boolean OHLCV and coerced closed/fixture
+flags in the shared internal model; retain valid inputs and all methodologies.
+Twenty regression cases plus full 17-gate checkpoint pass (388/30/23 tests).
+D2 hosted 41064875772 is successful. No product-completion claim.
+
 ### Active full-platform work packages — 2026-10-30
 
 Preserve the handover as immutable historical evidence; do not reconstruct it.

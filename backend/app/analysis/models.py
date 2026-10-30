@@ -2,7 +2,7 @@ from datetime import UTC, datetime
 from enum import StrEnum
 from typing import Any
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, StrictBool, field_validator, model_validator
 
 
 class EngineLifecycleStatus(StrEnum):
@@ -42,7 +42,14 @@ class Candle(BaseModel):
     low: float
     close: float
     volume: float | None = None
-    complete: bool = True
+    complete: StrictBool = True
+
+    @field_validator("open", "high", "low", "close", "volume", mode="before")
+    @classmethod
+    def reject_boolean_observations(cls, value: Any) -> Any:
+        if isinstance(value, bool):
+            raise ValueError("Price and volume observations must not be booleans")
+        return value
 
 
 class MarketData(BaseModel):
@@ -54,7 +61,7 @@ class MarketData(BaseModel):
     asset_type: str | None = None
     source_timestamp: datetime
     candles: list[Candle]
-    fixture: bool = False
+    fixture: StrictBool = False
     quality_status: ValidationStatus = ValidationStatus.PASS
     freshness_status: FreshnessStatus = FreshnessStatus.FRESH
     freshness_reason: str | None = None
