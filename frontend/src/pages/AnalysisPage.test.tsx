@@ -20,15 +20,13 @@ it("renders empty and loading states, then a typed API result", async () => {
       <App />
     </MemoryRouter>,
   );
-  expect(screen.getByText(/workspace is ready/)).toBeVisible();
-  expect(screen.getByText(/DEMO MODE/)).toBeVisible();
-  fireEvent.click(screen.getByRole("button", { name: "Analyze fixture" }));
-  expect(screen.getByRole("status")).toHaveTextContent(
-    "Running deterministic analysis",
-  );
-  expect(screen.getByRole("button", { name: "Analyzing…" })).toBeDisabled();
+  expect(screen.getByText(/مساحة التحليل جاهزة/)).toBeVisible();
+  expect(screen.getByText(/وضع تجريبي/)).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "حلّل البيانات التجريبية" }));
+  expect(screen.getByRole("status")).toHaveTextContent("جارٍ تنفيذ التحليل الحتمي");
+  expect(screen.getByRole("button", { name: "جارٍ التحليل…" })).toBeDisabled();
   finish(new Response(JSON.stringify(syntheticResult("wait"))));
-  expect(await screen.findByRole("heading", { name: "WAIT" })).toBeVisible();
+  expect(await screen.findByRole("heading", { name: "انتظار" })).toBeVisible();
 });
 it("displays safe API errors without raw internals", async () => {
   vi.stubGlobal(
@@ -40,8 +38,8 @@ it("displays safe API errors without raw internals", async () => {
       <App />
     </MemoryRouter>,
   );
-  fireEvent.click(screen.getByRole("button", { name: "Analyze fixture" }));
-  expect(await screen.findByRole("alert")).toHaveTextContent("Analysis is unavailable");
+  fireEvent.click(screen.getByRole("button", { name: "حلّل البيانات التجريبية" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("التحليل غير متاح حاليًا");
   expect(screen.queryByText(/secret internal/)).not.toBeInTheDocument();
 });
 it("routes missing pages", () => {
@@ -50,5 +48,43 @@ it("routes missing pages", () => {
       <App />
     </MemoryRouter>,
   );
-  expect(screen.getByRole("heading", { name: "Page not found" })).toBeVisible();
+  expect(screen.getByRole("heading", { name: "الصفحة غير موجودة" })).toBeVisible();
 });
+
+it("renders an Arabic RTL workflow without making unsolicited analysis requests", () => {
+  const fetch = vi.fn();
+  vi.stubGlobal("fetch", fetch);
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  const main = screen.getByRole("main");
+  expect(main.closest('[dir="rtl"]')?.getAttribute("lang")).toBe("ar");
+  expect(main.getAttribute("tabindex")).toBe("-1");
+  const pair = screen.getByRole("textbox", { name: "زوج الأصول" });
+  expect(pair.getAttribute("dir")).toBe("ltr");
+  expect(pair.getAttribute("aria-describedby")).toBe("pair-hint");
+  expect(fetch).not.toHaveBeenCalled();
+});
+
+it.each(["network", "malformed-response"])(
+  "does not expose private %s errors to the customer",
+  async (failure) => {
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => {
+        if (failure === "network") throw new Error("private-network-secret");
+        return new Response("private-response-secret", { status: 200 });
+      }),
+    );
+    render(
+      <MemoryRouter>
+        <App />
+      </MemoryRouter>,
+    );
+    fireEvent.click(screen.getByRole("button", { name: "حلّل البيانات التجريبية" }));
+    expect(await screen.findByRole("alert")).toBeVisible();
+    expect(screen.queryByText(/private-.*-secret/)).not.toBeInTheDocument();
+  },
+);

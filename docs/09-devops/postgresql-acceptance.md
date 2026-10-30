@@ -2,7 +2,7 @@
 title: Disposable PostgreSQL Acceptance
 document_id: DOC-DB-POSTGRES-ACCEPTANCE-001
 version: 1.0.0
-status: implemented-hosted-verification-pending
+status: verified-disposable-ci-scope
 owner: Engineering
 reviewers: Founder
 last_updated: 2026-10-30
@@ -11,6 +11,16 @@ related_documents: [DOC-PROD-MASTER-GOAL-001]
 ---
 
 # Disposable PostgreSQL acceptance
+
+## Verified hosted result — 2026-10-30
+
+Run [41058711415](https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41058711415)
+at 12e22e178232dfd77e7ec9a02b2e562563d54440 completed SUCCESS:
+six actual PostgreSQL tests passed in 2.04s and pg_dump/restore/migration checks
+passed. Full-stack gates and backend container smoke also passed.
+[Retained evidence](../10-testing/postgresql-acceptance-evidence.json).
+Pending wording in the original execution notes below records pre-push state;
+this result closes disposable-CI verification only, never production acceptance.
 
 ## Purpose
 

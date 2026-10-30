@@ -1,11 +1,43 @@
 # Execution progress
 
-Updated: 2026-10-29
+Updated: 2026-10-30
 Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## D2 Arabic/RTL functional checkpoint — 2026-10-30
+
+After hosted C2 success, localized functional form/panel/decision/confidence/error/
+empty/navigation copy; added Arabic RTL shell, LTR technical/pair isolation,
+logical CSS and focusable skip target. Preserved all real source identifiers,
+fixture limitations, five decision semantics and uncalibrated qualitative labels.
+Unknown source findings/warnings remain original text; no fabricated translation
+or AI narrative. Naive timestamps/nonfinite/unsupported numerical confidence
+are unavailable instead of invented UTC/probability values.
+
+Closed a client error leak: native network/parse errors can no longer be echoed
+to customers. An integration test initially matched two Arabic classification
+elements; targeting the classification panel preserves the exact value assertion.
+Frontend suite 30 PASS, TypeScript/ESLint/Prettier/build PASS; tooling 23 PASS.
+Backend/database code unchanged from hosted-verified 12e22e1 (368 + six PG tests).
+All ten visual categories, Arabic font and final copy/design/browser acceptance
+remain pending. No final customer/Command Center visual completion claim.
+
+Restored absent .editorconfig with original approved UTF-8/LF/Python/JSON/YAML/
+Markdown defaults and Makefile tabs, without reformatting existing code.
+Canonical register retains full source scope and corrects billing/Command Center/
+support/marketing parent status to NOT IMPLEMENTED (docs are not implementation).
+Next safe package: owner-scoped analysis-history persistence with explicit
+retention configuration; actual identity vendor/privacy release gates stay open.
+
 ## C2 PostgreSQL checkpoint — implemented, hosted acceptance pending
+
+Hosted verification subsequently obtained: run 41058711415/job 124072691270 at
+12e22e178232dfd77e7ec9a02b2e562563d54440 completed SUCCESS. Actual PostgreSQL
+suite six PASS (2.04s), pg_dump/restore/migration state PASS, full-stack gates and
+application container PASS. Retained evidence:
+docs/10-testing/postgresql-acceptance-evidence.json. This closes disposable DB
+acceptance, not production/customer isolation/backup policy or deployment.
 
 Continued after 002bb2c (A1/C1/D1); that commit's hosted run 41056297679 completed
 SUCCESS. Added pinned Psycopg 3.3.6 binary driver without replacing SQLAlchemy;

@@ -1,11 +1,12 @@
 import type { AnalysisResult, Decision } from "../../types/analysis";
+import { ar, formatUtcTimestamp } from "../../i18n/ar";
 import { Facts, label, Panel } from "../../components/Panel";
 export const decisionLabels: Record<Decision, string> = {
-  buy: "BUY",
-  sell: "SELL",
-  no_trade: "NO TRADE",
-  wait: "WAIT",
-  insufficient_data: "INSUFFICIENT DATA",
+  buy: "شراء",
+  sell: "بيع",
+  no_trade: "لا تداول",
+  wait: "انتظار",
+  insufficient_data: "بيانات غير كافية",
 };
 export function AnalysisResults({ result }: { result: AnalysisResult }) {
   const output = (name: string) =>
@@ -16,63 +17,60 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
     result.validation === "pass" && ["buy", "sell"].includes(result.decision);
   return (
     <div className="results" aria-live="polite">
-      <section className="decision-banner" aria-label="Analysis decision">
+      <section className="decision-banner" aria-label={ar.decision}>
         <div>
-          <p className="eyebrow">Deterministic outcome</p>
+          <p className="eyebrow">{ar.deterministic}</p>
           <h2>{decisionLabels[result.decision]}</h2>
           <p>
-            Validation: <strong>{result.validation.toUpperCase()}</strong>
+            {ar.validation}: <strong>{label(result.validation)}</strong>
           </p>
         </div>
         <div className="timestamp">
-          <p>Analysis generated</p>
-          <time dateTime={result.generated_at}>
-            {new Date(result.generated_at).toLocaleString()}
+          <p>{ar.generated}</p>
+          <time dateTime={result.generated_at} dir="ltr">
+            {formatUtcTimestamp(result.generated_at)}
           </time>
-          <p>Contract {result.contract_version}</p>
+          <p>
+            {ar.contract} <bdi>{result.contract_version}</bdi>
+          </p>
         </div>
-        {!actionable && <p className="safety-note">Not an actionable trade setup.</p>}
-        <p className="muted">
-          Spot-only analysis. No orders are executed; SELL does not authorize a short
-          position.
-        </p>
+        {!actionable && <p className="safety-note">{ar.notActionable}</p>}
+        <p className="muted">{ar.spotOnly}</p>
       </section>
       <div className="result-grid grid gap-5 md:grid-cols-2">
-        <Panel title="Market context">
+        <Panel title={ar.context}>
           <Facts data={output("market_context")?.data ?? {}} />
           {output("market_context")?.evidence.map((item) => (
             <p key={item.evidence_id}>{item.finding}</p>
           ))}
         </Panel>
-        <Panel title="Analytical confidence">
-          <p className="safety-note">Analytical quality — not probability of profit.</p>
+        <Panel title={ar.confidence}>
+          <p className="safety-note">{ar.confidenceNote}</p>
           <Facts data={output("confidence")?.data ?? {}} />
-          <p className="muted">
-            No calibrated win-rate or financial certainty is claimed.
-          </p>
+          <p className="muted">{ar.calibrationNote}</p>
         </Panel>
-        <Panel title="Data quality & provenance">
+        <Panel title={ar.provenance}>
           <Facts data={output("data")?.data ?? {}} />
         </Panel>
-        <Panel title="Multi-timeframe alignment">
+        <Panel title={ar.mtf}>
           <Facts data={output("multi_timeframe")?.data ?? {}} />
         </Panel>
       </div>
-      <Panel title="Advanced analysis">
-        {!result.advanced_findings.length && <p>No advanced findings available.</p>}
+      <Panel title={ar.advanced}>
+        {!result.advanced_findings.length && <p>{ar.noAdvanced}</p>}
         <div className="advanced-grid">
           {result.advanced_findings.map((finding) => (
             <article key={finding.engine_id} className="finding">
               <div className="finding-heading">
                 <h3>{label(finding.engine_id)}</h3>
-                <span className="badge">{finding.status}</span>
+                <span className="badge">{label(finding.status)}</span>
               </div>
               <p className="classification">
                 {label(finding.classification ?? "insufficient evidence")}
               </p>
               <p className="muted">
-                {finding.family ?? "unassigned"} family ·{" "}
-                {finding.direction ?? "contextual"}
+                {ar.family} {label(finding.family ?? "unassigned")} ·{" "}
+                {finding.direction ? label(finding.direction) : ar.contextual}
               </p>
               <Facts data={finding.details} />
               {finding.warnings.map((warning) => (
@@ -85,48 +83,43 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
         </div>
       </Panel>
       <div className="result-grid grid gap-5 md:grid-cols-2">
-        <Panel title="Evidence & confluence">
+        <Panel title={ar.evidence}>
           <Facts data={output("confluence")?.data ?? {}} />
-          <p className="muted">
-            Multiple findings in one family do not create independent votes.
-          </p>
+          <p className="muted">{ar.independence}</p>
           {evidence.length ? (
             <ul className="evidence">
               {evidence.map((item) => (
                 <li key={item.evidence_id}>
-                  <strong>{label(item.family)}</strong> — {label(item.finding)}
+                  <strong>{label(item.family)}</strong> — <bdi>{item.finding}</bdi>
                   <small>
                     {item.source_engine} ·{" "}
-                    {item.independent ? "family representative" : "shared family"}
+                    {item.independent ? ar.representative : ar.shared}
                     {" · "}
                     {item.bias === "bullish" || item.bias === "bearish"
                       ? label(item.bias)
-                      : "non-directional observation"}
+                      : ar.nonDirectional}
                   </small>
                 </li>
               ))}
             </ul>
           ) : (
-            <p>No evidence available.</p>
+            <p>{ar.noEvidence}</p>
           )}
         </Panel>
-        <Panel title="Risk & validation">
+        <Panel title={ar.risk}>
           {actionable ? (
             <Facts data={output("risk")?.data ?? {}} />
           ) : (
-            <p>
-              Risk levels are withheld because this result is not an actionable
-              validated setup.
-            </p>
+            <p>{ar.withheldRisk}</p>
           )}
           <Facts data={output("validation")?.data ?? {}} />
         </Panel>
-        <Panel title="Explanation">
+        <Panel title={ar.explanation}>
           <Facts data={output("explainability")?.data ?? {}} />
-          <p className="muted">AI narrative availability</p>
+          <p className="muted">{ar.aiAvailability}</p>
           <Facts data={output("ai_reasoning")?.data ?? {}} />
         </Panel>
-        <Panel title="Degradation warnings">
+        <Panel title={ar.warnings}>
           {warnings.length ? (
             <ul className="warnings">
               {warnings.map((warning) => (
@@ -134,7 +127,7 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
               ))}
             </ul>
           ) : (
-            <p>No degradation warnings reported.</p>
+            <p>{ar.noWarnings}</p>
           )}
         </Panel>
       </div>

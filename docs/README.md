@@ -32,6 +32,7 @@ Implementation and verification are tracked separately from intent.
 - [Founder-controlled design boundary](03-engineering/founder-design-approval.md)
 - [Provider-neutral acquisition](05-analysis/data-acquisition-foundation.md)
 - [Disposable PostgreSQL acceptance](09-devops/postgresql-acceptance.md)
+- [Arabic functional workflow and limitations](03-engineering/arabic-functional-foundation.md)
 
 The current handover package distinguishes verified source, approved requirements,
 historical contradictions and missing work. Start here when replacing the Goal:

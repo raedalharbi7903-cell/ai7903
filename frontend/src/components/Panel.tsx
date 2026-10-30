@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { analysisLabel, analysisValue, ar } from "../i18n/ar";
 export function Panel({ title, children }: { title: string; children: ReactNode }) {
   return (
     <section className="panel" aria-label={title}>
@@ -8,10 +9,10 @@ export function Panel({ title, children }: { title: string; children: ReactNode 
   );
 }
 export function label(value: string) {
-  return value.replaceAll("_", " ");
+  return analysisLabel(value);
 }
 export function Facts({ data }: { data: Record<string, unknown> }) {
-  if (!Object.keys(data).length) return <p className="muted">Not available.</p>;
+  if (!Object.keys(data).length) return <p className="muted">{ar.notAvailable}.</p>;
   return (
     <dl className="facts">
       {Object.entries(data).map(([key, value]) => (
@@ -19,14 +20,14 @@ export function Facts({ data }: { data: Record<string, unknown> }) {
           <dt>{label(key)}</dt>
           <dd>
             {value === null || value === undefined ? (
-              "Not available"
+              ar.notAvailable
             ) : typeof value === "object" ? (
               <details>
-                <summary>View details</summary>
-                <pre>{JSON.stringify(value, null, 2)}</pre>
+                <summary>{ar.details}</summary>
+                <pre dir="ltr">{JSON.stringify(value, null, 2)}</pre>
               </details>
             ) : (
-              String(value)
+              <bdi>{analysisValue(key, value)}</bdi>
             )}
           </dd>
         </div>

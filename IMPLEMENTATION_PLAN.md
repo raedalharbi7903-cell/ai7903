@@ -42,6 +42,13 @@ denial and an owned, loopback-only, digest-pinned PostgreSQL harness. Focused lo
 configuration/migration/API checks pass; actual server and restore acceptance
 requires the new hosted step. No production database or business tables provisioned.
 
+C2 runtime is now VERIFIED for disposable CI: run 41058711415 at 12e22e1 passed
+six actual PG tests, pg_dump/restore and all ordinary gates/container checks.
+D2 adds Arabic/RTL functional analysis, safe client errors and pending visual
+approval. Next C3: owner-scoped history persistence/retention gates using existing
+service/repository/database boundaries, with cross-account tests and PG migration
+verification. No real customer data, identity vendor, paid calls or production deploy.
+
 2026-10-30 access-policy update: founder approved email-based customers and one
 founder-only MFA administrator, no delegated/employee roles. Provider-neutral
 identity contracts and fail-closed FastAPI dependencies are implemented/tested

@@ -557,7 +557,7 @@
       "id": "MASTER-15",
       "description": "SUBSCRIPTIONS AND BILLING",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
-      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "implementation_status": "NOT IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
@@ -593,14 +593,14 @@
       "test_references": [],
       "dependencies": ["docs/handover/REMAINING_WORK.md"],
       "external_blockers": [],
-      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "remaining_work": "Approved requirements are documented, but no runtime implementation exists. Documentation is not partial software implementation.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
       "id": "MASTER-16",
       "description": "COMMAND CENTER — EXACTLY ELEVEN SECTIONS",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
-      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "implementation_status": "NOT IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
@@ -697,14 +697,14 @@
       "test_references": [],
       "dependencies": ["docs/handover/REMAINING_WORK.md"],
       "external_blockers": [],
-      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "remaining_work": "Approved requirements are documented, but no runtime implementation exists. Documentation is not partial software implementation.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
       "id": "MASTER-17",
       "description": "CUSTOMER SUPPORT",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
-      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "implementation_status": "NOT IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
@@ -726,14 +726,14 @@
       "test_references": [],
       "dependencies": ["docs/handover/REMAINING_WORK.md"],
       "external_blockers": [],
-      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "remaining_work": "Approved requirements are documented, but no runtime implementation exists. Documentation is not partial software implementation.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
       "id": "MASTER-18",
       "description": "MARKETING INTELLIGENCE",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
-      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "implementation_status": "NOT IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
@@ -755,7 +755,7 @@
       "test_references": [],
       "dependencies": ["docs/handover/REMAINING_WORK.md"],
       "external_blockers": [],
-      "remaining_work": "Complete all binding prose and enumerated scope in the source section; no completion inferred from the registry.",
+      "remaining_work": "Approved requirements are documented, but no runtime implementation exists. Documentation is not partial software implementation.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -2886,7 +2886,7 @@
       "description": "Actual disposable PostgreSQL migration/transaction/recovery acceptance",
       "parent": "MASTER-19",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; no production provisioning approved",
-      "implementation_status": "IMPLEMENTED BUT NOT FULLY VERIFIED",
+      "implementation_status": "VERIFIED COMPLETE",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 19
@@ -2911,11 +2911,84 @@
         "scripts/test_postgres_acceptance.py",
         "backend/tests/api/test_analysis.py"
       ],
-      "dependencies": ["G08", "G18"],
-      "external_blockers": [
-        "Production hosting/access/backup objectives and release approval"
+      "dependencies": [],
+      "external_blockers": [],
+      "remaining_work": "None for this bounded CI acceptance. Production roles/TLS/isolation/recovery objectives remain MASTER-19/G08/G18.",
+      "scope_note": "Disposable CI foundation only; not PostgreSQL production readiness.",
+      "verification": {
+        "source_commit": "12e22e178232dfd77e7ec9a02b2e562563d54440",
+        "hosted_run": 41058711415,
+        "tests_passed": 6,
+        "duration_seconds": 2.04,
+        "evidence": "docs/10-testing/postgresql-acceptance-evidence.json"
+      }
+    },
+    {
+      "id": "UI-ARABIC",
+      "description": "Arabic/RTL functional analysis workflow and safe client errors",
+      "parent": "MASTER-13",
+      "approval_status": "EXPLICIT FOUNDER DIRECTIVE; final visuals/copy/font review still pending",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
+      "source": {
+        "document": "docs/02-product/approved-master-execution-goal.md",
+        "section": 13
+      },
+      "acceptance_criteria": [
+        "Arabic functional labels, accessible RTL shell, LTR pair/technical isolation and explicit synthetic provenance",
+        "Five Arabic decision labels and qualitative uncalibrated confidence; no unsupported percentages",
+        "Do not translate/alter provider IDs or instruments; aware UTC timestamps only",
+        "HTTP/network/malformed response errors never expose raw private data",
+        "Actual React/FastAPI integration retains analytical decisions; founder final visual approval still required"
       ],
-      "remaining_work": "Execute hosted disposable PostgreSQL acceptance; production database/recovery/security acceptance remains separate."
+      "code_references": [
+        "frontend/src/i18n/ar.ts",
+        "frontend/src/layouts/Layout.tsx",
+        "frontend/src/components/Panel.tsx",
+        "frontend/src/pages/AnalysisPage.tsx",
+        "frontend/src/pages/NotFoundPage.tsx",
+        "frontend/src/features/analysis/AnalysisResults.tsx",
+        "frontend/src/services/analysis.ts",
+        "frontend/index.html",
+        "frontend/src/styles.css"
+      ],
+      "test_references": [
+        "frontend/src/i18n/ar.test.ts",
+        "frontend/src/pages/AnalysisPage.test.tsx",
+        "frontend/src/features/analysis/AnalysisResults.test.tsx",
+        "frontend/src/features/analysis/analysis.integration.test.tsx"
+      ],
+      "dependencies": ["G07", "UI-APPROVAL", "G06", "G01"],
+      "external_blockers": [
+        "Founder final design/Arabic font/legal copy approvals; real auth/data integration"
+      ],
+      "remaining_work": "Unknown technical fields/source observations and raw engine warnings remain original text; rich Arabic grounded explanation and actual customer workflows/browser/accessibility acceptance not complete."
+    },
+    {
+      "id": "REPO-EDITORCONFIG",
+      "description": "Restore approved repository editor conventions",
+      "parent": "MASTER-24",
+      "approval_status": "Approved Sprint 1A.1; carried by handover G20",
+      "implementation_status": "VERIFIED COMPLETE",
+      "source": {
+        "document": "docs/handover/REMAINING_WORK.md",
+        "gap": "G20"
+      },
+      "acceptance_criteria": [
+        "UTF-8, LF, final newline and trailing whitespace trim",
+        "Python four-space indentation; JSON/YAML/Markdown/frontend two spaces; Makefile tabs",
+        "No existing work reformatted or discarded"
+      ],
+      "code_references": [".editorconfig"],
+      "test_references": ["scripts/test_design_tokens.py"],
+      "dependencies": [],
+      "external_blockers": [],
+      "remaining_work": "None for the source configuration; broader G20 specification reconciliation remains.",
+      "verification": {
+        "kind": "source-contract",
+        "command": "python -m unittest discover -s scripts -p test_*.py",
+        "result": "PASS",
+        "tooling_tests_total": 23
+      }
     }
   ],
   "reverse_references": {
@@ -3047,7 +3120,8 @@
       "CUSTOMER-12",
       "CUSTOMER-13",
       "CUSTOMER-14",
-      "CUSTOMER-15"
+      "CUSTOMER-15",
+      "UI-ARABIC"
     ],
     "frontend/src/features/analysis/AnalysisResults.tsx": [
       "MASTER-13",
@@ -3058,7 +3132,8 @@
       "CUSTOMER-12",
       "CUSTOMER-13",
       "CUSTOMER-14",
-      "CUSTOMER-15"
+      "CUSTOMER-15",
+      "UI-ARABIC"
     ],
     "frontend/src/pages/AnalysisPage.test.tsx": [
       "MASTER-13",
@@ -3069,7 +3144,8 @@
       "CUSTOMER-12",
       "CUSTOMER-13",
       "CUSTOMER-14",
-      "CUSTOMER-15"
+      "CUSTOMER-15",
+      "UI-ARABIC"
     ],
     "frontend/src/features/analysis/AnalysisResults.test.tsx": [
       "MASTER-13",
@@ -3080,7 +3156,8 @@
       "CUSTOMER-12",
       "CUSTOMER-13",
       "CUSTOMER-14",
-      "CUSTOMER-15"
+      "CUSTOMER-15",
+      "UI-ARABIC"
     ],
     "backend/app/security/dependencies.py": ["MASTER-14", "MASTER-20"],
     "backend/app/security/identity.py": ["MASTER-14"],
@@ -3101,9 +3178,17 @@
     "scripts/test_verify.py": ["MASTER-23"],
     "frontend/src/styles/tokens.css": ["MASTER-28", "UI-TOKENS"],
     "frontend/src/design/approval.ts": ["MASTER-28", "UI-APPROVAL"],
-    "frontend/src/layouts/Layout.tsx": ["MASTER-28", "UI-APPROVAL"],
+    "frontend/src/layouts/Layout.tsx": [
+      "MASTER-28",
+      "UI-APPROVAL",
+      "UI-ARABIC"
+    ],
     "frontend/src/design/tokens.test.ts": ["MASTER-28", "UI-APPROVAL"],
-    "scripts/test_design_tokens.py": ["MASTER-28", "UI-TOKENS"],
+    "scripts/test_design_tokens.py": [
+      "MASTER-28",
+      "UI-TOKENS",
+      "REPO-EDITORCONFIG"
+    ],
     "backend/tests/analysis/test_providers.py": ["AN-C01"],
     "backend/tests/analysis/test_freshness_boundaries.py": [
       "AN-C01",
@@ -3145,12 +3230,22 @@
     "backend/tests/analysis/test_backtesting.py": ["AN-C24"],
     "backend/tests/analysis/test_advanced_pipeline.py": ["AN-X01"],
     "backend/tests/analysis/test_advanced_structure.py": ["AN-X03"],
-    "frontend/src/styles.css": ["UI-TOKENS"],
+    "frontend/src/styles.css": ["UI-TOKENS", "UI-ARABIC"],
     "backend/requirements/base.txt": ["DB-PG-ACCEPTANCE"],
     "backend/app/config/settings.py": ["DB-PG-ACCEPTANCE"],
     "scripts/postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
     "backend/integration/test_postgres.py": ["DB-PG-ACCEPTANCE"],
     "backend/tests/test_postgres_configuration.py": ["DB-PG-ACCEPTANCE"],
-    "scripts/test_postgres_acceptance.py": ["DB-PG-ACCEPTANCE"]
+    "scripts/test_postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
+    "frontend/src/i18n/ar.ts": ["UI-ARABIC"],
+    "frontend/src/components/Panel.tsx": ["UI-ARABIC"],
+    "frontend/src/pages/NotFoundPage.tsx": ["UI-ARABIC"],
+    "frontend/src/services/analysis.ts": ["UI-ARABIC"],
+    "frontend/index.html": ["UI-ARABIC"],
+    "frontend/src/i18n/ar.test.ts": ["UI-ARABIC"],
+    "frontend/src/features/analysis/analysis.integration.test.tsx": [
+      "UI-ARABIC"
+    ],
+    ".editorconfig": ["REPO-EDITORCONFIG"]
   }
 }

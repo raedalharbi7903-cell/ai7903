@@ -18,7 +18,7 @@ describe("analysis contracts and display", () => {
       provenance: { provider: "synthetic-unit-test", fixture: "True" },
     });
     render(<AnalysisResults result={result} />);
-    expect(screen.getByText(/non-directional observation/)).toBeVisible();
+    expect(screen.getByText(/ملاحظة غير اتجاهية/)).toBeVisible();
     expect(screen.getByText(/context is bullish/)).toBeVisible();
   });
   it.each(decisions)("renders %s without inventing confidence", (decision) => {
@@ -26,8 +26,8 @@ describe("analysis contracts and display", () => {
     expect(
       screen.getByRole("heading", { name: decisionLabels[decision] }),
     ).toBeVisible();
-    expect(screen.getByText("uncalibrated")).toBeVisible();
-    expect(screen.getByText(/not probability of profit/)).toBeVisible();
+    expect(screen.getByText("غير مُعاير")).toBeVisible();
+    expect(screen.getByText(/ليست احتمالًا لتحقيق الربح/)).toBeVisible();
     expect(screen.queryByText(/\d+%/)).not.toBeInTheDocument();
   });
   it("withholds rejected risk and displays provenance and missing data", () => {
@@ -41,11 +41,11 @@ describe("analysis contracts and display", () => {
       data: { stop_loss: 912345 },
     });
     render(<AnalysisResults result={result} />);
-    const risk = screen.getByRole("region", { name: "Risk & validation" });
-    expect(within(risk).getByText(/Risk levels are withheld/)).toBeVisible();
+    const risk = screen.getByRole("region", { name: "المخاطر والتحقق" });
+    expect(within(risk).getByText(/حُجبت مستويات المخاطر/)).toBeVisible();
     expect(screen.queryByText("912345")).not.toBeInTheDocument();
     expect(screen.getByText("synthetic-unit-test")).toBeVisible();
-    expect(screen.getByText("No advanced findings available.")).toBeVisible();
+    expect(screen.getByText("لا تتوفر نتائج تحليل متقدم.")).toBeVisible();
     expect(screen.getByText("Risk rejected")).toBeVisible();
   });
   it("renders advanced classifications and family attribution", () => {
@@ -61,8 +61,8 @@ describe("analysis contracts and display", () => {
       warnings: [],
     });
     render(<AnalysisResults result={result} />);
-    expect(screen.getByText("hidden bullish divergence")).toBeVisible();
-    expect(screen.getByText(/momentum family/)).toBeVisible();
+    expect(screen.getByText("تباعد صاعد خفي")).toBeVisible();
+    expect(screen.getByText(/عائلة الزخم/)).toBeVisible();
   });
   it("rejects incompatible or malformed responses", () => {
     expect(parseAnalysisResult(syntheticResult())).toEqual(syntheticResult());

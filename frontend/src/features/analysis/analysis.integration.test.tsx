@@ -45,11 +45,14 @@ it("runs React → real FastAPI → AnalysisService → advanced results → Rea
       <App />
     </MemoryRouter>,
   );
-  fireEvent.click(screen.getByRole("button", { name: "Analyze fixture" }));
-  expect(await screen.findByRole("heading", { name: "NO TRADE" })).toBeVisible();
-  expect(screen.getByText("regular bullish divergence")).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "حلّل البيانات التجريبية" }));
+  expect(await screen.findByRole("heading", { name: "لا تداول" })).toBeVisible();
+  // Classification and the raw details field now share the same Arabic label.
+  expect(
+    screen.getByText("تباعد صاعد عادي", { selector: ".classification" }),
+  ).toBeVisible();
   expect(screen.getByText("synthetic_demo")).toBeVisible();
-  expect(screen.getByText("uncalibrated")).toBeVisible();
-  expect(screen.getByText(/Risk levels are withheld/)).toBeVisible();
+  expect(screen.getByText("غير مُعاير")).toBeVisible();
+  expect(screen.getByText(/حُجبت مستويات المخاطر/)).toBeVisible();
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
 });

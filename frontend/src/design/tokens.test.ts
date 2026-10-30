@@ -16,9 +16,9 @@ describe("visual approval boundary", () => {
 
   it("identifies the current interface as provisional", () => {
     render(createElement(MemoryRouter, null, createElement(Layout)));
-    expect(screen.getByText(/Visual design is provisional/)).toBeVisible();
+    expect(screen.getByText(/التصميم المرئي مؤقت/)).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "Skip to analysis" }).getAttribute("href"),
+      screen.getByRole("link", { name: "انتقل إلى التحليل" }).getAttribute("href"),
     ).toBe("#content");
   });
 });

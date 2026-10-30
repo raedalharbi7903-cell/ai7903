@@ -2,7 +2,7 @@
 title: C2 PostgreSQL Engineering Delivery
 document_id: DOC-DELIVERY-C2-001
 version: 1.0.0
-status: local-checkpoint-hosted-runtime-pending
+status: verified-disposable-ci-checkpoint-product-incomplete
 owner: Engineering
 reviewers: Founder
 last_updated: 2026-10-30
@@ -11,6 +11,14 @@ related_documents: [DOC-DB-POSTGRES-ACCEPTANCE-001]
 ---
 
 # C2 delivery
+
+Hosted acceptance obtained after publication: run 41058711415 at
+12e22e178232dfd77e7ec9a02b2e562563d54440 completed SUCCESS. Six actual PostgreSQL
+tests passed in 2.04s; pg_dump/restore and retained migration revision PASS.
+Full-stack gates and application container also PASS.
+[Exact evidence](../10-testing/postgresql-acceptance-evidence.json).
+Original pending statements below are the pre-push checkpoint record, not
+remaining uncertainty about this disposable CI run. Production remains incomplete.
 
 ## 1. Executive summary
 

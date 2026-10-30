@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
-import { requestAnalysis } from "../services/analysis";
+import { AnalysisClientError, requestAnalysis } from "../services/analysis";
+import { ar } from "../i18n/ar";
 import { createFixture } from "../features/analysis/fixture";
 import { AnalysisResults } from "../features/analysis/AnalysisResults";
 import type { AnalysisResult, Timeframe } from "../types/analysis";
@@ -19,9 +20,7 @@ export function AnalysisPage() {
     try {
       setResult(await requestAnalysis(createFixture(pair, timeframe)));
     } catch (reason) {
-      setError(
-        reason instanceof Error ? reason.message : "Analysis failed. Please retry.",
-      );
+      setError(reason instanceof AnalysisClientError ? reason.message : ar.unavailable);
     } finally {
       setLoading(false);
     }
@@ -29,23 +28,21 @@ export function AnalysisPage() {
   return (
     <>
       <header className="hero">
-        <p className="eyebrow">CRYPTO / SPOT / RESEARCH</p>
-        <h1>Evidence before conviction.</h1>
-        <p>Inspect the structure. Understand the uncertainty.</p>
+        <p className="eyebrow">{ar.category}</p>
+        <h1>{ar.heading}</h1>
+        <p>{ar.introduction}</p>
       </header>
-      <aside className="demo-notice" aria-label="Demo limitations">
-        <strong>DEMO MODE — synthetic fixtures only</strong>
-        <p>
-          No live prices or market intelligence. Pair names label a synthetic example,
-          not actual market history. Independent higher/lower timeframe data is not
-          supplied; missing confirmation is shown explicitly.
-        </p>
+      <aside className="demo-notice" aria-label={ar.demoLabel}>
+        <strong>{ar.demoTitle}</strong>
+        <p>{ar.demoDescription}</p>
       </aside>
       <form className="input-panel panel" onSubmit={submit} aria-busy={loading}>
         <label>
-          Trading pair
+          {ar.pair}
           <input
             required
+            dir="ltr"
+            aria-describedby="pair-hint"
             maxLength={32}
             pattern="[A-Z0-9]+-[A-Z0-9]+"
             value={pair}
@@ -54,24 +51,27 @@ export function AnalysisPage() {
           />
         </label>
         <label>
-          Primary timeframe
+          {ar.timeframe}
           <select
             value={timeframe}
             disabled={loading}
             onChange={(event) => setTimeframe(event.target.value as Timeframe)}
           >
-            <option value="1h">1 hour</option>
-            <option value="4h">4 hours</option>
-            <option value="1d">1 day</option>
+            <option value="1h">{ar.hour}</option>
+            <option value="4h">{ar.fourHours}</option>
+            <option value="1d">{ar.day}</option>
           </select>
         </label>
         <button type="submit" disabled={loading}>
-          {loading ? "Analyzing…" : "Analyze fixture"}
+          {loading ? ar.analyzing : ar.analyze}
         </button>
       </form>
+      <p id="pair-hint" className="muted">
+        {ar.pairHint}
+      </p>
       {loading && (
         <p role="status" className="empty-state">
-          Running deterministic analysis…
+          {ar.progress}
         </p>
       )}
       {error && (
@@ -85,11 +85,8 @@ export function AnalysisPage() {
         !loading &&
         !error && (
           <section className="empty-state">
-            <h2>Your analysis workspace is ready.</h2>
-            <p>
-              Run the clearly labeled fixture to inspect evidence, safety checks and
-              advanced findings.
-            </p>
+            <h2>{ar.ready}</h2>
+            <p>{ar.empty}</p>
           </section>
         )
       )}

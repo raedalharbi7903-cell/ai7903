@@ -5,6 +5,14 @@ This is a **synthetic fixture demonstration**, not live trading intelligence.
 It calls the actual FastAPI analysis endpoint; no analysis response is fabricated
 by the application. The selected pair only labels the example.
 
+The functional shell/forms/panels are Arabic-first and RTL. Pair input and raw JSON
+remain LTR; source IDs are preserved. Unknown engine observations/warnings can
+remain original technical text. This is not full Arabic narrative or final design.
+Copy lives in `src/i18n/ar.ts`; all ten visual categories remain pending approval.
+Client HTTP/network/invalid-response errors are normalized without exposing raw
+provider/body/exception text. See
+[Arabic foundation and limits](../docs/03-engineering/arabic-functional-foundation.md).
+
 ## Requirements and local setup
 
 - Node 24.14 or newer; pnpm 11.25.

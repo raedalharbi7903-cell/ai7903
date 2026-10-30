@@ -23,6 +23,13 @@ run explicitly by scripts/postgres_acceptance.py in CI. Driver/configuration and
 ownership-guard tests run locally; mocks do not establish server acceptance.
 The canonical register records hosted runtime as pending until its own run succeeds.
 
+That C2 run is now confirmed: 41058711415 at 12e22e1, six PostgreSQL tests PASS
+(2.04s), real dump/restore and application container PASS. See
+[retained evidence](postgresql-acceptance-evidence.json). This is not production.
+D2 frontend verifies Arabic/RTL semantics, safe native/parse errors and actual API
+integration (30 tests). Visual/font/viewport and complete Arabic narrative approval
+remain open; no customer UI is marked visually VERIFIED COMPLETE.
+
 The complete current inventory and expanded approved product requirements are in
 [handover status](../handover/IMPLEMENTATION_STATUS.md), with missing work and
 acceptance criteria in [G01-G20](../handover/REMAINING_WORK.md).
