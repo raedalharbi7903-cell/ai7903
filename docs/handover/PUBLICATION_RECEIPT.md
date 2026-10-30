@@ -1,7 +1,7 @@
 ---
 title: Verified Handover Publication Receipt
 document_id: DOC-HANDOVER-RECEIPT-001
-version: 1.0.0
+version: 2.0.0
 status: verified-preservation-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,40 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-CHECKLIST-001]
 ---
 
 # Publication receipt
+
+## Current refresh publication — 2026-10-30
+
+This section supersedes the old source snapshot below, which remains historical.
+Initial local/tracking SHA f7d9a158e8c90c1b602137e6fbd67609b37eaece.
+All 21 modified and seven untracked files were reviewed and preserved unchanged
+at 6bf6f3ceecf62efa8500593f882c06bc6a1caae0. Exact byte comparison: 28/28.
+Push succeeded; exact git ls-remote and connected GitHub ref both matched.
+No application/test edits, new feature implementation or privilege changes in handover.
+
+One authorized full local run: 17 gates PASS; 527 backend (27.42s), 72 frontend
+(12.78s), 28 tooling (0.171s). Current source hosted run 41108654767 / job
+124244903684 SUCCESS: full gates, 13 actual PostgreSQL tests (4.75s/one warning),
+history/audit migration/atomic rollback/content restore, Docker build/non-root
+health/production fixture denial/private GET token denial/packaged migration PASS.
+See [local evidence](evidence/transition-quality-gates.json),
+[hosted evidence](evidence/transition-hosted-ci.json) and
+[preservation manifest](evidence/transition-preservation-review.json).
+Backend dedicated type-checker is not configured; local Docker absent; no production
+verification. AnyIO alias/build-root-pip and local cache/line-ending warnings disclosed.
+
+The complete current inventory, all 23 customer workflows, stable gap/external
+register and unchanged full approved scope are linked in [CURRENT_STATE](CURRENT_STATE.md).
+Exactly eleven founder-only executive sections remain documented requirements,
+not implemented UI. No vendor/price/legal/production decision is invented.
+All 140 unreachable objects match the original recovery archive, zero missing;
+no source/history was discarded or automatically restored over current work.
+
+Final documentation audit/publication is recorded in the current validation
+evidence and final chat response. The final response must name this package's
+actual commit, verify remote equality and clean source status. Until those final
+checks execute, retirement is conditional. This file does not claim its own
+future commit hash or silently mark the full-product Goal complete.
+Only the founder retires/replaces the old Goal after the verified response.
 
 ## Purpose
 
@@ -102,5 +136,8 @@ and historical recovery copies are in the remote package.
 - [Remaining scope](REMAINING_WORK.md)
 
 ## Change history
+
+- 2.0.0 — Current 28-file source preservation and source-specific CI receipt;
+  original publication evidence retained below.
 
 - 1.0.0 — Recorded exact successful preservation/package publication and verification.

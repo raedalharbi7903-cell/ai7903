@@ -1,0 +1,52 @@
+{
+  "version": "2.0.0",
+  "source_commit": "6bf6f3ceecf62efa8500593f882c06bc6a1caae0",
+  "run_id": 41108654767,
+  "job_id": 124244903684,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41108654767",
+  "status": "completed",
+  "conclusion": "success",
+  "observed_scope": "Disposable hosted CI only; not deployed production, live-provider rights or real identity acceptance.",
+  "gates": [
+    "2026-10-30T18:39:01.3543062Z tooling-tests: PASS",
+    "2026-10-30T18:39:01.3810209Z tooling-lint: PASS",
+    "2026-10-30T18:39:01.7691907Z tooling-format: PASS",
+    "2026-10-30T18:39:01.8612755Z documentation-links: PASS",
+    "2026-10-30T18:39:16.1243378Z backend-tests: PASS",
+    "2026-10-30T18:39:16.1608741Z backend-lint: PASS",
+    "2026-10-30T18:39:17.2331226Z backend-format: PASS",
+    "2026-10-30T18:39:17.2749202Z backend-compile: PASS",
+    "2026-10-30T18:39:17.8845458Z backend-import: PASS",
+    "2026-10-30T18:39:18.1990836Z backend-dependencies: PASS",
+    "2026-10-30T18:39:22.5419142Z frontend-install: PASS",
+    "2026-10-30T18:39:26.4336679Z frontend-types: PASS",
+    "2026-10-30T18:39:28.8448384Z frontend-lint: PASS",
+    "2026-10-30T18:39:38.2810387Z frontend-tests: PASS",
+    "2026-10-30T18:39:39.9738017Z frontend-format: PASS",
+    "2026-10-30T18:39:44.3231979Z frontend-build: PASS",
+    "2026-10-30T18:39:44.9520428Z frontend-peers: PASS",
+    "2026-10-30T18:39:59.1733960Z   /home/runner/work/ai7903/ai7903/backend/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.",
+    "2026-10-30T18:39:59.1737552Z 13 passed, 1 warning in 4.75s",
+    "2026-10-30T18:39:59.1738305Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T18:40:11.5146453Z #9 7.454 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.",
+    "2026-10-30T18:40:19.3169392Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "postgres_tests": 13,
+  "postgres_warnings": 1,
+  "postgres_seconds": 4.75,
+  "limitations": [
+    "No local Docker executable",
+    "No backend mypy/Pyright checker configured",
+    "No production deployment/vendor session/data-rights acceptance",
+    "Container private token smoke covers GET, not real cookie/mutation lifecycle"
+  ],
+  "warnings": [
+    "Starlette TestClient deprecated AnyIO BlockingPortal alias",
+    "Build-time pip root warning; runtime non-root smoke passes"
+  ],
+  "prior_source": {
+    "commit": "f7d9a158e8c90c1b602137e6fbd67609b37eaece",
+    "run": 41103089752,
+    "conclusion": "success"
+  }
+}

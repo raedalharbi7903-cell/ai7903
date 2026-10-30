@@ -1,7 +1,7 @@
 ---
 title: Project Handover — AI Trading Analysis Platform
 document_id: DOC-HANDOVER-001
-version: 1.0.0
+version: 2.0.0
 status: verified-scope-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,18 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Project handover
+
+## Current handover refresh — 2026-10-30
+
+This document preserves the first handover below as historical evidence. The
+current transfer starts at f7d9a158e8c90c1b602137e6fbd67609b37eaece, not a7f0b72.
+Read [current state and verification](CURRENT_STATE.md) first. Twenty-one modified
+and seven untracked files were reviewed, passed 17 local gates and were preserved
+unchanged at 6bf6f3ceecf62efa8500593f882c06bc6a1caae0, then pushed to the same
+feature branch. No application/test edits or new features during this handover.
+The current inventory overlay supersedes old English-only/no-PostgreSQL/no-history
+claims below without erasing their dated source evidence. Final retirement remains
+conditional on the refreshed publication receipt, not the historical verdict.
 
 ## Purpose
 
@@ -204,5 +216,7 @@ verified, never as an assertion that its full product objective was achieved.
 - [Evidence index](evidence/README.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.0.0 — Preserved reviewed work, verification evidence, unreachable history and complete continuation inventory.

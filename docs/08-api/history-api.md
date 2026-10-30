@@ -12,6 +12,18 @@ related_documents: [DOC-HISTORY-001, DOC-SEC-IDENTITY-FOUNDATION-001]
 
 # Private history read API
 
+## Current handover overlay — 2026-10-30
+
+The C5 description below is retained as historical read-workflow evidence.
+Previously pending POST /api/v1/history (explicit new analysis plus save, 201)
+and DELETE /api/v1/history/{UUID} (owned deletion, 204) are now preserved at
+6bf6f3ce. They require default-off mutation enablement, exact Origin and separate
+audit/result policies in addition to trusted identity. Data and minimal audit
+commit atomically. Staging/production fixtures remain denied; real identity,
+privacy/retention/erasure/abuse/production acceptance is not complete.
+Read [current contract and test evidence](../handover/CURRENT_STATE.md) before
+interpreting old 'not registered' statements below. No existing GET contract changed.
+
 ## Purpose
 
 Expose genuine previously stored analysis without new analysis execution, owner

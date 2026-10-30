@@ -1,0 +1,64 @@
+{
+  "version": "2.0.0",
+  "source_commit": "6bf6f3ceecf62efa8500593f882c06bc6a1caae0",
+  "initial_state": {
+    "baseline": "f7d9a158e8c90c1b602137e6fbd67609b37eaece",
+    "branch": "feature/crypto-analysis-validation",
+    "modified": 21,
+    "untracked": 7,
+    "staged": 0,
+    "conflicts": 0,
+    "detached": false,
+    "unpublished_commits": 0
+  },
+  "preservation": {
+    "reviewed_files": 28,
+    "unchanged_byte_hashes": 28,
+    "missing": 0,
+    "application_test_edits_during_handover": 0,
+    "original_pack_objects": 140,
+    "currently_unreachable": 140,
+    "missing_from_archive": 0,
+    "git_fsck_exit": 0,
+    "original_documents_substantive_deletions": 0
+  },
+  "quality": {
+    "local_gates_pass": 17,
+    "backend_tests": 527,
+    "frontend_tests": 72,
+    "tooling_tests": 28,
+    "hosted_run": 41108654767,
+    "hosted_conclusion": "success",
+    "actual_postgres_tests": 13,
+    "container": "PASS in hosted CI only",
+    "backend_mypy_pyright": "NOT CONFIGURED / NOT VERIFIED",
+    "production": "NOT VERIFIED"
+  },
+  "documentation": {
+    "required_files": 6,
+    "current_overlay": "docs/handover/CURRENT_STATE.md",
+    "metadata_sections_final_newlines_code_fences": "PASS",
+    "inline_local_file_links_issues": 0,
+    "whitespace": "PASS",
+    "markdown_scope": "Structural/newline/fence/whitespace checks and existing local file-link script; not a repository-wide markdownlint, semantic theorem proof, external URL or anchor validation.",
+    "scope_groups": {
+      "master": 31,
+      "analysis": 28,
+      "customer": 23,
+      "command": 11,
+      "other_infrastructure": 8,
+      "total": 101
+    },
+    "groups_are_not_completion_percentage": true,
+    "historical_content": "Retained with dated precedence overlays; only version metadata replaced.",
+    "approved_requirements": "FD01-FD19 plus full 31-section master retained. Eleven executive names and customer/admin boundaries retained.",
+    "external_approvals": "Unresolved, not fabricated.",
+    "secret_review": "Reviewed intended text and targeted credential/private-key/token patterns, no actual secrets found; not a professional scanner certification."
+  },
+  "publication": {
+    "preservation_push": "PASS",
+    "exact_remote_sha": "6bf6f3ceecf62efa8500593f882c06bc6a1caae0",
+    "documentation_push": "Must be verified after this file is committed; final reply/receipt records actual SHA.",
+    "no_main_merge_or_force_push": true
+  }
+}

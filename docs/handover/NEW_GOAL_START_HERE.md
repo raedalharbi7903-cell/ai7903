@@ -1,7 +1,7 @@
 ---
 title: New Goal — Start Here
 document_id: DOC-HANDOVER-START-001
-version: 1.0.0
+version: 2.0.0
 status: verified-scope-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,18 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # New Goal start here
+
+## Current continuation point — 2026-10-30
+
+Start with [CURRENT_STATE.md](CURRENT_STATE.md) and the refreshed publication
+receipt, not the historical a7f0b72 source checkpoint below. Pending history/audit
+work is preserved at 6bf6f3ceecf62efa8500593f882c06bc6a1caae0; no need to rebuild
+it. Reinspect the final received feature-branch HEAD and all local changes first.
+The complete 31-section approved source and 101 grouped canonical requirements
+remain binding; do not narrow the new Goal to history or scaffolding. Reconcile
+G01–G20 with the current gap overlay and all 23 customer workflows before writing.
+No new Goal or implementation sprint is started by this handover. The founder
+controls retirement/replacement. The old full-platform objective is not achieved.
 
 ## Purpose
 
@@ -110,5 +122,7 @@ No implementation or new documentation sprint was started by this handover.
 - [Repository rules](../../AGENTS.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.0.0 — Added source-grounded continuation and safety instructions.

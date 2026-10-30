@@ -1,7 +1,7 @@
 ---
 title: Goal Transition Checklist
 document_id: DOC-HANDOVER-CHECKLIST-001
-version: 1.1.0
+version: 2.0.0
 status: verified-package-publication
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,16 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Goal transition checklist
+
+## Refreshed transition — 2026-10-30
+
+The original checklist below records an earlier completed transfer. It must not
+be reused as evidence for newly pending work. The current source preservation
+commit is 6bf6f3ceecf62efa8500593f882c06bc6a1caae0; local 17/17 gates PASS
+(527 backend, 72 frontend, 28 tooling), 28/28 initial files retained unchanged.
+Read [current verification and checklist](CURRENT_STATE.md) and the refreshed
+[publication receipt](PUBLICATION_RECEIPT.md) before retiring anything. No automated
+Goal deletion, new Goal creation or false completion of the platform is performed.
 
 ## Purpose
 
@@ -59,6 +69,8 @@ No automated Goal retirement/deletion occurs here.
 - [Next Goal instructions](NEW_GOAL_START_HERE.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.1.0 — Recorded completed package publication and linked the observed receipt.
 

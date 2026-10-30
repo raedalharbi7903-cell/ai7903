@@ -1,7 +1,7 @@
 ---
 title: Documentation Portal
 document_id: DOC-PORTAL-001
-version: 1.3.0
+version: 1.4.0
 status: proposed
 owner: Engineering
 reviewers: CTO
@@ -26,6 +26,10 @@ Implementation and verification are tracked separately from intent.
 ## Main Content
 
 ### Current implementation and evidence
+
+- [Current safe handover and source-specific evidence](handover/CURRENT_STATE.md)
+- [Next Goal continuation instructions](handover/NEW_GOAL_START_HERE.md)
+- [Transfer publication receipt](handover/PUBLICATION_RECEIPT.md)
 
 - [CI action runtime/pin policy](09-devops/ci-action-policy.md)
 - [Q1 CI runtime delivery](delivery/q1-ci-runtime-delivery.md)
@@ -152,6 +156,8 @@ Documentation describes approved intent and current reality. It must be updated 
 [Project Manifest](01-project/project-manifest.md)
 
 ## Change History
+
+- 1.4.0 — Added current preserved-source handover, continuation and publication links.
 
 - 1.3.0 — Added complete handover, approved-requirement and recovery entry points.
 

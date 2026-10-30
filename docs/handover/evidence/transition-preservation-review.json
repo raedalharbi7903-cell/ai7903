@@ -1,0 +1,236 @@
+{
+  "version": "2.0.0",
+  "baseline": "f7d9a158e8c90c1b602137e6fbd67609b37eaece",
+  "preservation_commit": "6bf6f3ceecf62efa8500593f882c06bc6a1caae0",
+  "scope": "Existing pending work only; zero application/test edits during this handover.",
+  "initial_modified": 21,
+  "initial_untracked": 7,
+  "initial_staged": 0,
+  "secret_review": "Reviewed content and targeted credential/private-key/token patterns; no actual credential found. Synthetic sentinels and loopback test tokens are test data, not production access. Not a professional secret-scanner certification.",
+  "files": [
+    {
+      "path": ".env.example",
+      "sha256": "9cd0c57311c16487c21662679b50450f88f5824f3e3eb80e9e5e65fad1650a24",
+      "purpose": "Default-off mutation flag and unset origin/separate audit-retention configuration.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/api/v1/analysis.py",
+      "sha256": "1a2ef03f5855404f76c3876d286719c108722239d6c997e648d98d86788cb6b4",
+      "purpose": "Extract existing fixture/environment preparation for reuse, no provider access.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/api/v1/history.py",
+      "sha256": "e2c32244e1c11167d12d5c29c2f7f66c5ad2fb0bd7a764a1fd4559327b85cbdf",
+      "purpose": "Previously pending explicit POST/DELETE workflow, existing GET retained.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/config/settings.py",
+      "sha256": "01c977ef7da1a98309b23e6e0cc153fc25e79a7c1afe7ebdbb05ca0a8dc80d04",
+      "purpose": "Strict same-origin and separate audit policy configuration.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/dependencies/history.py",
+      "sha256": "ec80479fe4d05aa94d0427eb799f54fc5720013835e78c1658037580085f1fc8",
+      "purpose": "Identity/policy/origin checks before database construction.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/models/__init__.py",
+      "sha256": "a29f1f06f9b4b8508b075963bc3cc211f7fc15570a896ecccd0769dd256123e0",
+      "purpose": "Register audit model with existing metadata.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/security/identity.py",
+      "sha256": "a058c60fd60a5a2c8116c52bf145337201eab5bed146271b7a6b26fc333d4fdc",
+      "purpose": "Stable existing issuer/subject pseudonymous key extraction.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/app/services/analysis_history.py",
+      "sha256": "56ffcebf41f823650a320369615afe143f03f6b41ccf6c8f97c318e51da6d693",
+      "purpose": "Reuse explicit retention contract and safe API errors.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/integration/test_postgres.py",
+      "sha256": "170669d44f137ca03dfd34cace2a963f51fca883581ed298ebdbe745cb960b79",
+      "purpose": "Actual owned PostgreSQL history/audit and migration acceptance.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/tests/api/test_history.py",
+      "sha256": "6e357c2449bd81e34c9c5dfbae5891e47b9a9fe37eee38d21c85e9f5492e8fb8",
+      "purpose": "Registered-router origin, ownership, rollback and fixture-boundary regressions.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/tests/http_history_fixture.py",
+      "sha256": "7e80b0b2c2da0af6c64ab653c30197f94e0aab32bd06171e26f111aa3315231d",
+      "purpose": "Test-only synthetic identity app, never production authentication.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/tests/test_migration_recovery.py",
+      "sha256": "f60bc9cfd51d9fe6c120ad2915141d27a2216123e17a91a707322224cbd65b8a",
+      "purpose": "Audit migration and prior history preservation checks.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/pages/AnalysisPage.test.tsx",
+      "sha256": "8b2368a952ebde66101fc1cefd25ce78c47d7cf90c85ea4153b64361a094f934",
+      "purpose": "Explicit save intent and failed authentication presentation tests.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/pages/AnalysisPage.tsx",
+      "sha256": "91425fc942ad09a96fbd2cea6f605f197c553452ccd8b05a46659728ea03351a",
+      "purpose": "Previously pending explicit analyze-and-save action, ordinary analysis unchanged.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/pages/HistoryPage.test.tsx",
+      "sha256": "2d37838dc9c349adb60c32ee7cf0b5cecb54c1b0979917445f23701a94e20846",
+      "purpose": "Confirmation and failed/incompatible deletion response tests.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/pages/HistoryPage.tsx",
+      "sha256": "8a436e04d01f42cc7f9b87c0b3f2f18f3aaaf4c06706d106dec241f4e4485861",
+      "purpose": "Previously pending explicit confirmed owned-result deletion.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/pages/history.integration.test.tsx",
+      "sha256": "bab793d374ef39bb56ea67927e240fabb12e363bdc654df8211c45d9ef5ced1e",
+      "purpose": "Actual loopback HTTP save/read/delete integration.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/services/history.ts",
+      "sha256": "34f5fe14782ffc58759be6696683c277ebaa61198de2ccd1100fee7a1f490e8c",
+      "purpose": "Typed history mutation transport using existing client.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "frontend/src/services/http.ts",
+      "sha256": "ee89c611b5c7f21117f89f83d527c19399ee79deeb5d8261d93f1235de3121f6",
+      "purpose": "Shared safe response handling and strict 204 contract.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "scripts/postgres_acceptance.py",
+      "sha256": "e23eb3ff09ecdad12af6035e19c94154dc85227e00d9ab9705a8d3f38760f714",
+      "purpose": "Restore verifies full synthetic history/audit contents.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "scripts/smoke_container.py",
+      "sha256": "9d99dccfbae27a747eeb7f3ffcc7759de4d06eef87fec3af58c30533ef0d9686",
+      "purpose": "New migration head and denial of additional synthetic test token.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "modified"
+    },
+    {
+      "path": "backend/alembic/versions/20261030_0003_audit_events.py",
+      "sha256": "31ab19850073f8e506938bd6df334c790b4d74ee503763573ca054272de4f669",
+      "purpose": "Additive audit table migration; downgrade removes only audit table.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/app/core/retention.py",
+      "sha256": "545505e5a39402c41523cb20dcf08eabfb2a2f7bc8e493e92cb0104056cd4fbc",
+      "purpose": "Shared immutable explicit policy, no default retention period.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/app/models/audit.py",
+      "sha256": "302400ea665a0fb7d1c57819dd761ee4da492a3fb86bca011b910cc19ac7728d",
+      "purpose": "Minimal pseudonymous audit event schema.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/app/repositories/audit.py",
+      "sha256": "85ffb7d797f4e7077fa08008e09a12c088b1fd0bf2a1ac09a91954e1c98b1a89",
+      "purpose": "Audit append/flush in caller-owned transaction, no hidden commit.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/app/services/history_mutations.py",
+      "sha256": "3b16945dd0c0d4684d203540afd22553a24929bc38f6039a639054e8aa60ce64",
+      "purpose": "Atomic data/audit create/delete with session expiry revalidation.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/tests/test_history_mutation_configuration.py",
+      "sha256": "27d66e44dcf465b476bc36a9ff9a6f3e0f8b972be874a5201cf4a33b7cf03017",
+      "purpose": "Safe origin validation and default-off configuration tests.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    },
+    {
+      "path": "backend/tests/test_history_mutations.py",
+      "sha256": "c8691862a9d3778e97c63958b901c18d4e06aa691c4d91241007a09483442f33",
+      "purpose": "Real SQLite atomicity, commit failure, identity expiry and ownership tests.",
+      "authorization": "Previously pending approved customer history/security work, preserved without expansion.",
+      "assessment": "Local 17-gate verification passed; release gated by real identity, reviewed privacy/retention/security policies.",
+      "status": "added"
+    }
+  ]
+}

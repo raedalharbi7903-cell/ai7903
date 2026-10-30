@@ -1,7 +1,7 @@
 ---
 title: Handover Evidence and Historical Recovery
 document_id: DOC-HANDOVER-EVIDENCE-001
-version: 1.0.0
+version: 2.0.0
 status: verified-scope-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,22 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Evidence and recovery
+
+## Current transition evidence — 2026-10-30
+
+- [Per-file preservation review](transition-preservation-review.json): all 28
+  initially pending paths, purpose and byte hashes, source commit 6bf6f3ce.
+- [Fresh complete local gates](transition-quality-gates.json): exact commands,
+  exit/output; 17 PASS, 527 backend, 72 frontend, 28 tooling.
+- [Hosted source acceptance](transition-hosted-ci.json): run 41108654767 at exact
+  6bf6f3ce, all gates, 13 actual PostgreSQL tests, restore and container smoke.
+- [Final scoped audit](transition-validation.json): current integrity, preservation,
+  metadata/format/link/scope checks, explicit unverified checks and publication boundary.
+
+These supersede older test counts below only for current source. Original JSON,
+historical observations and recovery pack remain unchanged. Current comparison
+confirmed all 140 unreachable objects are already archived, zero missing.
+No customer/provider/production acceptance is inferred from synthetic CI.
 
 ## Purpose
 
@@ -85,5 +101,7 @@ and not production source. No dangling object was deleted or garbage-collected.
 - [Founder decisions](../FOUNDER_DECISIONS.md)
 
 ## Change history
+
+- 2.0.0 — Current 28-file preservation, fresh gates, hosted CI and scoped audit.
 
 - 1.0.0 — Preserved normalized verification evidence and standalone historical Git object recovery.

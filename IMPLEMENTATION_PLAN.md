@@ -1,5 +1,13 @@
 # Dependency-aware implementation plan
 
+## Execution paused for handover — 2026-10-30
+
+This plan is preserved, not replaced or executed further during handover.
+Read [current handover delta](docs/handover/CURRENT_STATE.md) and G01–G20 overlay
+before resuming. C6 previously pending history/audit work is preserved unchanged
+at 6bf6f3ce; do not repeat it or treat C5-only mutation absence as current fact.
+The next Goal remains founder-controlled; platform implementation is NOT COMPLETE.
+
 Version: 1.0 | Updated: 2026-10-29 | Status: executing
 
 | Package | Required changes and files | Acceptance and tests | Depends on | Evidence |

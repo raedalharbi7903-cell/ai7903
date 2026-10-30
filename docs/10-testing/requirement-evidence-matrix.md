@@ -1,5 +1,19 @@
 # Requirement-to-evidence matrix
 
+## Current handover evidence — 2026-10-30
+
+[Current handover state](../handover/CURRENT_STATE.md) supersedes older source
+absence/pending claims, not historical results. Preservation source 6bf6f3ce passed
+all 17 local gates: 527 backend, 72 frontend, 28 tooling. It contains existing
+pending explicit history save/delete, atomic audit and exact Origin tests; no
+application/test edits during this transfer. See retained
+[local output](../handover/evidence/transition-quality-gates.json) and
+[per-file preservation](../handover/evidence/transition-preservation-review.json).
+CUSTOMER-16 remains PARTIAL: actual identity, privacy, retention/erasure, abuse,
+visual/browser and production approval are absent. Its old canonical prose
+'no public saving/deletion' predates C6; current source/evidence is explicitly
+recorded here without silently promoting status. Hosted results are SHA-scoped.
+
 Version 1.0 — 2026-10-29 — Engineering — incomplete product acceptance.
 
 This matrix preserves every inventory row in PROJECT_SPEC.md. PASS applies only

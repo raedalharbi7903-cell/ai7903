@@ -12,6 +12,16 @@ related_documents: [DOC-DB-POSTGRES-ACCEPTANCE-001]
 
 # Owner-scoped history
 
+## Current handover overlay — 2026-10-30
+
+The original C3/C5 narrative below is preserved as historical evidence. Source
+6bf6f3ce now includes previously pending explicit save/delete, separate minimal
+audit_events migration 20261030_0003, atomic mutation service and exact Origin
+gates. All default-deny/owner/retention boundaries remain. This is preservation,
+not a new architecture selection or production enablement.
+See [current implementation and limitations](../handover/CURRENT_STATE.md);
+old public-mutation absence statements no longer describe current source.
+
 ## Purpose
 
 Persist actual existing AnalysisService results without creating a second analysis

@@ -1,7 +1,7 @@
 ---
 title: Implementation Inventory with Evidence
 document_id: DOC-HANDOVER-STATUS-001
-version: 1.0.0
+version: 2.0.0
 status: verified-scope-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,19 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Implementation status
+
+## Current inventory overlay — 2026-10-30
+
+The tables below are the preserved a7f0b72 snapshot, not current absence claims.
+The [current subsystem inventory](CURRENT_STATE.md) updates each changed area,
+including Arabic RTL, provider denial/acquisition, deterministic Arabic explanation,
+PostgreSQL acceptance, owner-scoped history API/UI and atomic audit mutations.
+All 24 canonical components and four extensions below still exist in the single
+pipeline; their methodological/empirical limitations remain. C22 now also has a
+grounded Arabic deterministic fallback, not external generative AI. Real identity,
+AI, billing and all eleven executive product sections remain unimplemented.
+Use the current overlay and canonical register together; no completion percentage
+is inferred from their overlapping grouped rows.
 
 ## Purpose
 
@@ -122,5 +135,7 @@ is certified by these passing fixture/CI checks.
 - [Original requirement matrix](../10-testing/requirement-evidence-matrix.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.0.0 — Reviewed runtime registration, methodologies, APIs/UI, security tests and operational evidence.

@@ -1,7 +1,7 @@
 ---
 title: Founder Decisions and Approval Precedence
 document_id: DOC-HANDOVER-DECISIONS-001
-version: 1.0.0
+version: 2.0.0
 status: approved-requirements-not-implementation
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,22 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Founder decisions
+
+## Current decision/evidence overlay — 2026-10-30
+
+FD01–FD19 and the exact eleven-section list below remain binding requirements.
+Historical implementation comments in that table predate Arabic/RTL and actual
+owned PostgreSQL CI; [current state](CURRENT_STATE.md) supersedes those comments,
+not the approvals. The subsequently preserved full approved directive is
+[the master execution scope](../02-product/approved-master-execution-goal.md),
+with all 31 sections retained in [the canonical register](../02-product/canonical-requirements.json).
+It also records 23 customer workflows, one monthly subscription tier, no launch
+trial/annual plan, end-of-paid-period cancellation, a separate staging environment,
+and founder control of ten final visual-design categories. No final price, identity/
+AI/payment/hosting vendor, paid commitment, customer-data transfer or licensed feed
+is approved by configuration or by this handover. Current styling remains provisional.
+Option A keeps context, generic levels/zones and basic liquidity non-directional
+unless their own approved method establishes direction; do not restore copied votes.
 
 ## Purpose
 
@@ -110,5 +126,7 @@ remain Decision Required and require traceable approval before behavior changes.
 - [Acceptance register](../03-engineering/acceptance-dependencies.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.0.0 — Preserved the explicit founder direction and listed historical conflicts.

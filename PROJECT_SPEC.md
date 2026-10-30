@@ -1,5 +1,14 @@
 # Project specification and evidence inventory
 
+## Handover snapshot precedence — 2026-10-30
+
+Current preservation/verification scope and actual implementation delta are in
+[handover current state](docs/handover/CURRENT_STATE.md). Source 6bf6f3ce preserves
+previously pending explicit history save/delete, atomic audit and exact Origin
+checks, still default disabled. Earlier C5 'no public mutations' wording below
+is historical, not current API state. No vendor/privacy/production approval or
+architecture change is inferred. Full approved requirements remain retained.
+
 Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete product
 
 ## Authority and boundaries

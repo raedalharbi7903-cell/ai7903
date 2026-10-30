@@ -1,7 +1,7 @@
 ---
 title: Remaining Work and External Dependency Register
 document_id: DOC-HANDOVER-GAPS-001
-version: 1.0.0
+version: 2.0.0
 status: verified-scope-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -11,6 +11,30 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-DECISIONS-001]
 ---
 
 # Remaining work
+
+## Current gap overlay — 2026-10-30
+
+The G01–G20 and EXT registers below retain stable gap IDs and historical detail.
+Their original evidence predates later implementation. Apply these updates:
+
+- G01/G02: provider-neutral acquisition exists; direct unapproved provider access
+  is denied. Licensed retrieval/rights/coverage still unresolved.
+- G07: Arabic RTL functional analysis, public guidance and history now exist.
+  Final terminology/disclosures/design/browser/accessibility acceptance remains.
+- G08: pinned Psycopg and owned PostgreSQL migration/transaction/dump-restore CI
+  now exist, not production provisioning. Source-specific receipts are in CURRENT_STATE.
+- G09: grounded Arabic deterministic fallback exists, not an external AI adapter.
+- G15/G16: previously pending atomic history/audit save/delete is preserved with
+  default-off policies and exact Origin checks. Full audit export/retention/abuse/
+  vendor-session/production privacy acceptance is still missing.
+- G20: the 101 grouped canonical records/reverse references and CI action policy
+  now exist. Historical contradictions remain explicitly dated. No .editorconfig
+  is claimed delivered merely because its historical version is recoverable.
+
+[Current state](CURRENT_STATE.md) contains the actionable next-task delta,
+acceptance evidence and all 23 customer workflow classifications. No implementation
+work is authorized by this handover itself. The next Goal must reconcile these
+updates rather than rebuilding the already verified foundations.
 
 ## Purpose
 
@@ -95,5 +119,7 @@ Unresolved external decisions do not authorize silently removing their requireme
 - [Acceptance dependencies](../03-engineering/acceptance-dependencies.md)
 
 ## Change history
+
+- 2.0.0 — Added current handover overlay; original source/status evidence preserved.
 
 - 1.0.0 — Established 20 engineering gaps and seven external-dependency categories.
