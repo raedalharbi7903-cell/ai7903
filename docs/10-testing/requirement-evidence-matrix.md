@@ -10,6 +10,12 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+B1 Arabic fallback: test_arabic_explanation.py covers all five actual service
+decisions, late failures, source-text injection exclusion, conflict references
+and state immutability. Frontend contract/UI and actual HTTP tests verify final
+state matching and synthetic/deterministic labeling. 443 backend and 33 frontend
+tests PASS locally. No external AI, privacy or final design acceptance inferred.
+
 C3 source 638e3f8 hosted run 41068207446 completed SUCCESS: all full-stack gates,
 eight actual PostgreSQL tests, history isolation/expiry, dump/restore and container
 runtime. [Retained evidence](history-postgresql-acceptance-evidence.json).

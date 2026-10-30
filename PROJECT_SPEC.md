@@ -4,6 +4,11 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+B1 overlay: optional versioned Arabic deterministic explanation is produced in
+the existing pipeline and rendered only when matching final decision/validation.
+Legacy summary and top-level API 1.0 remain compatible. No external AI, new
+decision contribution or market fact. See docs/05-analysis/arabic-deterministic-explanation.md.
+
 C3 overlay: internal owner-scoped analysis history model/repository/service and
 additive 20261030_0002 migration now exist. Default disabled without explicit
 retention policy; no public history route or auth vendor introduced. Customer

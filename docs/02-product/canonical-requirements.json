@@ -1870,14 +1870,22 @@
         "Final-decision summary reconciled; not complete rich analytical explanation",
         "Satisfy every per-component safety criterion in section 6 and the authoritative methodology."
       ],
-      "code_references": ["backend/app/analysis/engines.py"],
+      "code_references": [
+        "backend/app/analysis/engines.py",
+        "backend/app/analysis/explanations.py",
+        "frontend/src/types/explanation.ts"
+      ],
       "test_references": [
         "backend/tests/analysis/test_safety_acceptance.py",
-        "backend/tests/analysis/test_failure_isolation.py"
+        "backend/tests/analysis/test_failure_isolation.py",
+        "backend/tests/analysis/test_arabic_explanation.py",
+        "frontend/src/types/explanation.test.ts"
       ],
-      "dependencies": ["G09"],
+      "dependencies": [
+        "G09"
+      ],
       "external_blockers": [],
-      "remaining_work": "Broader empirical, approved-design or production integration acceptance remains incomplete."
+      "remaining_work": "Grounded deterministic Arabic fallback, evidence references and late-failure reconciliation implemented/tested through existing AnalysisService and real API/frontend; no external AI. Rich reason translations, reference UI, approved copy/design/browser acceptance, generative provider/privacy/cost/security acceptance and production validation remain open."
     },
     {
       "id": "AN-C23",
@@ -3011,6 +3019,10 @@
     }
   ],
   "reverse_references": {
+    "backend/app/analysis/explanations.py": ["AN-C22"],
+    "frontend/src/types/explanation.ts": ["AN-C22"],
+    "backend/tests/analysis/test_arabic_explanation.py": ["AN-C22"],
+    "frontend/src/types/explanation.test.ts": ["AN-C22"],
     "backend/app/models/analysis_history.py": ["CUSTOMER-16"],
     "backend/app/repositories/analysis_history.py": ["CUSTOMER-16"],
     "backend/app/services/analysis_history.py": ["CUSTOMER-16"],

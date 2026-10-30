@@ -54,5 +54,12 @@ it("runs React → real FastAPI → AnalysisService → advanced results → Rea
   expect(screen.getByText("synthetic_demo")).toBeVisible();
   expect(screen.getByText("غير مُعاير")).toBeVisible();
   expect(screen.getByText(/حُجبت مستويات المخاطر/)).toBeVisible();
+  expect(
+    screen.getByText("القرار النهائي لا تداول؛ لا توجد توصية تنفيذية."),
+  ).toBeVisible();
+  expect(screen.getByText(/هذا شرح حتمي للنتيجة/)).toBeVisible();
+  expect(
+    screen.getByText(/البيانات تجريبية مصطنعة وليست بيانات سوق حية/),
+  ).toBeVisible();
   expect(screen.queryByRole("alert")).not.toBeInTheDocument();
 });

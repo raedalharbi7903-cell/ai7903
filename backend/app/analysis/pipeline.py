@@ -5,6 +5,7 @@ import structlog
 
 from app.analysis.context import AnalysisContext
 from app.analysis.contracts import AnalysisEngine
+from app.analysis.explanations import explain_in_arabic
 from app.analysis.models import (
     AdvancedFinding,
     AnalysisResult,
@@ -58,6 +59,9 @@ class AnalysisPipeline:
             explanation = context.output("explainability")
             if explanation is not None:
                 explanation.data["summary"] = f"Decision: {context.state['decision']}"
+                explanation.data["arabic_explanation"] = explain_in_arabic(
+                    context
+                ).model_dump(mode="json")
         validation = context.state.get("validation")
         if validation is None:
             return AnalysisResult(

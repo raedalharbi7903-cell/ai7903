@@ -16,6 +16,13 @@ Define explainability boundary.
 ## Scope
 Architecture and governance specification only; no runtime behavior is implemented by this document.
 ## Main Content
+
+2026-10-30 runtime overlay: the historical proposal below is preserved, but its
+documentation-only status no longer describes current implementation. Existing
+pipeline now includes a typed Arabic deterministic fallback and final-failure
+reconciliation, with frontend matching-state guards. Rich/generative explanation
+and production acceptance remain incomplete. See
+[current implementation](../05-analysis/arabic-deterministic-explanation.md).
 Future explanation must cite structured evidence, decision context, confidence limitations, and conflicts. It must communicate uncertainty and cannot manufacture support.
 
 **Implemented:** documentation only. **Approved Future Architecture:** this subject may be implemented only through approved work. **Decision Required:** exact algorithms, formulas, providers, permissions, and operational thresholds are not approved unless stated otherwise.

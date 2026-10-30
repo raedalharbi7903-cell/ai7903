@@ -1,4 +1,5 @@
 import type { AnalysisResult, Decision } from "../../types/analysis";
+import { readArabicExplanation } from "../../types/explanation";
 import { ar, formatUtcTimestamp } from "../../i18n/ar";
 import { Facts, label, Panel } from "../../components/Panel";
 export const decisionLabels: Record<Decision, string> = {
@@ -15,6 +16,7 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
   const warnings = [...new Set(result.outputs.flatMap((item) => item.warnings))];
   const actionable =
     result.validation === "pass" && ["buy", "sell"].includes(result.decision);
+  const arabicExplanation = readArabicExplanation(result);
   return (
     <div className="results" aria-live="polite">
       <section className="decision-banner" aria-label={ar.decision}>
@@ -115,7 +117,20 @@ export function AnalysisResults({ result }: { result: AnalysisResult }) {
           <Facts data={output("validation")?.data ?? {}} />
         </Panel>
         <Panel title={ar.explanation}>
-          <Facts data={output("explainability")?.data ?? {}} />
+          {arabicExplanation ? (
+            <div lang="ar" dir="rtl">
+              <p>{arabicExplanation.summary}</p>
+              <ul>
+                {arabicExplanation.limitations.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </div>
+          ) : output("explainability")?.data.arabic_explanation !== undefined ? (
+            <p>{ar.noTrustedExplanation}</p>
+          ) : (
+            <Facts data={output("explainability")?.data ?? {}} />
+          )}
           <p className="muted">{ar.aiAvailability}</p>
           <Facts data={output("ai_reasoning")?.data ?? {}} />
         </Panel>

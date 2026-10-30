@@ -5,6 +5,7 @@ from uuid import uuid4
 from app.analysis.advanced import closed_prefix
 from app.analysis.context import AnalysisContext
 from app.analysis.deterministic import analyze, correlation
+from app.analysis.explanations import explain_in_arabic
 from app.analysis.freshness import FreshnessPolicy, assess_candles, assess_market_data
 from app.analysis.models import (
     Candle,
@@ -833,7 +834,10 @@ class ExplainabilityEngine(BaseEngine):
             engine_name=self.name,
             status=EngineLifecycleStatus.COMPLETED,
             data={
-                "summary": f"Decision: {context.state.get('decision', 'unavailable')}"
+                "summary": f"Decision: {context.state.get('decision', 'unavailable')}",
+                "arabic_explanation": explain_in_arabic(context).model_dump(
+                    mode="json"
+                ),
             },
         )
 

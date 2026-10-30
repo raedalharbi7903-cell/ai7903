@@ -5,6 +5,22 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## B1 grounded Arabic fallback — 2026-10-30
+
+Added typed deterministic Arabic explanation in the existing ExplainabilityEngine,
+retaining legacy summary and top-level API contract. Static text cites final
+decision/validation and actual evidence references; no raw source prose interpolation,
+price invention, vote/confidence mutation or external AI. Final pipeline failure
+reconciliation rebuilds Arabic as well as legacy summary. Client validates version/
+mode/final state and withholds stale or malformed Arabic claims rather than showing
+them as raw JSON. Actual React/API integration proves Arabic and fixture disclosure.
+AI provider remains unavailable; this is explicitly not AI-generated narrative.
+Final local: 443 backend PASS (17.63s), 33 frontend PASS (5.99s), backend Ruff/Black
+and frontend TypeScript/ESLint/Prettier/build PASS. Initial two Ruff long-string
+errors fixed without suppression. Full source CI remains pending publication.
+Rich reason translations, provider/privacy/cost/prompt-injection acceptance and
+founder copy/visual/browser review remain incomplete.
+
 ## C3 owner-scoped history foundation — 2026-10-30
 
 Publication receipt: source 638e3f874a162a7a01d1360a45abb546270c691e is verified

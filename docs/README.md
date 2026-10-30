@@ -27,6 +27,9 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Grounded Arabic deterministic explanation](05-analysis/arabic-deterministic-explanation.md)
+- [B1 explanation delivery](delivery/b1-arabic-explanation-delivery.md)
+
 - [Internal owner-scoped history foundation](04-architecture/analysis-history-foundation.md)
 - [C3 history engineering delivery](delivery/c3-history-engineering-delivery.md)
 

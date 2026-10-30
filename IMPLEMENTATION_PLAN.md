@@ -18,6 +18,12 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+B1 deterministic Arabic fallback now connected to existing explanation stage and
+late-failure reconciliation, with typed frontend final-state guards and actual
+HTTP integration. No external AI/provider selection or decision formula changes.
+Next: enrich approved reason references/provider-neutral customer workflows;
+do not treat static fallback as generative AI or full explainability completion.
+
 C3 internal persistence now implemented: trusted-session owner scope, immutable
 snapshots from existing AnalysisService, expiry/pagination/hard deletion/bounded
 purge, no implicit commit and no default retention. Additive migration and explicit

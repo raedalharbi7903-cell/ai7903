@@ -6,6 +6,31 @@ import { syntheticResult } from "../../test/results";
 import { createFixture } from "./fixture";
 
 describe("analysis contracts and display", () => {
+  it("does not render a stale Arabic claim that contradicts final validation", () => {
+    const result = syntheticResult("no_trade");
+    result.outputs.push({
+      engine_name: "explainability",
+      status: "completed",
+      evidence: [],
+      warnings: [],
+      data: {
+        arabic_explanation: {
+          methodology_version: "deterministic-ar-v1",
+          language: "ar",
+          mode: "deterministic_fallback",
+          decision: "buy",
+          validation: "pass",
+          summary: "STALE_BUY_CLAIM",
+          limitations: [],
+        },
+      },
+    });
+    render(<AnalysisResults result={result} />);
+    expect(screen.queryByText(/STALE_BUY_CLAIM/)).not.toBeInTheDocument();
+    expect(
+      screen.getByText("لا يتوفر شرح موثوق مطابق للنتيجة النهائية."),
+    ).toBeVisible();
+  });
   it("identifies contextual findings as non-directional observations", () => {
     const result = syntheticResult();
     result.outputs[1].evidence.push({
