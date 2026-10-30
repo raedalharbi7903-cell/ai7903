@@ -554,10 +554,15 @@
         "backend/app/security/dependencies.py",
         "backend/app/security/identity.py"
       ],
-      "test_references": ["backend/tests/security/test_identity_boundaries.py"],
-      "dependencies": ["EXT-AUTH", "G06"],
+      "test_references": [
+        "backend/tests/security/test_identity_boundaries.py"
+      ],
+      "dependencies": [
+        "EXT-AUTH",
+        "G06"
+      ],
       "external_blockers": [],
-      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "remaining_work": "Strict adapter-output revalidation now prevents copied/constructed model claims bypassing type/MFA assurance; no actual identity provider/login/recovery/session/revocation or founder deployment complete. Implement the remaining approved identity workflows and obtain vendor/security review.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -2436,12 +2441,24 @@
         "backend/app/models/analysis_history.py",
         "backend/app/repositories/analysis_history.py",
         "backend/app/services/analysis_history.py",
-        "backend/alembic/versions/20261030_0002_analysis_history.py"
+        "backend/alembic/versions/20261030_0002_analysis_history.py",
+        "backend/app/api/v1/history.py",
+        "backend/app/dependencies/history.py",
+        "backend/app/schemas/history.py",
+        "frontend/src/pages/HistoryPage.tsx",
+        "frontend/src/types/history.ts",
+        "frontend/src/services/history.ts",
+        "frontend/src/services/http.ts"
       ],
       "test_references": [
         "backend/tests/test_analysis_history.py",
         "backend/tests/test_migration_recovery.py",
-        "backend/integration/test_postgres.py"
+        "backend/integration/test_postgres.py",
+        "backend/tests/api/test_history.py",
+        "backend/tests/http_history_fixture.py",
+        "frontend/src/pages/HistoryPage.test.tsx",
+        "frontend/src/pages/history.integration.test.tsx",
+        "frontend/src/types/history.test.ts"
       ],
       "dependencies": [
         "G07",
@@ -2453,7 +2470,7 @@
         "EXT-AUTH",
         "RETENTION-APPROVAL"
       ],
-      "remaining_work": "Internal owner-scoped persistence/pagination/delete/expiry purge and existing-pipeline snapshot path implemented; no public history API or frontend yet. Default disabled without explicit approved retention policy. Real identity/revocation, privacy/deletion audit, maintenance scheduling, public contract and visual acceptance remain open. Source 638e3f8 hosted run 41068207446 passed actual PostgreSQL isolation/expiry/restore and all full-stack/container checks; this does not complete customer history."
+      "remaining_work": "Protected metadata/detail GET APIs and actual Arabic UI connected to owner-scoped history, with default-deny identity/release gates, versioned private responses and real synthetic HTTP integration. No public saving/deletion/purge route yet. Complete atomic audit/CSRF write workflows, explicit save consent, real identity/revocation, approved retention/erasure, rate limits, privacy/visual/browser and production acceptance. Source-specific hosted PG/API/container checks pending this checkpoint's publication."
     },
     {
       "id": "CUSTOMER-17",
@@ -3058,6 +3075,18 @@
     }
   ],
   "reverse_references": {
+    "frontend/src/types/history.test.ts": ["CUSTOMER-16"],
+    "frontend/src/pages/history.integration.test.tsx": ["CUSTOMER-16"],
+    "frontend/src/pages/HistoryPage.test.tsx": ["CUSTOMER-16"],
+    "backend/tests/http_history_fixture.py": ["CUSTOMER-16"],
+    "backend/tests/api/test_history.py": ["CUSTOMER-16"],
+    "frontend/src/services/http.ts": ["CUSTOMER-16"],
+    "frontend/src/services/history.ts": ["CUSTOMER-16"],
+    "frontend/src/types/history.ts": ["CUSTOMER-16"],
+    "frontend/src/pages/HistoryPage.tsx": ["CUSTOMER-16"],
+    "backend/app/schemas/history.py": ["CUSTOMER-16"],
+    "backend/app/dependencies/history.py": ["CUSTOMER-16"],
+    "backend/app/api/v1/history.py": ["CUSTOMER-16"],
     "backend/app/analysis/providers.py": ["MASTER-11"],
     "backend/tests/analysis/test_provider_denial.py": ["MASTER-11"],
     "frontend/src/pages/PublicPages.test.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],

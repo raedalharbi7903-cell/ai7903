@@ -4,6 +4,12 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+C5 overlay: owner-scoped private history list/detail GET API and actual Arabic
+read UI exist, gated by trusted identity and explicit default-off policy. Lists
+exclude full result blobs; stored snapshots cannot acquire invented timestamps.
+No public save/delete/purge or actual identity-provider integration claimed.
+See docs/08-api/history-api.md for additive contract and remaining release gates.
+
 C4 safety overlay: legacy vendor defaults no longer select an implicit provider;
 legacy direct OKX fetching is denied before I/O. Configured URLs/API keys never
 confer licensing approval. Fixture/API/analysis behavior remains unchanged.

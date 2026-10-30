@@ -18,6 +18,17 @@ class Settings(BaseSettings):
     log_level: Literal["INFO", "WARNING", "ERROR"] = Field(validation_alias="LOG_LEVEL")
     database_url: str = Field(validation_alias="DATABASE_URL")
     api_v1_prefix: str = Field(default="/api/v1", validation_alias="API_V1_PREFIX")
+    history_enabled: bool = Field(default=False, validation_alias="HISTORY_ENABLED")
+    history_retention_seconds: int | None = Field(
+        default=None, gt=0, validation_alias="HISTORY_RETENTION_SECONDS"
+    )
+    history_policy_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="HISTORY_POLICY_REFERENCE",
+    )
     founder_identity_issuer: str | None = Field(
         default=None, validation_alias="FOUNDER_IDENTITY_ISSUER"
     )

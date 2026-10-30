@@ -5,6 +5,37 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## C5 protected history read workflow — 2026-10-30
+
+Continued from clean synchronized 39c408f. Added authenticated owner-scoped GET
+metadata/detail APIs and /history UI, strict versioned query/response validation,
+no-store/same-origin transport, explicit loading/empty/error/detail/page states and
+cancellation. Auth and default-off history/policy gates precede DB construction.
+List SQL excludes result_json; detail reads original actual pipeline snapshots.
+No public write/delete/purge, mock login, automatic storage or external provider.
+
+Found/fixed shared authorization gap: seven copied-model claim tests failed before
+strict session revalidation; now customer/founder boundaries reject malformed MFA/
+email/identity/time values. Core history reuses the same validator. No signature/
+revocation/vendor completion claim. A repository annotation shadowing list caused
+an import error and was fixed with deferred type annotations, not suppression.
+Found/fixed corrupt-snapshot defaulting: two tests showed naive generation time
+accepted and missing generated_at read as a fresh timestamp. Saved results now
+require complete finite original aware timestamps; failures are safely withheld.
+
+Actual positive HTTP fixture uses a separate test-only app, no mocked analysis;
+ordinary app still denies unknown identity. Docker image excludes test code and
+smoke acceptance must deny both arbitrary and exact test-only tokens. Added real
+PostgreSQL API acceptance (nine server tests pending hosted execution).
+First full checkpoint 17 PASS (478/65/24). Post-repair run passed all code gates
+but found two links to the report being created; completed report and standalone
+link audit zero issues. Final clean 17-gate run PASS: 480 backend (26.53s),
+65 frontend (12.57s), 24 tooling (0.163s). OpenAPI contract check also PASS.
+Source-specific actual PG/API/container verification pending publication.
+Provider/privacy/retention/session lifecycle, audited write/CSRF/rate limits and
+founder visual/browser/production review remain open. Next: atomic consented
+save/audit/delete workflows, not another foundation restart or completion claim.
+
 ## C4 unapproved-provider escape closure — 2026-10-30
 
 Publication receipt: 59d757d4b4dfa614391dbff2154783a85cd2ff08 hosted run

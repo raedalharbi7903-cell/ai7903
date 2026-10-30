@@ -185,6 +185,27 @@ def test_verified_session_is_immutable() -> None:
         session.subject = "replacement"
 
 
+@pytest.mark.parametrize(
+    "changes",
+    [
+        {"mfa_verified": "true"},
+        {"mfa_verified": 1},
+        {"email_verified": "true"},
+        {"email_verified": 1},
+        {"issuer": ""},
+        {"subject": ""},
+        {"expires_at": datetime.now()},
+    ],
+)
+def test_copied_adapter_claims_are_revalidated_before_authorization(changes):
+    # Pydantic model_copy deliberately does not validate its update dictionary.
+    # A faulty trusted adapter must not turn a truthy string into MFA assurance.
+    malformed = verified_session().model_copy(update=changes)
+    with client_for(malformed) as client:
+        assert client.get("/customer").status_code == 401
+        assert client.get("/command-center").status_code == 401
+
+
 def test_audit_logs_do_not_include_identity_or_credentials(monkeypatch) -> None:
     logger = CapturingLogger()
     monkeypatch.setattr(

@@ -18,6 +18,13 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+C5 protected history reads now connect actual storage to API and Arabic UI.
+Default-deny identity/policy gates, metadata-only SQL, response/UUID validation,
+safe transport, genuine HTTP and additional actual PostgreSQL API test are wired.
+Copied identity and incomplete/naive stored snapshots fail closed. No public
+save/delete/purge yet. Next implement consented atomic audited mutation/CSRF
+workflows, retaining external identity/privacy/retention/release approvals.
+
 C4 closed dormant direct-provider escape and implicit vendor defaults after
 independent review. Retained fail-closed compatibility signature, no network,
 no new provider/algorithm/public contract. Full 17 gates PASS (450/38/24 tests).

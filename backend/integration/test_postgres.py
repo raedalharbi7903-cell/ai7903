@@ -8,14 +8,18 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime, timedelta
 
 import pytest
+from fastapi import Request
+from fastapi.testclient import TestClient
 from sqlalchemy import make_url, text
 from sqlalchemy.exc import IntegrityError
 
 from app.analysis.models import AnalysisResult
 from app.config.settings import get_settings
 from app.database.session import get_db_session, get_engine, get_session_factory
+from app.main import create_app
 from app.models.analysis_history import AnalysisHistoryRecord
 from app.repositories.analysis_history import AnalysisHistoryRepository
+from app.security.dependencies import get_session_verifier
 from app.security.identity import VerifiedSession
 from app.services.analysis_history import AnalysisHistoryService, HistoryPolicy
 from tests.analysis.test_pipeline import fixture_input
@@ -147,6 +151,53 @@ def test_history_bounded_expiry_purge_on_postgres(owned_database):
         assert history.purge_expired(alice, limit=2) == 0
         session.commit()
         assert session.get(AnalysisHistoryRecord, str(foreign.id)) is not None
+
+
+def test_registered_private_history_api_uses_actual_postgres(owned_database):
+    actor = VerifiedSession(
+        issuer="synthetic-api-pg",
+        subject="alice",
+        email_verified=True,
+        mfa_verified=False,
+        expires_at=datetime.now(UTC) + timedelta(hours=1),
+    )
+    with get_session_factory()() as session:
+        history = AnalysisHistoryService(
+            AnalysisHistoryRepository(session),
+            policy=HistoryPolicy(
+                retention_seconds=3600, approval_reference="synthetic-api-pg-only"
+            ),
+        )
+        saved = history.analyze_and_record(actor, fixture_input())
+        session.commit()
+
+    class Adapter:
+        async def verify(self, request: Request):
+            return actor
+
+    application = create_app()
+    configuration = get_settings().model_copy(
+        update={
+            "history_enabled": True,
+            "history_retention_seconds": 3600,
+            "history_policy_reference": "synthetic-api-pg-only",
+        }
+    )
+    # Only trusted identity/config are synthetic; database dependency is real.
+    application.dependency_overrides[get_session_verifier] = Adapter
+    application.dependency_overrides[get_settings] = lambda: configuration
+    try:
+        with TestClient(application) as client:
+            page = client.get("/api/v1/history")
+            assert page.status_code == 200
+            assert page.headers["cache-control"] == "private, no-store"
+            assert [item["id"] for item in page.json()["items"]] == [str(saved.id)]
+            assert "result_json" not in page.text
+            detail = client.get(f"/api/v1/history/{saved.id}")
+            assert detail.status_code == 200
+            assert detail.json()["result"] == saved.result.model_dump(mode="json")
+    finally:
+        application.dependency_overrides.clear()
 
 
 def test_session_close_has_no_hidden_commit(owned_database):

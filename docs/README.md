@@ -27,6 +27,9 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Protected history read API and UI](08-api/history-api.md)
+- [C5 private history read delivery](delivery/c5-private-history-read-delivery.md)
+
 - [C4 provider safety delivery](delivery/c4-provider-safety-delivery.md)
 
 - [D3 public guidance delivery](delivery/d3-public-guidance-delivery.md)

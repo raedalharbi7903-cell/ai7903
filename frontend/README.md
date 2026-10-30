@@ -49,6 +49,15 @@ are needed. A missing backend environment fails the integration gate, not a skip
 
 ## Architecture
 
+Private read workflow: `/history` lists saved header metadata and opens an original
+stored analysis only after explicit action. It calls the actual protected GET API;
+the default unconfigured identity returns 401, not fake records/login. No public
+save/delete route or automatic analysis storage exists yet. History remains behind
+explicit retention/privacy/identity release gates. Shared transport uses same-origin
+credentials, no-store, bounded timeout and cancellation; no token in localStorage.
+Tests add a separate test-only loopback HTTP server with synthetic trusted identity
+and genuine pipeline snapshots, never a production auth bypass or a vendor proof.
+
 Public functional routes: `/welcome` (product introduction), `/product` (method
 and limitations), `/help` (usage guidance). Existing `/` remains the explicit
 synthetic analysis interaction; unknown routes remain 404. Public pages make no

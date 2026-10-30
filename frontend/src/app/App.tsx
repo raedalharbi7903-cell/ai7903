@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router";
 import { AnalysisPage } from "../pages/AnalysisPage";
+import { HistoryPage } from "../pages/HistoryPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { HelpPage, ProductPage, WelcomePage } from "../pages/PublicPages";
 import { Layout } from "../layouts/Layout";
@@ -11,6 +12,7 @@ export function App() {
         <Route path="/welcome" element={<WelcomePage />} />
         <Route path="/product" element={<ProductPage />} />
         <Route path="/help" element={<HelpPage />} />
+        <Route path="/history" element={<HistoryPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>

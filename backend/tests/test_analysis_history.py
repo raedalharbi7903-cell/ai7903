@@ -89,6 +89,7 @@ def test_all_operations_require_current_trusted_customer_session(history, actor)
         lambda: service.record(actor, AnalysisResult(status="completed")),
         lambda: service.get(actor, uuid4()),
         lambda: service.list(actor),
+        lambda: service.page(actor),
         lambda: service.delete(actor, uuid4()),
         lambda: service.purge_expired(actor),
     ):
@@ -283,3 +284,12 @@ def test_database_rejects_zero_retention_geometry(history):
 def test_policy_requires_explicit_valid_duration_and_reference(values):
     with pytest.raises(ValueError):
         HistoryPolicy(**values)
+
+
+def test_saved_analysis_requires_original_aware_generation_timestamp(history):
+    _, service, _, _ = history
+    with pytest.raises(ValueError):
+        service.record(
+            identity(),
+            AnalysisResult(status="completed", generated_at=NOW.replace(tzinfo=None)),
+        )

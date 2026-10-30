@@ -4,7 +4,7 @@ import { resolve } from "node:path";
 import { setTimeout } from "node:timers/promises";
 import type { TestProject } from "vitest/node";
 
-export default async function setup(project: TestProject) {
+async function startServer(module: string) {
   const reservation = createServer();
   await new Promise<void>((done) => reservation.listen(0, "127.0.0.1", done));
   const address = reservation.address();
@@ -21,7 +21,7 @@ export default async function setup(project: TestProject) {
     );
   const child = spawn(
     python,
-    ["-m", "uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", String(port)],
+    ["-m", "uvicorn", module, "--host", "127.0.0.1", "--port", String(port)],
     {
       cwd: backend,
       windowsHide: true,
@@ -55,11 +55,13 @@ export default async function setup(project: TestProject) {
     try {
       const health = await fetch(`${url}/health`, { signal: AbortSignal.timeout(500) });
       if (health.ok) {
-        project.provide("apiUrl", url);
-        return async () => {
-          child.kill();
-          if (child.exitCode === null)
-            await new Promise<void>((done) => child.once("exit", () => done()));
+        return {
+          url,
+          stop: async () => {
+            child.kill();
+            if (child.exitCode === null)
+              await new Promise<void>((done) => child.once("exit", () => done()));
+          },
         };
       }
     } catch {
@@ -69,4 +71,19 @@ export default async function setup(project: TestProject) {
   }
   child.kill();
   throw new Error(`Backend test startup timed out: ${logs}`);
+}
+
+export default async function setup(project: TestProject) {
+  const api = await startServer("app.main:app");
+  try {
+    const history = await startServer("tests.http_history_fixture:app");
+    project.provide("apiUrl", api.url);
+    project.provide("historyApiUrl", history.url);
+    return async () => {
+      await Promise.all([api.stop(), history.stop()]);
+    };
+  } catch (error) {
+    await api.stop();
+    throw error;
+  }
 }

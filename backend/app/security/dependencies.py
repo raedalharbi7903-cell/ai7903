@@ -13,6 +13,7 @@ from app.security.identity import (
     SessionVerifier,
     UnconfiguredSessionVerifier,
     VerifiedSession,
+    validate_customer_session,
 )
 
 
@@ -32,13 +33,9 @@ async def require_customer_session(
 ) -> VerifiedSession:
     try:
         session = await verifier.verify(request)
+        return validate_customer_session(session, datetime.now(UTC))
     except SessionVerificationError:
         _deny(401, "authentication_required")
-    if not isinstance(session, VerifiedSession):
-        _deny(401, "authentication_required")
-    if not session.email_verified or session.expires_at <= datetime.now(UTC):
-        _deny(401, "authentication_required")
-    return session
 
 
 def require_founder_session(

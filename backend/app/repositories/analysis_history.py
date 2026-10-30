@@ -1,8 +1,10 @@
 """All history reads and deletions include an explicit owner predicate."""
 
+from __future__ import annotations
+
 from datetime import datetime
 
-from sqlalchemy import and_, delete, or_, select
+from sqlalchemy import Select, and_, delete, or_, select
 from sqlalchemy.orm import Session
 
 from app.models.analysis_history import AnalysisHistoryRecord
@@ -27,13 +29,13 @@ class AnalysisHistoryRepository:
             )
         )
 
-    def list(
+    def _page(
         self,
         owner: str,
         now: datetime,
         limit: int,
         before: tuple[datetime, str] | None,
-    ) -> list[AnalysisHistoryRecord]:
+    ) -> Select[tuple[AnalysisHistoryRecord]]:
         model = AnalysisHistoryRecord
         statement = select(model).where(
             model.owner_key == owner, model.expires_at > now
@@ -46,13 +48,32 @@ class AnalysisHistoryRepository:
                     and_(model.created_at == timestamp, model.id < identifier),
                 )
             )
-        return list(
-            self._session.scalars(
-                statement.order_by(model.created_at.desc(), model.id.desc()).limit(
-                    limit
-                )
-            )
+        return statement.order_by(model.created_at.desc(), model.id.desc()).limit(limit)
+
+    def list(
+        self,
+        owner: str,
+        now: datetime,
+        limit: int,
+        before: tuple[datetime, str] | None,
+    ) -> list[AnalysisHistoryRecord]:
+        return list(self._session.scalars(self._page(owner, now, limit, before)))
+
+    def list_headers(
+        self,
+        owner: str,
+        now: datetime,
+        limit: int,
+        before: tuple[datetime, str] | None,
+    ) -> list[tuple[str, datetime, datetime]]:
+        model = AnalysisHistoryRecord
+        statement = self._page(owner, now, limit, before).with_only_columns(
+            model.id, model.created_at, model.expires_at
         )
+        return [
+            (row.id, row.created_at, row.expires_at)
+            for row in self._session.execute(statement)
+        ]
 
     def delete(self, owner: str, identifier: str) -> bool:
         result = self._session.execute(

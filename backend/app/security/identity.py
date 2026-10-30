@@ -1,9 +1,11 @@
 """Trusted adapter contract, never populated directly from public request data."""
 
+from datetime import datetime
 from typing import Protocol
 
 from fastapi import Request
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, ValidationError
+from pydantic_core import PydanticSerializationError
 
 
 class VerifiedSession(BaseModel):
@@ -20,6 +22,23 @@ class VerifiedSession(BaseModel):
 
 class SessionVerificationError(Exception):
     """Authentication is missing, invalid, revoked, or temporarily unavailable."""
+
+
+def validate_customer_session(value: object, now: datetime) -> VerifiedSession:
+    """Revalidate adapter output; model_copy/model_construct can bypass validation.
+
+    This checks the local claim contract, not signatures, revocation or vendor
+    assurance. Those remain the trusted SessionVerifier's responsibility.
+    """
+    if not isinstance(value, VerifiedSession):
+        raise SessionVerificationError
+    try:
+        session = VerifiedSession.model_validate(value.model_dump(warnings="error"))
+    except (ValidationError, PydanticSerializationError) as error:
+        raise SessionVerificationError from error
+    if not session.email_verified or session.expires_at <= now:
+        raise SessionVerificationError
+    return session
 
 
 class SessionVerifier(Protocol):

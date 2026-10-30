@@ -4,6 +4,7 @@ import json
 import re
 import subprocess
 import time
+from itertools import product
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
@@ -68,6 +69,30 @@ def main() -> None:
             raise RuntimeError(
                 "Unauthenticated production demo was unexpectedly enabled"
             )
+        for path, token in product(
+            ("/api/v1/history", "/api/v1/history/00000000-0000-4000-8000-000000000001"),
+            ("forged-container-token", "synthetic-history-test"),
+        ):
+            request = Request(
+                f"http://{address}{path}",
+                headers={
+                    "Authorization": f"Bearer {token}",
+                    "X-Role": "founder",
+                },
+            )
+            try:
+                urlopen(request, timeout=3).close()
+            except HTTPError as error:
+                body = json.load(error)
+                if (
+                    error.code != 401
+                    or body["error"]["code"] != "authentication_required"
+                ):
+                    raise RuntimeError(
+                        "Private history did not deny unconfigured identity"
+                    ) from error
+            else:
+                raise RuntimeError("Private history accepted forged credentials")
         # Disposable container-local database only; never a deployed/user DB.
         migration_environment = "DATABASE_URL=sqlite:////tmp/ci-migration.db"
         docker(
@@ -105,6 +130,7 @@ def main() -> None:
                     "health": "PASS",
                     "non_root_uid": uid,
                     "production_demo_denial": "PASS",
+                    "private_history_denial": "PASS",
                     "packaged_migration": "PASS",
                     "scope": "CI container only; not hosted production acceptance",
                 },

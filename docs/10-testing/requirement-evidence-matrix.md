@@ -10,6 +10,16 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+C5 tests actual private GET router ownership/expiry/cursor/metadata-only SQL,
+strict copied-session assurance and corrupt snapshot rejection. /history has
+actual HTTP positive and default-denial tests, UI states, cancellation and safe
+errors, not mocked analytical output. First 17-gate checkpoint 478/65/24 PASS;
+two subsequent snapshot tests and final integration result recorded in PROGRESS.
+New actual PostgreSQL API/container token-denial checks require own hosted source.
+Customer writes/deletion/identity/privacy/visual approval remain incomplete.
+Final local clean C5 run: 17 gates PASS, 480 backend/65 frontend/24 tooling;
+corrupt/incomplete/naive saved generation timestamps fail safely instead of defaults.
+
 C4 source 59d757d4 hosted run 41090342653 SUCCESS: all 17 gates, eight actual
 PostgreSQL tests, dump/restore and container runtime. See
 [retained evidence](provider-safety-acceptance-evidence.json). Source pending

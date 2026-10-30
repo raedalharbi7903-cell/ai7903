@@ -1,7 +1,7 @@
 ---
 title: Identity and Access Foundation
 document_id: DOC-SEC-IDENTITY-FOUNDATION-001
-version: 1.0.0
+version: 1.1.0
 status: approved-boundaries-partial-implementation
 owner: Engineering
 reviewers: Founder
@@ -25,6 +25,13 @@ roles, delegated administrators, self-service admin grants or role-management UI
 The founder approval supersedes earlier statements that these roles are unknown.
 
 ## Main content
+
+C5 implementation overlay: customer/founder dependencies now strictly revalidate
+adapter-produced VerifiedSession snapshots before authorization. Pydantic copied/
+constructed models can bypass initial validators; seven new cases demonstrate the
+old gap and now receive denial. Shared validation is reused by private history.
+No provider/signature/revocation/MFA integration is inferred from this local type
+guard. Default deny, exact founder identity and genuine boolean MFA remain required.
 
 ### Approved policy
 
@@ -108,6 +115,8 @@ authentication approval and did not name a dataset or grant any license.
 - [Requirement evidence](../10-testing/requirement-evidence-matrix.md)
 
 ## Change history
+
+- 1.1.0 — Shared strict adapter-output revalidation reused by protected history reads; actual provider/session lifecycle remains incomplete.
 
 - 1.0.0 — Recorded explicit founder policy and provider-neutral deny-by-default
   boundary; retained vendor/privacy/deployment/rights gates.

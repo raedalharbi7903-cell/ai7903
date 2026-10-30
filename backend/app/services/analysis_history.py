@@ -9,17 +9,29 @@ from math import isfinite
 from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, ValidationError
-from pydantic_core import PydanticSerializationError
+from pydantic import BaseModel, ConfigDict, Field
 
 from app.analysis.models import AnalysisInput, AnalysisResult
 from app.analysis.service import AnalysisService
 from app.models.analysis_history import AnalysisHistoryRecord
 from app.repositories.analysis_history import AnalysisHistoryRepository
-from app.security.identity import VerifiedSession
+from app.schemas.history import (
+    DEFAULT_HISTORY_PAGE_SIZE,
+    HistoryCursor,
+    HistoryEntry,
+    HistoryHeader,
+    HistoryPage,
+)
+from app.schemas.history import (
+    MAX_HISTORY_PAGE_SIZE as MAX_PAGE_SIZE,
+)
+from app.security.identity import (
+    SessionVerificationError,
+    VerifiedSession,
+    validate_customer_session,
+)
 
 MAX_RESULT_BYTES = 1024 * 1024
-MAX_PAGE_SIZE = 100
 
 
 class HistoryUnavailableError(Exception):
@@ -36,14 +48,6 @@ class HistoryPolicy(BaseModel):
     model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
     retention_seconds: int = Field(gt=0)
     approval_reference: str = Field(min_length=1, max_length=200, pattern=r"\S")
-
-
-class HistoryEntry(BaseModel):
-    model_config = ConfigDict(frozen=True, extra="forbid")
-    id: UUID
-    created_at: AwareDatetime
-    expires_at: AwareDatetime
-    result: AnalysisResult
 
 
 def _utc(value: datetime) -> datetime:
@@ -63,6 +67,14 @@ def _reject_nonfinite(value: Any) -> None:
     elif isinstance(value, list | tuple | set | frozenset):
         for item in value:
             _reject_nonfinite(item)
+
+
+def _validated_result(value: object) -> AnalysisResult:
+    result = AnalysisResult.model_validate(value)
+    if result.generated_at.tzinfo is None or result.generated_at.utcoffset() is None:
+        raise ValueError("Saved analysis generation time must be timezone aware")
+    _reject_nonfinite(result.model_dump())
+    return result
 
 
 class AnalysisHistoryService:
@@ -86,16 +98,10 @@ class AnalysisHistoryService:
         if now.tzinfo is None or now.utcoffset() is None:
             raise ValueError("History clock must be timezone aware")
         now = now.astimezone(UTC)
-        if not isinstance(identity, VerifiedSession):
-            raise HistoryAccessError
         try:
-            identity = VerifiedSession.model_validate(
-                identity.model_dump(warnings="error")
-            )
-        except (ValidationError, PydanticSerializationError) as error:
+            identity = validate_customer_session(identity, now)
+        except SessionVerificationError as error:
             raise HistoryAccessError from error
-        if not identity.email_verified or identity.expires_at <= now:
-            raise HistoryAccessError
         if self._policy is None:
             raise HistoryUnavailableError
         principal = json.dumps([identity.issuer, identity.subject], ensure_ascii=False)
@@ -103,18 +109,23 @@ class AnalysisHistoryService:
 
     @staticmethod
     def _entry(record: AnalysisHistoryRecord) -> HistoryEntry:
+        raw = json.loads(record.result_json)
+        if (
+            not isinstance(raw, dict)
+            or not AnalysisResult.model_fields.keys() <= raw.keys()
+        ):
+            raise ValueError("Stored analysis snapshot is incomplete")
         return HistoryEntry(
             id=UUID(record.id),
             created_at=_utc(record.created_at),
             expires_at=_utc(record.expires_at),
-            result=AnalysisResult.model_validate_json(record.result_json),
+            result=_validated_result(raw),
         )
 
     def record(self, identity: VerifiedSession, result: AnalysisResult) -> HistoryEntry:
         owner, now = self._access(identity)
         # Validate mutated models as well; reject NaN/Infinity before persistence.
-        snapshot = AnalysisResult.model_validate(result.model_dump())
-        _reject_nonfinite(snapshot.model_dump())
+        snapshot = _validated_result(result.model_dump())
         encoded = json.dumps(
             snapshot.model_dump(mode="json"), ensure_ascii=False, allow_nan=False
         )
@@ -147,10 +158,19 @@ class AnalysisHistoryService:
         self,
         identity: VerifiedSession,
         *,
-        limit: int = 20,
+        limit: int = DEFAULT_HISTORY_PAGE_SIZE,
         before: tuple[datetime, UUID] | None = None,
     ) -> list[HistoryEntry]:
         owner, now = self._access(identity)
+        cursor = self._page_cursor(limit, before)
+        return [
+            self._entry(row) for row in self._repository.list(owner, now, limit, cursor)
+        ]
+
+    @staticmethod
+    def _page_cursor(
+        limit: int, before: tuple[datetime, UUID] | None
+    ) -> tuple[datetime, str] | None:
         if isinstance(limit, bool) or not isinstance(limit, int):
             raise ValueError("Page size must be an integer")
         if not 1 <= limit <= MAX_PAGE_SIZE:
@@ -161,15 +181,41 @@ class AnalysisHistoryService:
             if timestamp.tzinfo is None or timestamp.utcoffset() is None:
                 raise ValueError("History cursor must be timezone aware")
             cursor = (timestamp.astimezone(UTC), str(identifier))
-        return [
-            self._entry(row) for row in self._repository.list(owner, now, limit, cursor)
+        return cursor
+
+    def page(
+        self,
+        identity: VerifiedSession,
+        *,
+        limit: int = DEFAULT_HISTORY_PAGE_SIZE,
+        before: tuple[datetime, UUID] | None = None,
+    ) -> HistoryPage:
+        owner, now = self._access(identity)
+        cursor = self._page_cursor(limit, before)
+        items = [
+            HistoryHeader(
+                id=UUID(identifier), created_at=_utc(created), expires_at=_utc(expires)
+            )
+            for identifier, created, expires in self._repository.list_headers(
+                owner, now, limit, cursor
+            )
         ]
+        return HistoryPage(
+            items=items,
+            next_cursor=(
+                HistoryCursor(created_at=items[-1].created_at, id=items[-1].id)
+                if len(items) == limit
+                else None
+            ),
+        )
 
     def delete(self, identity: VerifiedSession, identifier: UUID) -> bool:
         owner, _ = self._access(identity)
         return self._repository.delete(owner, str(identifier))
 
-    def purge_expired(self, identity: VerifiedSession, *, limit: int = 100) -> int:
+    def purge_expired(
+        self, identity: VerifiedSession, *, limit: int = MAX_PAGE_SIZE
+    ) -> int:
         owner, now = self._access(identity)
         if type(limit) is not int or not 1 <= limit <= MAX_PAGE_SIZE:
             raise ValueError("Purge size outside storage bound")
