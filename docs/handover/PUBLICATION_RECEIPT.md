@@ -14,6 +14,15 @@ related_documents: [DOC-HANDOVER-001, DOC-HANDOVER-CHECKLIST-001]
 
 ## Current refresh publication — 2026-10-30
 
+Observed package publication: 430b6d6e8a7ccf4851a96cd42b34f42810020d93,
+20 documentation/evidence files, pushed successfully and exact git ls-remote
+matched. Working tree was empty and ahead/behind counts were 0/0. All 28 original
+pending source-file hashes still matched after publication. Across preservation
+and handover, 48 unique files are safely committed. This receipt's later commit
+must also be pushed/verified in the final response; no self-referential hash claim.
+All handover retirement conditions are now satisfied at the published package,
+subject to that final receipt synchronization. This is not product completion.
+
 This section supersedes the old source snapshot below, which remains historical.
 Initial local/tracking SHA f7d9a158e8c90c1b602137e6fbd67609b37eaece.
 All 21 modified and seven untracked files were reviewed and preserved unchanged

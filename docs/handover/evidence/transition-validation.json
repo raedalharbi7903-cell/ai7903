@@ -58,7 +58,10 @@
   "publication": {
     "preservation_push": "PASS",
     "exact_remote_sha": "6bf6f3ceecf62efa8500593f882c06bc6a1caae0",
-    "documentation_push": "Must be verified after this file is committed; final reply/receipt records actual SHA.",
+    "documentation_push": "PASS: package 430b6d6e8a7ccf4851a96cd42b34f42810020d93 pushed and exact remote SHA observed; final receipt commit is verified separately in the final response.",
+    "published_package": "430b6d6e8a7ccf4851a96cd42b34f42810020d93",
+    "unique_files_preserved_and_documented": 48,
+    "observed_working_tree": "clean, ahead/behind 0/0 after package publication",
     "no_main_merge_or_force_push": true
   }
 }
