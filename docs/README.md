@@ -32,6 +32,7 @@ Implementation and verification are tracked separately from intent.
 - [Verification runbook](09-devops/verification-runbook.md)
 - [Project specification](../PROJECT_SPEC.md)
 - [Execution progress](../PROGRESS.md)
+- [Approved identity/access boundaries](06-security/identity-access-foundation.md)
 
 The product remains incomplete and fixture-only. Historical governance documents
 were recovered unchanged; no approval or architectural change is inferred.

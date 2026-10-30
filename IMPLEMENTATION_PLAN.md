@@ -18,6 +18,15 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+2026-10-30 access-policy update: founder approved email-based customers and one
+founder-only MFA administrator, no delegated/employee roles. Provider-neutral
+identity contracts and fail-closed FastAPI dependencies are implemented/tested
+without exposing new public routes. Next identity package requires reviewed
+vendor selection and actual enrollment/session/recovery integration.
+PostgreSQL production intent and environment separation are approved; runtime
+PostgreSQL/deployment acceptance is not established. External AI customer-data
+transfer and paid commitments remain prohibited without further approval.
+
 CTO Option A approved on 2026-10-29 and implemented: contextual/level-zone/basic
 liquidity observations no longer contribute inherited direction to confluence or
 confidence. Production-service, API serialization, contextual-only and retained

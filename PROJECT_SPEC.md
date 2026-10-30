@@ -60,6 +60,17 @@ role-permission matrix, and exact release milestones need explicit evidence/deci
 
 ## Current verification overlay
 
+2026-10-30 founder approval resolves the initial access model: email-based
+customers, one founder-only administrator with mandatory MFA, no employees or
+delegated access. Vendor-neutral deny-by-default dependencies are implemented;
+provider login/session/recovery and actual protected routes are not.
+Authentication vendor remains subject to security/cost review. PostgreSQL is
+the intended production database; development/testing/production must be separate.
+No AI vendor or paid hosting is approved; customer data may not be sent to external
+AI until privacy approval. Hosting, release security review and founder approval
+remain required. Market-data rights are still unestablished.
+See docs/06-security/identity-access-foundation.md for precise scope and gates.
+
 Missing governance/baseline targets were recovered unchanged from historical
 commits d78bbf7/e56261d. Their proposed status remains unchanged; restoration
 is not a new approval. Inline local document file links now pass the executable

@@ -18,6 +18,12 @@ class Settings(BaseSettings):
     log_level: Literal["INFO", "WARNING", "ERROR"] = Field(validation_alias="LOG_LEVEL")
     database_url: str = Field(validation_alias="DATABASE_URL")
     api_v1_prefix: str = Field(default="/api/v1", validation_alias="API_V1_PREFIX")
+    founder_identity_issuer: str | None = Field(
+        default=None, validation_alias="FOUNDER_IDENTITY_ISSUER"
+    )
+    founder_identity_subject: str | None = Field(
+        default=None, validation_alias="FOUNDER_IDENTITY_SUBJECT"
+    )
     market_data_provider: str = Field(
         default="twelve_data", validation_alias="MARKET_DATA_PROVIDER"
     )

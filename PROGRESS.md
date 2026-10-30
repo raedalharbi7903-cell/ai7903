@@ -5,6 +5,26 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## Founder access-policy continuation — 2026-10-30
+
+Resumed clean at 6cae34b, matching pushed tracking branch. Recorded email customer
+identity, single founder-only administrator with mandatory MFA and no employee/
+delegated administration. Added strict immutable verified-session contract and
+default-deny provider-neutral FastAPI dependencies. Founder matching requires
+both configured issuer and subject plus verified MFA; no header/role/email grants.
+No public routes changed, no authentication vendor selected and no external calls.
+Initial targeted run: 22 tests passed with Windows pytest/Black cache-permission
+warnings; formatting corrected one test file. Full verification follows.
+Final local verification: all 17 gates PASS, including 295 backend tests (11.89s),
+17 frontend tests (4.76s), 11 tooling tests, imports/compilation, lint/format,
+dependencies, production bundle and document links. Two intermediate full runs
+failed only the new audit-payload test due to inherited log-level configuration;
+scoped CapturingLogger isolation fixed the test without changing production logs.
+Full delivery: docs/delivery/identity-foundation-engineering-delivery.md.
+PostgreSQL production intent and separate environments approved; hosting/vendor/
+privacy/data rights remain unresolved. The data question repeated identity policy
+and did not establish commercial dataset rights.
+
 ## CTO-approved Option A implementation
 
 CTO explicitly approved Option A on 2026-10-29 through the pending approval

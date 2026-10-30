@@ -26,11 +26,11 @@ Generic continuation of the full goal is not approval of a specific red-level ch
 
 | Dependency | Current evidence | Required CTO direction or external evidence |
 | --- | --- | --- |
-| Independent directional contributions | Several families reuse whole-prefix close direction; legacy review documents this | Approve conservative non-directional context/levels/liquidity contributions, or supply approved family-specific direction/dependency rules |
+| Independent directional contributions | CTO Option A implemented and verified; broader empirical independence unproven | Specific contribution approval resolved; independent datasets/method validation still required |
 | Live and historical market data | Fixture endpoint does not acquire live data; commercial rights unestablished | Approved provider/dataset, permitted use and redistribution/commercial rights, access configuration through secure environment storage |
-| AI explanation | Deterministic fallback works; no configured/approved AI integration | Provider/model and data-sharing/privacy constraints; no authorization to override deterministic safety |
-| Authentication and administration | Production demo disabled; roles/permissions explicitly unrecoverable in existing docs | Identity method/provider, principal/role-permission model, approved administrative actions and access boundaries |
-| Production deployment and recovery | CI container and disposable SQLite recovery pass | Deployment/database target, operator access, backup destination/retention, recovery objectives and approved operational environment |
+| AI explanation | Provider-neutral architecture approved; no vendor/model approved; customer data sharing prohibited pending approval | Vendor/model, privacy/data-sharing review; no paid commitments or deterministic-safety overrides |
+| Authentication and administration | Email customers, single founder-only admin with MFA approved; neutral access dependencies implemented, not routed | Vendor security/cost review, enrollment, session/recovery integration and full runtime acceptance |
+| Production deployment and recovery | PostgreSQL intended production DB and separate environments approved; CI/SQLite evidence only | Hosting vendor, PostgreSQL verification, operator access, backup/retention/RPO/RTO and founder release approval |
 | Empirical analytical acceptance | Synthetic and historical-prefix regressions pass, confidence uncalibrated | Approved independent datasets and evaluation/calibration acceptance protocol; no invented profitability thresholds |
 
 ### Directional contribution options
@@ -59,6 +59,16 @@ build/import/dependencies and documentation file links. Hosted CI verified Linux
 integration, container health/non-root/production denial and packaged migrations.
 Disposable SQLite backup/restore and bounded service/API concurrency are verified.
 These results do not provide the missing product decisions or production rights.
+
+### Subsequent founder approval
+
+On 2026-10-30 the founder approved email customer identity, exactly one founder
+administrator and mandatory MFA for exclusive Command Center access. No employee
+or delegated roles are required. Authentication vendor remains pending security/
+cost review. PostgreSQL and separate environments are approved intent; hosting
+and actual deployment remain gated. No external AI customer-data transfer is
+approved. See [identity foundation](../06-security/identity-access-foundation.md).
+The market-data question received the same identity-policy answer, not data rights.
 
 ## Related documents
 
