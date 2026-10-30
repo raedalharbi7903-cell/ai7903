@@ -10,6 +10,13 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+C3 CUSTOMER-16: internal history model/repository/service is tested with synthetic
+trusted sessions, all 28 existing pipeline outputs, owner/issuer isolation,
+equal-timestamp keysets, expired/unverified/mutated-session denial, finite/size
+bounds, expiry purge and rollback. New migration head 20261030_0002 preserves the
+initial revision. Two real PostgreSQL cases and restore row-count checks require
+the C3 source-specific hosted run. No public history/customer feature completion.
+
 Shared input boundary: backend/tests/analysis/test_boolean_boundaries.py has 20
 cases rejecting boolean OHLCV and coerced closed/fixture flags, preserving valid
 numbers and proving actual AnalysisService returns insufficient_data on malformed

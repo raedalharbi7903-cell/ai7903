@@ -27,6 +27,9 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Internal owner-scoped history foundation](04-architecture/analysis-history-foundation.md)
+- [C3 history engineering delivery](delivery/c3-history-engineering-delivery.md)
+
 - [Shared data-boundary repair delivery](delivery/data-boundary-repair.md)
 
 - [Full approved execution scope](02-product/approved-master-execution-goal.md)

@@ -91,7 +91,7 @@ def main() -> None:
             "alembic",
             "current",
         )
-        if "20260725_0001" not in current:
+        if "20261030_0002" not in current:
             raise RuntimeError("Packaged migration did not reach the expected revision")
         path = (
             Path(__file__).resolve().parents[1]

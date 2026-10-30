@@ -33,7 +33,7 @@ def migrate(database: Path, *arguments: str) -> subprocess.CompletedProcess:
 @pytest.mark.parametrize("name", ["roundtrip.db", "roundtrip%25.db"])
 def test_initial_migration_up_down_roundtrip(tmp_path, name) -> None:
     database = tmp_path / name
-    upgrade = migrate(database, "upgrade", "head")
+    upgrade = migrate(database, "upgrade", "20260725_0001")
     assert upgrade.returncode == 0, upgrade.stderr
     with sqlite3.connect(database) as connection:
         tables = connection.execute(
@@ -81,10 +81,10 @@ def test_sqlite_backup_restores_committed_revision_and_synthetic_probe(
         ]
         assert database.execute(
             "SELECT version_num FROM alembic_version"
-        ).fetchone() == ("20260725_0001",)
+        ).fetchone() == ("20261030_0002",)
     current = migrate(restored, "current")
     assert current.returncode == 0, current.stderr
-    assert "20260725_0001" in current.stdout
+    assert "20261030_0002" in current.stdout
 
 
 def test_offline_migration_does_not_connect_or_create_database(tmp_path) -> None:
@@ -93,4 +93,36 @@ def test_offline_migration_does_not_connect_or_create_database(tmp_path) -> None
     assert result.returncode == 0, result.stderr
     assert "alembic_version" in result.stdout
     assert "20260725_0001" in result.stdout
+    assert "20261030_0002" in result.stdout
+    assert "analysis_history" in result.stdout
     assert not database.exists()
+
+
+def test_history_head_schema_roundtrip_and_initial_revision_preserved(tmp_path) -> None:
+    database = tmp_path / "history.db"
+    upgrade = migrate(database, "upgrade", "head")
+    assert upgrade.returncode == 0, upgrade.stderr
+    with sqlite3.connect(database) as connection:
+        assert connection.execute(
+            "SELECT version_num FROM alembic_version"
+        ).fetchone() == ("20261030_0002",)
+        columns = connection.execute("PRAGMA table_info(analysis_history)").fetchall()
+        assert [column[1] for column in columns] == [
+            "id",
+            "owner_key",
+            "created_at",
+            "expires_at",
+            "policy_reference",
+            "result_json",
+        ]
+        indexes = connection.execute("PRAGMA index_list(analysis_history)").fetchall()
+        assert {"ix_analysis_history_owner_page", "ix_analysis_history_expiry"} <= {
+            index[1] for index in indexes
+        }
+    downgrade = migrate(database, "downgrade", "20260725_0001")
+    assert downgrade.returncode == 0, downgrade.stderr
+    with sqlite3.connect(database) as connection:
+        assert connection.execute(
+            "SELECT name FROM sqlite_master WHERE type='table'"
+        ).fetchall() == [("alembic_version",)]
+    assert migrate(database, "upgrade", "head").returncode == 0

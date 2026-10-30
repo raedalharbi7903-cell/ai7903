@@ -2387,7 +2387,7 @@
       "description": "Analysis history",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2396,11 +2396,28 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "backend/app/models/analysis_history.py",
+        "backend/app/repositories/analysis_history.py",
+        "backend/app/services/analysis_history.py",
+        "backend/alembic/versions/20261030_0002_analysis_history.py"
+      ],
+      "test_references": [
+        "backend/tests/test_analysis_history.py",
+        "backend/tests/test_migration_recovery.py",
+        "backend/integration/test_postgres.py"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL",
+        "EXT-AUTH",
+        "RETENTION-APPROVAL"
+      ],
+      "remaining_work": "Internal owner-scoped persistence/pagination/delete/expiry purge and existing-pipeline snapshot path implemented; no public history API or frontend yet. Default disabled without explicit approved retention policy. Real identity/revocation, privacy/deletion audit, maintenance scheduling, public contract and visual acceptance remain open. Actual PostgreSQL acceptance requires this source's hosted run."
     },
     {
       "id": "CUSTOMER-17",
@@ -2994,6 +3011,11 @@
     }
   ],
   "reverse_references": {
+    "backend/app/models/analysis_history.py": ["CUSTOMER-16"],
+    "backend/app/repositories/analysis_history.py": ["CUSTOMER-16"],
+    "backend/app/services/analysis_history.py": ["CUSTOMER-16"],
+    "backend/alembic/versions/20261030_0002_analysis_history.py": ["CUSTOMER-16"],
+    "backend/tests/test_analysis_history.py": ["CUSTOMER-16"],
     "backend/tests/analysis/test_boolean_boundaries.py": ["MASTER-11", "AN-C01"],
     "backend/app/analysis/engines.py": [
       "MASTER-06",
@@ -3167,7 +3189,7 @@
     "backend/tests/security/test_identity_boundaries.py": ["MASTER-14"],
     "backend/app/database/session.py": ["MASTER-19", "DB-PG-ACCEPTANCE"],
     "backend/app/database/base.py": ["MASTER-19"],
-    "backend/tests/test_migration_recovery.py": ["MASTER-19"],
+    "backend/tests/test_migration_recovery.py": ["MASTER-19", "CUSTOMER-16"],
     "backend/tests/test_database_session_lifecycle.py": ["MASTER-19"],
     "backend/app/core/error_handlers.py": ["MASTER-20"],
     "backend/tests/api/test_security_acceptance.py": ["MASTER-20"],
@@ -3237,7 +3259,7 @@
     "backend/requirements/base.txt": ["DB-PG-ACCEPTANCE"],
     "backend/app/config/settings.py": ["DB-PG-ACCEPTANCE"],
     "scripts/postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
-    "backend/integration/test_postgres.py": ["DB-PG-ACCEPTANCE"],
+    "backend/integration/test_postgres.py": ["DB-PG-ACCEPTANCE", "CUSTOMER-16"],
     "backend/tests/test_postgres_configuration.py": ["DB-PG-ACCEPTANCE"],
     "scripts/test_postgres_acceptance.py": ["DB-PG-ACCEPTANCE"],
     "frontend/src/i18n/ar.ts": ["UI-ARABIC"],

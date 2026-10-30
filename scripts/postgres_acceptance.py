@@ -82,6 +82,7 @@ def verify_recovery(container: str, database: str) -> None:
             statement,
         )
 
+    history_count = sql(database, "SELECT count(*) FROM analysis_history")
     sql(
         database,
         "CREATE TABLE recovery_probe (value text NOT NULL); "
@@ -115,8 +116,10 @@ def verify_recovery(container: str, database: str) -> None:
     )
     if sql(restored, "SELECT value FROM recovery_probe") != "synthetic-recovery":
         raise RuntimeError("PostgreSQL restored snapshot did not retain backup state")
-    if sql(restored, "SELECT version_num FROM alembic_version") != "20260725_0001":
+    if sql(restored, "SELECT version_num FROM alembic_version") != "20261030_0002":
         raise RuntimeError("PostgreSQL restored migration revision did not match")
+    if sql(restored, "SELECT count(*) FROM analysis_history") != history_count:
+        raise RuntimeError("PostgreSQL restored history snapshot did not match")
 
 
 def _run() -> dict:

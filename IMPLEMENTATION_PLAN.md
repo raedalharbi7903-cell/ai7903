@@ -18,6 +18,13 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+C3 internal persistence now implemented: trusted-session owner scope, immutable
+snapshots from existing AnalysisService, expiry/pagination/hard deletion/bounded
+purge, no implicit commit and no default retention. Additive migration and explicit
+PostgreSQL isolation/purge/restore acceptance added. Public API/UI and identity/
+privacy/retention/audit release gates remain incomplete. Continue grounded Arabic
+explanation/provider-neutral workflows while external approvals remain pending.
+
 Data-boundary repair before C3: reject boolean OHLCV and coerced closed/fixture
 flags in the shared internal model; retain valid inputs and all methodologies.
 Twenty regression cases plus full 17-gate checkpoint pass (388/30/23 tests).

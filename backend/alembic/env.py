@@ -2,7 +2,7 @@ from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 from app.config.settings import get_settings
-from app.database.base import Base
+from app.models import Base
 
 config = context.config
 # Alembic uses ConfigParser interpolation; URLs may legitimately contain percent

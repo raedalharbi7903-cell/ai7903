@@ -5,6 +5,34 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## C3 owner-scoped history foundation — 2026-10-30
+
+Previous boundary repair 29620eebcc0aba2698af7fd20c17db1b52ec401f passed hosted
+run 41066297881. Added internal SQLAlchemy history model/repository/service and
+additive migration 20261030_0002. Existing initial revision remains unchanged and
+explicitly tested. Session-derived issuer/subject ownership scopes every read,
+keyset page, hard deletion and bounded expiry purge. No hidden transaction commit.
+No default retention period: absent explicit policy disables all history operations
+and prevents analyze_and_record execution. No new public route or auth bypass.
+Actual existing AnalysisService produces the stored 28-output snapshot.
+
+Tests caught JSON conversion of nonfinite floats into null; reject them before
+serialization. Mutated identity serialization warnings become explicit access
+denial errors, not suppressed warnings. Cross-owner/issuer, expiry, equal-time
+pagination, limits, invalid identity, snapshot copying and rollback are covered.
+Tooling caught an accidentally duplicated reverse-reference key; corrected the
+mapping and retained both owners. Added strict duplicate-key parsing so recurrence
+fails CI rather than silently hiding evidence. Final: 428 backend PASS (16.87s),
+24 tooling PASS (0.125s); Ruff/Black/compile/import/pip and links PASS. After model
+registration cleanup, seven migration/repository cases PASS (14.73s).
+Hosted source-specific database acceptance is pending publication.
+Docker/PostgreSQL execution remains hosted-only; added two actual server cases,
+new migration/restore head and history row-count preservation checks. Customer
+history remains PARTIAL: protected API/UI, identity vendor/revocation, approved
+retention/erasure scheduling, durable audit and privacy/visual acceptance are open.
+Next independent package: continue provider-neutral grounded Arabic explanations
+and approved functional customer workflows, without external AI/customer data.
+
 ## Data-boundary repair — 2026-10-30
 
 D2 hosted run 41064875772 at 272a057 completed SUCCESS. Subsequent inspection

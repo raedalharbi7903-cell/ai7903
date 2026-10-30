@@ -4,6 +4,12 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+C3 overlay: internal owner-scoped analysis history model/repository/service and
+additive 20261030_0002 migration now exist. Default disabled without explicit
+retention policy; no public history route or auth vendor introduced. Customer
+history is PARTIAL, not production-enabled. See
+docs/04-architecture/analysis-history-foundation.md and its scoped evidence.
+
 2026-10-30 safety overlay: shared Candle/MarketData parsing now rejects boolean
 prices/volume and non-boolean closed/fixture flags instead of silently coercing
 them. Valid inputs and analytical/public API semantics are unchanged. Regression

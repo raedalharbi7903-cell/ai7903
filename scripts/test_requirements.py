@@ -10,11 +10,30 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTER = ROOT / "docs/02-product/canonical-requirements.json"
 
 
+def unique_object(pairs):
+    """Never silently discard traceability through duplicate JSON keys."""
+    result = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError(f"Duplicate requirement-register key: {key}")
+        result[key] = value
+    return result
+
+
 class RequirementRegisterTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.register = json.loads(REGISTER.read_text(encoding="utf-8"))
+        cls.register = json.loads(
+            REGISTER.read_text(encoding="utf-8"), object_pairs_hook=unique_object
+        )
         cls.records = cls.register["requirements"]
+
+    def test_duplicate_json_keys_cannot_hide_requirement_evidence(self):
+        with self.assertRaisesRegex(ValueError, "Duplicate"):
+            json.loads(
+                '{"references": {"path": ["A"], "path": ["B"]}}',
+                object_pairs_hook=unique_object,
+            )
 
     def test_unique_records_cover_all_source_sections_and_known_components(self):
         identifiers = [record["id"] for record in self.records]
