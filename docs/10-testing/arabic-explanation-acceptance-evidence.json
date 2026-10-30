@@ -1,0 +1,123 @@
+{
+  "scope": "Hosted synthetic full-stack and disposable PostgreSQL acceptance only; no production/provider/privacy/visual or full product completion claim.",
+  "source_commit": "d68a93f73790cdab9d1899298b74f633638870ae",
+  "branch": "feature/crypto-analysis-validation",
+  "workflow_run": 41069838855,
+  "job_id": 124110728138,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41069838855",
+  "job_conclusion": "success",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install backend development environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test verification tooling",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run all backend and frontend gates",
+      "conclusion": "success"
+    },
+    {
+      "name": "Capture original frontend startup diagnostics",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Audit documentation links",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify disposable PostgreSQL migrations and recovery",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build backend container",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify container runtime boundaries",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "log_excerpts": [
+    "2026-10-30T14:13:05.1578596Z Ran 24 tests in 0.047s",
+    "2026-10-30T14:13:05.5409165Z tooling-tests: PASS",
+    "2026-10-30T14:13:05.5657253Z tooling-lint: PASS",
+    "2026-10-30T14:13:05.9319059Z tooling-format: PASS",
+    "2026-10-30T14:13:06.0211525Z documentation-links: PASS",
+    "2026-10-30T14:13:15.5245214Z backend-tests: PASS",
+    "2026-10-30T14:13:15.5596169Z backend-lint: PASS",
+    "2026-10-30T14:13:16.5025957Z backend-format: PASS",
+    "2026-10-30T14:13:16.5445823Z backend-compile: PASS",
+    "2026-10-30T14:13:17.0887389Z backend-import: PASS",
+    "2026-10-30T14:13:17.3950185Z backend-dependencies: PASS",
+    "2026-10-30T14:13:21.6312207Z frontend-install: PASS",
+    "2026-10-30T14:13:25.2036115Z frontend-types: PASS",
+    "2026-10-30T14:13:27.2779834Z frontend-lint: PASS",
+    "2026-10-30T14:13:32.6081276Z frontend-tests: PASS",
+    "2026-10-30T14:13:34.0468119Z frontend-format: PASS",
+    "2026-10-30T14:13:38.4624493Z frontend-build: PASS",
+    "2026-10-30T14:13:39.1031728Z frontend-peers: PASS",
+    "2026-10-30T14:13:52.1739328Z 8 passed in 3.16s",
+    "2026-10-30T14:13:52.1739803Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T14:14:09.9357997Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "local": {
+    "backend_tests": 443,
+    "backend_seconds": 17.63,
+    "frontend_tests": 33,
+    "frontend_seconds": 5.99,
+    "tooling_tests": 24,
+    "tooling_seconds": 0.125
+  },
+  "limitations": [
+    "External AI remains unconfigured; prose is deterministic fallback",
+    "Single app import initially failed without required settings and then passed with explicit synthetic testing settings",
+    "Skipped startup diagnostic runs on failure only, not an omitted acceptance test"
+  ]
+}

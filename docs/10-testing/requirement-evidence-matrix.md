@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+B1 source d68a93f7 hosted run 41069838855 SUCCESS: all 17 gates, eight actual
+PostgreSQL tests/dump-restore and application container PASS. See
+[retained evidence](arabic-explanation-acceptance-evidence.json). No AI vendor
+or production/visual acceptance inferred.
+
 B1 Arabic fallback: test_arabic_explanation.py covers all five actual service
 decisions, late failures, source-text injection exclusion, conflict references
 and state immutability. Frontend contract/UI and actual HTTP tests verify final

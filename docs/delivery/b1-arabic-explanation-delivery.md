@@ -1,8 +1,8 @@
 ---
 title: B1 Grounded Arabic Explanation Delivery
 document_id: DOC-DELIVERY-B1-001
-version: 1.0.0
-status: verified-local-hosted-pending
+version: 1.0.1
+status: verified-local-and-hosted-fallback
 owner: Engineering
 reviewers: Founder
 last_updated: 2026-10-30
@@ -11,6 +11,18 @@ related_documents: [DOC-AR-EXPLANATION-001]
 ---
 
 # B1 delivery
+
+## Hosted publication receipt
+
+Source d68a93f73790cdab9d1899298b74f633638870ae, hosted run 41069838855/job
+124110728138 SUCCESS: all 17 gates, eight actual PostgreSQL tests, dump/restore,
+container build/runtime and actual frontend/API rendering PASS. See
+[retained evidence](../10-testing/arabic-explanation-acceptance-evidence.json).
+This supersedes precommit pending entries below, not full AI/product acceptance.
+Direct application import initially failed without required environment settings;
+repeated with explicit synthetic testing configuration PASS. Compile/pip PASS.
+Git LF-to-CRLF notices reflect existing checkout settings; no renormalization,
+discarded work or hidden test warning. No changes to main.
 
 ## 1. Executive summary
 
@@ -462,6 +474,7 @@ ai-trading-platform/
 │   │   ├── contract-testing.md
 │   │   ├── end-to-end-testing.md
 │   │   ├── frontend-testing.md
+│   │   ├── arabic-explanation-acceptance-evidence.json
 │   │   ├── history-postgresql-acceptance-evidence.json
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md

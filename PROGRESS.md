@@ -7,6 +7,15 @@ Product status: NOT COMPLETE
 
 ## B1 grounded Arabic fallback — 2026-10-30
 
+Publication receipt: d68a93f73790cdab9d1899298b74f633638870ae hosted run
+41069838855/job 124110728138 SUCCESS: all 17 gates, eight actual PostgreSQL tests,
+dump/restore, container build/runtime and real frontend/API integration PASS.
+Evidence: docs/10-testing/arabic-explanation-acceptance-evidence.json.
+An extra direct import failed without the four required application settings;
+configured synthetic testing import then PASS. This is expected configuration
+fail-closed behavior, not a suppressed error or changed default.
+This receipt supersedes pending-source wording below, not external AI/production.
+
 Added typed deterministic Arabic explanation in the existing ExplainabilityEngine,
 retaining legacy summary and top-level API contract. Static text cites final
 decision/validation and actual evidence references; no raw source prose interpolation,
