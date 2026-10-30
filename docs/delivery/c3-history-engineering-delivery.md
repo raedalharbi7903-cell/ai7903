@@ -1,8 +1,8 @@
 ---
 title: C3 Internal History Engineering Delivery
 document_id: DOC-DELIVERY-C3-001
-version: 1.0.0
-status: verified-local-hosted-pending
+version: 1.0.1
+status: verified-local-and-hosted-internal-foundation
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-10-30
@@ -11,6 +11,18 @@ related_documents: [DOC-HISTORY-001, DOC-DELIVERY-DATA-BOUNDARY-001]
 ---
 
 # C3 delivery
+
+## Hosted publication receipt
+
+Source commit 638e3f874a162a7a01d1360a45abb546270c691e is present on the remote
+feature branch (git ls-remote verified). Run 41068207446/job 124105117663 completed
+SUCCESS: all 17 full-stack gates, eight actual PostgreSQL tests (1.91s), migration/
+history-isolation/expiry purge/dump-restore and container runtime PASS. See
+[retained evidence](../10-testing/history-postgresql-acceptance-evidence.json).
+This supersedes precommit pending entries below for that source, not production
+or full customer history acceptance. Local Docker remains unavailable.
+Git issued LF-to-CRLF notices from existing checkout configuration; no whitespace
+error or test warning was hidden, and diff --check passed. No renormalization done.
 
 ## 1. Executive summary
 
@@ -482,6 +494,7 @@ ai-trading-platform/
 │   │   ├── frontend-testing.md
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md
+│   │   ├── history-postgresql-acceptance-evidence.json
 │   │   ├── postgresql-acceptance-evidence.json
 │   │   ├── quality-gates.md
 │   │   ├── regression-testing.md

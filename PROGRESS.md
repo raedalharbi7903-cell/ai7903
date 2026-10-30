@@ -7,6 +7,14 @@ Product status: NOT COMPLETE
 
 ## C3 owner-scoped history foundation — 2026-10-30
 
+Publication receipt: source 638e3f874a162a7a01d1360a45abb546270c691e is verified
+on the remote feature branch. Hosted run 41068207446/job 124105117663 SUCCESS:
+all 17 full-stack gates, eight actual PostgreSQL tests (1.91s), migrations,
+history isolation/expiry purge, dump/restore and container runtime PASS.
+Retained evidence: docs/10-testing/history-postgresql-acceptance-evidence.json.
+This supersedes pre-push pending wording below for that exact source only;
+customer/public/production gates are unchanged. Working tree was clean after push.
+
 Previous boundary repair 29620eebcc0aba2698af7fd20c17db1b52ec401f passed hosted
 run 41066297881. Added internal SQLAlchemy history model/repository/service and
 additive migration 20261030_0002. Existing initial revision remains unchanged and

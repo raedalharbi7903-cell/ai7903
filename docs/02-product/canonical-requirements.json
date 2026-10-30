@@ -2417,7 +2417,7 @@
         "EXT-AUTH",
         "RETENTION-APPROVAL"
       ],
-      "remaining_work": "Internal owner-scoped persistence/pagination/delete/expiry purge and existing-pipeline snapshot path implemented; no public history API or frontend yet. Default disabled without explicit approved retention policy. Real identity/revocation, privacy/deletion audit, maintenance scheduling, public contract and visual acceptance remain open. Actual PostgreSQL acceptance requires this source's hosted run."
+      "remaining_work": "Internal owner-scoped persistence/pagination/delete/expiry purge and existing-pipeline snapshot path implemented; no public history API or frontend yet. Default disabled without explicit approved retention policy. Real identity/revocation, privacy/deletion audit, maintenance scheduling, public contract and visual acceptance remain open. Source 638e3f8 hosted run 41068207446 passed actual PostgreSQL isolation/expiry/restore and all full-stack/container checks; this does not complete customer history."
     },
     {
       "id": "CUSTOMER-17",

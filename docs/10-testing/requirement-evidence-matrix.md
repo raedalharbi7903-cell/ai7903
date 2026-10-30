@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+C3 source 638e3f8 hosted run 41068207446 completed SUCCESS: all full-stack gates,
+eight actual PostgreSQL tests, history isolation/expiry, dump/restore and container
+runtime. [Retained evidence](history-postgresql-acceptance-evidence.json).
+This supersedes C3 hosted-pending wording below, not customer/production acceptance.
+
 C3 CUSTOMER-16: internal history model/repository/service is tested with synthetic
 trusted sessions, all 28 existing pipeline outputs, owner/issuer isolation,
 equal-timestamp keysets, expired/unverified/mutated-session denial, finite/size

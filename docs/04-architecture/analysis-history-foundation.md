@@ -68,6 +68,11 @@ data without an approved backup/recovery procedure. No production migration run 
 
 ## Verification and remaining work
 
+Hosted source 638e3f8 verified: run 41068207446/job 124105117663 SUCCESS, eight
+actual PostgreSQL tests (1.91s), history isolation/expiry, migration/dump/restore,
+all full-stack gates and application container PASS. See
+[retained evidence](../10-testing/history-postgresql-acceptance-evidence.json).
+
 backend/tests/test_analysis_history.py covers default denial, no disabled pipeline
 execution, all 28 actual pipeline outputs, owner/issuer isolation, invalid/expired/
 mutated identity, keyset ties, immutable snapshots, bounded paging/deletion/purge,
@@ -79,8 +84,8 @@ tests, explicitly executed in owned CI, never represented by mocks.
 The dump/restore harness now checks new head and history row count.
 
 Remaining: protected public API contract, trusted auth vendor/revocation/CSRF,
-frontend, approved retention/erasure lifecycle, durable audit and source-specific
-PostgreSQL hosted acceptance. This is PARTIALLY IMPLEMENTED customer history.
+frontend, approved retention/erasure lifecycle, durable audit and production
+acceptance. This is PARTIALLY IMPLEMENTED customer history.
 
 ## Related documents
 

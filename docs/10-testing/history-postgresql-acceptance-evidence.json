@@ -1,0 +1,121 @@
+{
+  "scope": "Disposable hosted CI only; no production, real identity, privacy approval, licensing or customer-history completion claim.",
+  "source_commit": "638e3f874a162a7a01d1360a45abb546270c691e",
+  "branch": "feature/crypto-analysis-validation",
+  "workflow_run": 41068207446,
+  "job_id": 124105117663,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41068207446",
+  "job_conclusion": "success",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install backend development environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test verification tooling",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run all backend and frontend gates",
+      "conclusion": "success"
+    },
+    {
+      "name": "Capture original frontend startup diagnostics",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Audit documentation links",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify disposable PostgreSQL migrations and recovery",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build backend container",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify container runtime boundaries",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "log_excerpts": [
+    "2026-10-30T14:02:01.3608296Z Ran 24 tests in 0.025s",
+    "2026-10-30T14:02:01.5889289Z tooling-tests: PASS",
+    "2026-10-30T14:02:01.6063203Z tooling-lint: PASS",
+    "2026-10-30T14:02:01.8827874Z tooling-format: PASS",
+    "2026-10-30T14:02:01.9281336Z documentation-links: PASS",
+    "2026-10-30T14:02:08.4344109Z backend-tests: PASS",
+    "2026-10-30T14:02:08.4568565Z backend-lint: PASS",
+    "2026-10-30T14:02:08.9101328Z backend-format: PASS",
+    "2026-10-30T14:02:08.9358870Z backend-compile: PASS",
+    "2026-10-30T14:02:09.2499869Z backend-import: PASS",
+    "2026-10-30T14:02:09.4223895Z backend-dependencies: PASS",
+    "2026-10-30T14:02:12.3073365Z frontend-install: PASS",
+    "2026-10-30T14:02:14.5308262Z frontend-types: PASS",
+    "2026-10-30T14:02:15.7844850Z frontend-lint: PASS",
+    "2026-10-30T14:02:18.9593555Z frontend-tests: PASS",
+    "2026-10-30T14:02:19.8331784Z frontend-format: PASS",
+    "2026-10-30T14:02:22.2717889Z frontend-build: PASS",
+    "2026-10-30T14:02:22.6331798Z frontend-peers: PASS",
+    "2026-10-30T14:02:36.7883748Z 8 passed in 1.91s",
+    "2026-10-30T14:02:36.7884112Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T14:02:51.5968560Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "local": {
+    "backend_tests": 428,
+    "backend_seconds": 16.87,
+    "frontend_tests_last_full_checkpoint": 30,
+    "tooling_tests": 24
+  },
+  "limitations": [
+    "Hosted runner is not production infrastructure",
+    "Skipped startup diagnostic is an on-failure-only step, not a skipped validation",
+    "Source commit is the implementation commit; subsequent publication documentation does not change application code"
+  ]
+}
