@@ -2,6 +2,12 @@
 
 ## Resumed source evidence — 2026-10-31
 
+MASTER-21: app-wired RequestTelemetryMiddleware plus29 tests, only bounded safe
+operational fields. Native Uvicorn traceback leakage was demonstrated with actual
+protocol then fixed centrally; nine redaction tests. Backend718 PASS/35.73s;
+actual HTTP7 PASS; tooling29 PASS; own-source hosted receipt pending publication.
+Prior source efda7d4 hosted41137138940 SUCCESS:18 actual PG cases +restore/container.
+
 CUSTOMER-17: backend watchlist service/API tests plus typed/component/actual HTTP
 frontend tests; no implicit analysis. Actual PostgreSQL concurrent duplicates,
 audit rollback, API and migration0004/restore cases require own-source hosted CI.

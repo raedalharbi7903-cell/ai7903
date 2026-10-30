@@ -29,7 +29,7 @@ provider/body/exception text. See
 - Python 3.12 and the backend development dependencies for integration tests.
 - Install with `pnpm install --frozen-lockfile`.
 - Start the backend from `backend`: configure the root environment as described
-  in the root README, then `.venv/Scripts/python -m uvicorn app.main:app --reload`.
+  in the root README, then `.venv/Scripts/python -m uvicorn app.main:app --reload --no-access-log`.
   On Unix, use `.venv/bin/python`.
 - From this directory run `pnpm dev`.
 

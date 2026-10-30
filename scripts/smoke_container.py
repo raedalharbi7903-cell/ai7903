@@ -10,9 +10,13 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 
-def docker(*arguments: str) -> str:
+def docker(*arguments: str, include_stderr: bool = False) -> str:
     return subprocess.check_output(
-        ["docker", *arguments], text=True, encoding="utf-8", timeout=60
+        ["docker", *arguments],
+        text=True,
+        encoding="utf-8",
+        timeout=60,
+        stderr=subprocess.STDOUT if include_stderr else None,
     ).strip()
 
 
@@ -114,6 +118,14 @@ def main() -> None:
                     ) from error
             else:
                 raise RuntimeError("Private history accepted forged credentials")
+        privacy_marker = "synthetic-private-query-probe"
+        with urlopen(
+            f"http://{address}/health?private_query={privacy_marker}", timeout=3
+        ) as response:
+            if json.load(response) != {"status": "healthy"}:
+                raise RuntimeError("Privacy probe health request failed")
+        if privacy_marker in docker("logs", container, include_stderr=True):
+            raise RuntimeError("Container leaked raw private query into logs")
         # Disposable container-local database only; never a deployed/user DB.
         migration_environment = "DATABASE_URL=sqlite:////tmp/ci-migration.db"
         docker(
@@ -152,6 +164,7 @@ def main() -> None:
                     "non_root_uid": uid,
                     "production_demo_denial": "PASS",
                     "private_history_denial": "PASS",
+                    "raw_query_log_redaction": "PASS",
                     "packaged_migration": "PASS",
                     "scope": "CI container only; not hosted production acceptance",
                 },

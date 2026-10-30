@@ -40,7 +40,7 @@ backend/.venv/Scripts/python -m pip install -r backend/requirements/dev.txt
 On Unix substitute backend/.venv/bin/python. From backend/ start:
 
 ```text
-.venv/Scripts/python -m uvicorn app.main:app --reload
+.venv/Scripts/python -m uvicorn app.main:app --reload --no-access-log
 ```
 
 From frontend/ run pnpm install --frozen-lockfile, then pnpm dev. The development

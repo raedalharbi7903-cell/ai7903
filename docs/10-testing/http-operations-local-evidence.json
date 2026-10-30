@@ -1,0 +1,69 @@
+{
+  "scope": "Safe HTTP operations package; no production deployment or external exporter",
+  "commands": [
+    {
+      "command": ".venv/Scripts/python -m pytest -q -o addopts='' -o cache_dir=../.verification/pytest-cache",
+      "cwd": "backend (using .venv/Scripts/python)",
+      "status": "PASS",
+      "tests": 718,
+      "seconds": 35.73
+    },
+    {
+      "command": ".venv/Scripts/python -m ruff check app tests integration",
+      "cwd": "backend",
+      "status": "PASS"
+    },
+    {
+      "command": ".venv/Scripts/python -m black --check app tests integration",
+      "cwd": "backend",
+      "status": "PASS",
+      "unchanged_files": 120
+    },
+    {
+      "command": ".venv/Scripts/python -m compileall -q app",
+      "cwd": "backend",
+      "status": "PASS"
+    },
+    {
+      "command": "pnpm exec vitest run src/pages/watchlist.integration.test.tsx src/pages/history.integration.test.tsx src/features/analysis/analysis.integration.test.tsx",
+      "cwd": "frontend",
+      "status": "PASS",
+      "tests": 7,
+      "files": 3,
+      "seconds": 7.98
+    },
+    {
+      "command": "pnpm typecheck; pnpm lint; pnpm format:check; pnpm build",
+      "cwd": "frontend",
+      "status": "PASS",
+      "build_milliseconds": 325
+    },
+    {
+      "command": "backend/.venv/Scripts/python -m unittest discover -s scripts -p test_*.py",
+      "cwd": "root",
+      "status": "PASS",
+      "tests": 29,
+      "seconds": 0.176
+    },
+    {
+      "command": "backend/.venv/Scripts/python scripts/audit_documents.py",
+      "status": "PASS",
+      "local_file_link_issues": 0
+    }
+  ],
+  "before_fix": {
+    "native_log_redaction_failed": 5,
+    "actual_installed_uvicorn_h11_protocol": true
+  },
+  "unverified": [
+    "Local Docker absent; own-source hosted run required",
+    "No backend mypy/Pyright configured",
+    "No production deployment, reverse-proxy logging/privacy certification"
+  ],
+  "prior_source": {
+    "sha": "efda7d460674793d8d2a4acdff5cc1be7c8989ce",
+    "hosted_run": 41137138940,
+    "postgres_tests": 18,
+    "conclusion": "success"
+  }
+}

@@ -1,11 +1,24 @@
 import io
+import json
 import unittest
+from pathlib import Path
 from unittest.mock import patch
 
 from smoke_container import main
 
 
 class ContainerSafetyTests(unittest.TestCase):
+    def test_packaged_command_disables_raw_access_logging(self):
+        dockerfile = Path(__file__).resolve().parents[1] / "backend" / "Dockerfile"
+        command = next(
+            line.removeprefix("CMD ")
+            for line in dockerfile.read_text(encoding="utf-8").splitlines()
+            if line.startswith("CMD ")
+        )
+        arguments = json.loads(command)
+        self.assertIn("--no-access-log", arguments)
+        self.assertNotIn("--access-log", arguments)
+
     @patch("smoke_container.docker", return_value="untrusted-identity")
     def test_invalid_identity_never_triggers_broad_cleanup(self, command):
         with self.assertRaisesRegex(RuntimeError, "identity"):

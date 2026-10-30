@@ -1,6 +1,31 @@
 # Execution progress
 
+## Safe HTTP operations package — 2026-10-31
+
+Reinspection confirms root .editorconfig was already delivered at272a057 and
+remains tracked unchanged. Original a7f0b72 absence is historical; do not recreate
+it. Corrected its omission from the generated source-package tree.
+
+Added app-wired bounded request metadata, safe template/method/UUID/status/duration,
+no raw path/query/body/header/customer identity. Streaming/cancellation/sink failure
+isolation tested. Actual Uvicorn/H11 proved native traceback leaked a private
+exception despite safe500; five initial failing redaction cases repaired centrally,
+preserving severity/error category and ordinary logs. Native raw access logs
+disabled in packaged/local/test startup; container stdout+stderr probe added.
+New request tests29 plus native-server tests9. Final backend718 PASS (35.73s),
+Ruff/Black/compile PASS; frontend/API7 actual HTTP tests PASS (7.98s), frontend
+types/lint/format/build PASS; tooling29 PASS. No vendor/dependency/API change.
+Own-source hosted runtime pending publication; prior efda7d4 all18PG+Docker PASS.
+
 ## Resumed implementation — 2026-10-31
+
+Published source efda7d460674793d8d2a4acdff5cc1be7c8989ce verified by hosted
+run41137138940/job124342273394 SUCCESS: all17 gates,18 actual PG cases
+(5.70s/one AnyIO deprecation), real concurrent duplicate/audit rollback/migration/
+HTTP/content restore and container GET/POST/DELETE denial PASS. Evidence:
+docs/10-testing/resumed-foundations-hosted-evidence.json. No live provider or
+production acceptance inferred. Next independent package: safe HTTP request
+observability, no customer payload/path/query/credential logging.
 
 Founder explicitly resumed full MASTER scope after handover; no reset/rebuild.
 Baseline c511806712af78726b4967f2346637a872efd10c, same feature branch.

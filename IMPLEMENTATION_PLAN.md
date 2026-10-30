@@ -2,6 +2,12 @@
 
 ## Resumed packages — 2026-10-31
 
+C7/B2/B3 source efda7d4 is now hosted-verified (all18 actual PostgreSQL cases and
+container including private mutation denial). Continued G15/G16 safe HTTP request
+events and native server exception/access-log hardening; current backend718 tests
+PASS plus focused realHTTP/tooling/static gates. Next: own-source hosted acceptance,
+then remaining customer/commercial core with unresolved provider/privacy policies gated.
+
 Founder resumed actual development; historical handover pause below is no longer
 active instruction. Full approved scope retained. C7 private watchlist API/UI/audit,
 B2 constrained provider-neutral explanation and B3 fixed-parameter walk-forward

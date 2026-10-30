@@ -12,6 +12,16 @@ related_documents: [DOC-WATCHLIST-001, DOC-AI-GROUNDED-001, DOC-WALK-FORWARD-001
 
 # Engineering delivery — resumed implementation
 
+## Publication receipt — 2026-10-31
+
+Source efda7d460674793d8d2a4acdff5cc1be7c8989ce pushed on the existing feature
+branch. Hosted run41137138940/job124342273394 SUCCESS: all17 gates,18 actual
+PostgreSQL cases (5.70s/one AnyIO warning), concurrent duplicate resolution,
+atomic audit rollback/API/migration preservation, nonempty watchlist restore and
+Docker build/non-root/health/private GET/POST/DELETE denial/packaged0004 PASS.
+[Retained source evidence](../10-testing/resumed-foundations-hosted-evidence.json)
+supersedes preparation-time pending rows below, not production/empirical approval.
+
 ## 1. Executive summary
 
 IMPLEMENTATION IN PROGRESS. Continued from clean c511806712af78726b4967f2346637a872efd10c
@@ -55,6 +65,7 @@ files are shown explicitly; no directory is collapsed.
 
 ```text
 ai-trading-platform/
+├── .editorconfig
 ├── .env.example
 ├── .github/
 │   ├── .gitkeep
@@ -675,8 +686,9 @@ remain missing. Default application verifier denies all test/unknown identities.
 Existing provisional engine methodologies/risk policy and independent licensed
 historical datasets/evaluation protocol remain unresolved. Confidence uncalibrated.
 AI selection is deliberately not free-form narrative; future adapter needs approved
-privacy/provider and its own bounded time/retry/cost enforcement. Rolling metadata
-does not truncate existing analytical algorithms' available historical prefix.
+privacy/provider and its own bounded time/retry/cost enforcement. Rolling primary
+windows begin at train_start; expanding prefixes begin at0. No fitting or method
+replacement occurs.
 
 Watchlist is preference storage, not provider asset search. Subscription/billing,
 support/account/dashboard and all eleven founder executive sections still need

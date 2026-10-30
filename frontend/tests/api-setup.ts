@@ -21,7 +21,16 @@ async function startServer(module: string) {
     );
   const child = spawn(
     python,
-    ["-m", "uvicorn", module, "--host", "127.0.0.1", "--port", String(port)],
+    [
+      "-m",
+      "uvicorn",
+      module,
+      "--no-access-log",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      String(port),
+    ],
     {
       cwd: backend,
       windowsHide: true,

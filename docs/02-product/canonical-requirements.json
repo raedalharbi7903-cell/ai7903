@@ -904,12 +904,24 @@
       ],
       "code_references": [
         "backend/app/analysis/telemetry.py",
-        "backend/app/analysis/service.py"
+        "backend/app/analysis/service.py",
+        "backend/app/core/request_telemetry.py",
+        "backend/app/main.py",
+        "backend/app/logging/config.py",
+        "backend/Dockerfile"
       ],
-      "test_references": ["backend/tests/analysis/test_freshness_telemetry.py"],
-      "dependencies": ["G15", "EXT-OPS"],
+      "test_references": [
+        "backend/tests/analysis/test_freshness_telemetry.py",
+        "backend/tests/api/test_request_telemetry.py",
+        "backend/tests/test_logging_redaction.py",
+        "scripts/test_smoke_container.py"
+      ],
+      "dependencies": [
+        "G15",
+        "EXT-OPS"
+      ],
       "external_blockers": [],
-      "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
+      "remaining_work": "Bounded HTTP events and native Uvicorn exception/access-log privacy hardening are implemented/tested; no raw customer paths/query/bodies/credentials retained by these hooks. Full durable exporters/incidents/readiness/alerts/cost dashboards, pre-lifespan/proxy log review and production/recovery acceptance remain incomplete.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -3259,6 +3271,9 @@
     "backend/app/core/error_handlers.py": [
       "MASTER-20"
     ],
+    "backend/app/core/request_telemetry.py": [
+      "MASTER-21"
+    ],
     "backend/app/database/base.py": [
       "MASTER-19"
     ],
@@ -3271,6 +3286,12 @@
     ],
     "backend/app/dependencies/watchlist.py": [
       "CUSTOMER-17"
+    ],
+    "backend/app/logging/config.py": [
+      "MASTER-21"
+    ],
+    "backend/app/main.py": [
+      "MASTER-21"
     ],
     "backend/app/models/analysis_history.py": [
       "CUSTOMER-16"
@@ -3310,6 +3331,7 @@
       "CUSTOMER-17"
     ],
     "backend/Dockerfile": [
+      "MASTER-21",
       "MASTER-22"
     ],
     "backend/integration/test_postgres.py": [
@@ -3456,6 +3478,9 @@
     "backend/tests/api/test_history.py": [
       "CUSTOMER-16"
     ],
+    "backend/tests/api/test_request_telemetry.py": [
+      "MASTER-21"
+    ],
     "backend/tests/api/test_security_acceptance.py": [
       "MASTER-20"
     ],
@@ -3473,6 +3498,9 @@
     ],
     "backend/tests/test_database_session_lifecycle.py": [
       "MASTER-19"
+    ],
+    "backend/tests/test_logging_redaction.py": [
+      "MASTER-21"
     ],
     "backend/tests/test_migration_recovery.py": [
       "MASTER-19",
@@ -3652,6 +3680,7 @@
       "DB-PG-ACCEPTANCE"
     ],
     "scripts/test_smoke_container.py": [
+      "MASTER-21",
       "MASTER-22"
     ],
     "scripts/test_verify.py": [

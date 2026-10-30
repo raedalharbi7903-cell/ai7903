@@ -43,9 +43,10 @@ This is NOT label-horizon purging/embargo. No training algorithm runs:
 training_performed is false. Do not describe these results as fitted out-of-sample
 model performance.
 
-Rolling versus expanding changes the declared warmup/provenance range, not the
-existing analytical algorithms' lookback. The evaluator still supplies the complete
-available past prefix; it does not silently retrain or truncate those algorithms.
+Expanding folds supply the primary prefix from index0. Rolling folds supply
+the primary window from that fold's train_start through its test_end; decision
+bounds are shifted to that window. Original analytical methods remain unchanged.
+Auxiliary frames are bounded by available time, not fitted or optimized.
 
 WalkForwardEvaluator receives explicit dataset_id/content_version, execution costs/
 assumptions, primary candles and optional auxiliary timeframes. It copies input,

@@ -27,6 +27,8 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Safe HTTP operational logging](09-devops/request-observability.md)
+
 - [Private watchlist workflow](04-architecture/watchlist-foundation.md)
 - [Constrained grounded explanation](05-analysis/grounded-explanation-selection.md)
 - [Fixed-parameter walk-forward evaluation](10-testing/walk-forward-evaluation.md)

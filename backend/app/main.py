@@ -7,6 +7,7 @@ from fastapi import FastAPI
 from app.api.router import register_api_routes
 from app.config.settings import get_settings
 from app.core.error_handlers import register_exception_handlers
+from app.core.request_telemetry import RequestTelemetryMiddleware
 from app.logging.config import configure_logging
 
 
@@ -23,6 +24,7 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
 def create_app() -> FastAPI:
     settings = get_settings()
     application = FastAPI(title=settings.app_name, lifespan=lifespan)
+    application.add_middleware(RequestTelemetryMiddleware)
     register_api_routes(application, v1_prefix=settings.api_v1_prefix)
     register_exception_handlers(application)
     return application
