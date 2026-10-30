@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+C4 test_provider_denial.py adds seven no-default/no-network cases, including
+configured vendor/key/URL attempts. Complete local scripts/verify.py PASS, 17 gates,
+450 backend/38 frontend/24 tooling. D3 hosted run 41089321352 at 98ea7a7 succeeded;
+new C4 source runtime evidence requires its own observed run.
+
 D3 public guidance: PublicPages.test.tsx adds five actual-App tests for three
 routes, RTL/provisional notices, zero automatic fetches, real analysis navigation
 and no fake support submission. Frontend 38 PASS; types/lint/format/build PASS.

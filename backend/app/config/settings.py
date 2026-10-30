@@ -24,14 +24,14 @@ class Settings(BaseSettings):
     founder_identity_subject: str | None = Field(
         default=None, validation_alias="FOUNDER_IDENTITY_SUBJECT"
     )
-    market_data_provider: str = Field(
-        default="twelve_data", validation_alias="MARKET_DATA_PROVIDER"
+    market_data_provider: str | None = Field(
+        default=None, validation_alias="MARKET_DATA_PROVIDER"
     )
     market_data_api_key: str | None = Field(
         default=None, validation_alias="MARKET_DATA_API_KEY"
     )
-    market_data_base_url: str = Field(
-        default="https://api.twelvedata.com", validation_alias="MARKET_DATA_BASE_URL"
+    market_data_base_url: str | None = Field(
+        default=None, validation_alias="MARKET_DATA_BASE_URL"
     )
 
 

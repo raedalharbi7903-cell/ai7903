@@ -1,8 +1,8 @@
 ---
 title: D3 Public Arabic Guidance Delivery
 document_id: DOC-DELIVERY-D3-001
-version: 1.0.0
-status: verified-local-hosted-pending
+version: 1.0.1
+status: verified-local-and-hosted-functional-guidance
 owner: Engineering
 reviewers: Founder
 last_updated: 2026-10-30
@@ -11,6 +11,14 @@ related_documents: [DOC-DELIVERY-B1-001]
 ---
 
 # D3 delivery
+
+## Hosted publication receipt
+
+Source 98ea7a7c0cdbcb0586c511b040a5e295f46b67da, run 41089321352/job 124178712126
+completed SUCCESS: all 17 full-stack gates, eight actual PostgreSQL tests (3.20s),
+dump/restore and container runtime PASS. See
+[retained evidence](../10-testing/public-guidance-acceptance-evidence.json).
+This supersedes precommit pending statements below, not final copy/visual/production.
 
 ## 1. Executive summary
 
@@ -461,6 +469,7 @@ ai-trading-platform/
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md
 │   │   ├── postgresql-acceptance-evidence.json
+│   │   ├── public-guidance-acceptance-evidence.json
 │   │   ├── quality-gates.md
 │   │   ├── regression-testing.md
 │   │   ├── request-isolation-acceptance.md

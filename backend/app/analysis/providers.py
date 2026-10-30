@@ -1,47 +1,18 @@
-from datetime import UTC, datetime
 from math import isfinite
 
-import httpx
-
-from app.analysis.models import Candle, MarketData, ValidationStatus
+from app.analysis.data_contracts import DataAcquisitionError
+from app.analysis.models import MarketData, ValidationStatus
 
 
 class OkxProvider:
-    """Development/test only; commercial OKX data rights require written approval."""
+    """Legacy compatibility boundary; unapproved live access is always denied.
+
+    Future licensed adapters must use the reviewed provider-neutral acquisition
+    contract. Merely setting a URL/API key cannot grant commercial permission.
+    """
 
     def candles(self, symbol: str, timeframe: str, outputsize: int = 200) -> MarketData:
-        response = httpx.get(
-            "https://www.okx.com/api/v5/market/history-candles",
-            params={"instId": symbol, "bar": timeframe, "limit": outputsize},
-            timeout=10.0,
-        )
-        response.raise_for_status()
-        payload = response.json()
-        if payload.get("code") != "0" or not payload.get("data"):
-            raise ValueError(payload.get("msg", "OKX returned no candles"))
-        candles = [
-            Candle(
-                timestamp=datetime.fromtimestamp(int(row[0]) / 1000, UTC),
-                open=float(row[1]),
-                high=float(row[2]),
-                low=float(row[3]),
-                close=float(row[4]),
-                volume=float(row[5]),
-            )
-            for row in reversed(payload["data"])
-        ]
-        data = MarketData(
-            instrument=symbol,
-            market="crypto",
-            timeframe=timeframe,
-            provider="okx",
-            exchange="OKX",
-            asset_type="crypto",
-            source_timestamp=candles[-1].timestamp,
-            candles=candles,
-        )
-        data.quality_status = validate_market_data(data)
-        return data
+        raise DataAcquisitionError("live_access_unapproved")
 
 
 def validate_market_data(data: MarketData) -> ValidationStatus:

@@ -5,6 +5,22 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## C4 unapproved-provider escape closure — 2026-10-30
+
+Independent review found dormant Twelve Data defaults and an unguarded legacy OKX
+direct-network method. Public API did not call it, but configuration/source could
+bypass the new acquisition boundary if reused. Removed implicit vendor/endpoint
+defaults from Settings/.env.example. Retained legacy method signature as explicit
+live_access_unapproved denial; no key/vendor/URL can enable it. Historical source
+remains in Git. No supported public API/analysis formula or new provider selected.
+Seven new tests plus acquisition/API guards: 59 focused PASS (1.96s).
+Full integrated checkpoint: 17 gates PASS, 450 backend (18.72s), 38 frontend
+(8.38s), 24 tooling (0.175s), type/lint/format/import/compile/dependency/build.
+New hosted source validation pending commit/push. D3 run 41089321352 at 98ea7a7
+is SUCCESS, eight actual PostgreSQL tests (3.20s), restore/container PASS; evidence
+retained in docs/10-testing/public-guidance-acceptance-evidence.json.
+No live request was attempted or licensed/commercial access claimed.
+
 ## D3 public Arabic guidance — 2026-10-30
 
 Added /welcome, /product and /help, honest synthetic/absent-service disclosures,

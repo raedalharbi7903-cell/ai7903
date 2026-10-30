@@ -4,6 +4,10 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+C4 safety overlay: legacy vendor defaults no longer select an implicit provider;
+legacy direct OKX fetching is denied before I/O. Configured URLs/API keys never
+confer licensing approval. Fixture/API/analysis behavior remains unchanged.
+
 D3 overlay: public Arabic guidance at /welcome, /product and /help now exists in
 the original router; analysis root and API unchanged. No live market/account/
 billing/support submission implied. Founder visual/copy/browser approval remains

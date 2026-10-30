@@ -18,6 +18,11 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+C4 closed dormant direct-provider escape and implicit vendor defaults after
+independent review. Retained fail-closed compatibility signature, no network,
+no new provider/algorithm/public contract. Full 17 gates PASS (450/38/24 tests).
+Future adapters require reviewed rights and existing explicit acquisition gates.
+
 D3 public Arabic guidance routes and shared navigation are functional/tested,
 without moving existing analysis root, collecting data or simulating live/account/
 support services. Copy/design/browser approval remains open; three customer

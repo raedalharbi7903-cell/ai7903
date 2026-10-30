@@ -403,14 +403,20 @@
       "code_references": [
         "backend/app/analysis/data_contracts.py",
         "backend/app/services/market_data.py",
-        "backend/app/analysis/data_cache.py"
+        "backend/app/analysis/data_cache.py",
+        "backend/app/analysis/providers.py"
       ],
       "test_references": [
         "backend/tests/analysis/test_data_acquisition.py",
-      "backend/tests/analysis/test_data_cache.py",
-      "backend/tests/analysis/test_boolean_boundaries.py"
+        "backend/tests/analysis/test_data_cache.py",
+        "backend/tests/analysis/test_boolean_boundaries.py",
+        "backend/tests/analysis/test_provider_denial.py"
       ],
-      "dependencies": ["EXT-DATA", "G01", "G02"],
+      "dependencies": [
+        "EXT-DATA",
+        "G01",
+        "G02"
+      ],
       "external_blockers": [],
       "remaining_work": "Only the cited bounded behavior exists. Complete the remaining scope, external acceptance and tests in this section.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
@@ -3052,6 +3058,8 @@
     }
   ],
   "reverse_references": {
+    "backend/app/analysis/providers.py": ["MASTER-11"],
+    "backend/tests/analysis/test_provider_denial.py": ["MASTER-11"],
     "frontend/src/pages/PublicPages.test.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
     "frontend/src/app/App.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
     "frontend/src/pages/PublicPages.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],

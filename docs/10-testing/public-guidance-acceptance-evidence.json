@@ -1,0 +1,93 @@
+{
+  "scope": "Hosted synthetic UI/full-stack and disposable PostgreSQL verification only; not final public design, customer accounts or commercial launch.",
+  "source_commit": "98ea7a7c0cdbcb0586c511b040a5e295f46b67da",
+  "workflow_run": 41089321352,
+  "job_id": 124178712126,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41089321352",
+  "conclusion": "success",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install backend development environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test verification tooling",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run all backend and frontend gates",
+      "conclusion": "success"
+    },
+    {
+      "name": "Capture original frontend startup diagnostics",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Audit documentation links",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify disposable PostgreSQL migrations and recovery",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build backend container",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify container runtime boundaries",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "log_excerpts": [
+    "2026-10-30T16:23:54.5329383Z 8 passed in 3.20s",
+    "2026-10-30T16:23:54.5330532Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T16:24:13.1950517Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "local_frontend_tests": 38,
+  "local_tooling_tests": 24
+}

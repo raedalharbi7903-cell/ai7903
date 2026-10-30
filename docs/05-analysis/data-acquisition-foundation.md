@@ -1,7 +1,7 @@
 ---
 title: Provider-Neutral Acquisition Foundation
 document_id: DOC-DATA-ACQUISITION-001
-version: 1.0.0
+version: 1.1.0
 status: implemented-foundation-product-incomplete
 owner: Engineering
 reviewers: Founder
@@ -22,6 +22,17 @@ Requirement group MASTER-11; DATA-CONTRACT, DATA-RETRY and DATA-CACHE.
 This is a fixture contract environment, not licensed live ingestion or a new public API.
 
 ## Main content
+
+C4 safety overlay: unused legacy vendor defaults and endpoint were removed from
+Settings/.env.example. Neither a vendor name nor a configured API key grants live
+data rights. The preserved OkxProvider.candles signature now fails closed with
+live_access_unapproved before any I/O; its unapproved direct network/parser path
+was removed from active source, not Git history. Future reviewed/licensed adapters
+must use the provider-neutral contract and explicit approval gates, not this legacy
+escape hatch. No supported public API or analytical formula changed.
+Seven new tests prove absent implicit choice across all four environments and
+direct legacy denial even with configured vendor/key/URL. All data-acquisition
+and existing API no-live tests remain intact.
 
 MarketDataRequest in backend/app/analysis/data_contracts.py is strict/frozen:
 crypto pair, supported timeframe, aware as-of, limit and minimum coverage.
@@ -79,5 +90,7 @@ No financial cost figures or real data quality claims are invented.
 - [External dependency register](../handover/REMAINING_WORK.md)
 
 ## Change history
+
+- 1.1.0 — Remove dormant implicit vendor selection and deny legacy direct network access; original source preserved in Git history.
 
 - 1.0.0 — Added validated fixture acquisition, bounded retry and isolated cache into the existing service.
