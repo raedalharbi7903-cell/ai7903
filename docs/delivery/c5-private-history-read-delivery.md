@@ -1,8 +1,8 @@
 ---
 title: C5 Protected History Read Engineering Delivery
 document_id: DOC-DELIVERY-C5-001
-version: 1.0.0
-status: verified-local-hosted-pending
+version: 1.0.1
+status: verified-local-and-hosted-protected-read
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-10-30
@@ -11,6 +11,20 @@ related_documents: [DOC-API-HISTORY-001, DOC-HISTORY-001]
 ---
 
 # C5 delivery
+
+## Hosted publication receipt
+
+Source e53a80863236b99ee2090c8c9e4c639436b67570, run 41097056519 completed
+SUCCESS: all 17 gates, nine actual PostgreSQL tests including registered private
+HTTP read, dump/restore and production-image arbitrary/test-only token denial.
+[Retained evidence](../10-testing/private-history-read-acceptance-evidence.json).
+This supersedes precommit pending entries below; real identity/privacy/customer
+write/production approval remains incomplete. No main merge or paid resource.
+Actual PG summary: nine PASS, one Starlette/AnyIO deprecated BlockingPortal alias
+warning, 2.54s. Hosted actions also warn about Node 20 targeting/forced Node 24,
+punycode/url.parse deprecations; image build pip-root warning is build-time only
+and non-root runtime passed. None suppressed. Dependency/action compatibility
+repair remains follow-up work, not a hidden clean-warning claim.
 
 ## 1. Executive summary
 
@@ -526,6 +540,7 @@ ai-trading-platform/
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md
 │   │   ├── postgresql-acceptance-evidence.json
+│   │   ├── private-history-read-acceptance-evidence.json
 │   │   ├── provider-safety-acceptance-evidence.json
 │   │   ├── public-guidance-acceptance-evidence.json
 │   │   ├── quality-gates.md

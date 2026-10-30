@@ -1,0 +1,130 @@
+{
+  "scope": "Synthetic hosted full-stack and owned PostgreSQL API acceptance only; no real identity provider, paid data, privacy/production or full customer-history completion claim.",
+  "source_commit": "e53a80863236b99ee2090c8c9e4c639436b67570",
+  "branch": "feature/crypto-analysis-validation",
+  "workflow_run": 41097056519,
+  "job_id": 124205302571,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41097056519",
+  "conclusion": "success",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install backend development environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test verification tooling",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run all backend and frontend gates",
+      "conclusion": "success"
+    },
+    {
+      "name": "Capture original frontend startup diagnostics",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Audit documentation links",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify disposable PostgreSQL migrations and recovery",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build backend container",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify container runtime boundaries",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "log_excerpts": [
+    "2026-10-30T17:14:45.2807236Z Ran 24 tests in 0.037s",
+    "2026-10-30T17:14:45.5947353Z tooling-tests: PASS",
+    "2026-10-30T17:14:45.6164961Z tooling-lint: PASS",
+    "2026-10-30T17:14:45.9095752Z tooling-format: PASS",
+    "2026-10-30T17:14:45.9786719Z documentation-links: PASS",
+    "2026-10-30T17:14:54.5502633Z backend-tests: PASS",
+    "2026-10-30T17:14:54.5796819Z backend-lint: PASS",
+    "2026-10-30T17:14:55.2855728Z backend-format: PASS",
+    "2026-10-30T17:14:55.3202597Z backend-compile: PASS",
+    "2026-10-30T17:14:55.8137153Z backend-import: PASS",
+    "2026-10-30T17:14:56.0515828Z backend-dependencies: PASS",
+    "2026-10-30T17:14:59.6851438Z frontend-install: PASS",
+    "2026-10-30T17:15:02.5055682Z frontend-types: PASS",
+    "2026-10-30T17:15:04.1877704Z frontend-lint: PASS",
+    "2026-10-30T17:15:10.8746558Z frontend-tests: PASS",
+    "2026-10-30T17:15:12.0786798Z frontend-format: PASS",
+    "2026-10-30T17:15:15.2790944Z frontend-build: PASS",
+    "2026-10-30T17:15:15.7457408Z frontend-peers: PASS",
+    "2026-10-30T17:15:31.3558944Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T17:15:47.1051343Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "local": {
+    "backend_tests": 480,
+    "backend_seconds": 26.53,
+    "frontend_tests": 65,
+    "frontend_seconds": 12.57,
+    "tooling_tests": 24,
+    "tooling_seconds": 0.163
+  },
+  "postgresql": {"tests_passed": 9, "seconds": 2.54, "warnings": 1},
+  "observed_warnings": [
+    "Starlette TestClient uses deprecated anyio.abc.BlockingPortal alias; nine PG tests passed with one warning.",
+    "Pinned GitHub Actions target deprecated Node 20 and are forced to Node 24 by the runner.",
+    "Action dependencies emitted Node DEP0040 punycode and DEP0169 url.parse deprecations.",
+    "Container build pip runs as root during image construction; tested runtime USER app remains non-root."
+  ],
+  "limitations": [
+    "History writes/deletion HTTP, consent, durable audit and CSRF remain unfinished",
+    "Default verifier and history feature deny real customer access",
+    "Test-only synthetic identity is excluded from application image and denied by container checks",
+    "Actual local Docker unavailable; runtime evidence is hosted"
+  ]
+}

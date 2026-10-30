@@ -7,6 +7,17 @@ Product status: NOT COMPLETE
 
 ## C5 protected history read workflow — 2026-10-30
 
+Publication receipt: source e53a80863236b99ee2090c8c9e4c639436b67570 hosted run
+41097056519 completed SUCCESS. Actual PostgreSQL suite now nine tests, including
+registered private HTTP API; full-stack, restore and production-image arbitrary/
+test-only token denial PASS. Evidence:
+docs/10-testing/private-history-read-acceptance-evidence.json.
+Supersedes pre-push source-pending wording below, not real identity or production.
+Observed CI warnings retained: PG nine PASS/one Starlette-AnyIO alias deprecation
+(2.54s); pinned action Node20/forced24 plus punycode/url.parse warnings; build-time
+pip-root warning with non-root runtime confirmed. No warning suppressed; review
+compatible dependency/action updates before production acceptance.
+
 Continued from clean synchronized 39c408f. Added authenticated owner-scoped GET
 metadata/detail APIs and /history UI, strict versioned query/response validation,
 no-store/same-origin transport, explicit loading/empty/error/detail/page states and
