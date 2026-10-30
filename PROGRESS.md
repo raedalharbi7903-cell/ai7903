@@ -22,7 +22,9 @@ directional by contextual votes. Corrected assertions while retaining zero trade
 and explicit safe-decision checks. Added API serialization acceptance and frontend
 non-directional evidence labels with a component test. Full quality verification
 PASSED all 17 gates: 273 backend, 17 frontend and 11 tooling tests; hosted
-acceptance for this changed behavior is pending.
+acceptance confirmed: run 40935367020 at a4a392f completed SUCCESS for full-stack
+gates, documentation audit, Docker build, container safety/migrations and artifacts.
+Complete scoped Engineering Delivery Report: docs/delivery/option-a-engineering-delivery.md.
 This approval resolves the specific A/B blocker; other provider/access/production
 decisions and broader methodology validation remain open.
 
