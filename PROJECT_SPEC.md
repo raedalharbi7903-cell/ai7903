@@ -4,6 +4,11 @@ Version: 1.0 | Updated: 2026-10-29 | Owner: Engineering | Status: incomplete pro
 
 ## Authority and boundaries
 
+D3 overlay: public Arabic guidance at /welcome, /product and /help now exists in
+the original router; analysis root and API unchanged. No live market/account/
+billing/support submission implied. Founder visual/copy/browser approval remains
+pending, so these customer workflows are PARTIAL rather than visually complete.
+
 B1 overlay: optional versioned Arabic deterministic explanation is produced in
 the existing pipeline and rendered only when matching final decision/validation.
 Legacy summary and top-level API 1.0 remain compatible. No external AI, new

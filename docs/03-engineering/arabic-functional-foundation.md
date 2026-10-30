@@ -1,7 +1,7 @@
 ---
 title: Arabic RTL Functional Foundation
 document_id: DOC-UI-ARABIC-001
-version: 1.0.0
+version: 1.1.0
 status: partial-functional-foundation-design-pending
 owner: Engineering
 reviewers: Founder
@@ -65,7 +65,29 @@ Hosted C2 evidence is retained separately. No desktop/tablet/mobile browser
 visual acceptance or comprehensive accessibility certification is claimed.
 All ten founder visual approvals remain pending.
 
-## Related documents
+## Public guidance extension — 2026-10-30
+
+Added functional Arabic `/welcome`, `/product`, `/help` through the existing router
+and shell, leaving analysis at `/` and unknown-route behavior unchanged. Shared
+availability notice discloses synthetic data, absent live rights/accounts/billing
+and no personal-data collection. Product/help copy distinguishes deterministic
+analysis, uncalibrated confidence, withheld risk and unavailable external AI.
+The actual B1 Arabic deterministic fallback is documented separately in
+[grounded explanation](../05-analysis/arabic-deterministic-explanation.md).
+
+Navigation wraps using existing utility/tokens, with generic content-skip wording
+appropriate to all pages; no palette/font/brand finalized. Native details/summary
+help disclosures are keyboard-operable browser controls, not a fake support form.
+Five additional tests prove route rendering/RTL, design notice, no unsolicited
+requests, actual navigation to the existing analysis and no fake support submission.
+Final frontend suite 38 PASS (6.06s), types/lint/format/build PASS. An incorrect
+notice literal caused three initial test failures; corrected to exact existing
+copy. The intentional generic skip-label change required one existing assertion
+update; its #content target assertion is preserved. No assertion removed.
+No actual viewport/browser/a11y certification or final copy/design approval.
+CUSTOMER-01/02/21 remain PARTIALLY IMPLEMENTED, not production-complete.
+
+## Related documents (current)
 
 - [Canonical requirements](../02-product/canonical-requirements.json)
 - [Design approval](founder-design-approval.md)
@@ -73,5 +95,7 @@ All ten founder visual approvals remain pending.
 - [Frontend setup](../../frontend/README.md)
 
 ## Change history
+
+- 1.1.0 — Public Arabic guidance routes, native help disclosures and on-demand-only tests; visual approval remains pending.
 
 - 1.0.0 — Arabic/RTL functional flow, safe errors and explicit unapproved-design boundary.

@@ -27,6 +27,8 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [D3 public guidance delivery](delivery/d3-public-guidance-delivery.md)
+
 - [Grounded Arabic deterministic explanation](05-analysis/arabic-deterministic-explanation.md)
 - [B1 explanation delivery](delivery/b1-arabic-explanation-delivery.md)
 

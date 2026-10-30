@@ -18,7 +18,7 @@ describe("visual approval boundary", () => {
     render(createElement(MemoryRouter, null, createElement(Layout)));
     expect(screen.getByText(/التصميم المرئي مؤقت/)).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "انتقل إلى التحليل" }).getAttribute("href"),
+      screen.getByRole("link", { name: "انتقل إلى المحتوى" }).getAttribute("href"),
     ).toBe("#content");
   });
 });

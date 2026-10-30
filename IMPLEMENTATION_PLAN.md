@@ -18,6 +18,12 @@ single-file checkpoint counts as completion.
 
 ## Current evidence overlay
 
+D3 public Arabic guidance routes and shared navigation are functional/tested,
+without moving existing analysis root, collecting data or simulating live/account/
+support services. Copy/design/browser approval remains open; three customer
+requirements PARTIAL. Next protected customer workflow contracts must preserve
+default-deny identity/retention and require real approvals before activation.
+
 B1 deterministic Arabic fallback now connected to existing explanation stage and
 late-failure reconciliation, with typed frontend final-state guards and actual
 HTTP integration. No external AI/provider selection or decision formula changes.

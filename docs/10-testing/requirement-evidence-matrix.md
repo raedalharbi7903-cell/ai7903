@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+D3 public guidance: PublicPages.test.tsx adds five actual-App tests for three
+routes, RTL/provisional notices, zero automatic fetches, real analysis navigation
+and no fake support submission. Frontend 38 PASS; types/lint/format/build PASS.
+No backend changes or customer account/paid/support workflow completion implied.
+
 B1 source d68a93f7 hosted run 41069838855 SUCCESS: all 17 gates, eight actual
 PostgreSQL tests/dump-restore and application container PASS. See
 [retained evidence](arabic-explanation-acceptance-evidence.json). No AI vendor

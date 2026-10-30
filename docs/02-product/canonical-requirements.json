@@ -2047,7 +2047,7 @@
       "description": "Landing page",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2056,18 +2056,29 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "frontend/src/pages/PublicPages.tsx",
+        "frontend/src/app/App.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/PublicPages.test.tsx"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Arabic functional public guidance implemented at /welcome, /product and /help with honest synthetic/unavailable-service disclosures, actual navigation and no unsolicited API calls. Existing analysis root preserved. Founder copy/visual, real-browser/responsive/accessibility/SEO acceptance and production hosting remain open; no full customer or support workflow completion."
     },
     {
       "id": "CUSTOMER-02",
       "description": "Product explanation",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2076,11 +2087,22 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "frontend/src/pages/PublicPages.tsx",
+        "frontend/src/app/App.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/PublicPages.test.tsx"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Arabic functional public guidance implemented at /welcome, /product and /help with honest synthetic/unavailable-service disclosures, actual navigation and no unsolicited API calls. Existing analysis root preserved. Founder copy/visual, real-browser/responsive/accessibility/SEO acceptance and production hosting remain open; no full customer or support workflow completion."
     },
     {
       "id": "CUSTOMER-03",
@@ -2512,7 +2534,7 @@
       "description": "Help center",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2521,11 +2543,22 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "frontend/src/pages/PublicPages.tsx",
+        "frontend/src/app/App.tsx"
+      ],
+      "test_references": [
+        "frontend/src/pages/PublicPages.test.tsx"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Arabic functional public guidance implemented at /welcome, /product and /help with honest synthetic/unavailable-service disclosures, actual navigation and no unsolicited API calls. Existing analysis root preserved. Founder copy/visual, real-browser/responsive/accessibility/SEO acceptance and production hosting remain open; no full customer or support workflow completion."
     },
     {
       "id": "CUSTOMER-22",
@@ -3019,6 +3052,9 @@
     }
   ],
   "reverse_references": {
+    "frontend/src/pages/PublicPages.test.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
+    "frontend/src/app/App.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
+    "frontend/src/pages/PublicPages.tsx": ["CUSTOMER-01","CUSTOMER-02","CUSTOMER-21"],
     "backend/app/analysis/explanations.py": ["AN-C22"],
     "frontend/src/types/explanation.ts": ["AN-C22"],
     "backend/tests/analysis/test_arabic_explanation.py": ["AN-C22"],

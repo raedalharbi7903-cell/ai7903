@@ -1,6 +1,6 @@
 /** Arabic functional copy; visual identity, typography and final copy review pending. */
 export const ar = {
-  skip: "انتقل إلى التحليل",
+  skip: "انتقل إلى المحتوى",
   navigation: "التنقل الرئيسي",
   workspace: "مساحة بحث تجريبية",
   footer: "أدلة حتمية، وعدم يقين واضح، ودون تنفيذ تلقائي للتداول.",

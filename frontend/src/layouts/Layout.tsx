@@ -7,10 +7,16 @@ export function Layout() {
       <a className="skip-link" href="#content">
         {ar.skip}
       </a>
-      <nav className="topbar" aria-label={ar.navigation}>
+      <nav className="topbar flex-wrap" aria-label={ar.navigation}>
         <Link to="/" className="brand">
           A / I <span>ANALYSIS</span>
         </Link>
+        <div className="flex flex-wrap items-center gap-4">
+          <Link to="/welcome">تعريف المنصة</Link>
+          <Link to="/product">منهج التحليل</Link>
+          <Link to="/help">المساعدة</Link>
+          <Link to="/">التحليل التجريبي</Link>
+        </div>
         <span className="badge">{ar.workspace}</span>
       </nav>
       <main id="content" tabIndex={-1}>

@@ -49,6 +49,13 @@ are needed. A missing backend environment fails the integration gate, not a skip
 
 ## Architecture
 
+Public functional routes: `/welcome` (product introduction), `/product` (method
+and limitations), `/help` (usage guidance). Existing `/` remains the explicit
+synthetic analysis interaction; unknown routes remain 404. Public pages make no
+API requests, collect no customer information and do not simulate account/support
+submission. They disclose that licensed live data/accounts/billing are unavailable.
+Final entry-route/visual/copy/browser acceptance remains founder-gated.
+
 Visual identity is **provisional, not founder-approved**. Existing demo colors,
 font stack and color-scheme are centralized in `src/styles/tokens.css`;
 `src/design/approval.ts` records the ten pending approval categories.
@@ -57,7 +64,7 @@ No Arabic font or final theme strategy is selected. See the
 
 - `src/app`: route composition.
 - `src/layouts`: shared accessible shell and navigation.
-- `src/pages`: analysis interaction and not-found route.
+- `src/pages`: analysis, public Arabic guidance and not-found routes.
 - `src/features/analysis`: synthetic fixture construction and analysis panels.
 - `src/components`: shared panels and inspection-friendly field rendering.
 - `src/services`: typed request client, timeout, safe errors.

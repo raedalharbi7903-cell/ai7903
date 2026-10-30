@@ -5,6 +5,22 @@ Branch: feature/crypto-analysis-validation
 Baseline: 7e24bf88d4de1a240291b565b8e6f1108223e785
 Product status: NOT COMPLETE
 
+## D3 public Arabic guidance — 2026-10-30
+
+Added /welcome, /product and /help, honest synthetic/absent-service disclosures,
+real existing-route navigation and native help disclosures. No fake support form,
+customer data collection or unsolicited request. Kept analysis at / and 404 intact.
+Shared provisional tokens/visual gate retained; no founder visual decision made.
+Frontend 38 PASS (6.06s), TypeScript/ESLint/Prettier/build PASS (302ms).
+Three initial notice-literal failures corrected to the actual existing copy;
+one existing skip-label assertion updated for generic content wording, with
+target assertion preserved. Five new public-route tests cover actual App routing.
+Backend unchanged from hosted d68a93f (443 tests + eight actual PG checks).
+CUSTOMER-01/02/21 partial only; final copy/design/browser/hosting acceptance open.
+Next: protected customer history API/workflow contracts and provider-neutral
+identity/retention integration, without selecting unapproved services or enabling
+customer storage. Continue remaining approved commercial/admin/AI scope.
+
 ## B1 grounded Arabic fallback — 2026-10-30
 
 Publication receipt: d68a93f73790cdab9d1899298b74f633638870ae hosted run
