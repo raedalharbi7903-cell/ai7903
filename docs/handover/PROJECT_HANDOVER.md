@@ -38,6 +38,7 @@ The platform is **NOT COMPLETE** and is **not commercially production-ready**.
 Handover completion is a preservation outcome, not product acceptance.
 Retire the old Goal only after the final publication/remote check in the receiving
 delivery response and [transition checklist](GOAL_TRANSITION_CHECKLIST.md).
+Observed publication is recorded in the [receipt](PUBLICATION_RECEIPT.md).
 The final handover commit is the receiving branch HEAD; resolve it with
 `git rev-parse HEAD` and compare to `git ls-remote`. The final response records
 the literal SHA, avoiding a document claiming to contain its own future hash.

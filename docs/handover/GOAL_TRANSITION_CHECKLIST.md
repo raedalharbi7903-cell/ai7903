@@ -1,8 +1,8 @@
 ---
 title: Goal Transition Checklist
 document_id: DOC-HANDOVER-CHECKLIST-001
-version: 1.0.0
-status: publication-verification-required
+version: 1.1.0
+status: verified-package-publication
 owner: Engineering
 reviewers: Founder
 last_updated: 2026-10-30
@@ -39,15 +39,16 @@ HEAD, not a stale future checkout.
 | Product gaps and external approvals retained | PASS | G01-G20 and seven external categories in REMAINING_WORK.md |
 | Historical contradictions preserved/registered | PASS | Explicit conflict register; no historical architecture redesign |
 | Internal links, exact references and sensitive-pattern review | PASS | Local link audit zero issues; metadata/requirement coverage and recovered-object inventory checked; final staged whitespace check required before publication |
-| Entire handover committed/pushed; remote equality and clean source tree | PENDING FINAL PUBLICATION | Must verify actual final SHA, not infer from successful local commit |
+| Entire handover committed/pushed; remote equality and clean source tree | PASS | d0c7e97136f1b20bb74defd6e4ff573b22676de3 pushed and matched by git ls-remote; git status empty; final receipt publication must likewise be confirmed in final reply |
 | Backend dedicated type-checker | NOT VERIFIED | None configured; not presented as PASS |
 | Local Docker build/runtime | NOT VERIFIED | Docker executable unavailable; hosted equivalent passed |
 | Production/live/auth/AI/payments/PostgreSQL acceptance | NOT VERIFIED | Missing integrations/external decisions; not required to preserve history, still required for release |
 
-PENDING rows must be resolved by a committed publication receipt and final delivery
-response. Until then the verdict is NOT SAFE TO RETIRE OLD GOAL.
-If publication succeeds and no unique local work remains, the final verdict may be
-SAFE TO RETIRE OLD GOAL **for execution-context replacement only**.
+Preparation-time pending rows are resolved in the
+[publication receipt](PUBLICATION_RECEIPT.md). The final delivery response must
+also verify that receipt's commit against the remote and report clean status.
+The verdict is SAFE TO RETIRE OLD GOAL **for execution-context replacement only**
+once that final remote confirmation succeeds; otherwise NOT SAFE TO RETIRE OLD GOAL.
 No check marks the overall product Goal achieved or authorizes its completion status.
 No automated Goal retirement/deletion occurs here.
 
@@ -58,5 +59,7 @@ No automated Goal retirement/deletion occurs here.
 - [Next Goal instructions](NEW_GOAL_START_HERE.md)
 
 ## Change history
+
+- 1.1.0 — Recorded completed package publication and linked the observed receipt.
 
 - 1.0.0 — Added evidence-backed transition checks with explicit final publication conditions.
