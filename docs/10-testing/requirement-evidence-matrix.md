@@ -10,6 +10,11 @@ from compilation or synthetic fixtures.
 
 ## Handover verification overlay — 2026-10-30
 
+C4 source 59d757d4 hosted run 41090342653 SUCCESS: all 17 gates, eight actual
+PostgreSQL tests, dump/restore and container runtime. See
+[retained evidence](provider-safety-acceptance-evidence.json). Source pending
+wording below is superseded; no production/market-data approval implied.
+
 C4 test_provider_denial.py adds seven no-default/no-network cases, including
 configured vendor/key/URL attempts. Complete local scripts/verify.py PASS, 17 gates,
 450 backend/38 frontend/24 tooling. D3 hosted run 41089321352 at 98ea7a7 succeeded;

@@ -7,6 +7,12 @@ Product status: NOT COMPLETE
 
 ## C4 unapproved-provider escape closure — 2026-10-30
 
+Publication receipt: 59d757d4b4dfa614391dbff2154783a85cd2ff08 hosted run
+41090342653/job 124182283274 completed SUCCESS: all 17 gates, eight actual PG
+tests, history/expiry/migration/dump-restore, container build/runtime PASS.
+Evidence: docs/10-testing/provider-safety-acceptance-evidence.json.
+Supersedes source-pending wording below; no production/provider approval inferred.
+
 Independent review found dormant Twelve Data defaults and an unguarded legacy OKX
 direct-network method. Public API did not call it, but configuration/source could
 bypass the new acquisition boundary if reused. Removed implicit vendor/endpoint

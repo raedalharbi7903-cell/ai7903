@@ -1,8 +1,8 @@
 ---
 title: C4 Unapproved Provider Safety Delivery
 document_id: DOC-DELIVERY-C4-001
-version: 1.0.0
-status: verified-local-hosted-pending
+version: 1.0.1
+status: verified-local-and-hosted-safety-correction
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-10-30
@@ -11,6 +11,14 @@ related_documents: [DOC-DATA-ACQUISITION-001]
 ---
 
 # C4 delivery
+
+## Hosted publication receipt
+
+Source 59d757d4b4dfa614391dbff2154783a85cd2ff08, run 41090342653/job 124182283274
+completed SUCCESS: all 17 full-stack gates, eight actual PostgreSQL tests,
+migrations/history/expiry/dump-restore and container runtime PASS. See
+[retained evidence](../10-testing/provider-safety-acceptance-evidence.json).
+This supersedes precommit pending wording below, not provider/production approval.
 
 ## 1. Executive summary
 
@@ -467,6 +475,7 @@ ai-trading-platform/
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md
 │   │   ├── postgresql-acceptance-evidence.json
+│   │   ├── provider-safety-acceptance-evidence.json
 │   │   ├── public-guidance-acceptance-evidence.json
 │   │   ├── quality-gates.md
 │   │   ├── regression-testing.md

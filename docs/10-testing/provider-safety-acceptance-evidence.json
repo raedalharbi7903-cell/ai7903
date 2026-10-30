@@ -1,0 +1,124 @@
+{
+  "scope": "Hosted full-stack/synthetic and owned disposable PostgreSQL verification only. No provider license, production security/deployment or platform completion claim.",
+  "source_commit": "59d757d4b4dfa614391dbff2154783a85cd2ff08",
+  "branch": "feature/crypto-analysis-validation",
+  "workflow_run": 41090342653,
+  "job_id": 124182283274,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41090342653",
+  "job_conclusion": "success",
+  "steps": [
+    {
+      "name": "Set up job",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Install backend development environment",
+      "conclusion": "success"
+    },
+    {
+      "name": "Test verification tooling",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run all backend and frontend gates",
+      "conclusion": "success"
+    },
+    {
+      "name": "Capture original frontend startup diagnostics",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "Audit documentation links",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify disposable PostgreSQL migrations and recovery",
+      "conclusion": "success"
+    },
+    {
+      "name": "Build backend container",
+      "conclusion": "success"
+    },
+    {
+      "name": "Verify container runtime boundaries",
+      "conclusion": "success"
+    },
+    {
+      "name": "Preserve verification evidence",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run pnpm/action-setup@f40ffcd9367d9f12939873eb1018b921a783ffaa",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+      "conclusion": "success"
+    },
+    {
+      "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+      "conclusion": "success"
+    },
+    {
+      "name": "Complete job",
+      "conclusion": "success"
+    }
+  ],
+  "log_excerpts": [
+    "2026-10-30T16:29:45.6331465Z Ran 24 tests in 0.048s",
+    "2026-10-30T16:29:46.0530759Z tooling-tests: PASS",
+    "2026-10-30T16:29:46.0819816Z tooling-lint: PASS",
+    "2026-10-30T16:29:46.4968833Z tooling-format: PASS",
+    "2026-10-30T16:29:46.5947135Z documentation-links: PASS",
+    "2026-10-30T16:29:57.0236665Z backend-tests: PASS",
+    "2026-10-30T16:29:57.0595136Z backend-lint: PASS",
+    "2026-10-30T16:29:58.0499546Z backend-format: PASS",
+    "2026-10-30T16:29:58.0924352Z backend-compile: PASS",
+    "2026-10-30T16:29:58.6356130Z backend-import: PASS",
+    "2026-10-30T16:29:58.9586865Z backend-dependencies: PASS",
+    "2026-10-30T16:30:03.5173971Z frontend-install: PASS",
+    "2026-10-30T16:30:07.2810982Z frontend-types: PASS",
+    "2026-10-30T16:30:09.4521538Z frontend-lint: PASS",
+    "2026-10-30T16:30:16.2864495Z frontend-tests: PASS",
+    "2026-10-30T16:30:17.9796629Z frontend-format: PASS",
+    "2026-10-30T16:30:22.2650008Z frontend-build: PASS",
+    "2026-10-30T16:30:22.9009439Z frontend-peers: PASS",
+    "2026-10-30T16:30:35.3485059Z 8 passed in 3.35s",
+    "2026-10-30T16:30:35.3486064Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T16:30:52.8300638Z Container health, non-root runtime and production denial: PASS"
+  ],
+  "local": {
+    "backend_tests": 450,
+    "backend_seconds": 18.72,
+    "frontend_tests": 38,
+    "frontend_seconds": 8.38,
+    "tooling_tests": 24,
+    "tooling_seconds": 0.175
+  },
+  "limitations": [
+    "No market-data network invocation or vendor selection",
+    "Local Docker unavailable; actual server/container evidence is hosted",
+    "Startup diagnostics conditionally skipped on success; not an omitted validation",
+    "Final publication receipt may be a later documentation-only commit"
+  ]
+}
