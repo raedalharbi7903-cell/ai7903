@@ -1,8 +1,8 @@
 ---
 title: Safe HTTP Operations Delivery
 document_id: DOC-DELIVERY-HTTP-OPS-001
-version: 1.0.0
-status: local-verified-hosted-pending
+version: 1.1.0
+status: verified-disposable-ci-production-gated
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-10-31
@@ -11,6 +11,16 @@ related_documents: [DOC-HTTP-OBS-001]
 ---
 
 # Engineering delivery — safe HTTP operations
+
+## Verified publication receipt — 2026-10-31
+
+Source4f1d95ce5c5cce96a94dafc32aca62c8cb063af3 pushed on the feature branch.
+Hosted run41139083969/job124348664469 SUCCESS: all17 quality gates,18 actual
+PostgreSQL cases (5.11s/one AnyIO warning), migration/concurrency/restore and
+container build/non-root/health/private GET/POST/DELETE/packaged0004 acceptance.
+Mandatory synthetic private query marker absent from combined container stdout
+and stderr. [Retained evidence](../10-testing/http-operations-hosted-evidence.json)
+supersedes pending rows below; no production or proxy/log privacy certification.
 
 ## 1. Executive summary
 
@@ -134,6 +144,7 @@ ai-trading-platform/
 │   │   ├── end-to-end-testing.md
 │   │   ├── frontend-testing.md
 │   │   ├── history-postgresql-acceptance-evidence.json
+│   │   ├── http-operations-hosted-evidence.json
 │   │   ├── http-operations-local-evidence.json
 │   │   ├── integration-testing.md
 │   │   ├── performance-testing.md
@@ -189,6 +200,10 @@ ai-trading-platform/
 ```
 
 ## 4. File changes
+
+Receipt-only follow-up adds docs/10-testing/http-operations-hosted-evidence.json
+and updates this report, request-observability.md, PROGRESS.md and the requirement
+matrix. No application/test/runtime source changed after verified4f1d95ce.
 
 Added:
 - backend/app/core/request_telemetry.py

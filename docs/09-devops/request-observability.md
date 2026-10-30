@@ -1,8 +1,8 @@
 ---
 title: Safe HTTP Request Observability
 document_id: DOC-HTTP-OBS-001
-version: 1.0.0
-status: implemented-local-verified-hosted-pending
+version: 1.1.0
+status: verified-disposable-ci-production-gated
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-10-31
@@ -11,6 +11,11 @@ related_documents: [DOC-PROD-MASTER-GOAL-001]
 ---
 
 # Safe request observability
+
+Hosted acceptance now observed for source4f1d95ce: run41139083969 SUCCESS, all17
+gates,18 actual PostgreSQL cases and container/query-log privacy probe.
+[Source-specific receipt](../10-testing/http-operations-hosted-evidence.json).
+This supersedes own-source-pending wording below, not production limitations.
 
 ## Purpose
 
@@ -79,5 +84,7 @@ requires its own source-specific hosted receipt before claiming container accept
 - [Previous implementation delivery](../delivery/resumed-customer-analysis-delivery.md)
 
 ## Change history
+
+- 1.1.0 — Retained successful own-source hosted/privacy-probe receipt.
 
 - 1.0.0 — Bounded operational request events and proven native exception-log repair.

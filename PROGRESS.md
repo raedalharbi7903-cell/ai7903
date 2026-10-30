@@ -2,6 +2,14 @@
 
 ## Safe HTTP operations package — 2026-10-31
 
+Source4f1d95ce5c5cce96a94dafc32aca62c8cb063af3 now hosted-verified:
+run41139083969/job124348664469 SUCCESS, all17 gates,18 actual PostgreSQL
+(5.11s/one AnyIO warning), restore/concurrency and container/runtime/private
+mutation denial PASS. Combined stdout/stderr query marker probe PASS. Evidence:
+docs/10-testing/http-operations-hosted-evidence.json. Source branch pushed,
+no main merge. Next approved internal work remains customer/commercial lifecycle;
+identity/vendor/privacy/empirical/design/production approvals still pending.
+
 Reinspection confirms root .editorconfig was already delivered at272a057 and
 remains tracked unchanged. Original a7f0b72 absence is historical; do not recreate
 it. Corrected its omission from the generated source-package tree.

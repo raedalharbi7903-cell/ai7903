@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "source_commit": "4f1d95ce5c5cce96a94dafc32aca62c8cb063af3",
+  "workflow_run": 41139083969,
+  "job": 124348664469,
+  "url": "https://github.com/raedalharbi7903-cell/ai7903/actions/runs/41139083969",
+  "status": "completed",
+  "conclusion": "success",
+  "quality_gates": 17,
+  "local_backend_tests": 718,
+  "frontend_tests_at_integrated_source": 118,
+  "tooling_tests": 29,
+  "postgres": {
+    "actual_tests": 18,
+    "seconds": 5.11,
+    "warnings": 1,
+    "scope": "Owned disposable PostgreSQL only"
+  },
+  "container": {
+    "build": "PASS",
+    "non_root_runtime": "PASS",
+    "health": "PASS",
+    "production_fixture_denial": "PASS",
+    "private_get_post_delete_denial": "PASS",
+    "raw_query_marker_absent_from_stdout_and_stderr": "PASS",
+    "packaged_migration_0004": "PASS"
+  },
+  "warnings": [
+    "Starlette/AnyIO deprecated BlockingPortal alias",
+    "Docker build-time pip root warning; runtime non-root passed"
+  ],
+  "not_verified": [
+    "Production deployment",
+    "Real provider/identity/payment/AI integration or rights",
+    "Pre-lifespan startup/proxy/platform log privacy",
+    "Backend standalone mypy/Pyright not configured"
+  ],
+  "log_excerpts": [
+    "2026-10-30T22:35:25.8757621Z tooling-tests: PASS",
+    "2026-10-30T22:35:25.8944420Z tooling-lint: PASS",
+    "2026-10-30T22:35:26.2995198Z tooling-format: PASS",
+    "2026-10-30T22:35:26.3545682Z documentation-links: PASS",
+    "2026-10-30T22:35:39.8375855Z backend-tests: PASS",
+    "2026-10-30T22:35:39.8647358Z backend-lint: PASS",
+    "2026-10-30T22:35:40.6394159Z backend-format: PASS",
+    "2026-10-30T22:35:40.6684844Z backend-compile: PASS",
+    "2026-10-30T22:35:41.1111869Z backend-import: PASS",
+    "2026-10-30T22:35:41.3239786Z backend-dependencies: PASS",
+    "2026-10-30T22:35:44.6182298Z frontend-install: PASS",
+    "2026-10-30T22:35:47.4793842Z frontend-types: PASS",
+    "2026-10-30T22:35:49.1806470Z frontend-lint: PASS",
+    "2026-10-30T22:35:56.7604839Z frontend-tests: PASS",
+    "2026-10-30T22:35:57.9958522Z frontend-format: PASS",
+    "2026-10-30T22:36:01.0941701Z frontend-build: PASS",
+    "2026-10-30T22:36:01.5230700Z frontend-peers: PASS",
+    "2026-10-30T22:36:17.6849173Z   /home/runner/work/ai7903/ai7903/backend/.venv/lib/python3.12/site-packages/starlette/testclient.py:51: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.",
+    "2026-10-30T22:36:17.6851110Z 18 passed, 1 warning in 5.11s",
+    "2026-10-30T22:36:17.6851587Z Disposable PostgreSQL migration/transaction/recovery acceptance: PASS",
+    "2026-10-30T22:36:27.6508272Z #9 5.868 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.",
+    "2026-10-30T22:36:34.5314437Z Container health, non-root runtime and production denial: PASS"
+  ]
+}
