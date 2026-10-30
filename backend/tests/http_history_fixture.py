@@ -45,9 +45,12 @@ with Session(engine) as session:
 
 class SyntheticVerifier:
     async def verify(self, request: Request) -> VerifiedSession:
-        if request.headers.get("Authorization") != "Bearer synthetic-history-test":
-            raise SessionVerificationError
-        return identity
+        token = request.headers.get("Authorization")
+        if token == "Bearer synthetic-history-test":
+            return identity
+        if token == "Bearer synthetic-save-test":
+            return identity.model_copy(update={"subject": "synthetic-save-customer"})
+        raise SessionVerificationError
 
 
 def database():
@@ -65,6 +68,10 @@ app.dependency_overrides[get_settings] = lambda: Settings(
     LOG_LEVEL="WARNING",
     DATABASE_URL="sqlite://",
     HISTORY_ENABLED=True,
+    HISTORY_MUTATIONS_ENABLED=True,
+    HISTORY_ALLOWED_ORIGIN="https://frontend.test",
+    HISTORY_AUDIT_RETENTION_SECONDS=7200,
+    HISTORY_AUDIT_POLICY_REFERENCE="synthetic-http-audit-only",
     HISTORY_RETENTION_SECONDS=3600,
     HISTORY_POLICY_REFERENCE="synthetic-http-only",
 )

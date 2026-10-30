@@ -71,7 +71,7 @@ def main() -> None:
             )
         for path, token in product(
             ("/api/v1/history", "/api/v1/history/00000000-0000-4000-8000-000000000001"),
-            ("forged-container-token", "synthetic-history-test"),
+            ("forged-container-token", "synthetic-history-test", "synthetic-save-test"),
         ):
             request = Request(
                 f"http://{address}{path}",
@@ -116,7 +116,7 @@ def main() -> None:
             "alembic",
             "current",
         )
-        if "20261030_0002" not in current:
+        if "20261030_0003" not in current:
             raise RuntimeError("Packaged migration did not reach the expected revision")
         path = (
             Path(__file__).resolve().parents[1]

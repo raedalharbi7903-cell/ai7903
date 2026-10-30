@@ -5,6 +5,7 @@ import {
   requestHistoryEntry,
   requestHistoryPage,
   historyMessages,
+  deleteHistoryEntry,
 } from "../services/history";
 import { ApiClientError } from "../services/http";
 import type {
@@ -18,16 +19,35 @@ export function HistoryPage() {
   const [selected, setSelected] = useState<HistoryEntry | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [notice, setNotice] = useState<string | null>(null);
   const active = useRef<AbortController | null>(null);
   useEffect(() => () => active.current?.abort(), []);
 
-  async function read(identifier?: string, cursor?: HistoryCursor) {
-    if (loading) return;
+  function startRequest() {
     const controller = new AbortController();
     active.current?.abort();
     active.current = controller;
     setLoading(true);
     setError(null);
+    setConfirmDelete(false);
+    setNotice(null);
+    setDeleting(false);
+    return controller;
+  }
+
+  function failedRequest(reason: unknown) {
+    setError(
+      reason instanceof ApiClientError ? reason.message : historyMessages.unavailable,
+    );
+    setPage(null);
+    setSelected(null);
+  }
+
+  async function read(identifier?: string, cursor?: HistoryCursor) {
+    if (loading) return;
+    const controller = startRequest();
     setSelected(null);
     try {
       if (identifier) {
@@ -39,16 +59,32 @@ export function HistoryPage() {
       }
     } catch (reason) {
       if (!controller.signal.aborted) {
-        setError(
-          reason instanceof ApiClientError
-            ? reason.message
-            : historyMessages.unavailable,
-        );
-        setPage(null);
-        setSelected(null);
+        failedRequest(reason);
       }
     } finally {
       if (!controller.signal.aborted) setLoading(false);
+    }
+  }
+
+  async function removeSelected() {
+    if (!selected || loading) return;
+    const identifier = selected.id;
+    const controller = startRequest();
+    setDeleting(true);
+    try {
+      await deleteHistoryEntry(identifier, controller.signal);
+      if (!controller.signal.aborted) {
+        setSelected(null);
+        setPage(null);
+        setNotice("حُذفت النتيجة المحفوظة.");
+      }
+    } catch (reason) {
+      if (!controller.signal.aborted) failedRequest(reason);
+    } finally {
+      if (!controller.signal.aborted) {
+        setLoading(false);
+        setDeleting(false);
+      }
     }
   }
 
@@ -81,13 +117,16 @@ export function HistoryPage() {
           </button>
         )}
       </div>
-      {loading && <p role="status">جارٍ قراءة السجل…</p>}
+      {loading && (
+        <p role="status">{deleting ? "جارٍ حذف السجل…" : "جارٍ قراءة السجل…"}</p>
+      )}
+      {notice && <p role="status">{notice}</p>}
       {error && (
         <p role="alert" className="error-panel">
           {error}
         </p>
       )}
-      {!loading && !error && !page && <p>لم يُطلب تحميل السجل بعد.</p>}
+      {!loading && !error && !page && <p>حمّل السجل لعرض السجلات المتاحة.</p>}
       {!loading && !error && page && !selected && (
         <section className="panel" aria-label="السجلات المحفوظة">
           {page.items.length === 0 ? (
@@ -123,6 +162,19 @@ export function HistoryPage() {
       {selected && !loading && !error && (
         <section aria-label="نتيجة محفوظة">
           <p>هذه نتيجة سابقة بوقت إنشائها الأصلي، وليست تحديثاً للسوق.</p>
+          {!confirmDelete ? (
+            <button onClick={() => setConfirmDelete(true)}>حذف النتيجة المحفوظة</button>
+          ) : (
+            <section className="panel" aria-label="تأكيد حذف السجل">
+              <h2>تأكيد حذف النتيجة المعروضة</h2>
+              <p>
+                سيُسجَّل إجراء الحذف في سجل تدقيق مستقل. هذا ليس حذفاً للحساب أو
+                الفوترة.
+              </p>
+              <button onClick={() => void removeSelected()}>تأكيد الحذف</button>
+              <button onClick={() => setConfirmDelete(false)}>إلغاء</button>
+            </section>
+          )}
           <AnalysisResults result={selected.result} />
         </section>
       )}

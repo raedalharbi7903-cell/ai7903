@@ -1,6 +1,5 @@
 """Explicitly gated history over the existing analysis pipeline, not a second one."""
 
-import hashlib
 import json
 from collections.abc import Callable
 from datetime import UTC, datetime, timedelta
@@ -9,10 +8,10 @@ from math import isfinite
 from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import BaseModel, ConfigDict, Field
-
 from app.analysis.models import AnalysisInput, AnalysisResult
 from app.analysis.service import AnalysisService
+from app.core.exceptions import APIError
+from app.core.retention import RetentionPolicy
 from app.models.analysis_history import AnalysisHistoryRecord
 from app.repositories.analysis_history import AnalysisHistoryRepository
 from app.schemas.history import (
@@ -28,26 +27,29 @@ from app.schemas.history import (
 from app.security.identity import (
     SessionVerificationError,
     VerifiedSession,
+    principal_key,
     validate_customer_session,
 )
 
 MAX_RESULT_BYTES = 1024 * 1024
 
 
-class HistoryUnavailableError(Exception):
+class HistoryUnavailableError(APIError):
     """History has no explicitly configured retention policy."""
 
+    def __init__(self) -> None:
+        super().__init__(503, "history_unavailable", "Analysis history is unavailable")
 
-class HistoryAccessError(Exception):
+
+class HistoryAccessError(APIError):
     """A trusted, current, verified customer session is required."""
 
+    def __init__(self) -> None:
+        super().__init__(401, "authentication_required", "Access denied")
 
-class HistoryPolicy(BaseModel):
+
+class HistoryPolicy(RetentionPolicy):
     """Deployment supplies an approved policy; there is no default duration."""
-
-    model_config = ConfigDict(frozen=True, strict=True, extra="forbid")
-    retention_seconds: int = Field(gt=0)
-    approval_reference: str = Field(min_length=1, max_length=200, pattern=r"\S")
 
 
 def _utc(value: datetime) -> datetime:
@@ -104,8 +106,7 @@ class AnalysisHistoryService:
             raise HistoryAccessError from error
         if self._policy is None:
             raise HistoryUnavailableError
-        principal = json.dumps([identity.issuer, identity.subject], ensure_ascii=False)
-        return hashlib.sha256(principal.encode("utf-8")).hexdigest(), now
+        return principal_key(identity), now
 
     @staticmethod
     def _entry(record: AnalysisHistoryRecord) -> HistoryEntry:

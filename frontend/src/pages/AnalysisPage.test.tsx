@@ -3,6 +3,41 @@ import { MemoryRouter } from "react-router";
 import { expect, it, vi } from "vitest";
 import { App } from "../app/App";
 import { syntheticResult } from "../test/results";
+import { historyEntry } from "../test/history";
+
+it("saves only through the explicit save action and displays committed success", async () => {
+  const fetch = vi.fn<typeof globalThis.fetch>(
+    async () => new Response(JSON.stringify(historyEntry()), { status: 201 }),
+  );
+  vi.stubGlobal("fetch", fetch);
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "تحليل جديد وحفظ النتيجة" }));
+  expect(await screen.findByText(/حُفظت النتيجة/)).toBeVisible();
+  expect(fetch).toHaveBeenCalledTimes(1);
+  expect(String(fetch.mock.calls[0][0])).toMatch(/\/history$/);
+  const body = JSON.parse(String(fetch.mock.calls[0][1]?.body));
+  expect(body).not.toHaveProperty("result");
+  expect(body).not.toHaveProperty("owner");
+});
+
+it("does not present saving as successful when authentication is unavailable", async () => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response("PRIVATE", { status: 401 })),
+  );
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  fireEvent.click(screen.getByRole("button", { name: "تحليل جديد وحفظ النتيجة" }));
+  expect(await screen.findByRole("alert")).toHaveTextContent("يلزم تسجيل دخول موثوق");
+  expect(screen.queryByText(/حُفظت النتيجة/)).not.toBeInTheDocument();
+});
 
 it("renders empty and loading states, then a typed API result", async () => {
   let finish!: (response: Response) => void;

@@ -27,6 +27,13 @@ def analyze(
     request: AnalysisRequest,
     settings: Annotated[Settings, Depends(get_settings)],
 ) -> AnalysisResult:
+    return AnalysisService().analyze(prepare_analysis_input(request, settings))
+
+
+def prepare_analysis_input(
+    request: AnalysisRequest, settings: Settings
+) -> AnalysisInput:
+    """Shared unchanged fixture/environment boundary for explicit analysis requests."""
     if settings.environment in {"staging", "production"}:
         raise HTTPException(
             status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
@@ -44,4 +51,4 @@ def analyze(
     metadata = request.metadata.model_dump(mode="json", exclude_none=True)
     if request.request_id:
         metadata["request_id"] = request.request_id
-    return AnalysisService().analyze(AnalysisInput(data=payload, metadata=metadata))
+    return AnalysisInput(data=payload, metadata=metadata)

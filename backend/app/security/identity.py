@@ -1,5 +1,7 @@
 """Trusted adapter contract, never populated directly from public request data."""
 
+import hashlib
+import json
 from datetime import datetime
 from typing import Protocol
 
@@ -39,6 +41,16 @@ def validate_customer_session(value: object, now: datetime) -> VerifiedSession:
     if not session.email_verified or session.expires_at <= now:
         raise SessionVerificationError
     return session
+
+
+def principal_key(session: VerifiedSession) -> str:
+    """Stable pseudonymous key for already validated issuer/subject claims.
+
+    Preserve the original history key encoding so existing owner scope is stable.
+    This is neither authentication nor anonymity; validate before calling.
+    """
+    principal = json.dumps([session.issuer, session.subject], ensure_ascii=False)
+    return hashlib.sha256(principal.encode("utf-8")).hexdigest()
 
 
 class SessionVerifier(Protocol):

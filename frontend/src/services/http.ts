@@ -17,12 +17,11 @@ interface SafeMessages {
   statuses?: Partial<Record<number, string>>;
 }
 
-export async function requestJson<T>(
+async function safeResponse(
   path: string,
   options: RequestInit,
-  parse: (value: unknown) => T,
   messages: SafeMessages,
-): Promise<T> {
+): Promise<Response> {
   let response: Response;
   try {
     response = await fetch(`${baseUrl}${path}`, {
@@ -42,9 +41,28 @@ export async function requestJson<T>(
       response.status,
     );
   }
+  return response;
+}
+
+export async function requestJson<T>(
+  path: string,
+  options: RequestInit,
+  parse: (value: unknown) => T,
+  messages: SafeMessages,
+): Promise<T> {
+  const response = await safeResponse(path, options, messages);
   try {
     return parse(await response.json());
   } catch {
     throw new ApiClientError(messages.invalidResponse);
   }
+}
+
+export async function requestNoContent(
+  path: string,
+  options: RequestInit,
+  messages: SafeMessages,
+): Promise<void> {
+  const response = await safeResponse(path, options, messages);
+  if (response.status !== 204) throw new ApiClientError(messages.invalidResponse);
 }

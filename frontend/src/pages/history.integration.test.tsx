@@ -41,6 +41,48 @@ it("reads actual owned pipeline snapshots through HTTP without running new analy
   expect(requests.every((request) => request.cache === "no-store")).toBe(true);
 });
 
+it("explicitly saves a fresh analysis then reads and confirms deletion over real HTTP", async () => {
+  const original = globalThis.fetch;
+  const calls: { url: string; method: string }[] = [];
+  vi.stubGlobal("fetch", (url: string, options: RequestInit = {}) => {
+    const headers = new Headers(options.headers);
+    headers.set("Authorization", "Bearer synthetic-save-test");
+    // Native Node fetch does not supply browser Origin; test harness only.
+    if (options.method === "POST" || options.method === "DELETE") {
+      headers.set("Origin", "https://frontend.test");
+    }
+    calls.push({ url, method: options.method ?? "GET" });
+    return original(new URL(url, inject("historyApiUrl")), { ...options, headers });
+  });
+  render(
+    <MemoryRouter>
+      <App />
+    </MemoryRouter>,
+  );
+  expect(calls).toHaveLength(0);
+  fireEvent.click(screen.getByRole("button", { name: "تحليل جديد وحفظ النتيجة" }));
+  await screen.findByText(/حُفظت النتيجة/);
+  expect(screen.getByRole("status")).toHaveTextContent("حُفظت النتيجة");
+  expect(calls.filter((call) => call.method === "POST")).toHaveLength(1);
+  expect(calls[0].url).toMatch(/\/history$/);
+  fireEvent.click(screen.getByRole("link", { name: "افتح سجل التحليلات" }));
+  fireEvent.click(screen.getByRole("button", { name: "تحميل السجل" }));
+  const entries = await screen.findAllByRole("button", { name: /^فتح السجل / });
+  expect(entries).toHaveLength(1);
+  fireEvent.click(entries[0]);
+  await screen.findByRole("region", { name: "نتيجة محفوظة" });
+  fireEvent.click(screen.getByRole("button", { name: "حذف النتيجة المحفوظة" }));
+  expect(calls.filter((call) => call.method === "DELETE")).toHaveLength(0);
+  fireEvent.click(screen.getByRole("button", { name: "إلغاء" }));
+  expect(calls.filter((call) => call.method === "DELETE")).toHaveLength(0);
+  fireEvent.click(screen.getByRole("button", { name: "حذف النتيجة المحفوظة" }));
+  fireEvent.click(screen.getByRole("button", { name: "تأكيد الحذف" }));
+  expect(await screen.findByText("حُذفت النتيجة المحفوظة.")).toBeVisible();
+  fireEvent.click(screen.getByRole("button", { name: "تحميل السجل" }));
+  expect(await screen.findByText("لا توجد سجلات متاحة في هذه الصفحة.")).toBeVisible();
+  expect(calls.filter((call) => call.method === "DELETE")).toHaveLength(1);
+});
+
 it("actual default API refuses history without a configured identity provider", async () => {
   const original = globalThis.fetch;
   vi.stubGlobal("fetch", (url: string, options: RequestInit) =>

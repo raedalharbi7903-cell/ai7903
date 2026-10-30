@@ -1,6 +1,7 @@
-import { requestJson, ApiClientError } from "./http";
+import { requestJson, requestNoContent, ApiClientError } from "./http";
 import { parseHistoryEntry, parseHistoryPage, validHistoryId } from "../types/history";
 import type { HistoryCursor } from "../types/history";
+import type { AnalysisRequest } from "../types/analysis";
 
 export const historyMessages = {
   unavailable: "تعذّر قراءة السجل. حاول مجدداً.",
@@ -9,7 +10,7 @@ export const historyMessages = {
     401: "يلزم تسجيل دخول موثوق لعرض سجل التحليلات.",
     403: "لا تملك صلاحية الوصول إلى هذا السجل.",
     404: "السجل غير متاح أو انتهت صلاحيته.",
-    503: "سجل التحليلات غير مفعّل حالياً.",
+    503: "عملية السجل غير متاحة حالياً.",
   },
 };
 
@@ -40,6 +41,31 @@ export function requestHistoryEntry(identifier: string, signal?: AbortSignal) {
       }
       return entry;
     },
+    historyMessages,
+  );
+}
+
+export function requestSavedAnalysis(payload: AnalysisRequest, signal?: AbortSignal) {
+  return requestJson(
+    "/history",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      signal,
+    },
+    parseHistoryEntry,
+    historyMessages,
+  );
+}
+
+export function deleteHistoryEntry(identifier: string, signal?: AbortSignal) {
+  if (!validHistoryId(identifier)) {
+    return Promise.reject(new ApiClientError(historyMessages.invalidResponse));
+  }
+  return requestNoContent(
+    `/history/${identifier}`,
+    { method: "DELETE", signal },
     historyMessages,
   );
 }

@@ -151,6 +151,61 @@ it("rejects a valid-looking response for a different requested record", async ()
     requestHistoryEntry("00000000-0000-4000-8000-000000000002"),
   ).rejects.toThrow("تعذّر التحقق");
 });
+
+it("requires explicit confirmation and waits for delete completion before success", async () => {
+  let finish!: (response: Response) => void;
+  const fetch = vi
+    .fn()
+    .mockResolvedValueOnce(new Response(JSON.stringify(historyPage())))
+    .mockResolvedValueOnce(new Response(JSON.stringify(historyEntry())))
+    .mockImplementationOnce(
+      () =>
+        new Promise<Response>((resolve) => {
+          finish = resolve;
+        }),
+    );
+  vi.stubGlobal("fetch", fetch);
+  show();
+  fireEvent.click(screen.getByRole("button", { name: "تحميل السجل" }));
+  fireEvent.click(await screen.findByRole("button", { name: /^فتح السجل / }));
+  await screen.findByRole("region", { name: "نتيجة محفوظة" });
+  fireEvent.click(screen.getByRole("button", { name: "حذف النتيجة المحفوظة" }));
+  expect(fetch).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole("button", { name: "إلغاء" }));
+  expect(fetch).toHaveBeenCalledTimes(2);
+  fireEvent.click(screen.getByRole("button", { name: "حذف النتيجة المحفوظة" }));
+  fireEvent.click(screen.getByRole("button", { name: "تأكيد الحذف" }));
+  expect(screen.getByRole("status")).toHaveTextContent("جارٍ حذف السجل");
+  expect(screen.queryByText("حُذفت النتيجة المحفوظة.")).not.toBeInTheDocument();
+  finish(new Response(null, { status: 204 }));
+  expect(await screen.findByText("حُذفت النتيجة المحفوظة.")).toBeVisible();
+  expect(
+    screen.queryByRole("region", { name: "نتيجة محفوظة" }),
+  ).not.toBeInTheDocument();
+  expect(fetch.mock.calls[2][1].method).toBe("DELETE");
+});
+
+it.each([500, 503, 200])(
+  "never claims deletion on failed/incompatible %s response",
+  async (status) => {
+    const fetch = vi
+      .fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify(historyPage())))
+      .mockResolvedValueOnce(new Response(JSON.stringify(historyEntry())))
+      .mockResolvedValueOnce(new Response("PRIVATE_AUDIT_SECRET", { status }));
+    vi.stubGlobal("fetch", fetch);
+    show();
+    fireEvent.click(screen.getByRole("button", { name: "تحميل السجل" }));
+    fireEvent.click(await screen.findByRole("button", { name: /^فتح السجل / }));
+    await screen.findByRole("region", { name: "نتيجة محفوظة" });
+    fireEvent.click(screen.getByRole("button", { name: "حذف النتيجة المحفوظة" }));
+    fireEvent.click(screen.getByRole("button", { name: "تأكيد الحذف" }));
+    expect(await screen.findByRole("alert")).toBeVisible();
+    expect(screen.queryByText(/PRIVATE_AUDIT_SECRET/)).not.toBeInTheDocument();
+    expect(screen.queryByText("حُذفت النتيجة المحفوظة.")).not.toBeInTheDocument();
+  },
+);
+
 it("redacts native failures and malformed successful responses", async () => {
   const fetch = vi
     .fn()
