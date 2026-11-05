@@ -17,17 +17,22 @@ from sqlalchemy.exc import IntegrityError
 
 from app.analysis.models import AnalysisResult
 from app.config.settings import get_settings
+from app.core.exceptions import APIError
 from app.database.session import get_db_session, get_engine, get_session_factory
 from app.main import create_app
 from app.models.analysis_history import AnalysisHistoryRecord
 from app.models.audit import AuditEvent
+from app.models.billing import BillingEventRecord, SubscriptionRecord
 from app.models.watchlist import WatchlistRecord
 from app.repositories.analysis_history import AnalysisHistoryRepository
+from app.repositories.billing import BillingRepository
 from app.repositories.watchlist import WatchlistRepository
+from app.schemas.billing import BillingHistoryQuery, VerifiedBillingEvent
 from app.schemas.watchlist import WatchlistInput, WatchlistQuery
 from app.security.dependencies import get_session_verifier
 from app.security.identity import VerifiedSession, principal_key
 from app.services.analysis_history import AnalysisHistoryService, HistoryPolicy
+from app.services.billing import BillingPolicy, BillingService
 from app.services.history_mutations import AuditPolicy, HistoryMutationService
 from app.services.watchlist import WatchlistPolicy, WatchlistService
 from tests.analysis.test_pipeline import fixture_input
@@ -92,11 +97,11 @@ def test_actual_psycopg_connection_and_migration_roundtrip(owned_database):
         assert connection.scalar(text("SELECT current_database()")).startswith("ai_ci_")
         assert "PostgreSQL 17." in connection.scalar(text("SELECT version()"))
         assert connection.scalar(text("SELECT version_num FROM alembic_version")) == (
-            "20261030_0004"
+            "20261105_0005"
         )
     migrate("downgrade", "base")
     migrate("upgrade", "head")
-    assert "20261030_0004" in migrate("current")
+    assert "20261105_0005" in migrate("current")
 
 
 def test_audit_upgrade_preserves_previous_history_on_actual_postgres(owned_database):
@@ -553,6 +558,278 @@ def test_watchlist_upgrade_preserves_history_and_audit_on_actual_postgres(
             watchlist_actor("restore-probe"),
             WatchlistInput(pair="BTC-USDT", timeframe="1h"),
         )
+
+
+def billing_actor(subject):
+    return VerifiedSession(
+        issuer="synthetic-pg-billing",
+        subject=subject,
+        email_verified=True,
+        mfa_verified=False,
+        expires_at=datetime.now(UTC) + timedelta(hours=1),
+    )
+
+
+def billing_writer(session):
+    return BillingService(
+        session,
+        policy=BillingPolicy(
+            retention_seconds=86400, approval_reference="synthetic-pg-billing"
+        ),
+        audit_policy=AuditPolicy(
+            retention_seconds=86400, approval_reference="synthetic-pg-billing-audit"
+        ),
+    )
+
+
+def paid_event(identity, event_id):
+    now = datetime.now(UTC)
+    return VerifiedBillingEvent(
+        provider="synthetic_pg",
+        event_id=event_id,
+        owner_key=principal_key(identity),
+        kind="paid",
+        occurred_at=now,
+        paid_period_start=now - timedelta(days=1),
+        paid_period_end=now + timedelta(days=20),
+        amount_minor=9223372036854775807,
+        currency="SAR",
+        renewal_consent=True,
+        consent_reference="synthetic-not-real-consent",
+    )
+
+
+def test_actual_billing_lifecycle_ownership_money_and_paid_end(owned_database):
+    identity = billing_actor("lifecycle")
+    event = paid_event(identity, "pg-lifecycle")
+    with get_session_factory()() as session:
+        receipt = billing_writer(session).process_event(event)
+        assert receipt.processing_status == "applied" and not receipt.duplicate
+    with get_session_factory()() as session:
+        assert billing_writer(session).summary(identity).entitled
+    with get_session_factory()() as session:
+        rows = billing_writer(session).history(identity, BillingHistoryQuery()).items
+        assert len(rows) == 1
+        assert rows[0].amount_minor == "9223372036854775807"
+    with get_session_factory()() as session:
+        other = billing_actor("other-account")
+        assert not billing_writer(session).summary(other).entitled
+        assert billing_writer(session).history(other, BillingHistoryQuery()).items == []
+    with get_session_factory()() as session:
+        result = billing_writer(session).cancel(identity)
+        assert result.entitled and result.cancel_at_period_end
+        assert result.paid_period_end == event.paid_period_end
+    with get_session_factory()() as session:
+        duplicate = billing_writer(session).process_event(event)
+        assert duplicate.duplicate and duplicate.id == receipt.id
+
+
+def test_actual_concurrent_billing_event_is_durable_and_idempotent(
+    owned_database, monkeypatch
+):
+    identity = billing_actor("concurrent")
+    event = paid_event(identity, "pg-same-event-race")
+    barrier = Barrier(2)
+    state = local()
+    original = BillingRepository.event
+
+    def synchronized_lookup(self, *args):
+        row = original(self, *args)
+        if row is None and not getattr(state, "waited", False):
+            state.waited = True
+            barrier.wait(timeout=10)
+        return row
+
+    monkeypatch.setattr(BillingRepository, "event", synchronized_lookup)
+
+    def process():
+        with get_session_factory()() as session:
+            try:
+                return billing_writer(session).process_event(event)
+            except APIError as error:
+                assert error.status_code == 409
+                assert error.code == "billing_retry_required"
+                return None
+
+    with ThreadPoolExecutor(max_workers=2) as workers:
+        futures = [workers.submit(process) for _ in range(2)]
+        results = [future.result(timeout=20) for future in futures]
+    assert sum(item is not None for item in results) == 1
+    with get_session_factory()() as session:
+        retried = billing_writer(session).process_event(event)
+        assert retried.duplicate
+    with get_session_factory()() as session:
+        owner = principal_key(identity)
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(BillingEventRecord)
+                .where(BillingEventRecord.owner_key == owner)
+            )
+            == 1
+        )
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(SubscriptionRecord)
+                .where(SubscriptionRecord.owner_key == owner)
+            )
+            == 1
+        )
+        assert (
+            session.scalar(
+                select(func.count())
+                .select_from(AuditEvent)
+                .where(AuditEvent.owner_key == owner)
+            )
+            == 1
+        )
+
+
+@pytest.mark.parametrize("operation", ["event", "cancel"])
+def test_actual_billing_audit_constraint_failure_has_no_partial_commit(
+    owned_database, monkeypatch, operation
+):
+    identity = billing_actor("audit-failure-" + operation)
+    event = paid_event(identity, "pg-audit-failure-" + operation)
+    if operation == "cancel":
+        with get_session_factory()() as session:
+            billing_writer(session).process_event(event)
+    with get_session_factory()() as session:
+        writer = billing_writer(session)
+        append = writer._audit.append
+
+        def broken(record):
+            record.expires_at = record.occurred_at
+            append(record)
+
+        monkeypatch.setattr(writer._audit, "append", broken)
+        with pytest.raises(IntegrityError):
+            if operation == "event":
+                writer.process_event(event)
+            else:
+                writer.cancel(identity)
+    with get_session_factory()() as session:
+        owner = principal_key(identity)
+        stored = session.scalar(
+            select(SubscriptionRecord).where(SubscriptionRecord.owner_key == owner)
+        )
+        if operation == "event":
+            assert stored is None
+            assert (
+                session.scalar(
+                    select(func.count())
+                    .select_from(BillingEventRecord)
+                    .where(BillingEventRecord.owner_key == owner)
+                )
+                == 0
+            )
+        else:
+            assert stored is not None and not stored.cancel_at_period_end
+            assert stored.paid_period_end == event.paid_period_end
+
+
+def test_registered_billing_api_on_actual_postgres_uses_verified_raw_event(
+    owned_database,
+):
+    import hashlib
+    import hmac
+
+    from app.dependencies.billing import get_billing_event_verifier
+    from app.security.payment_events import BillingEventVerificationError
+
+    identity = billing_actor("http-flow")
+    normalized = paid_event(identity, "pg-http-flow")
+    body = b"opaque synthetic exact signed bytes"
+    key = b"synthetic-test-only-pg-key"
+    signature = hmac.new(key, body, hashlib.sha256).hexdigest()
+
+    class EventVerifier:
+        provider_id = "synthetic_pg"
+
+        async def verify(self, payload, headers):
+            expected = hmac.new(key, payload, hashlib.sha256).hexdigest()
+            if not hmac.compare_digest(
+                headers.get("X-Synthetic-Signature", ""), expected
+            ):
+                raise BillingEventVerificationError
+            return normalized
+
+    class IdentityVerifier:
+        async def verify(self, request):
+            return identity
+
+    settings = get_settings().model_copy(
+        update={
+            "billing_enabled": True,
+            "billing_retention_seconds": 86400,
+            "billing_policy_reference": "synthetic-pg-http",
+            "billing_audit_retention_seconds": 86400,
+            "billing_audit_policy_reference": "synthetic-pg-http-audit",
+            "billing_allowed_origin": AnyHttpUrl("https://frontend.test"),
+            "billing_provider_id": "synthetic_pg",
+            "billing_provider_approval_reference": "synthetic-test-only",
+        }
+    )
+    application = create_app()
+    application.dependency_overrides[get_settings] = lambda: settings
+    application.dependency_overrides[get_session_verifier] = IdentityVerifier
+    application.dependency_overrides[get_billing_event_verifier] = EventVerifier
+    try:
+        with TestClient(application) as client:
+            assert (
+                client.post("/api/v1/billing/events", content=body).status_code == 401
+            )
+            created = client.post(
+                "/api/v1/billing/events",
+                content=body,
+                headers={"X-Synthetic-Signature": signature},
+            )
+            assert created.status_code == 200 and not created.json()["duplicate"]
+            summary = client.get("/api/v1/billing/subscription")
+            assert summary.status_code == 200 and summary.json()["entitled"]
+            assert summary.headers["cache-control"] == "private, no-store"
+            history = client.get("/api/v1/billing/history")
+            assert history.json()["items"][0]["amount_minor"] == "9223372036854775807"
+            cancelled = client.post(
+                "/api/v1/billing/subscription/cancel",
+                json={},
+                headers={"Origin": "https://frontend.test"},
+            )
+            assert cancelled.status_code == 200
+            assert cancelled.json()["cancel_at_period_end"]
+            assert (
+                cancelled.json()["paid_period_end"] == summary.json()["paid_period_end"]
+            )
+    finally:
+        application.dependency_overrides.clear()
+
+
+def test_billing_upgrade_preserves_prior_data_and_seeds_recovery(owned_database):
+    identity = watchlist_actor("before-billing-migration")
+    with get_session_factory()() as session:
+        item, _ = watchlist_writer(session).create(
+            identity, WatchlistInput(pair="ETH-USDT", timeframe="1h")
+        )
+    migrate("downgrade", "20261030_0004")
+    try:
+        with get_session_factory()() as session:
+            assert session.get(WatchlistRecord, str(item.id)) is not None
+            assert (
+                session.scalar(
+                    select(func.count())
+                    .select_from(AuditEvent)
+                    .where(AuditEvent.resource_id == str(item.id))
+                )
+                == 1
+            )
+    finally:
+        migrate("upgrade", "head")
+    with get_session_factory()() as session:
+        assert session.get(WatchlistRecord, str(item.id)) is not None
+    with get_session_factory()() as session:
+        actor = billing_actor("restore-probe")
+        billing_writer(session).process_event(paid_event(actor, "pg-restore-billing"))
 
 
 def test_session_close_has_no_hidden_commit(owned_database):

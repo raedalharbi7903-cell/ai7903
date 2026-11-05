@@ -1,5 +1,13 @@
 # Dependency-aware implementation plan
 
+## Billing implementation — 2026-11-05
+
+MASTER-15/CUSTOMER-19/20 now have gated provider-neutral monthly lifecycle and
+actual private API/Arabic UI, not a real gateway. Next validate migration0005,
+concurrent event idempotency/retry, audit rollback and realHTTP workflow together.
+Actual provider/accountmapping/signatures/cancellation delivery, legal retention/
+refund/invoice/price and production approval remain unresolved; no paidactivation.
+
 ## Resumed packages — 2026-10-31
 
 C7/B2/B3 source efda7d4 is now hosted-verified (all18 actual PostgreSQL cases and

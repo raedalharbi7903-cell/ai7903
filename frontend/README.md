@@ -1,5 +1,11 @@
 # Frontend research workspace
 
+/subscription reads actual owned subscription/event records and confirms local
+cancellation intent only. No approved provider, checkout, charge, price or tax
+invoice. Missing identity/policies fail visibly; no fabricatedaccount/login.
+Money uses exact minor-unit decimalstrings without floating rounding.
+See [billing limits](../docs/04-architecture/billing-foundation.md).
+
 ## Private watchlist workflow
 
 `/watchlist` has explicit load/save/delete actions with owner-scoped API storage,

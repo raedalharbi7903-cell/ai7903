@@ -13,9 +13,16 @@ from app.database.base import Base
 from app.database.session import get_db_session
 from app.main import create_app
 from app.repositories.analysis_history import AnalysisHistoryRepository
+from app.schemas.billing import VerifiedBillingEvent
 from app.security.dependencies import get_session_verifier
-from app.security.identity import SessionVerificationError, VerifiedSession
+from app.security.identity import (
+    SessionVerificationError,
+    VerifiedSession,
+    principal_key,
+)
 from app.services.analysis_history import AnalysisHistoryService, HistoryPolicy
+from app.services.billing import BillingPolicy, BillingService
+from app.services.history_mutations import AuditPolicy
 from tests.analysis.test_decision_states import complete_input
 
 if os.environ.get("APP_ENVIRONMENT") != "testing":
@@ -42,6 +49,38 @@ with Session(engine) as session:
     )
     session.commit()
 
+billing_identity = identity.model_copy(update={"subject": "synthetic-billing-customer"})
+billing_now = datetime.now(UTC)
+billing_start = billing_now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+billing_end = billing_start.replace(
+    year=billing_start.year + (1 if billing_start.month == 12 else 0),
+    month=1 if billing_start.month == 12 else billing_start.month + 1,
+)
+with Session(engine) as session:
+    BillingService(
+        session,
+        policy=BillingPolicy(
+            retention_seconds=86400, approval_reference="synthetic-http-billing"
+        ),
+        audit_policy=AuditPolicy(
+            retention_seconds=86400, approval_reference="synthetic-http-billing-audit"
+        ),
+    ).process_event(
+        VerifiedBillingEvent(
+            provider="synthetic_billing",
+            event_id="synthetic_http_paid",
+            owner_key=principal_key(billing_identity),
+            kind="paid",
+            occurred_at=billing_now,
+            paid_period_start=billing_start,
+            paid_period_end=billing_end,
+            amount_minor=12345,
+            currency="SAR",
+            renewal_consent=True,
+            consent_reference="synthetic-test-only",
+        )
+    )
+
 
 class SyntheticVerifier:
     async def verify(self, request: Request) -> VerifiedSession:
@@ -54,6 +93,8 @@ class SyntheticVerifier:
             return identity.model_copy(
                 update={"subject": "synthetic-watchlist-customer"}
             )
+        if token == "Bearer synthetic-billing-test":
+            return billing_identity
         raise SessionVerificationError
 
 
@@ -84,4 +125,10 @@ app.dependency_overrides[get_settings] = lambda: Settings(
     WATCHLIST_ALLOWED_ORIGIN="https://frontend.test",
     WATCHLIST_AUDIT_RETENTION_SECONDS=7200,
     WATCHLIST_AUDIT_POLICY_REFERENCE="synthetic-http-watchlist-audit-only",
+    BILLING_ENABLED=True,
+    BILLING_RETENTION_SECONDS=86400,
+    BILLING_POLICY_REFERENCE="synthetic-http-billing",
+    BILLING_ALLOWED_ORIGIN="https://frontend.test",
+    BILLING_AUDIT_RETENTION_SECONDS=86400,
+    BILLING_AUDIT_POLICY_REFERENCE="synthetic-http-billing-audit",
 )

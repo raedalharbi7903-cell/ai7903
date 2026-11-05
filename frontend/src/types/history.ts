@@ -28,7 +28,7 @@ export function validHistoryId(value: unknown): value is string {
 function record(value: unknown): value is Record<string, unknown> {
   return value !== null && typeof value === "object" && !Array.isArray(value);
 }
-function awareDate(value: unknown): value is string {
+export function validAwareTimestamp(value: unknown): value is string {
   if (typeof value !== "string") return false;
   const match =
     /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-](\d{2}):(\d{2}))$/.exec(
@@ -65,8 +65,8 @@ function header(value: unknown): HistoryHeader {
   if (
     !record(value) ||
     !validHistoryId(value.id) ||
-    !awareDate(value.created_at) ||
-    !awareDate(value.expires_at) ||
+    !validAwareTimestamp(value.created_at) ||
+    !validAwareTimestamp(value.expires_at) ||
     Date.parse(value.expires_at) <= Date.parse(value.created_at)
   ) {
     throw new Error("Invalid history header");
@@ -93,7 +93,7 @@ export function parseHistoryPage(value: unknown): HistoryPage {
     if (
       !record(cursor) ||
       !validHistoryId(cursor.id) ||
-      !awareDate(cursor.created_at) ||
+      !validAwareTimestamp(cursor.created_at) ||
       !last ||
       cursor.id !== last.id ||
       cursor.created_at !== last.created_at

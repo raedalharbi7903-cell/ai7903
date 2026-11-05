@@ -17,6 +17,7 @@ export function Layout() {
           <Link to="/help">المساعدة</Link>
           <Link to="/history">سجل التحليلات</Link>
           <Link to="/watchlist">قائمة المتابعة</Link>
+          <Link to="/subscription">الاشتراك والفوترة</Link>
           <Link to="/">التحليل التجريبي</Link>
         </div>
         <span className="badge">{ar.workspace}</span>

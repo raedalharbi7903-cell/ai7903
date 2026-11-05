@@ -1,5 +1,29 @@
 # Execution progress
 
+## Provider-neutral billing package — 2026-11-05
+
+Continued clean aef92131; no handover or scaffolding restart. Added monthly
+subscription/normalized-ledger models, migration0005, atomic audit, durable
+provider/event idempotency, ownedsummary/history and local-only cancellation,
+default-off verified-raw-event boundary and actual Arabic HTTP workflow.
+No vendor/checkout/charge/price/tax/refund/currency-exponent/30day/grace policy.
+Core65 +API63 +startupredaction7 tests added. Four startup secret-leak cases,
+six frameworkbody-before-DB cases and five existingpaid-access review/quarantine
+cases proved before repairs. Current confirmed paidwindow survives administrative
+review; unresolved events still cannot grant/extend. Frontend five inconsistent
+window/money responses failed before repair;45 focused tests nowPASS.
+Actual PG concurrent event/retry/API/audit/0005preservation/restore tests added.
+Full integrated checkpoint and own-source hosted acceptance pending.
+
+Integrated local checkpoint now PASS all17 gates:853 backend36.10s,163 frontend
+25.96s,29 tooling0.351s. Type/lint/format/import/compile/build/dependency/peer/link
+checks PASS. Evidence docs/10-testing/billing-local-evidence.json. Six actual PG
+cases added (total24 expected), including two-session identical-event conflict/
+explicit retry, signature-verified raw event ingress, exact money, cancellation,
+audit constraint rollback and migration/persistent-content recovery. Own-source
+hosted runtime remains pending until observed. pnpm major-update and Vitest worker
+performance suggestions were informational; pinned tools/isolation not changed.
+
 ## Safe HTTP operations package — 2026-10-31
 
 Source4f1d95ce5c5cce96a94dafc32aca62c8cb063af3 now hosted-verified:

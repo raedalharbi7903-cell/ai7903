@@ -82,12 +82,16 @@ def main() -> None:
                 ("GET", "/api/v1/watchlist"),
                 ("POST", "/api/v1/watchlist"),
                 ("DELETE", "/api/v1/watchlist/00000000-0000-4000-8000-000000000001"),
+                ("GET", "/api/v1/billing/subscription"),
+                ("GET", "/api/v1/billing/history"),
+                ("POST", "/api/v1/billing/subscription/cancel"),
             ),
             (
                 "forged-container-token",
                 "synthetic-history-test",
                 "synthetic-save-test",
                 "synthetic-watchlist-test",
+                "synthetic-billing-test",
             ),
         ):
             request = Request(
@@ -118,6 +122,18 @@ def main() -> None:
                     ) from error
             else:
                 raise RuntimeError("Private history accepted forged credentials")
+        forged_billing = Request(
+            f"http://{address}/api/v1/billing/events",
+            data=json.dumps({"kind": "paid", "owner_key": "a" * 64}).encode(),
+            headers={"Content-Type": "application/json", "X-Role": "founder"},
+        )
+        try:
+            urlopen(forged_billing, timeout=3).close()
+        except HTTPError as error:
+            if error.code != 503:
+                raise RuntimeError("Billing provider default denial failed") from error
+        else:
+            raise RuntimeError("Unconfigured billing ingress accepted an event")
         privacy_marker = "synthetic-private-query-probe"
         with urlopen(
             f"http://{address}/health?private_query={privacy_marker}", timeout=3
@@ -149,7 +165,7 @@ def main() -> None:
             "alembic",
             "current",
         )
-        if "20261030_0004" not in current:
+        if "20261105_0005" not in current:
             raise RuntimeError("Packaged migration did not reach the expected revision")
         path = (
             Path(__file__).resolve().parents[1]
@@ -165,6 +181,7 @@ def main() -> None:
                     "production_demo_denial": "PASS",
                     "private_history_denial": "PASS",
                     "raw_query_log_redaction": "PASS",
+                    "unconfigured_billing_denial": "PASS",
                     "packaged_migration": "PASS",
                     "scope": "CI container only; not hosted production acceptance",
                 },

@@ -1,5 +1,15 @@
 # Project specification and evidence inventory
 
+## Billing overlay — 2026-11-05
+
+Monthly lifecycle and owned subscription/event-history/local cancellation now
+implemented behind explicit default-off purpose/audit/origin/provider gates.
+New opaque event ingress never trusts publicJSON: no adapter configured, no
+charge/price/taxinvoice/provider-cancel promise. Existing demoanalysis unchanged.
+Administrative review cannot revoke a confirmed paidwindow; no unresolved event
+may create/extend access. Integer minorunits transport as exact decimalstrings.
+Current canonical register keeps these workflows PARTIAL, not commercialcomplete.
+
 ## Resumed implementation overlay — 2026-10-31
 
 Explicit founder resume supersedes handover-only restrictions, not its history.

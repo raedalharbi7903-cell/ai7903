@@ -1,0 +1,208 @@
+{
+  "generated_at": "2026-11-05T19:04:48.482578+00:00",
+  "results": [
+    {
+      "gate": "tooling-tests",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "scripts",
+        "-p",
+        "test_*.py"
+      ],
+      "exit_code": 0,
+      "output": ".............................\n----------------------------------------------------------------------\nRan 29 tests in 0.351s\n\nOK\n"
+    },
+    {
+      "gate": "tooling-lint",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        "../scripts"
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "gate": "tooling-format",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "black",
+        "--check",
+        "../scripts"
+      ],
+      "exit_code": 0,
+      "output": "All done! \\u2728 \\U0001f370 \\u2728\n12 files would be left unchanged.\n"
+    },
+    {
+      "gate": "documentation-links",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "scripts/audit_documents.py"
+      ],
+      "exit_code": 0,
+      "output": "Documentation file links: 0 issues\n"
+    },
+    {
+      "gate": "backend-tests",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "-o",
+        "cache_dir=C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\.verification\\pytest-cache"
+      ],
+      "exit_code": 0,
+      "output": "........................................................................ [  8%]\n........................................................................ [ 16%]\n........................................................................ [ 25%]\n........................................................................ [ 33%]\n........................................................................ [ 42%]\n........................................................................ [ 50%]\n........................................................................ [ 59%]\n........................................................................ [ 67%]\n........................................................................ [ 75%]\n........................................................................ [ 84%]\n........................................................................ [ 92%]\n.............................................................            [100%]\n853 passed in 36.10s\n"
+    },
+    {
+      "gate": "backend-lint",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "ruff",
+        "check",
+        ".",
+        "alembic/env.py"
+      ],
+      "exit_code": 0,
+      "output": "All checks passed!\n"
+    },
+    {
+      "gate": "backend-format",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "black",
+        "--check",
+        "app",
+        "tests",
+        "integration",
+        "alembic/env.py"
+      ],
+      "exit_code": 0,
+      "output": "All done! \\u2728 \\U0001f370 \\u2728\n131 files would be left unchanged.\n"
+    },
+    {
+      "gate": "backend-compile",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "compileall",
+        "-q",
+        "app"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "gate": "backend-import",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-c",
+        "from app.main import app; from app.analysis.service import AnalysisService; assert app and AnalysisService"
+      ],
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "gate": "backend-dependencies",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.codex\\.chatgpt-projects\\g-p-6a627e0ff4988191a88778359c817657\\ai-trading-platform\\backend\\.venv\\Scripts\\python.exe",
+        "-m",
+        "pip",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "No broken requirements found.\n"
+    },
+    {
+      "gate": "frontend-install",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "install",
+        "--frozen-lockfile"
+      ],
+      "exit_code": 0,
+      "output": "Already up to date\nDone in 446ms using pnpm v11.25.0\n\n   ╭────────────────────────────────────────────────────────────────────────╮\n   │                                                                        │\n   │                  Update available! 11.25.0 → 12.16.1.                  │\n   │                  Changelog: https://pnpm.io/v/12.16.1                  │\n   │   To update, run: Invoke-WebRequest https://get.pnpm.io/install.ps1    │\n   │                 -UseBasicParsing | Invoke-Expression                   │\n   │                                                                        │\n   ╰────────────────────────────────────────────────────────────────────────╯\n\n"
+    },
+    {
+      "gate": "frontend-types",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "typecheck"
+      ],
+      "exit_code": 0,
+      "output": "$ tsc --noEmit\n"
+    },
+    {
+      "gate": "frontend-lint",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "lint"
+      ],
+      "exit_code": 0,
+      "output": "$ eslint .\n"
+    },
+    {
+      "gate": "frontend-tests",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "test"
+      ],
+      "exit_code": 0,
+      "output": "\n RUN  v5.0.5 C:/Users/raeed/.codex/.chatgpt-projects/g-p-6a627e0ff4988191a88778359c817657/ai-trading-platform/frontend\n\n\n Test Files  16 passed (16)\n      Tests  163 passed (163)\n   Start at  22:04:12\n   Duration  25.96s (environment 60%, setup 20%, tests 14%, import 4%, transform 1%, worker 1%)\n\nEnvironment  jsdom was created 16 times · 111.54s total, 60% of tracked time\n             create it once per worker with pool: 'vmThreads' (keeps per-file isolation) or isolate: false (shares it across files)\n             learn more: https://vitest.dev/guide/improving-performance#test-environments\n\n$ vitest run\n"
+    },
+    {
+      "gate": "frontend-format",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "format:check"
+      ],
+      "exit_code": 0,
+      "output": "Checking formatting...\nAll matched files use Prettier code style!\n$ prettier --check .\n"
+    },
+    {
+      "gate": "frontend-build",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "build"
+      ],
+      "exit_code": 0,
+      "output": "vite v8.3.5 building client environment for production...\ntransforming...\n✓ 115 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.63 kB │ gzip:  0.40 kB\ndist/assets/index-C7XWIcJu.css   12.25 kB │ gzip:  3.65 kB\ndist/assets/index-D6WZTthM.js   307.27 kB │ gzip: 95.28 kB\n\n✓ built in 543ms\n$ tsc -b && vite build\n"
+    },
+    {
+      "gate": "frontend-peers",
+      "status": "PASS",
+      "command": [
+        "C:\\Users\\raeed\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\bin\\fallback\\pnpm.CMD",
+        "peers",
+        "check"
+      ],
+      "exit_code": 0,
+      "output": "No peer dependency issues found\n"
+    }
+  ]
+}

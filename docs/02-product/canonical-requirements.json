@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "updated": "2026-10-31",
+  "updated": "2026-11-05",
   "scope": "Full 31-section founder execution directive. Group counts include process constraints and overlap; not an atomic feature-completion percentage.",
   "authority_precedence": [
     "explicit founder decisions",
@@ -585,7 +585,7 @@
       "id": "MASTER-15",
       "description": "SUBSCRIPTIONS AND BILLING",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE; named external providers/design values not approved by implication",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "attachment": "9f0ca877-979e-46ae-8052-ee0aa2049a44",
@@ -617,11 +617,31 @@
         "Visa.",
         "Mastercard."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["docs/handover/REMAINING_WORK.md"],
+      "code_references": [
+        "backend/app/models/billing.py",
+        "backend/app/repositories/billing.py",
+        "backend/app/schemas/billing.py",
+        "backend/app/services/billing.py",
+        "backend/app/security/payment_events.py",
+        "backend/app/dependencies/billing.py",
+        "backend/app/api/v1/billing.py",
+        "frontend/src/types/billing.ts",
+        "frontend/src/services/billing.ts",
+        "frontend/src/pages/SubscriptionPage.tsx"
+      ],
+      "test_references": [
+        "backend/tests/test_billing_service.py",
+        "backend/tests/api/test_billing.py",
+        "backend/integration/test_postgres.py",
+        "frontend/src/types/billing.test.ts",
+        "frontend/src/pages/SubscriptionPage.test.tsx",
+        "frontend/src/pages/billing.integration.test.tsx"
+      ],
+      "dependencies": [
+        "docs/handover/REMAINING_WORK.md"
+      ],
       "external_blockers": [],
-      "remaining_work": "Approved requirements are documented, but no runtime implementation exists. Documentation is not partial software implementation.",
+      "remaining_work": "Provider-neutral monthly paid-window lifecycle, normalized verified-event ingress, durable idempotency/audit, owner-only summary/event-history and local-only cancellation API/Arabic UI implemented behind default-off policies. Exact int64 money transported as decimal strings. No checkout, charge, tax invoice, outbound provider cancellation, refund/dispute policy, grace/30day rule, final price or analysis-paywall change. Real identity/provider/account mapping/signatures, legal/retention/abuse/rate/deadline/cancellation-delivery/reconciliation/visual and production acceptance remain gated. Quarantine never changes confirmed paid bounds or revokes current paid access; unresolved events cannot grant/extend new access.",
       "scope_note": "Requirement group, not an atomic feature count; all section prose remains binding."
     },
     {
@@ -2590,7 +2610,7 @@
       "description": "Subscription management",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2599,18 +2619,42 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "backend/app/models/billing.py",
+        "backend/app/repositories/billing.py",
+        "backend/app/schemas/billing.py",
+        "backend/app/services/billing.py",
+        "backend/app/security/payment_events.py",
+        "backend/app/dependencies/billing.py",
+        "backend/app/api/v1/billing.py",
+        "frontend/src/types/billing.ts",
+        "frontend/src/services/billing.ts",
+        "frontend/src/pages/SubscriptionPage.tsx"
+      ],
+      "test_references": [
+        "backend/tests/test_billing_service.py",
+        "backend/tests/api/test_billing.py",
+        "backend/integration/test_postgres.py",
+        "frontend/src/types/billing.test.ts",
+        "frontend/src/pages/SubscriptionPage.test.tsx",
+        "frontend/src/pages/billing.integration.test.tsx"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Provider-neutral monthly paid-window lifecycle, normalized verified-event ingress, durable idempotency/audit, owner-only summary/event-history and local-only cancellation API/Arabic UI implemented behind default-off policies. Exact int64 money transported as decimal strings. No checkout, charge, tax invoice, outbound provider cancellation, refund/dispute policy, grace/30day rule, final price or analysis-paywall change. Real identity/provider/account mapping/signatures, legal/retention/abuse/rate/deadline/cancellation-delivery/reconciliation/visual and production acceptance remain gated. Quarantine never changes confirmed paid bounds or revokes current paid access; unresolved events cannot grant/extend new access."
     },
     {
       "id": "CUSTOMER-20",
       "description": "Billing history",
       "parent": "MASTER-13",
       "approval_status": "EXPLICIT FOUNDER DIRECTIVE",
-      "implementation_status": "NOT IMPLEMENTED",
+      "implementation_status": "PARTIALLY IMPLEMENTED",
       "source": {
         "document": "docs/02-product/approved-master-execution-goal.md",
         "section": 13
@@ -2619,11 +2663,35 @@
         "Arabic-first RTL accessible workflow; real authorized API integration; honest loading/error/empty/provenance states.",
         "Founder-approved visual presentation required before visual completion."
       ],
-      "code_references": [],
-      "test_references": [],
-      "dependencies": ["G07", "UI-APPROVAL", "G06"],
-      "external_blockers": ["UI-APPROVAL"],
-      "remaining_work": "Implement and test the full approved workflow; no placeholder acceptance."
+      "code_references": [
+        "backend/app/models/billing.py",
+        "backend/app/repositories/billing.py",
+        "backend/app/schemas/billing.py",
+        "backend/app/services/billing.py",
+        "backend/app/security/payment_events.py",
+        "backend/app/dependencies/billing.py",
+        "backend/app/api/v1/billing.py",
+        "frontend/src/types/billing.ts",
+        "frontend/src/services/billing.ts",
+        "frontend/src/pages/SubscriptionPage.tsx"
+      ],
+      "test_references": [
+        "backend/tests/test_billing_service.py",
+        "backend/tests/api/test_billing.py",
+        "backend/integration/test_postgres.py",
+        "frontend/src/types/billing.test.ts",
+        "frontend/src/pages/SubscriptionPage.test.tsx",
+        "frontend/src/pages/billing.integration.test.tsx"
+      ],
+      "dependencies": [
+        "G07",
+        "UI-APPROVAL",
+        "G06"
+      ],
+      "external_blockers": [
+        "UI-APPROVAL"
+      ],
+      "remaining_work": "Provider-neutral monthly paid-window lifecycle, normalized verified-event ingress, durable idempotency/audit, owner-only summary/event-history and local-only cancellation API/Arabic UI implemented behind default-off policies. Exact int64 money transported as decimal strings. No checkout, charge, tax invoice, outbound provider cancellation, refund/dispute policy, grace/30day rule, final price or analysis-paywall change. Real identity/provider/account mapping/signatures, legal/retention/abuse/rate/deadline/cancellation-delivery/reconciliation/visual and production acceptance remain gated. Quarantine never changes confirmed paid bounds or revokes current paid access; unresolved events cannot grant/extend new access."
     },
     {
       "id": "CUSTOMER-21",
@@ -3259,6 +3327,11 @@
       "MASTER-10",
       "AN-C24"
     ],
+    "backend/app/api/v1/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/app/api/v1/history.py": [
       "CUSTOMER-16"
     ],
@@ -3281,6 +3354,11 @@
       "MASTER-19",
       "DB-PG-ACCEPTANCE"
     ],
+    "backend/app/dependencies/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/app/dependencies/history.py": [
       "CUSTOMER-16"
     ],
@@ -3296,14 +3374,29 @@
     "backend/app/models/analysis_history.py": [
       "CUSTOMER-16"
     ],
+    "backend/app/models/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/app/models/watchlist.py": [
       "CUSTOMER-17"
     ],
     "backend/app/repositories/analysis_history.py": [
       "CUSTOMER-16"
     ],
+    "backend/app/repositories/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/app/repositories/watchlist.py": [
       "CUSTOMER-17"
+    ],
+    "backend/app/schemas/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
     ],
     "backend/app/schemas/history.py": [
       "CUSTOMER-16"
@@ -3318,8 +3411,18 @@
     "backend/app/security/identity.py": [
       "MASTER-14"
     ],
+    "backend/app/security/payment_events.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/app/services/analysis_history.py": [
       "CUSTOMER-16"
+    ],
+    "backend/app/services/billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
     ],
     "backend/app/services/market_data.py": [
       "MASTER-11",
@@ -3335,8 +3438,11 @@
       "MASTER-22"
     ],
     "backend/integration/test_postgres.py": [
+      "MASTER-15",
       "CUSTOMER-16",
       "CUSTOMER-17",
+      "CUSTOMER-19",
+      "CUSTOMER-20",
       "DB-PG-ACCEPTANCE"
     ],
     "backend/requirements/base.txt": [
@@ -3475,6 +3581,11 @@
       "AN-C01",
       "DB-PG-ACCEPTANCE"
     ],
+    "backend/tests/api/test_billing.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "backend/tests/api/test_history.py": [
       "CUSTOMER-16"
     ],
@@ -3495,6 +3606,11 @@
     ],
     "backend/tests/test_analysis_history.py": [
       "CUSTOMER-16"
+    ],
+    "backend/tests/test_billing_service.py": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
     ],
     "backend/tests/test_database_session_lifecycle.py": [
       "MASTER-19"
@@ -3596,6 +3712,11 @@
       "CUSTOMER-15",
       "UI-ARABIC"
     ],
+    "frontend/src/pages/billing.integration.test.tsx": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "frontend/src/pages/history.integration.test.tsx": [
       "CUSTOMER-16"
     ],
@@ -3618,6 +3739,16 @@
       "CUSTOMER-02",
       "CUSTOMER-21"
     ],
+    "frontend/src/pages/SubscriptionPage.test.tsx": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
+    "frontend/src/pages/SubscriptionPage.tsx": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
     "frontend/src/pages/watchlist.integration.test.tsx": [
       "CUSTOMER-17"
     ],
@@ -3629,6 +3760,11 @@
     ],
     "frontend/src/services/analysis.ts": [
       "UI-ARABIC"
+    ],
+    "frontend/src/services/billing.ts": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
     ],
     "frontend/src/services/history.ts": [
       "CUSTOMER-16"
@@ -3646,6 +3782,16 @@
     "frontend/src/styles/tokens.css": [
       "MASTER-28",
       "UI-TOKENS"
+    ],
+    "frontend/src/types/billing.test.ts": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
+    ],
+    "frontend/src/types/billing.ts": [
+      "MASTER-15",
+      "CUSTOMER-19",
+      "CUSTOMER-20"
     ],
     "frontend/src/types/explanation.test.ts": [
       "AN-C22"

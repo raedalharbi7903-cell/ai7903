@@ -1,5 +1,13 @@
 # Requirement-to-evidence matrix
 
+## Billing evidence — 2026-11-05
+
+MASTER-15/CUSTOMER-19/20: BillingService +registeredrouter/strict normalized
+verifier boundary +ArabicactualHTTP workflow. Core65/API63 tests, plusstartup
+configredaction7. TruePG eventrace/retry/idempotency/audit/API/0005preservation
+and fullcontentrestore added, pending own-source hosted run. Explicitreleasegates
+and no activeprovider/charge/pricing/empirical claims. See billing architecture.
+
 ## Resumed source evidence — 2026-10-31
 
 MASTER-21: app-wired RequestTelemetryMiddleware plus29 tests, only bounded safe

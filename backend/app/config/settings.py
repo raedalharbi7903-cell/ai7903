@@ -11,7 +11,10 @@ class Settings(BaseSettings):
     """Settings loaded from environment variables or .env."""
 
     model_config = SettingsConfigDict(
-        env_file=(".env", "../.env"), env_file_encoding="utf-8", extra="ignore"
+        env_file=(".env", "../.env"),
+        env_file_encoding="utf-8",
+        extra="ignore",
+        hide_input_in_errors=True,
     )
     app_name: str = Field(validation_alias="APP_NAME")
     environment: Literal["development", "testing", "staging", "production"] = Field(
@@ -22,6 +25,42 @@ class Settings(BaseSettings):
     api_v1_prefix: str = Field(default="/api/v1", validation_alias="API_V1_PREFIX")
     history_enabled: bool = Field(default=False, validation_alias="HISTORY_ENABLED")
     watchlist_enabled: bool = Field(default=False, validation_alias="WATCHLIST_ENABLED")
+    billing_enabled: bool = Field(default=False, validation_alias="BILLING_ENABLED")
+    billing_retention_seconds: int | None = Field(
+        default=None, gt=0, validation_alias="BILLING_RETENTION_SECONDS"
+    )
+    billing_policy_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="BILLING_POLICY_REFERENCE",
+    )
+    billing_allowed_origin: AnyHttpUrl | None = Field(
+        default=None, validation_alias="BILLING_ALLOWED_ORIGIN"
+    )
+    billing_audit_retention_seconds: int | None = Field(
+        default=None, gt=0, validation_alias="BILLING_AUDIT_RETENTION_SECONDS"
+    )
+    billing_audit_policy_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="BILLING_AUDIT_POLICY_REFERENCE",
+    )
+    billing_provider_id: str | None = Field(
+        default=None,
+        pattern=r"^[a-z0-9_-]{1,64}$",
+        validation_alias="BILLING_PROVIDER_ID",
+    )
+    billing_provider_approval_reference: str | None = Field(
+        default=None,
+        min_length=1,
+        max_length=200,
+        pattern=r"\S",
+        validation_alias="BILLING_PROVIDER_APPROVAL_REFERENCE",
+    )
     watchlist_retention_seconds: int | None = Field(
         default=None, gt=0, validation_alias="WATCHLIST_RETENTION_SECONDS"
     )
@@ -94,6 +133,9 @@ class Settings(BaseSettings):
         )
         validate_private_origin(
             self.watchlist_allowed_origin, self.environment, "Watchlist"
+        )
+        validate_private_origin(
+            self.billing_allowed_origin, self.environment, "Billing"
         )
         return self
 

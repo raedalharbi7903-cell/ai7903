@@ -27,6 +27,9 @@ Implementation and verification are tracked separately from intent.
 
 ### Current implementation and evidence
 
+- [Provider-neutral subscription foundation](04-architecture/billing-foundation.md)
+- [Billing API](08-api/billing-api.md)
+
 - [Safe HTTP operational logging](09-devops/request-observability.md)
 
 - [Private watchlist workflow](04-architecture/watchlist-foundation.md)
