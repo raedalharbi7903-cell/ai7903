@@ -2,6 +2,15 @@
 
 ## Provider-neutral billing package — 2026-11-05
 
+Source04db60f4356b15f19bb56d2c97a6b2ee9e2919ac pushed and own hosted
+run42091076109/job127468940951 SUCCESS: all17 gates,24 actual PostgreSQL
+cases (6.85s/one AnyIO warning), true eventrace/retry/idempotency, signedtest
+raw ingress/API/audit rollback/migration0005 and fullcontentrestore PASS.
+Container health/non-root/billing defaultdenial/private-token/query-logprivacy PASS.
+Evidence docs/10-testing/billing-hosted-evidence.json. No realidentity/payment
+provider activated or funds charged. Next independent scope: customer support
+workflow with owner isolation/founderMFA, privacy gates and no invented policies.
+
 Continued clean aef92131; no handover or scaffolding restart. Added monthly
 subscription/normalized-ledger models, migration0005, atomic audit, durable
 provider/event idempotency, ownedsummary/history and local-only cancellation,

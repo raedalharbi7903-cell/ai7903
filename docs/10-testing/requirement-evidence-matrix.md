@@ -2,6 +2,11 @@
 
 ## Billing evidence — 2026-11-05
 
+Source04db60f4 hosted42091076109 SUCCESS: all17 gates,24 actual PostgreSQL
+cases, eventrace/retry/idempotency/API/atomicrollback/migration0005/contentrestore,
+container/privatebilling/defaultprovider denial and query-logprivacy PASS.
+[Retained receipt](billing-hosted-evidence.json). No paymentprovider accepted.
+
 MASTER-15/CUSTOMER-19/20: BillingService +registeredrouter/strict normalized
 verifier boundary +ArabicactualHTTP workflow. Core65/API63 tests, plusstartup
 configredaction7. TruePG eventrace/retry/idempotency/audit/API/0005preservation

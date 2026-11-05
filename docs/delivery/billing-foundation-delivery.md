@@ -1,8 +1,8 @@
 ---
 title: Provider-Neutral Billing Delivery
 document_id: DOC-DELIVERY-BILLING-001
-version: 1.0.0
-status: local-verified-hosted-pending
+version: 1.1.0
+status: verified-disposable-ci-production-blocked
 owner: Engineering
 reviewers: Founder, Security
 last_updated: 2026-11-05
@@ -11,6 +11,18 @@ related_documents: [DOC-BILLING-001, DOC-API-BILLING-001]
 ---
 
 # Engineering delivery — subscription and billing foundation
+
+## Verified source receipt — 2026-11-05
+
+Source04db60f4356b15f19bb56d2c97a6b2ee9e2919ac published to the approved feature
+branch. Hosted run42091076109/job127468940951 SUCCESS: all17 gates,24 actual
+PostgreSQL cases (6.85s/one AnyIO warning), concurrentevent/retry/idempotency,
+verifiedsyntheticraw ingress, atomic audit rollback, migration0005 preservation
+and all-tablecontentrestore PASS. Container build/non-root/health/privatebilling
+token denial/defaultprovider denial/query-logprivacy/packaged0005 PASS.
+[Exact receipt](../10-testing/billing-hosted-evidence.json) supersedes pending
+source-publication/runtime rows below, not commercial/provider/production gates.
+Follow-up changes are documentation/evidence only; final chat records their SHA.
 
 ## 1. Executive summary
 
@@ -394,6 +406,7 @@ ai-trading-platform/
 │   │   ├── api-testing.md
 │   │   ├── arabic-explanation-acceptance-evidence.json
 │   │   ├── backtesting.md
+│   │   ├── billing-hosted-evidence.json
 │   │   ├── billing-local-evidence.json
 │   │   ├── contract-testing.md
 │   │   ├── end-to-end-testing.md

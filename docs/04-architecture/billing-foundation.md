@@ -12,6 +12,11 @@ related_documents: [DOC-PROD-MASTER-GOAL-001]
 
 # Subscription and billing foundation
 
+Source04db60f4 hosted42091076109 now SUCCESS, including all24 real PostgreSQL
+cases, restore and production-image defaultdenials. See
+[source-specific evidence](../10-testing/billing-hosted-evidence.json).
+This supersedes own-source-pending wording below, not realprovider/release gates.
+
 ## Purpose
 
 Implement approved monthly lifecycle, owned billing views and durable event
